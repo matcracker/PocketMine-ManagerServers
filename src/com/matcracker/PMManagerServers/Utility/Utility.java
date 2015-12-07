@@ -1,8 +1,8 @@
-package com.matcracker.PMManagerServers.Installer;
+package com.matcracker.PMManagerServers.Utility;
 
-import com.matcracker.PMManagerServers.Utility.Utility;
+import java.io.IOException;
 
-public class Installator {
+public class Utility{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
@@ -18,10 +18,24 @@ public class Installator {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	public static void installator(){
-		Utility.cleanScreen();
-		System.out.println("========================<PocketMine Manager Servers>============================");
-		System.out.println("-------------------------<Initialize PocketMine-MP>-----------------------------");
-		Utility.cleanScreen();
+	
+	public static final String COLOR_RESET = "\u001B[0m";
+	public static final String COLOR_BLACK = "\u001B[30m";
+	public static final String COLOR_RED = "\u001B[31m";
+	public static final String COLOR_GREEN = "\u001B[32m";
+	public static final String COLOR_YELLOW = "\u001B[33m";
+	public static final String COLOR_BLUE = "\u001B[34m";
+	public static final String COLOR_PURPLE = "\u001B[35m";
+	public static final String COLOR_CYAN = "\u001B[36m";
+	public static final String COLOR_WHITE = "\u001B[37m";
+	
+	public final static void cleanScreen(){
+
+		try {
+			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+		} catch (InterruptedException | IOException e) {
+			System.out.println("Error during the console cleaning.");
+		}
+
 	}
 }

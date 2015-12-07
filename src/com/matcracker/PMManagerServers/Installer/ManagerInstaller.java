@@ -2,7 +2,7 @@ package com.matcracker.PMManagerServers.Installer;
 
 import com.matcracker.PMManagerServers.Utility.Utility;
 
-public class Installator {
+public class ManagerInstaller {
   /** _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
@@ -18,10 +18,13 @@ public class Installator {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	public static void installator(){
+	
+	public static void managerInstaller(){
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("-------------------------<Initialize PocketMine-MP>-----------------------------");
+		System.out.println("");
 		Utility.cleanScreen();
+		
 	}
 }
