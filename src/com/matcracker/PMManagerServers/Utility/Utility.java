@@ -1,6 +1,10 @@
 package com.matcracker.PMManagerServers.Utility;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+
+import com.matcracker.PMManagerServers.Loaders.Loader;
 
 public class Utility{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -29,6 +33,11 @@ public class Utility{
 	public static final String COLOR_CYAN = "\u001B[36m";
 	public static final String COLOR_WHITE = "\u001B[37m";
 	
+	public static InputStreamReader input = new InputStreamReader(System.in);
+	public static BufferedReader keyword = new BufferedReader(input);
+	
+	public static String defaultServersName = "Server_Minecraft_PE";
+	
 	public final static void cleanScreen(){
 
 		try {
@@ -38,4 +47,35 @@ public class Utility{
 		}
 
 	}
+	
+	public static void checking(Object[] checkNameServers, Object[] checkPath){
+		for(int i = 1; i <= 10; i++){
+			checkNameServers[i-1] = Loader.getNameServers();
+			checkPath[i-1] = Loader.getPath();
+		}
+	}
+	
+	public static void selection(short nservers, String[] nameServers, String[] numberServers, String[] numberServers2){
+		for(int i = 1; i <= nservers; i++){
+			defaultServersName = "Server_Minecraft_PE_" + i;
+			System.out.printf("%d) Name of %s server?: ", i, numberServers[i-1]);
+			
+			try{
+				nameServers[i-1] = keyword.readLine();
+				
+				if(nameServers[i-1].contains(" ")){
+					System.out.println("\nSorry, but you can't insert space from name");
+					System.in.read();
+					Loader.completeLoader();
+					
+				}else{
+					if(nameServers[i-1] == "")
+						nameServers[i-1] = defaultServersName;
+				}
+			}catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
 }

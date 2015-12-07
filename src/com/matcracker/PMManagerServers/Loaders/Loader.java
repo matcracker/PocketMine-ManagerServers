@@ -1,6 +1,14 @@
 package com.matcracker.PMManagerServers.Loaders;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import javax.rmi.CORBA.Util;
+
+import com.matcracker.PMManagerServers.Main;
+import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Loader {
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -18,6 +26,17 @@ public class Loader {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
+	
+	static short nservers = 1;
+	private static String[] path = {"", "", "", "", "", "", "", "", "", ""};
+	private static String[] nameServers = {"", "", "", "", "", "", "", "", "", ""};
+	static String[] numberServers = {"first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"};
+	static String[] numberServers2 = {"First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"};
+	
+	static File checknservers = new File("Data/servers.pm");
+	Object[] checkPath = new Object[] {false, false, false, false, false, false, false, false, false, false};
+	static Object[] checkNameServer = new Object[] {false, false, false, false, false, false, false, false, false, false};
+	
 	public static void startLoader() throws InterruptedException{
 		File dirPath = new File("Path");
 		File dirServername = new File("ServersName");
@@ -29,7 +48,7 @@ public class Loader {
 		File dirBackups = new File("Backups");
 		File dirBackupsStatus = new File("Backups/Status");
 		File dirBackupServers = new File("Backups/Servers");
-		
+				
 		if(dirPath.exists() && dirServername.exists() && dirData.exists() && dirPerformance.exists() && dirUtils.exists() 
 			&& dirInstallation.exists()	&& dirLanguages.exists() && dirBackups.exists()){
 			
@@ -46,21 +65,80 @@ public class Loader {
 			dirBackups.mkdir();
 			dirBackupsStatus.mkdir();
 			dirBackupServers.mkdir();
-			
-			for(int i = 1; i <= 10; i++){
-				
-			}
-			
+
 			for(int i = 0; i <= 100; i++)
 				System.out.println("Loading resource " + i + "%");
-			
-		
+					
 		}
 			
 		
 	}
 	
-	public static void completeLoad(){
+	public static void completeLoader() throws IOException{
+		if(checknservers.exists()){
+			//Read nservers's file
+			
+		}else{
+			do{
+				Utility.cleanScreen();
+				System.out.println("========================<PocketMine Manager Servers>============================");
+				System.out.println("-------------------------<Complete the informations>----------------------------");
+				System.out.print("How many servers do you want to manage? <1/2/3/.../10> : ");
+				try{
+					nservers = Short.valueOf(Utility.keyword.readLine());
+				
+				}catch (NumberFormatException | IOException e){
+					e.printStackTrace();
+				}
+				
+				if (nservers > 10){
+					System.out.println("ERROR! You have exceeded the maximum number of servers available. Please reduce the amount!");
+					System.in.read();
+					
+				}else if(nservers <= 0){
+					System.out.println("ERROR! You have to manage one or more server! (MAX TEN!!)");
+					System.in.read();
+				}
+			}while(nservers > 10 || nservers < 1);
+			
+			//Write nservers's file
+			
+		}
 		
+		//Check the servers name and paths
+		
+		Utility.cleanScreen();
+		System.out.println("========================<PocketMine Manager Servers>============================");
+		System.out.println("-------------------------<Complete the informations>----------------------------");
+		System.out.printf("If you do not enter a name for your server , by default it will be '%s'\n", Utility.defaultServersName);
+		
+		if(nservers >= 1){
+			if((boolean) checkNameServer[nservers - 1] == true){
+				//Go to main
+			}else{
+				Utility.selection(nservers, getNameServers(), numberServers, numberServers2);
+				//start writing server's names
+			}
+		}
+		
+		System.out.println("Complete! Press ENTER to continue.");
+		System.in.read();
+
+	}
+
+	public static String[] getNameServers() {
+		return nameServers;
+	}
+
+	public static void setNameServers(String[] nameServers) {
+		Loader.nameServers = nameServers;
+	}
+
+	public static String[] getPath() {
+		return path;
+	}
+
+	public void setPath(String[] path) {
+		this.path = path;
 	}
 }

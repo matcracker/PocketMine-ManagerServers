@@ -2,6 +2,8 @@ package com.matcracker.PMManagerServers;
 
 import java.io.*;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 import com.matcracker.PMManagerServers.Installer.Installator;
 import com.matcracker.PMManagerServers.Loaders.Loader;
 import com.matcracker.PMManagerServers.Utility.Utility;
@@ -28,11 +30,7 @@ public class Main {
 					
 		String menu = null, quit = "n";
 		final String inputError = "Error during the chooise!";
-		
-		InputStreamReader input = new InputStreamReader(System.in);
-		BufferedReader keyword = new BufferedReader(input);
-		
-		
+						
 		Loader.startLoader();
 		
 		try{
@@ -47,7 +45,7 @@ public class Main {
 				System.out.println("5- Exit\n");
 				
 				System.out.print("What would you like to do? ");
-				menu = keyword.readLine();
+				menu = Utility.keyword.readLine();
 	
 				if(menu.equalsIgnoreCase("1")){
 					Installator.installator();
@@ -71,7 +69,7 @@ public class Main {
 					System.out.println("========================<PocketMine Manager Servers>============================");
 					System.out.println("=====================================<Exit>=====================================");
 					System.out.print("Are you sure you want to quit? <y/n>: ");
-					quit = keyword.readLine();
+					quit = Utility.keyword.readLine();
 					
 					if(quit.equalsIgnoreCase("s"))
 						System.exit(0);
