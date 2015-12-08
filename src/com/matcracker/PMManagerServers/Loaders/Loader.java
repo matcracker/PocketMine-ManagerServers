@@ -1,13 +1,8 @@
 package com.matcracker.PMManagerServers.Loaders;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
-import javax.rmi.CORBA.Util;
-
-import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Loader {
@@ -27,14 +22,14 @@ public class Loader {
 	*(at your option) any later version.
 	*/
 	
-	static short nservers = 1;
+	static int nservers = 0;
 	private static String[] path = {"", "", "", "", "", "", "", "", "", ""};
 	private static String[] nameServers = {"", "", "", "", "", "", "", "", "", ""};
 	static String[] numberServers = {"first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"};
 	static String[] numberServers2 = {"First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"};
 	
-	static File checknservers = new File("Data/servers.pm");
-	Object[] checkPath = new Object[] {false, false, false, false, false, false, false, false, false, false};
+	static File checknservers = new File("Data" + File.separator + "servers.pm");
+	static Object[] checkPath = new Object[] {false, false, false, false, false, false, false, false, false, false};
 	static Object[] checkNameServer = new Object[] {false, false, false, false, false, false, false, false, false, false};
 	
 	public static void startLoader() throws InterruptedException{
@@ -46,15 +41,17 @@ public class Loader {
 		File dirInstallation = new File("Installations");
 		File dirLanguages = new File("Languages");
 		File dirBackups = new File("Backups");
-		File dirBackupsStatus = new File("Backups/Status");
-		File dirBackupServers = new File("Backups/Servers");
-				
-		if(dirPath.exists() && dirServername.exists() && dirData.exists() && dirPerformance.exists() && dirUtils.exists() 
+		File dirBackupsStatus = new File("Backups" + File.separator + "Status");
+		File dirBackupServers = new File("Backups" + File.separator + "Servers");
+		File checkLicense = new File("LICENSE.pdf");
+		
+		if(checkLicense.exists() && dirPath.exists() && dirServername.exists() && dirData.exists() && dirPerformance.exists() && dirUtils.exists() 
 			&& dirInstallation.exists()	&& dirLanguages.exists() && dirBackups.exists()){
 			
 		}else{
 			System.out.println("Preparing the first start...");
-			Thread.sleep(1000);
+			Thread.sleep(1500);
+			
 			dirPath.mkdir();
 			dirServername.mkdir();
 			dirData.mkdir();
@@ -76,7 +73,7 @@ public class Loader {
 	
 	public static void completeLoader() throws IOException{
 		if(checknservers.exists()){
-			//Read nservers's file
+			nservers = Utility.readIntData(new File("Data/nservers.pm"));
 			
 		}else{
 			do{
@@ -84,11 +81,13 @@ public class Loader {
 				System.out.println("========================<PocketMine Manager Servers>============================");
 				System.out.println("-------------------------<Complete the informations>----------------------------");
 				System.out.print("How many servers do you want to manage? <1/2/3/.../10> : ");
+				
 				try{
-					nservers = Short.valueOf(Utility.keyword.readLine());
+					nservers = Integer.valueOf(Utility.keyword.readLine());
 				
 				}catch (NumberFormatException | IOException e){
 					e.printStackTrace();
+					return;
 				}
 				
 				if (nservers > 10){
@@ -101,11 +100,11 @@ public class Loader {
 				}
 			}while(nservers > 10 || nservers < 1);
 			
-			//Write nservers's file
+			Utility.writeIntData(new File("Data/nservers.pm"), nservers);
 			
 		}
 		
-		//Check the servers name and paths
+		Utility.checking(checkNameServer, checkPath);
 		
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
@@ -113,12 +112,16 @@ public class Loader {
 		System.out.printf("If you do not enter a name for your server , by default it will be '%s'\n", Utility.defaultServersName);
 		
 		if(nservers >= 1){
-			if((boolean) checkNameServer[nservers - 1] == true){
-				//Go to main
+			if(checkNameServer[nservers - 1] != null){
+				return;
 			}else{
 				Utility.selection(nservers, getNameServers(), numberServers, numberServers2);
-				//start writing server's names
+
+				for(int i = 1; i <= nservers; i++)
+					Utility.writeStringData(new File("ServersName" + File.separator + "ServerName_" + i + ".pm"), nameServers[i-1]);
 			}
+		}else{
+			System.out.println("An error occured!");
 		}
 		
 		System.out.println("Complete! Press ENTER to continue.");
@@ -139,6 +142,6 @@ public class Loader {
 	}
 
 	public void setPath(String[] path) {
-		this.path = path;
+		Loader.path = path;
 	}
 }

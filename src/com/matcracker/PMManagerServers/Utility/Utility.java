@@ -1,6 +1,11 @@
 package com.matcracker.PMManagerServers.Utility;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -35,11 +40,9 @@ public class Utility{
 	
 	public static InputStreamReader input = new InputStreamReader(System.in);
 	public static BufferedReader keyword = new BufferedReader(input);
-	
 	public static String defaultServersName = "Server_Minecraft_PE";
 	
 	public final static void cleanScreen(){
-
 		try {
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		} catch (InterruptedException | IOException e) {
@@ -48,14 +51,98 @@ public class Utility{
 
 	}
 	
-	public static void checking(Object[] checkNameServers, Object[] checkPath){
+	public static void checking(Object[] checkNameServer, Object[] checkPath){
 		for(int i = 1; i <= 10; i++){
-			checkNameServers[i-1] = Loader.getNameServers();
-			checkPath[i-1] = Loader.getPath();
+			checkNameServer[i-1] = new File("ServersName" + File.separator + "ServerName_" + i + ".pm");
+			checkPath[i-1] = new File("Path" + File.separator + "path_" + i + ".pm");
 		}
 	}
 	
-	public static void selection(short nservers, String[] nameServers, String[] numberServers, String[] numberServers2){
+	public static String writeStringData(File file, String data) throws IOException{
+		BufferedWriter writerData = null;
+		
+		try{
+			writerData = new BufferedWriter(new FileWriter(file));
+			writerData.write(data);
+			
+		}catch(IOException e){
+			e.printStackTrace();
+			
+		}finally{
+			try{
+				if(writerData != null)
+					writerData.close();
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	public static int writeIntData(File file, int data) throws IOException{
+		BufferedWriter writerData = null;
+		
+		try{
+			writerData = new BufferedWriter(new FileWriter(file));
+			writerData.write(data);
+			
+		}catch(IOException e){
+			e.printStackTrace();
+			
+		}finally{
+			try{
+				if(writerData != null)
+					writerData.close();
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+	
+	@SuppressWarnings("resource")
+	public static String readStringData(File file) throws FileNotFoundException{
+			FileReader readerData = new FileReader(file);
+		    
+		    try {
+		        readerData = new FileReader(file);
+		        char[] chars = new char[(int) file.length()];
+		        readerData.read(chars);
+		    } catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+		        if(readerData !=null)
+					try{
+						readerData.close();
+					}catch (IOException e){
+						e.printStackTrace();
+					}
+		    }
+			return null;
+	}
+	
+	@SuppressWarnings("resource")
+	public static int readIntData(File file) throws FileNotFoundException{
+		FileReader readerData = new FileReader(file);
+	    
+	    try {
+	        readerData = new FileReader(file);
+	        char[] chars = new char[(int) file.length()];
+	        readerData.read(chars);
+	    } catch (IOException e) {
+			e.printStackTrace();
+		}finally{
+	        if(readerData !=null)
+				try{
+					readerData.close();
+				}catch (IOException e){
+					e.printStackTrace();
+				}
+	    }
+		return 0;
+	}
+	
+	public static void selection(int nservers, String[] nameServers, String[] numberServers, String[] numberServers2){
 		for(int i = 1; i <= nservers; i++){
 			defaultServersName = "Server_Minecraft_PE_" + i;
 			System.out.printf("%d) Name of %s server?: ", i, numberServers[i-1]);

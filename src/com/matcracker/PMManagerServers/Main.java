@@ -1,9 +1,5 @@
 package com.matcracker.PMManagerServers;
 
-import java.io.*;
-
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import com.matcracker.PMManagerServers.Installer.Installator;
 import com.matcracker.PMManagerServers.Loaders.Loader;
 import com.matcracker.PMManagerServers.Utility.Utility;
@@ -32,6 +28,8 @@ public class Main {
 		final String inputError = "Error during the chooise!";
 						
 		Loader.startLoader();
+		
+		Loader.completeLoader();
 		
 		try{
 			while(quit.equalsIgnoreCase("n")){
