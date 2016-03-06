@@ -21,11 +21,10 @@ public class Main {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	
+		
 	public static void main(String[] args) throws Exception{
 					
 		String menu = null, quit = "n";
-		final String inputError = "Error during the chooise!";
 						
 		Loader.startLoader();
 		
@@ -77,7 +76,7 @@ public class Main {
 				Utility.cleanScreen();
 			}
 		}catch(Exception e){
-			System.out.println(inputError);
+			System.out.println(Utility.inputError);
 		}
 	}
 }

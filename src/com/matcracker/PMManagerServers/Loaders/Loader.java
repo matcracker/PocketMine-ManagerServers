@@ -3,6 +3,7 @@ package com.matcracker.PMManagerServers.Loaders;
 import java.io.File;
 import java.io.IOException;
 
+import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Loader {
@@ -28,9 +29,9 @@ public class Loader {
 	static String[] numberServers = {"first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"};
 	static String[] numberServers2 = {"First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"};
 	
-	static File checknservers = new File("Data" + File.separator + "servers.pm");
+	static File checknservers = new File("Data" + File.separator + "nservers.pm");
 	static Object[] checkPath = new Object[] {false, false, false, false, false, false, false, false, false, false};
-	static Object[] checkNameServer = new Object[] {false, false, false, false, false, false, false, false, false, false};
+	static boolean[] checkNameServer = new boolean[] {false, false, false, false, false, false, false, false, false, false};
 	
 	public static void startLoader() throws InterruptedException{
 		File dirPath = new File("Path");
@@ -45,9 +46,10 @@ public class Loader {
 		File dirBackupServers = new File("Backups" + File.separator + "Servers");
 		File checkLicense = new File("LICENSE.pdf");
 		
-		if(checkLicense.exists() && dirPath.exists() && dirServername.exists() && dirData.exists() && dirPerformance.exists() && dirUtils.exists() 
+		//TODO: Add checklicense in the if
+		if(dirPath.exists() && dirServername.exists() && dirData.exists() && dirPerformance.exists() && dirUtils.exists() 
 			&& dirInstallation.exists()	&& dirLanguages.exists() && dirBackups.exists()){
-			
+			return;
 		}else{
 			System.out.println("Preparing the first start...");
 			Thread.sleep(1500);
@@ -73,8 +75,8 @@ public class Loader {
 	
 	public static void completeLoader() throws IOException{
 		if(checknservers.exists()){
-			nservers = Utility.readIntData(new File("Data/nservers.pm"));
-			
+			nservers = Utility.readData(new File("Data" + File.separator + "nservers.pm"));
+			return;
 		}else{
 			do{
 				Utility.cleanScreen();
@@ -86,11 +88,10 @@ public class Loader {
 					nservers = Integer.valueOf(Utility.keyword.readLine());
 				
 				}catch (NumberFormatException | IOException e){
-					e.printStackTrace();
-					return;
+					System.out.println(Utility.inputError);
 				}
 				
-				if (nservers > 10){
+				if(nservers > 10){
 					System.out.println("ERROR! You have exceeded the maximum number of servers available. Please reduce the amount!");
 					System.in.read();
 					
@@ -98,9 +99,9 @@ public class Loader {
 					System.out.println("ERROR! You have to manage one or more server! (MAX TEN!!)");
 					System.in.read();
 				}
-			}while(nservers > 10 || nservers < 1);
+			}while(nservers > 10 || nservers <= 0);
 			
-			Utility.writeIntData(new File("Data/nservers.pm"), nservers);
+			Utility.writeIntData(new File("Data" + File.separator +"nservers.pm"), nservers);
 			
 		}
 		
@@ -112,10 +113,10 @@ public class Loader {
 		System.out.printf("If you do not enter a name for your server , by default it will be '%s'\n", Utility.defaultServersName);
 		
 		if(nservers >= 1){
-			if(checkNameServer[nservers - 1] != null){
+			if(!checkNameServer[nservers - 1]){
 				return;
 			}else{
-				Utility.selection(nservers, getNameServers(), numberServers, numberServers2);
+				Utility.selection(nservers, nameServers, numberServers, numberServers2);
 
 				for(int i = 1; i <= nservers; i++)
 					Utility.writeStringData(new File("ServersName" + File.separator + "ServerName_" + i + ".pm"), nameServers[i-1]);
@@ -127,21 +128,5 @@ public class Loader {
 		System.out.println("Complete! Press ENTER to continue.");
 		System.in.read();
 
-	}
-
-	public static String[] getNameServers() {
-		return nameServers;
-	}
-
-	public static void setNameServers(String[] nameServers) {
-		Loader.nameServers = nameServers;
-	}
-
-	public static String[] getPath() {
-		return path;
-	}
-
-	public void setPath(String[] path) {
-		Loader.path = path;
 	}
 }

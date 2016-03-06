@@ -41,6 +41,7 @@ public class Utility{
 	public static InputStreamReader input = new InputStreamReader(System.in);
 	public static BufferedReader keyword = new BufferedReader(input);
 	public static String defaultServersName = "Server_Minecraft_PE";
+	public static final String inputError =  "Error during the chooise!";
 	
 	public final static void cleanScreen(){
 		try {
@@ -51,14 +52,17 @@ public class Utility{
 
 	}
 	
-	public static void checking(Object[] checkNameServer, Object[] checkPath){
+	public static void checking(boolean[] checkNameServer, Object[] checkPath){
 		for(int i = 1; i <= 10; i++){
-			checkNameServer[i-1] = new File("ServersName" + File.separator + "ServerName_" + i + ".pm");
+			checkNameServer[i-1] = new File("ServersName" + File.separator + "ServerName_" + i + ".pm") != null;
 			checkPath[i-1] = new File("Path" + File.separator + "path_" + i + ".pm");
+			
+			if(checkNameServer[i-1])
+				checkNameServer[i-1] = true;
 		}
 	}
 	
-	public static String writeStringData(File file, String data) throws IOException{
+	public static void writeStringData(File file, String data) throws IOException{
 		BufferedWriter writerData = null;
 		
 		try{
@@ -76,70 +80,48 @@ public class Utility{
 				e.printStackTrace();
 			}
 		}
-		return null;
 	}
 	
-	public static int writeIntData(File file, int data) throws IOException{
+	public static void writeIntData(File file, int data) throws IOException{
 		BufferedWriter writerData = null;
 		
 		try{
 			writerData = new BufferedWriter(new FileWriter(file));
-			writerData.write(data);
+			writerData.write(new Integer(data).toString());
 			
 		}catch(IOException e){
 			e.printStackTrace();
-			
-		}finally{
-			try{
-				if(writerData != null)
-					writerData.close();
-			}catch(IOException e){
-				e.printStackTrace();
-			}
 		}
-		return 0;
+		
+		try{
+			if(writerData != null)
+				writerData.close();
+		}catch(IOException e1){
+			e1.printStackTrace();
+		}
 	}
 	
 	@SuppressWarnings("resource")
-	public static String readStringData(File file) throws FileNotFoundException{
+	public static int readData(File file) throws FileNotFoundException{
 			FileReader readerData = new FileReader(file);
+			int data = 0;
 		    
-		    try {
+		    try{
 		        readerData = new FileReader(file);
 		        char[] chars = new char[(int) file.length()];
-		        readerData.read(chars);
-		    } catch (IOException e) {
+		        data = readerData.read(chars);
+		    }catch (IOException e){
 				e.printStackTrace();
-			}finally{
-		        if(readerData !=null)
-					try{
-						readerData.close();
-					}catch (IOException e){
-						e.printStackTrace();
-					}
-		    }
-			return null;
-	}
-	
-	@SuppressWarnings("resource")
-	public static int readIntData(File file) throws FileNotFoundException{
-		FileReader readerData = new FileReader(file);
-	    
-	    try {
-	        readerData = new FileReader(file);
-	        char[] chars = new char[(int) file.length()];
-	        readerData.read(chars);
-	    } catch (IOException e) {
-			e.printStackTrace();
-		}finally{
-	        if(readerData !=null)
+			}
+		    
+	        if(readerData !=null){
 				try{
 					readerData.close();
 				}catch (IOException e){
 					e.printStackTrace();
 				}
-	    }
-		return 0;
+	        }
+			return data;
 	}
 	
 	public static void selection(int nservers, String[] nameServers, String[] numberServers, String[] numberServers2){
@@ -155,9 +137,8 @@ public class Utility{
 					System.in.read();
 					Loader.completeLoader();
 					
-				}else{
-					if(nameServers[i-1] == "")
-						nameServers[i-1] = defaultServersName;
+				}else if(nameServers[i-1].equalsIgnoreCase("")){
+					nameServers[i-1] = defaultServersName;
 				}
 			}catch (IOException e){
 				e.printStackTrace();
