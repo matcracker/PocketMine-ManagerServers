@@ -2,8 +2,6 @@ package com.matcracker.PMManagerServers.Loaders;
 
 import java.io.File;
 import java.io.IOException;
-
-import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Loader {
@@ -34,48 +32,49 @@ public class Loader {
 	static boolean[] checkNameServer = new boolean[] {false, false, false, false, false, false, false, false, false, false};
 	
 	public static void startLoader() throws InterruptedException{
-		File dirPath = new File("Path");
-		File dirServername = new File("ServersName");
-		File dirData = new File("Data");
-		File dirPerformance = new File("Performance");
-		File dirUtils = new File("Utils");
-		File dirInstallation = new File("Installations");
-		File dirLanguages = new File("Languages");
-		File dirBackups = new File("Backups");
-		File dirBackupsStatus = new File("Backups" + File.separator + "Status");
-		File dirBackupServers = new File("Backups" + File.separator + "Servers");
+		String[] dirsName = {
+				"Data",
+				"ServersName",
+				"Path",
+				"Performance",
+				"Utils", 
+				"Installations",
+				"Languages",
+				"Backups",
+				"Backups" + File.separator + "Status",
+				"Backups" + File.separator + "Servers"
+		};
+		
+		File dirMaker = new File(dirsName[0]);
 		File checkLicense = new File("LICENSE.pdf");
 		
-		//TODO: Add checklicense in the if
-		if(dirPath.exists() && dirServername.exists() && dirData.exists() && dirPerformance.exists() && dirUtils.exists() 
-			&& dirInstallation.exists()	&& dirLanguages.exists() && dirBackups.exists()){
+		boolean firstStart = false;
+		
+		if(!dirMaker.exists()){
+			firstStart = true;
+			dirMaker.mkdir(); //Make first directory for the start.pm
+		}
+
+		//TODO: Add checklicense in the if		
+		if(!firstStart){
 			return;
 		}else{
 			System.out.println("Preparing the first start...");
 			Thread.sleep(1500);
 			
-			dirPath.mkdir();
-			dirServername.mkdir();
-			dirData.mkdir();
-			dirPerformance.mkdir();
-			dirUtils.mkdir();
-			dirInstallation.mkdir();
-			dirLanguages.mkdir();
-			dirBackups.mkdir();
-			dirBackupsStatus.mkdir();
-			dirBackupServers.mkdir();
+			for(int i = 1; i < dirsName.length; i++){
+				dirMaker = new File(dirsName[i]);
+				dirMaker.mkdir();
+			}
 
 			for(int i = 0; i <= 100; i++)
-				System.out.println("Loading resource " + i + "%");
-					
+				System.out.println("Loading resource " + i + "%");	
 		}
-			
-		
 	}
-	
+				
 	public static void completeLoader() throws IOException{
 		if(checknservers.exists()){
-			nservers = Utility.readData(new File("Data" + File.separator + "nservers.pm"));
+			nservers = Utility.readIntData(new File("Data" + File.separator + "nservers.pm"));
 			return;
 		}else{
 			do{
@@ -122,7 +121,7 @@ public class Loader {
 					Utility.writeStringData(new File("ServersName" + File.separator + "ServerName_" + i + ".pm"), nameServers[i-1]);
 			}
 		}else{
-			System.out.println("An error occured!");
+			System.out.println(Utility.generalError);
 		}
 		
 		System.out.println("Complete! Press ENTER to continue.");

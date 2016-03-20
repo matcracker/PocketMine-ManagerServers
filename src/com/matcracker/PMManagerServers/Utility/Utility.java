@@ -40,10 +40,18 @@ public class Utility{
 	
 	public static InputStreamReader input = new InputStreamReader(System.in);
 	public static BufferedReader keyword = new BufferedReader(input);
-	public static String defaultServersName = "Server_Minecraft_PE";
-	public static final String inputError =  "Error during the chooise!";
 	
-	public final static void cleanScreen(){
+	public static String defaultServersName = "Server_Minecraft_PE";
+	
+	public static final String version = "0.1J";
+	
+	/**
+	 * Errors costants
+	 */	
+	public static final String inputError =  "Error during the chooise!";
+	public static final String generalError =  "An error occured!";
+	
+	public static void cleanScreen(){
 		try {
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		} catch (InterruptedException | IOException e) {
@@ -62,7 +70,7 @@ public class Utility{
 		}
 	}
 	
-	public static void writeStringData(File file, String data) throws IOException{
+	public static void writeStringData(File file, String data){
 		BufferedWriter writerData = null;
 		
 		try{
@@ -82,7 +90,7 @@ public class Utility{
 		}
 	}
 	
-	public static void writeIntData(File file, int data) throws IOException{
+	public static void writeIntData(File file, int data){
 		BufferedWriter writerData = null;
 		
 		try{
@@ -94,17 +102,22 @@ public class Utility{
 		}
 		
 		try{
-			if(writerData != null)
+			//if(writerData != null)
 				writerData.close();
 		}catch(IOException e1){
 			e1.printStackTrace();
 		}
 	}
 	
-	@SuppressWarnings("resource")
-	public static int readData(File file) throws FileNotFoundException{
-			FileReader readerData = new FileReader(file);
+	public static int readIntData(File file){
+			FileReader readerData = null;
 			int data = 0;
+			
+			try{
+				readerData = new FileReader(file);
+			}catch (FileNotFoundException e1) {
+				System.err.println("File not found!");
+			}		
 		    
 		    try{
 		        readerData = new FileReader(file);
@@ -121,6 +134,29 @@ public class Utility{
 					e.printStackTrace();
 				}
 	        }
+			return data;
+	}
+	
+	public static String readStringData(File file){
+			FileReader readerData = null;
+			String data = null;
+			
+			try{
+				readerData = new FileReader(file);
+			}catch (FileNotFoundException e1) {
+				System.err.println("File not found!");
+			}
+			BufferedReader buffer = new BufferedReader(readerData);
+		    
+
+			try{
+				data = buffer.readLine();
+				if(readerData != null)
+					readerData.close();
+			}catch(IOException e){
+				e.printStackTrace();
+			}
+				
 			return data;
 	}
 	
