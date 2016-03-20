@@ -18,7 +18,7 @@ public class Installator {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	public static void installator(){
+	public static void installatorMenu(){
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("-------------------------<Initialize PocketMine-MP>-----------------------------");

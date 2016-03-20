@@ -1,8 +1,9 @@
 package com.matcracker.PMManagerServers;
 
-import com.matcracker.PMManagerServers.API.UtilityAPI;
+import com.matcracker.PMManagerServers.Informations.Informations;
 import com.matcracker.PMManagerServers.Installer.Installator;
 import com.matcracker.PMManagerServers.Loaders.Loader;
+import com.matcracker.PMManagerServers.Settings.Settings;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Main {
@@ -34,7 +35,7 @@ public class Main {
 		try{
 			while(quit.equalsIgnoreCase("n")){
 				System.out.println("========================<PocketMine Manager Servers>============================");
-				System.out.println("=================================<Main menu>====================================");
+				System.out.println("---------------------------------<Main menu>------------------------------------");
 				System.out.println("Developed by matcracker                                            Version: " + Utility.version);
 				System.out.println("1- Install PocketMine-MP");
 				System.out.println("2- Manage Servers");
@@ -46,7 +47,7 @@ public class Main {
 				menu = Utility.keyword.readLine();
 	
 				if(menu.equalsIgnoreCase("1")){
-					Installator.installator();
+					Installator.installatorMenu();
 					quit = "s";
 				}
 				
@@ -55,11 +56,11 @@ public class Main {
 				}
 				
 				if(menu.equalsIgnoreCase("3")){
-					
+					Settings.settingsMenu();
 				}
 				
 				if(menu.equalsIgnoreCase("4")){
-					
+					Informations.informationsMenu();
 				}
 				
 				if(menu.equalsIgnoreCase("5")){

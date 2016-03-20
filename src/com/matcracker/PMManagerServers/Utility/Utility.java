@@ -160,6 +160,16 @@ public class Utility{
 			return data;
 	}
 	
+	public static void deleteFile(String folder){
+		File dir = new File(folder);
+		File[] files = dir.listFiles();
+		
+		for(File file : files){
+			if(!file.delete())
+				System.err.println("Failed to delete " + file);
+		}
+	}
+	
 	public static void selection(int nservers, String[] nameServers, String[] numberServers, String[] numberServers2){
 		for(int i = 1; i <= nservers; i++){
 			defaultServersName = "Server_Minecraft_PE_" + i;
