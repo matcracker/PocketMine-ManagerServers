@@ -22,7 +22,7 @@ public class Loader {
 	*/
 	
 	static int nservers = 0;
-	private static String[] path = {"", "", "", "", "", "", "", "", "", ""};
+	//private static String[] path = {"", "", "", "", "", "", "", "", "", ""};
 	private static String[] nameServers = {"", "", "", "", "", "", "", "", "", ""};
 	static String[] numberServers = {"first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"};
 	static String[] numberServers2 = {"First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"};
@@ -31,7 +31,7 @@ public class Loader {
 	static Object[] checkPath = new Object[] {false, false, false, false, false, false, false, false, false, false};
 	static boolean[] checkNameServer = new boolean[] {false, false, false, false, false, false, false, false, false, false};
 	
-	public static void startLoader() throws InterruptedException{
+	public static void startLoader() throws InterruptedException, IOException{
 		String[] dirsName = {
 				"Data",
 				"ServersName",
@@ -45,18 +45,21 @@ public class Loader {
 				"Backups" + File.separator + "Servers"
 		};
 		
-		File dirMaker = new File(dirsName[0]);
 		File checkLicense = new File("LICENSE.pdf");
+		File dirMaker;
 		
-		boolean firstStart = false;
-		
-		if(!dirMaker.exists()){
-			firstStart = true;
-			dirMaker.mkdir(); //Make first directory for the start.pm
+		boolean[] firstStart = new boolean[dirsName.length];
+				
+		for(int i = 0; i < dirsName.length; i++){
+			firstStart[i] = false;
+			dirMaker = new File(dirsName[i]);
+			if(!dirMaker.exists()){
+				firstStart[i] = true;
+				dirMaker.mkdir(); //Make first directory for the start.pm
+			}
 		}
-
-		//TODO: Add checklicense in the if		
-		if(!firstStart){
+		
+		if(!firstStart[(int)(Math.random() * dirsName.length)] && checkLicense.exists()){
 			return;
 		}else{
 			System.out.println("Preparing the first start...");
@@ -69,6 +72,8 @@ public class Loader {
 
 			for(int i = 0; i <= 100; i++)
 				System.out.println("Loading resource " + i + "%");	
+			
+			completeLoader();
 		}
 	}
 				

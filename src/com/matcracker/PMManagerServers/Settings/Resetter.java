@@ -1,5 +1,6 @@
 package com.matcracker.PMManagerServers.Settings;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
@@ -77,6 +78,9 @@ public class Resetter{
 		if(confirm.equalsIgnoreCase("y")){
 			for(int i = 0; i < dirsName.length; i++)
 				Utility.deleteFile(dirsName[i]); //TODO Check why some file can't be deleted
+			System.out.println("Closing program...");
+			Desktop.getDesktop().open(new File("run.bat"));
+
 		}else{
 			Resetter.resetterMenu();
 		}

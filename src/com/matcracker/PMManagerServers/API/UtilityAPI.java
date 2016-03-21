@@ -1,6 +1,7 @@
 package com.matcracker.PMManagerServers.API;
 
 import java.io.File;
+
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class UtilityAPI{
@@ -40,9 +41,6 @@ public class UtilityAPI{
 		
 		return Utility.readStringData(new File(folder));
 	}
-	
-		
-	
 	
 	
 }

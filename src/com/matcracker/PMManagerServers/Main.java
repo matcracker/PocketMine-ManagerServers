@@ -6,8 +6,7 @@ import com.matcracker.PMManagerServers.Loaders.Loader;
 import com.matcracker.PMManagerServers.Settings.Settings;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
-public class Main {
-	
+public class Main{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
@@ -29,9 +28,7 @@ public class Main {
 		String menu = "", quit = "n";
 						
 		Loader.startLoader();
-		
-		Loader.completeLoader();
-		
+				
 		try{
 			while(quit.equalsIgnoreCase("n")){
 				System.out.println("========================<PocketMine Manager Servers>============================");
@@ -70,12 +67,12 @@ public class Main {
 					System.out.print("Are you sure you want to quit? <y/n>: ");
 					quit = Utility.keyword.readLine();
 					
-					if(quit.equalsIgnoreCase("s"))
+					if(quit.equalsIgnoreCase("y"))
 						System.exit(0);
+					else
+						quit = "n";
 					
 				}
-				
-				Utility.cleanScreen();
 			}
 		}catch(Exception e){
 			System.out.println(Utility.inputError);

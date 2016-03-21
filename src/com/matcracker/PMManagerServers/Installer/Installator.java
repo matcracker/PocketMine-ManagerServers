@@ -22,6 +22,5 @@ public class Installator {
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("-------------------------<Initialize PocketMine-MP>-----------------------------");
-		Utility.cleanScreen();
 	}
 }

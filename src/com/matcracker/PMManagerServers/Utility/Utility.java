@@ -56,6 +56,7 @@ public class Utility{
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		} catch (InterruptedException | IOException e) {
 			System.out.println("Error during the console cleaning.");
+			
 		}
 
 	}
@@ -78,14 +79,14 @@ public class Utility{
 			writerData.write(data);
 			
 		}catch(IOException e){
-			e.printStackTrace();
+			System.err.println("Error on writing data!");
 			
 		}finally{
 			try{
 				if(writerData != null)
 					writerData.close();
 			}catch(IOException e){
-				e.printStackTrace();
+				System.err.println("Error on closing writer!");
 			}
 		}
 	}
@@ -98,14 +99,14 @@ public class Utility{
 			writerData.write(new Integer(data).toString());
 			
 		}catch(IOException e){
-			e.printStackTrace();
+			System.err.println("Error on writing data!");
 		}
 		
 		try{
-			//if(writerData != null)
+			if(writerData != null)
 				writerData.close();
 		}catch(IOException e1){
-			e1.printStackTrace();
+			System.err.println("Error on closing writer!");
 		}
 	}
 	
@@ -124,14 +125,14 @@ public class Utility{
 		        char[] chars = new char[(int) file.length()];
 		        data = readerData.read(chars);
 		    }catch (IOException e){
-				e.printStackTrace();
+		    	System.err.println("Error on reading data!");
 			}
 		    
 	        if(readerData !=null){
 				try{
 					readerData.close();
 				}catch (IOException e){
-					e.printStackTrace();
+					System.err.println("Error on closing reader!");
 				}
 	        }
 			return data;
@@ -154,7 +155,7 @@ public class Utility{
 				if(readerData != null)
 					readerData.close();
 			}catch(IOException e){
-				e.printStackTrace();
+				System.err.println("Error on closing reader!");
 			}
 				
 			return data;

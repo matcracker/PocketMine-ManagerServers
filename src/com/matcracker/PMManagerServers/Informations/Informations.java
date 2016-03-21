@@ -1,7 +1,10 @@
 package com.matcracker.PMManagerServers.Informations;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
-
+import java.net.URISyntaxException;
+import java.net.URL;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Informations {
@@ -18,10 +21,15 @@ public class Informations {
 	*This program is free software: you can redistribute it and/or modify 
 	*it under the terms of the GNU Lesser General Public License as published by 
 	*the Free Software Foundation, either version 3 of the License, or 
-	*(at your option) any later version.
+	*(at your option) any later version. 
 	*/
 	
-	public static void informationsMenu() throws IOException{
+	
+	
+	public static void informationsMenu() throws IOException, URISyntaxException{
+		final String gitlink = "https://github.com/matcracker/PocketMine-ManagerServers-Java";
+		final String twitterlink = "https://twitter.com/matcracker98";
+		
 		Utility.cleanScreen();
 	    
 		System.out.println("========================<PocketMine Manager Servers>============================");
@@ -36,8 +44,13 @@ public class Informations {
 		String info = Utility.keyword.readLine();
 		
 		if(info.equalsIgnoreCase("1")){
-			//File license = new File("LICENSE.pdf");
-				//if(license.isFile() && license.exists())
+			File license = new File("LICENSE.pdf");
+				if(license.isFile() && license.exists())
+					Desktop.getDesktop().open(license);
+				else{
+					System.out.println("BAD SOFTWARE, you are using a wrong version of software.");
+					Utility.keyword.readLine();
+				}
 				
 		}
 		
@@ -46,15 +59,46 @@ public class Informations {
 			System.out.println("========================<PocketMine Manager Servers>============================");
 			System.out.println("-----------------------------------<Credits>------------------------------------");
 			System.out.println("This program is free software made by matcracker: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or at your option) any later version.");
-			System.out.println();
-			System.out.println("This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more details.");
-			System.out.println();
-			System.out.println("You should have received a copy of the GNU Lesser General Public License along with this program.  If not, see in this program in the section 'Informations ->  License'.");
-			System.out.println();
-			System.out.println("Press ENTER go to back");
-			System.in.read();
+			System.out.println("\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.");
+			System.out.println("\nYou should have received a copy of the GNU Lesser General Public License along with this program.  If not, see in this program in the section 'Informations ->  License'.");
+			System.out.println("\nPress ENTER go to back");
+			Utility.keyword.readLine();
+			
 			Informations.informationsMenu();
 		}
+		
+		if(info.equalsIgnoreCase("3")){
+			Utility.cleanScreen();
+			System.out.println("========================<PocketMine Manager Servers>============================");
+			System.out.println("-----------------------------<More Informations>--------------------------------");
+			System.out.println("1- GitHub");
+			System.out.println("2- Twitter");
+			System.out.println("3- Back");
 			
+			System.out.print("\nChoose information: ");
+			String moreInfo = Utility.keyword.readLine();
+			
+			if(moreInfo.equalsIgnoreCase("1"))
+				Desktop.getDesktop().browse(new URL(gitlink).toURI());
+			
+			if(moreInfo.equalsIgnoreCase("2"))
+				Desktop.getDesktop().browse(new URL(twitterlink).toURI());
+			
+			if(moreInfo.equalsIgnoreCase("3"))
+				Informations.informationsMenu();		
+		}
+		
+		if(info.equalsIgnoreCase("4")){
+			Utility.cleanScreen();
+			System.out.println("========================<PocketMine Manager Servers>============================");
+			System.out.println("---------------------------------<Disclaimer>-----------------------------------");
+			System.out.println("I do not assume responsibility for the use of this program if being deleted folders or files, for you, important.");
+			System.out.println("The use is personal and therefore the connections you supply will have to be primarily related to the creation program server 'PocketMine-MP' or relative.");
+			Utility.keyword.readLine();
+			Informations.informationsMenu();
+		}
+		
+		if(info.equalsIgnoreCase("5"))
+			return;
 	}
 }
