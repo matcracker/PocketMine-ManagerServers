@@ -1,6 +1,6 @@
 package com.matcracker.PMManagerServers.API;
 
-import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityServers;
 
 public class APIManager{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -25,7 +25,7 @@ public class APIManager{
 	}
 	
 	public String getVersion(){
-		return Utility.version;
+		return UtilityServers.version;
 	}
 	
 	

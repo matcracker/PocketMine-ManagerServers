@@ -31,9 +31,9 @@ public class Resetter{
 			"Utils", 
 			"Installations",
 			"Languages",
-			//"Backups",
-			"Backups" + File.separator + "Status",
-			"Backups" + File.separator + "Servers"
+			"Backups",
+			//"Backups" + File.separator + "Status",
+			//"Backups" + File.separator + "Servers"
 	};
 	
 	public static void resetterMenu() throws IOException{
@@ -76,9 +76,12 @@ public class Resetter{
 		}while(!confirm.equalsIgnoreCase("y") && !confirm.equalsIgnoreCase("n"));
 		
 		if(confirm.equalsIgnoreCase("y")){
-			for(int i = 0; i < dirsName.length; i++)
-				Utility.deleteFile(dirsName[i]); //TODO Check why some file can't be deleted
+			for(int i = 0; i < dirsName.length; i++){
+				Utility.deleteFile(dirsName[i]);
+				Utility.deleteFolder(dirsName[i], dirsName.length);
+			}
 			System.out.println("Closing program...");
+			System.exit(0);
 			Desktop.getDesktop().open(new File("run.bat"));
 
 		}else{

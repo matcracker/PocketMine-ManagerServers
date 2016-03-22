@@ -2,7 +2,10 @@ package com.matcracker.PMManagerServers.Loaders;
 
 import java.io.File;
 import java.io.IOException;
+
+import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityServers;
 
 public class Loader {
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -20,17 +23,7 @@ public class Loader {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	
-	static int nservers = 0;
-	//private static String[] path = {"", "", "", "", "", "", "", "", "", ""};
-	private static String[] nameServers = {"", "", "", "", "", "", "", "", "", ""};
-	static String[] numberServers = {"first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth", "tenth"};
-	static String[] numberServers2 = {"First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "Ninth", "Tenth"};
-	
-	static File checknservers = new File("Data" + File.separator + "nservers.pm");
-	static Object[] checkPath = new Object[] {false, false, false, false, false, false, false, false, false, false};
-	static boolean[] checkNameServer = new boolean[] {false, false, false, false, false, false, false, false, false, false};
-	
+		
 	public static void startLoader() throws InterruptedException, IOException{
 		String[] dirsName = {
 				"Data",
@@ -47,7 +40,7 @@ public class Loader {
 		
 		File checkLicense = new File("LICENSE.pdf");
 		File dirMaker;
-		
+				
 		boolean[] firstStart = new boolean[dirsName.length];
 				
 		for(int i = 0; i < dirsName.length; i++){
@@ -78,7 +71,8 @@ public class Loader {
 	}
 				
 	public static void completeLoader() throws IOException{
-		if(checknservers.exists()){
+		int nservers = 0;
+		if(UtilityServers.checknservers.exists()){
 			nservers = Utility.readIntData(new File("Data" + File.separator + "nservers.pm"));
 			return;
 		}else{
@@ -91,46 +85,46 @@ public class Loader {
 				try{
 					nservers = Integer.valueOf(Utility.keyword.readLine());
 				
-				}catch (NumberFormatException | IOException e){
+				}catch (IOException e){
 					System.out.println(Utility.inputError);
 				}
 				
 				if(nservers > 10){
 					System.out.println("ERROR! You have exceeded the maximum number of servers available. Please reduce the amount!");
-					System.in.read();
+					Utility.keyword.readLine();
 					
 				}else if(nservers <= 0){
 					System.out.println("ERROR! You have to manage one or more server! (MAX TEN!!)");
-					System.in.read();
+					Utility.keyword.readLine();
 				}
 			}while(nservers > 10 || nservers <= 0);
 			
-			Utility.writeIntData(new File("Data" + File.separator +"nservers.pm"), nservers);
+			UtilityServersAPI.setNumberServer(nservers);
 			
 		}
 		
-		Utility.checking(checkNameServer, checkPath);
+		Utility.checking(UtilityServers.checkNameServer, UtilityServers.checkPath);
 		
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("-------------------------<Complete the informations>----------------------------");
-		System.out.printf("If you do not enter a name for your server , by default it will be '%s'\n", Utility.defaultServersName);
+		System.out.printf("If you do not enter a name for your server , by default it will be '%s'\n", UtilityServers.defaultServersName);
 		
 		if(nservers >= 1){
-			if(!checkNameServer[nservers - 1]){
+			if(!UtilityServers.checkNameServer[nservers - 1]){
 				return;
 			}else{
-				Utility.selection(nservers, nameServers, numberServers, numberServers2);
+				Utility.selection(nservers, UtilityServers.nameServers, UtilityServers.numberServers, UtilityServers.numberServers2);
 
 				for(int i = 1; i <= nservers; i++)
-					Utility.writeStringData(new File("ServersName" + File.separator + "ServerName_" + i + ".pm"), nameServers[i-1]);
+					UtilityServersAPI.setNameServer(i - 1, UtilityServers.nameServers[i-1]);
 			}
 		}else{
 			System.out.println(Utility.generalError);
 		}
 		
 		System.out.println("Complete! Press ENTER to continue.");
-		System.in.read();
+		Utility.keyword.readLine();
 
 	}
 }

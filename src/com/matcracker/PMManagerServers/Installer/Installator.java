@@ -1,5 +1,7 @@
 package com.matcracker.PMManagerServers.Installer;
 
+import java.io.IOException;
+
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Installator {
@@ -18,9 +20,12 @@ public class Installator {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	public static void installatorMenu(){
+	public static void installatorMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("-------------------------<Initialize PocketMine-MP>-----------------------------");
+		
+	
+	
 	}
 }

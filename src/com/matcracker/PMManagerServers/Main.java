@@ -1,10 +1,11 @@
 package com.matcracker.PMManagerServers;
 
 import com.matcracker.PMManagerServers.Informations.Informations;
-import com.matcracker.PMManagerServers.Installer.Installator;
+import com.matcracker.PMManagerServers.Installer.ManagerInstaller;
 import com.matcracker.PMManagerServers.Loaders.Loader;
 import com.matcracker.PMManagerServers.Settings.Settings;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityServers;
 
 public class Main{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -33,32 +34,28 @@ public class Main{
 			while(quit.equalsIgnoreCase("n")){
 				System.out.println("========================<PocketMine Manager Servers>============================");
 				System.out.println("---------------------------------<Main menu>------------------------------------");
-				System.out.println("Developed by matcracker                                            Version: " + Utility.version);
+				System.out.println("Developed by matcracker                                            Version: " + UtilityServers.version);
 				System.out.println("1- Install PocketMine-MP");
 				System.out.println("2- Manage Servers");
 				System.out.println("3- Options");
 				System.out.println("4- Informations");
 				System.out.println("5- Exit\n");
-				
 				System.out.print("What would you like to do? ");
 				menu = Utility.keyword.readLine();
 	
-				if(menu.equalsIgnoreCase("1")){
-					Installator.installatorMenu();
-					quit = "s";
-				}
+				if(menu.equalsIgnoreCase("1"))
+					ManagerInstaller.managerInstallerMenu();
+			
 				
 				if(menu.equalsIgnoreCase("2")){
 					
 				}
 				
-				if(menu.equalsIgnoreCase("3")){
+				if(menu.equalsIgnoreCase("3"))
 					Settings.settingsMenu();
-				}
 				
-				if(menu.equalsIgnoreCase("4")){
+				if(menu.equalsIgnoreCase("4"))
 					Informations.informationsMenu();
-				}
 				
 				if(menu.equalsIgnoreCase("5")){
 					Utility.cleanScreen();

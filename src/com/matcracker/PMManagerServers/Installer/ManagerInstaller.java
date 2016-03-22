@@ -1,5 +1,7 @@
 package com.matcracker.PMManagerServers.Installer;
 
+import java.io.IOException;
+
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class ManagerInstaller {
@@ -19,12 +21,24 @@ public class ManagerInstaller {
 	*(at your option) any later version.
 	*/
 	
-	public static void managerInstaller(){
+	public static void managerInstallerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("-------------------------<Initialize PocketMine-MP>-----------------------------");
-		System.out.println("");
-		Utility.cleanScreen();
+		System.out.println("1- Download");
+		System.out.println("2- Install");
+		System.out.println("3- Back");
+		System.out.print("\nChoose what do you want to do: ");
+		String inst = Utility.keyword.readLine();
+		
+		if(inst.equalsIgnoreCase("1"))
+			Downloader.downloaderMenu();
+		
+		if(inst.equalsIgnoreCase("2"))
+			Installator.installatorMenu();
+		
+		if(inst.equalsIgnoreCase("3"))
+			return;
 		
 	}
 }

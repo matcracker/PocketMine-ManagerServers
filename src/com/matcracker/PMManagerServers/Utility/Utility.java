@@ -41,10 +41,6 @@ public class Utility{
 	public static InputStreamReader input = new InputStreamReader(System.in);
 	public static BufferedReader keyword = new BufferedReader(input);
 	
-	public static String defaultServersName = "Server_Minecraft_PE";
-	
-	public static final String version = "0.1J";
-	
 	/**
 	 * Errors costants
 	 */	
@@ -161,6 +157,13 @@ public class Utility{
 			return data;
 	}
 	
+	public static void deleteFolder(String folder, int index){
+		File dir = new File(folder);
+
+		for(int i = 0; i < index; i++)
+			dir.delete();
+	}
+	
 	public static void deleteFile(String folder){
 		File dir = new File(folder);
 		File[] files = dir.listFiles();
@@ -173,7 +176,7 @@ public class Utility{
 	
 	public static void selection(int nservers, String[] nameServers, String[] numberServers, String[] numberServers2){
 		for(int i = 1; i <= nservers; i++){
-			defaultServersName = "Server_Minecraft_PE_" + i;
+			UtilityServers.defaultServersName = "Server_Minecraft_PE_" + i;
 			System.out.printf("%d) Name of %s server?: ", i, numberServers[i-1]);
 			
 			try{
@@ -181,11 +184,11 @@ public class Utility{
 				
 				if(nameServers[i-1].contains(" ")){
 					System.out.println("\nSorry, but you can't insert space from name");
-					System.in.read();
+					Utility.keyword.readLine();
 					Loader.completeLoader();
 					
 				}else if(nameServers[i-1].equalsIgnoreCase("")){
-					nameServers[i-1] = defaultServersName;
+					nameServers[i-1] = UtilityServers.defaultServersName;
 				}
 			}catch (IOException e){
 				e.printStackTrace();
