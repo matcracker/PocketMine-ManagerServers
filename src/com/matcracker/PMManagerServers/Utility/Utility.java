@@ -28,6 +28,8 @@ public class Utility{
 	*(at your option) any later version.
 	*/
 	
+	public static final String version = "0.1J";
+	
 	public static final String COLOR_RESET = "\u001B[0m";
 	public static final String COLOR_BLACK = "\u001B[30m";
 	public static final String COLOR_RED = "\u001B[31m";
@@ -37,6 +39,8 @@ public class Utility{
 	public static final String COLOR_PURPLE = "\u001B[35m";
 	public static final String COLOR_CYAN = "\u001B[36m";
 	public static final String COLOR_WHITE = "\u001B[37m";
+	
+	public static String defaultServersName = "Server_Minecraft_PE";
 	
 	public static InputStreamReader input = new InputStreamReader(System.in);
 	public static BufferedReader keyword = new BufferedReader(input);
@@ -178,7 +182,7 @@ public class Utility{
 	
 	public static void selection(int nservers, String[] nameServers){
 		for(int i = 1; i <= nservers; i++){
-			UtilityServers.defaultServersName = "Server_Minecraft_PE_" + i;
+			defaultServersName = "Server_Minecraft_PE_" + i;
 			System.out.printf("%d) Name of %d° server?: ", i, i);
 			
 			try{
@@ -190,7 +194,7 @@ public class Utility{
 					Loader.completeLoader();
 					
 				}else if(nameServers[i-1].equalsIgnoreCase("")){
-					nameServers[i-1] = UtilityServers.defaultServersName;
+					nameServers[i-1] = defaultServersName;
 				}
 			}catch (IOException e){
 				e.printStackTrace();

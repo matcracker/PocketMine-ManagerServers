@@ -3,7 +3,6 @@ package com.matcracker.PMManagerServers.API;
 import java.io.File;
 
 import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityServers;
 
 public class UtilityServersAPI{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -61,14 +60,14 @@ public class UtilityServersAPI{
 	 * @return Server_Minecraft_PE
 	 */
 	public static String getDefaultServerName(){
-		return UtilityServers.defaultServersName;
+		return Utility.defaultServersName;
 	}
 	
 	/**
 	 * @param name of default server
 	 */
 	public static void setDefaultServerName(String name){
-		UtilityServers.defaultServersName = name;
+		Utility.defaultServersName = name;
 	}
 	
 	/**

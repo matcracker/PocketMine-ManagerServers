@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityServers;
 
 public class Loader {
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -111,7 +110,7 @@ public class Loader {
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("-------------------------<Complete the informations>----------------------------");
-		System.out.printf("If you do not enter a name for your server , by default it will be '%s'\n", UtilityServers.defaultServersName);
+		System.out.printf("If you do not enter a name for your server , by default it will be '%s'\n", Utility.defaultServersName);
 		
 		if(nservers >= 1){
 			String[] nameServers = new String[nservers];
