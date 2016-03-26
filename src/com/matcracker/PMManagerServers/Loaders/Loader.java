@@ -16,7 +16,7 @@ public class Loader {
 	*|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
 	*                                                                                   __/ |                                             
 	*                                                                                  |___/                                              
-	*Copyright (C) 2015 @author matcracker
+	*Copyright (C) 2015-2016 @author matcracker
 	*
 	*This program is free software: you can redistribute it and/or modify 
 	*it under the terms of the GNU Lesser General Public License as published by 
@@ -32,6 +32,8 @@ public class Loader {
 				"Performance",
 				"Utils", 
 				"Installations",
+				"Installations" + File.separator + "Status",
+				"Installations" + File.separator + "Version",
 				"Languages",
 				"Backups",
 				"Backups" + File.separator + "Status",
@@ -72,7 +74,7 @@ public class Loader {
 				
 	public static void completeLoader() throws IOException{
 		int nservers = 0;
-		if(UtilityServers.checknservers.exists()){
+		if(UtilityServersAPI.checkServersFile("Data", "nservers", -1)){
 			nservers = Utility.readIntData(new File("Data" + File.separator + "nservers.pm"));
 			return;
 		}else{
@@ -80,7 +82,7 @@ public class Loader {
 				Utility.cleanScreen();
 				System.out.println("========================<PocketMine Manager Servers>============================");
 				System.out.println("-------------------------<Complete the informations>----------------------------");
-				System.out.print("How many servers do you want to manage? <1/2/3/.../10> : ");
+				System.out.print("How many servers do you want to manage? <1/2/3/...> : ");
 				
 				try{
 					nservers = Integer.valueOf(Utility.keyword.readLine());
@@ -89,21 +91,22 @@ public class Loader {
 					System.out.println(Utility.inputError);
 				}
 				
-				if(nservers > 10){
+				/*if(nservers > 10){
 					System.out.println("ERROR! You have exceeded the maximum number of servers available. Please reduce the amount!");
 					Utility.keyword.readLine();
 					
-				}else if(nservers <= 0){
+				}else */
+				if(nservers <= 0){
 					System.out.println("ERROR! You have to manage one or more server! (MAX TEN!!)");
 					Utility.keyword.readLine();
 				}
-			}while(nservers > 10 || nservers <= 0);
+			}while(nservers <= 0);
 			
 			UtilityServersAPI.setNumberServer(nservers);
 			
 		}
 		
-		Utility.checking(UtilityServers.checkNameServer, UtilityServers.checkPath);
+		//Utility.checking(/*UtilityServers.checkNameServer, UtilityServers.checkPath,*/ nservers);
 		
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
@@ -111,13 +114,14 @@ public class Loader {
 		System.out.printf("If you do not enter a name for your server , by default it will be '%s'\n", UtilityServers.defaultServersName);
 		
 		if(nservers >= 1){
-			if(!UtilityServers.checkNameServer[nservers - 1]){
+			String[] nameServers = new String[nservers];
+			if(UtilityServersAPI.checkServersFile("ServersName", "ServerName_", nservers - 1)){
 				return;
 			}else{
-				Utility.selection(nservers, UtilityServers.nameServers, UtilityServers.numberServers, UtilityServers.numberServers2);
+				Utility.selection(nservers, nameServers);
 
 				for(int i = 1; i <= nservers; i++)
-					UtilityServersAPI.setNameServer(i - 1, UtilityServers.nameServers[i-1]);
+					UtilityServersAPI.setNameServer(i - 1, nameServers[i-1]);
 			}
 		}else{
 			System.out.println(Utility.generalError);

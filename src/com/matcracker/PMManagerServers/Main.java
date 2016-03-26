@@ -16,7 +16,7 @@ public class Main{
 	*|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
 	*                                                                                   __/ |                                             
 	*                                                                                  |___/                                              
-	*Copyright (C) 2015 @author matcracker
+	*Copyright (C) 2015-2016 @author matcracker
 	*
 	*This program is free software: you can redistribute it and/or modify 
 	*it under the terms of the GNU Lesser General Public License as published by 
@@ -25,13 +25,13 @@ public class Main{
 	*/
 		
 	public static void main(String[] args) throws Exception{
-					
 		String menu = "", quit = "n";
 						
 		Loader.startLoader();
 				
 		try{
 			while(quit.equalsIgnoreCase("n")){
+				Utility.cleanScreen();
 				System.out.println("========================<PocketMine Manager Servers>============================");
 				System.out.println("---------------------------------<Main menu>------------------------------------");
 				System.out.println("Developed by matcracker                                            Version: " + UtilityServers.version);
@@ -45,12 +45,11 @@ public class Main{
 	
 				if(menu.equalsIgnoreCase("1"))
 					ManagerInstaller.managerInstallerMenu();
-			
-				
-				if(menu.equalsIgnoreCase("2")){
 					
+				if(menu.equalsIgnoreCase("2")){
+
 				}
-				
+
 				if(menu.equalsIgnoreCase("3"))
 					Settings.settingsMenu();
 				

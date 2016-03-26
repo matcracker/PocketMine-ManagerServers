@@ -20,7 +20,7 @@ public class Utility{
 	*|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
 	*                                                                                   __/ |                                             
 	*                                                                                  |___/                                              
-	*Copyright (C) 2015 @author matcracker
+	*Copyright (C) 2015-2016 @author matcracker
 	*
 	*This program is free software: you can redistribute it and/or modify 
 	*it under the terms of the GNU Lesser General Public License as published by 
@@ -57,8 +57,10 @@ public class Utility{
 
 	}
 	
-	public static void checking(boolean[] checkNameServer, Object[] checkPath){
-		for(int i = 1; i <= 10; i++){
+	public static void checking(int nservers){
+		Object[] checkPath = new Object[nservers];
+		boolean[] checkNameServer = new boolean[nservers];
+		for(int i = 1; i <= nservers; i++){
 			checkNameServer[i-1] = new File("ServersName" + File.separator + "ServerName_" + i + ".pm") != null;
 			checkPath[i-1] = new File("Path" + File.separator + "path_" + i + ".pm");
 			
@@ -174,10 +176,10 @@ public class Utility{
 		}
 	}
 	
-	public static void selection(int nservers, String[] nameServers, String[] numberServers, String[] numberServers2){
+	public static void selection(int nservers, String[] nameServers){
 		for(int i = 1; i <= nservers; i++){
 			UtilityServers.defaultServersName = "Server_Minecraft_PE_" + i;
-			System.out.printf("%d) Name of %s server?: ", i, numberServers[i-1]);
+			System.out.printf("%d) Name of %d° server?: ", i, i);
 			
 			try{
 				nameServers[i-1] = keyword.readLine();

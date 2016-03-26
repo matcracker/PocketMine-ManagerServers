@@ -13,7 +13,7 @@ public class ManagerInstaller {
 	*|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
 	*                                                                                   __/ |                                             
 	*                                                                                  |___/                                              
-	*Copyright (C) 2015 @author matcracker
+	*Copyright (C) 2015-2016 @author matcracker
 	*
 	*This program is free software: you can redistribute it and/or modify 
 	*it under the terms of the GNU Lesser General Public License as published by 
@@ -39,6 +39,10 @@ public class ManagerInstaller {
 		
 		if(inst.equalsIgnoreCase("3"))
 			return;
+		
+	}
+	
+	public static void changeServerVersion(){
 		
 	}
 }
