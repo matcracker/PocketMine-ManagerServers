@@ -1,5 +1,6 @@
 package com.matcracker.PMManagerServers.Installer;
 
+import java.io.File;
 import java.io.IOException;
 
 import com.matcracker.PMManagerServers.API.InstallatorAPI;
@@ -30,16 +31,143 @@ public class Installator {
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("---------------------------<Install PocketMine-MP>------------------------------");
 		for(int i = 0; i < nservers; i++){
-			System.out.printf("%d) %s -> Version: s -> Status: s\n", i+1, UtilityServersAPI.getNameServer(i));//, InstallatorAPI.getVersion(i));
+			System.out.printf("%d) %s -> Version: %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i), InstallatorAPI.getVersion(i), InstallatorAPI.getStatus(i));
 		}
 		System.out.println((nservers + 1) + ") Back");
-		System.out.print("\nOn which server do you want install PocketMine-MP?");
+		System.out.print("\nOn which server do you want install PocketMine-MP?: ");
 		String sel = Utility.keyword.readLine();
 		
-		
-		if(sel.equalsIgnoreCase(String.valueOf(nservers + 1))){
+		if(sel.equalsIgnoreCase(String.valueOf(nservers + 1))){ //Back
 			ManagerInstaller.managerInstallerMenu();
+		}else{
+			System.out.println("\n1- Stable (Setup File)");
+			System.out.println("2- Beta (Phar File)");
+			System.out.println("3- Dev (Phar File)");
+			System.out.println("4- Soft (Phar File)");
+			System.out.println("5- Back");
+			
+			System.out.print("\nSelect a version for your server: ");
+			String ver = Utility.keyword.readLine();
+			
+			if(ver.equalsIgnoreCase("1")){ //Stable
+				System.out.println("\nAvaiable types:");
+				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
+				System.out.print("\nSelect the type of version: ");
+				String type = Utility.keyword.readLine();
+				
+				if(type.equalsIgnoreCase("1")){
+					File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
+					if(installer.exists()){
+						Utility.openSoftware("software", String.valueOf(installer));
+						InstallatorAPI.setVersion("Stable", Integer.valueOf(sel) - 1);
+						InstallatorAPI.setStatus("Installed", Integer.valueOf(sel) - 1);
+						Installator.installatorMenu();
+					}else{
+						System.err.println("Installer not found! Please download the installer!");
+						Utility.keyword.readLine();
+						Installator.installatorMenu();
+					}
+				}
+			}
+			
+			if(ver.equalsIgnoreCase("2")){ //Beta
+				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
+					System.out.println("\nAvaiable types:");
+					System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
+					System.out.print("\nSelect the type of version: ");
+					String type = Utility.keyword.readLine();
+					
+					if(type.equalsIgnoreCase("1")){
+						File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
+						
+						if(beta.exists()){
+							System.out.print("Are you sure you want to replace the file phar with the current one? (This will create a copy)? <Y/N>: ");
+							String confirm = Utility.keyword.readLine();
+							
+							if(confirm.equalsIgnoreCase("y")){
+								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "BETA");
+							}else{
+								Installator.installatorMenu();
+							}
+							
+						}else{
+							System.out.println("Phar file not found, before download it!");
+							Installator.installatorMenu();
+						}
+					}
+				}else{
+					System.err.println("ERROR! You don't select a path in the first start");
+					Installator.installatorMenu();
+				}
+			}
+			
+			if(ver.equalsIgnoreCase("3")){ //Dev
+				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
+					System.out.println("\nAvaiable types:");
+					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 23] {MC:PE 0.15.x}");
+					System.out.print("\nSelect the type of version: ");
+					String type = Utility.keyword.readLine();
+					
+					if(type.equalsIgnoreCase("1")){
+						File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
+						
+						if(dev.exists()){
+							System.out.print("Are you sure you want to replace the file phar with the current one? (This will create a copy)? <Y/N>: ");
+							String confirm = Utility.keyword.readLine();
+							
+							if(confirm.equalsIgnoreCase("y")){
+								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "DEV");
+							}else{
+								Installator.installatorMenu();
+							}
+							
+						}else{
+							System.out.println("Phar file not found, before download it!");
+							Installator.installatorMenu();
+						}
+					}
+				}else{
+					System.err.println("ERROR! You don't select a path in the first start");
+					Installator.installatorMenu();
+				}
+			}
+			
+			if(ver.equalsIgnoreCase("4")){ //Soft
+				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
+					System.out.println("\nAvaiable types:");
+					System.out.println("1) 1.5 API 1.12.0 Kappatsu-Fugu {MC:PE 0.11.x}");
+					System.out.print("\nSelect the type of version: ");
+					String type = Utility.keyword.readLine();
+					
+					if(type.equalsIgnoreCase("1")){
+						File soft = new File("Utils" + File.separator + "PocketMine-MP_SOFT.phar");
+						
+						if(soft.exists()){
+							System.out.print("Are you sure you want to replace the file phar with the current one? (This will create a copy)? <Y/N>: ");
+							String confirm = Utility.keyword.readLine();
+							
+							if(confirm.equalsIgnoreCase("y")){
+								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "SOFT");
+							}else{
+								Installator.installatorMenu();
+							}
+							
+						}else{
+							System.out.println("Phar file not found, before download it!");
+							Installator.installatorMenu();
+						}
+					}
+				}else{
+					System.err.println("ERROR! You don't select a path in the first start");
+					Installator.installatorMenu();
+				}
+			}
+			
+			if(ver.equals("5"))
+				Installator.installatorMenu();
 		}
+		
+		
 	
 	}
 }

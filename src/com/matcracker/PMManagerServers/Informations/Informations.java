@@ -3,8 +3,6 @@ package com.matcracker.PMManagerServers.Informations;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Informations {
@@ -26,7 +24,7 @@ public class Informations {
 	
 	
 	
-	public static void informationsMenu() throws IOException, URISyntaxException{
+	public static void informationsMenu() throws IOException{
 		final String gitlink = "https://github.com/matcracker/PocketMine-ManagerServers-Java";
 		final String twitterlink = "https://twitter.com/matcracker98";
 		
@@ -79,13 +77,13 @@ public class Informations {
 			String moreInfo = Utility.keyword.readLine();
 			
 			if(moreInfo.equalsIgnoreCase("1"))
-				Desktop.getDesktop().browse(new URL(gitlink).toURI());
+				Utility.openSoftware("url", gitlink);
 			
 			if(moreInfo.equalsIgnoreCase("2"))
-				Desktop.getDesktop().browse(new URL(twitterlink).toURI());
+				Utility.openSoftware("url", twitterlink);
 			
 			if(moreInfo.equalsIgnoreCase("3"))
-				Informations.informationsMenu();		
+				Informations.informationsMenu();
 		}
 		
 		if(info.equalsIgnoreCase("4")){

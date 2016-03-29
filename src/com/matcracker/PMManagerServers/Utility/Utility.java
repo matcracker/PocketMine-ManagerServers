@@ -1,5 +1,6 @@
 package com.matcracker.PMManagerServers.Utility;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,6 +9,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 import com.matcracker.PMManagerServers.Loaders.Loader;
 
@@ -163,6 +166,24 @@ public class Utility{
 			return data;
 	}
 	
+	public static void openSoftware(String type, String content){
+		try{
+			if(type.equalsIgnoreCase("url")){
+				Desktop.getDesktop().browse(new URL(content).toURI());
+				
+			}else if(type.equalsIgnoreCase("software")){
+				if(content.contains("/"))
+					content = content.replaceAll("/", File.separator);
+				
+				Desktop.getDesktop().open(new File(content));
+			}else{
+				System.err.println("Wrong type");
+			}
+		}catch(IOException | URISyntaxException e){
+			System.err.println("Error on opening software or URL");
+		}
+	}
+	
 	public static void deleteFolder(String folder, int index){
 		File dir = new File(folder);
 
@@ -180,7 +201,7 @@ public class Utility{
 		}
 	}
 	
-	public static void selection(int nservers, String[] nameServers){
+	public static void selection(int nservers, String[] nameServers, String[] path){
 		for(int i = 1; i <= nservers; i++){
 			defaultServersName = "Server_Minecraft_PE_" + i;
 			System.out.printf("%d) Name of %d° server?: ", i, i);
@@ -199,6 +220,11 @@ public class Utility{
 			}catch (IOException e){
 				e.printStackTrace();
 			}
+		}
+		
+		for(int i = 1; i <= nservers; i++){
+			System.out.printf("\n%d) Path of %d° server?: ", i, i);
+			path[i-1] = FileChooser.get("Select " + i + "° path of PocketMine-MP.phar");
 		}
 	}
 	

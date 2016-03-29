@@ -26,13 +26,8 @@ public class InstallatorAPI {
 	 * @param index from 0 to max number of server
 	 */
 	public static void setVersion(String version, int index){
-		if(!version.equalsIgnoreCase("Stable") || !version.equalsIgnoreCase("Beta") || !version.equalsIgnoreCase("Dev") || !version.equalsIgnoreCase("Soft")){
-			System.err.println("You can't set a version different from: Stable, Beta, Dev, Soft");
-			return;
-		}else{
-			index++;
-			Utility.writeStringData(new File("Installations" + File.separator + "Version" + File.separator + "Status_" + index + ".pm"), version);
-		}
+		index++;
+		Utility.writeStringData(new File("Installations" + File.separator + "Version" + File.separator + "Status_" + index + ".pm"), version);
 	}
 	
 	/**
@@ -49,13 +44,8 @@ public class InstallatorAPI {
 	 * @param index from 0 to max number of server
 	 */
 	public static void setStatus(String status, int index){
-		if(!status.equalsIgnoreCase("Downloaded") || !status.equalsIgnoreCase("Not downloaded") || !status.equalsIgnoreCase("Installed") || !status.equalsIgnoreCase("Not installed")){
-			System.err.println("You can't set a status different from: Downloaded, Not downloaded, Installed, Not installed");
-			return;
-		}else{
-			index++;
-			Utility.writeStringData(new File("Installations" + File.separator + "Status" + File.separator + "Status_" + index + ".pm"), status);
-		}
+		index++;
+		Utility.writeStringData(new File("Installations" + File.separator + "Status" + File.separator + "Status_" + index + ".pm"), status);
 	}
 	
 	/**

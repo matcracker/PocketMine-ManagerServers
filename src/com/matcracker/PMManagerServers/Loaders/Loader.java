@@ -3,6 +3,7 @@ package com.matcracker.PMManagerServers.Loaders;
 import java.io.File;
 import java.io.IOException;
 
+import com.matcracker.PMManagerServers.API.InstallatorAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
@@ -33,6 +34,7 @@ public class Loader {
 				"Installations",
 				"Installations" + File.separator + "Status",
 				"Installations" + File.separator + "Version",
+				"Installations" + File.separator + "Dowloads",
 				"Languages",
 				"Backups",
 				"Backups" + File.separator + "Status",
@@ -90,11 +92,6 @@ public class Loader {
 					System.out.println(Utility.inputError);
 				}
 				
-				/*if(nservers > 10){
-					System.out.println("ERROR! You have exceeded the maximum number of servers available. Please reduce the amount!");
-					Utility.keyword.readLine();
-					
-				}else */
 				if(nservers <= 0){
 					System.out.println("ERROR! You have to manage one or more server! (MAX TEN!!)");
 					Utility.keyword.readLine();
@@ -104,9 +101,7 @@ public class Loader {
 			UtilityServersAPI.setNumberServer(nservers);
 			
 		}
-		
-		//Utility.checking(/*UtilityServers.checkNameServer, UtilityServers.checkPath,*/ nservers);
-		
+			
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("-------------------------<Complete the informations>----------------------------");
@@ -114,13 +109,20 @@ public class Loader {
 		
 		if(nservers >= 1){
 			String[] nameServers = new String[nservers];
+			String[] path = new String[nservers];
 			if(UtilityServersAPI.checkServersFile("ServersName", "ServerName_", nservers - 1)){
 				return;
 			}else{
-				Utility.selection(nservers, nameServers);
+				Utility.selection(nservers, nameServers, path);
 
-				for(int i = 1; i <= nservers; i++)
+				for(int i = 1; i <= nservers; i++){
 					UtilityServersAPI.setNameServer(i - 1, nameServers[i-1]);
+					InstallatorAPI.setStatus("Not downloaded", i-1);
+					InstallatorAPI.setVersion("No version", i-1);
+					
+					UtilityServersAPI.setPath(i - 1, path[i-1]);
+				}
+				
 			}
 		}else{
 			System.out.println(Utility.generalError);

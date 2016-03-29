@@ -1,6 +1,9 @@
 package com.matcracker.PMManagerServers.Installer;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import com.matcracker.PMManagerServers.Utility.Utility;
 
@@ -42,7 +45,29 @@ public class ManagerInstaller {
 		
 	}
 	
-	public static void changeServerVersion(){
+	public static void changeInstallationsFile(String path, String version) throws IOException{
+		File newPhar = new File(path + File.separator + "PocketMine-MP.phar");
+		File oldPhar = new File(path + File.separator + "PocketMine-MP_OLD.phar");
 		
+		File pharToMove = new File("Utils" + File.separator + "PocketMine-MP_" + version + ".phar");
+		File pharDest = new File(path + File.separator + "PocketMine-MP_" + version + ".phar");
+		
+		if(newPhar.exists()){
+			if(oldPhar.exists()){
+				Files.delete(oldPhar.toPath());
+				Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				newPhar.renameTo(oldPhar);
+				pharDest.renameTo(newPhar);
+			}else{
+				newPhar.renameTo(oldPhar);
+				Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				pharDest.renameTo(newPhar);
+			}
+		}else{
+			Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			pharDest.renameTo(newPhar);
+		}
+	
+	
 	}
 }

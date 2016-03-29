@@ -75,7 +75,8 @@ public class UtilityServersAPI{
 	 * @return content of path
 	 */
 	public static String getPath(int index){
-		return Utility.readStringData(new File("Path" + File.separator + "Path_" + index + ".pm"));
+		index++;
+		return Utility.readStringData(new File("Path" + File.separator + "path_" + index + ".pm"));
 	}
 	
 	/**
@@ -85,7 +86,7 @@ public class UtilityServersAPI{
 	public static void setPath(int index, String path){
 		index++;
 		if(path != null)
-			Utility.writeStringData(new File("Path" + File.separator + "Path_" + index + ".pm"), path);
+			Utility.writeStringData(new File("Path" + File.separator + "path_" + index + ".pm"), path);
 		else
 			System.err.println("Path can't be null!");
 			

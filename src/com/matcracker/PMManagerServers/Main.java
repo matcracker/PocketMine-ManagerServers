@@ -35,7 +35,7 @@ public class Main{
 				System.out.println("========================<PocketMine Manager Servers>============================");
 				System.out.println("---------------------------------<Main menu>------------------------------------");
 				System.out.println("Developed by matcracker                                            Version: " + version);
-				System.out.println("1- Install PocketMine-MP");
+				System.out.println("1- Download/Install PocketMine-MP");
 				System.out.println("2- Manage Servers");
 				System.out.println("3- Options");
 				System.out.println("4- Informations");
