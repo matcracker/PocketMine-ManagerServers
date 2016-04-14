@@ -116,54 +116,49 @@ public class Utility{
 	}
 	
 	public static int readIntData(File file){
-			FileReader readerData = null;
-			int data = 0;
+		FileReader readerData = null;
+		String data = null;
+		
+		try{
+			readerData = new FileReader(file);
+		}catch (FileNotFoundException e1) {
+			System.err.println("File not found!");
+		}
+		BufferedReader buffer = new BufferedReader(readerData);
+	    
+
+		try{
+			data = buffer.readLine();
+			if(readerData != null)
+				readerData.close();
+		}catch(IOException e){
+			System.err.println("Error on closing reader!");
+		}
 			
-			try{
-				readerData = new FileReader(file);
-			}catch (FileNotFoundException e1) {
-				System.err.println("File not found!");
-			}		
-		    
-		    try{
-		        readerData = new FileReader(file);
-		        char[] chars = new char[(int) file.length()];
-		        data = readerData.read(chars);
-		    }catch (IOException e){
-		    	System.err.println("Error on reading data!");
-			}
-		    
-	        if(readerData !=null){
-				try{
-					readerData.close();
-				}catch (IOException e){
-					System.err.println("Error on closing reader!");
-				}
-	        }
-			return data;
+		return Integer.parseInt(data);
 	}
 	
 	public static String readStringData(File file){
-			FileReader readerData = null;
-			String data = null;
-			
-			try{
-				readerData = new FileReader(file);
-			}catch (FileNotFoundException e1) {
-				System.err.println("File not found!");
-			}
-			BufferedReader buffer = new BufferedReader(readerData);
-		    
+		FileReader readerData = null;
+		String data = null;
+		
+		try{
+			readerData = new FileReader(file);
+		}catch (FileNotFoundException e1) {
+			System.err.println("File not found!");
+		}
+		BufferedReader buffer = new BufferedReader(readerData);
+	    
 
-			try{
-				data = buffer.readLine();
-				if(readerData != null)
-					readerData.close();
-			}catch(IOException e){
-				System.err.println("Error on closing reader!");
-			}
-				
-			return data;
+		try{
+			data = buffer.readLine();
+			if(readerData != null)
+				readerData.close();
+		}catch(IOException e){
+			System.err.println("Error on closing reader!");
+		}
+			
+		return data;
 	}
 	
 	public static void openSoftware(String type, String content){
