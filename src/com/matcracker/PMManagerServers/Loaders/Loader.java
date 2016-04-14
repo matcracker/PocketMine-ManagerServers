@@ -34,7 +34,6 @@ public class Loader {
 				"Installations",
 				"Installations" + File.separator + "Status",
 				"Installations" + File.separator + "Version",
-				"Installations" + File.separator + "Dowloads",
 				"Languages",
 				"Backups",
 				"Backups" + File.separator + "Status",
@@ -45,7 +44,7 @@ public class Loader {
 		File dirMaker;
 				
 		boolean[] firstStart = new boolean[dirsName.length];
-				
+		
 		for(int i = 0; i < dirsName.length; i++){
 			firstStart[i] = false;
 			dirMaker = new File(dirsName[i]);
@@ -59,16 +58,21 @@ public class Loader {
 			return;
 		}else{
 			System.out.println("Preparing the first start...");
-			Thread.sleep(1500);
-			
+			Thread.sleep(500);
+
 			for(int i = 1; i < dirsName.length; i++){
 				dirMaker = new File(dirsName[i]);
 				dirMaker.mkdir();
 			}
-
-			for(int i = 0; i <= 100; i++)
-				System.out.println("Loading resource " + i + "%");	
 			
+			System.out.print("[");
+			for(int i = 0; i <= 77; i++){
+				System.out.print("=");
+				Thread.sleep(150);
+			}
+			System.out.print("]");
+			
+			Thread.sleep(1000);
 			completeLoader();
 		}
 	}

@@ -65,7 +65,6 @@ public class Downloader {
 					if(installer.exists()){
 						System.err.println("You have already downloaded this installer!");
 						Utility.keyword.readLine();
-						Downloader.downloaderMenu();
 						
 					}else{
 						System.out.println("Starting download installer...");
@@ -73,7 +72,6 @@ public class Downloader {
 						System.out.println("Installer downloaded! Press ENTER to continue.");
 						InstallatorAPI.setStatus("Downloaded", Integer.valueOf(sel) - 1);
 						Utility.keyword.readLine();
-						Downloader.downloaderMenu();
 					}
 				}
 			}
@@ -91,19 +89,17 @@ public class Downloader {
 						if(beta.exists()){
 							System.err.println("You have already downloaded this file!");
 							Utility.keyword.readLine();
-							Downloader.downloaderMenu();
 							
 						}else{
 							System.out.println("Starting download phar file...!");
 							Utility.openSoftware("url", linkbeta);
 							System.out.println("Phar file downloaded! Press ENTER to continue.");
 							Utility.keyword.readLine();
-							Downloader.downloaderMenu();
 						}
 					}
 				}else{
 					System.err.println("ERROR! You don't select a path in the first start");
-					Downloader.downloaderMenu();
+					Utility.keyword.readLine();
 				}
 			}
 			
@@ -120,19 +116,17 @@ public class Downloader {
 						if(dev.exists()){
 							System.err.println("You have already downloaded this file!");
 							Utility.keyword.readLine();
-							Downloader.downloaderMenu();
 							
 						}else{
 							System.out.println("Starting download phar file...!");
 							Utility.openSoftware("url", linkdev);
 							System.out.println("Phar file downloaded! Press ENTER to continue.");
 							Utility.keyword.readLine();
-							Downloader.downloaderMenu();
 						}
 					}
 				}else{
 					System.err.println("ERROR! You don't select a path in the first start");
-					Installator.installatorMenu();
+					Utility.keyword.readLine();
 				}
 			}
 			
@@ -149,24 +143,24 @@ public class Downloader {
 						if(soft.exists()){
 							System.err.println("You have already downloaded this file!");
 							Utility.keyword.readLine();
-							Downloader.downloaderMenu();
 							
 						}else{
 							System.out.println("Starting download phar file...!");
 							Utility.openSoftware("url", linksoft);
 							System.out.println("Phar file downloaded! Press ENTER to continue.");
 							Utility.keyword.readLine();
-							Downloader.downloaderMenu();
 						}
 					}
 				}else{
 					System.err.println("ERROR! You don't select a path in the first start");
-					Installator.installatorMenu();
+					Utility.keyword.readLine();
 				}
 			}
 			
 			if(ver.equalsIgnoreCase("5"))
-				Downloader.downloaderMenu();
+				downloaderMenu();
+			
+			downloaderMenu();
 		
 		}
 	}

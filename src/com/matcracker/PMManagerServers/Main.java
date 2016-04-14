@@ -3,6 +3,7 @@ package com.matcracker.PMManagerServers;
 import com.matcracker.PMManagerServers.Informations.Informations;
 import com.matcracker.PMManagerServers.Installer.ManagerInstaller;
 import com.matcracker.PMManagerServers.Loaders.Loader;
+import com.matcracker.PMManagerServers.Manager.Manager;
 import com.matcracker.PMManagerServers.Settings.Settings;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
@@ -46,9 +47,8 @@ public class Main{
 				if(menu.equalsIgnoreCase("1"))
 					ManagerInstaller.managerInstallerMenu();
 					
-				if(menu.equalsIgnoreCase("2")){
-
-				}
+				if(menu.equalsIgnoreCase("2"))
+					Manager.managerMenu();
 
 				if(menu.equalsIgnoreCase("3"))
 					Settings.settingsMenu();

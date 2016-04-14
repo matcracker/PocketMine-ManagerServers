@@ -63,6 +63,11 @@ public class Resetter{
 	
 	}
 	
+	private static void resetAllData() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public static void resetProgram() throws IOException{
 		String confirm = null;
 		//File dirDeleter;
@@ -93,9 +98,5 @@ public class Resetter{
 		Utility.cleanScreen();
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("-------------------------------<Reset Program>----------------------------------");
-	}
-	
-	public static void resetAllData(){
-		
 	}
 }

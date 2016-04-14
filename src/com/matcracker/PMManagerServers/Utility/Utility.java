@@ -220,8 +220,7 @@ public class Utility{
 			}catch (IOException e){
 				e.printStackTrace();
 			}
-		}
-		
+		}		
 		for(int i = 1; i <= nservers; i++){
 			System.out.printf("\n%d) Path of %d° server?: ", i, i);
 			path[i-1] = FileChooser.get("Select " + i + "° path of PocketMine-MP.phar");

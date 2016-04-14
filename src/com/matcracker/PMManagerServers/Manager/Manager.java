@@ -1,5 +1,9 @@
 package com.matcracker.PMManagerServers.Manager;
 
+import java.io.IOException;
+
+import com.matcracker.PMManagerServers.Utility.Utility;
+
 public class Manager {
   /** _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
@@ -17,7 +21,24 @@ public class Manager {
 	*(at your option) any later version.
 	*/
 	
-	public static void managerMenu(){
+	public static void managerMenu() throws IOException{
+		Utility.cleanScreen();
+		System.out.println("========================<PocketMine Manager Servers>============================");
+		System.out.println("-------------------------------<Manage Servers>---------------------------------");
+		System.out.println("1- Open [Server/Folder]");
+		System.out.println("2- Edit server performance");
+		System.out.println("3- Backup/Restore servers");
+		System.out.println("4- Back");
+		System.out.print("\nSelect option: ");
+		String option = Utility.keyword.readLine();
+		
+		if(option.equalsIgnoreCase("1"))
+			Opener.openerMenu();
+				
+		if(option.equalsIgnoreCase("4"))
+			return;
+		
+		Manager.managerMenu();
 		
 	}
 }

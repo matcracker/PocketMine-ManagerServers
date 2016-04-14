@@ -61,11 +61,10 @@ public class Installator {
 						Utility.openSoftware("software", String.valueOf(installer));
 						InstallatorAPI.setVersion("Stable", Integer.valueOf(sel) - 1);
 						InstallatorAPI.setStatus("Installed", Integer.valueOf(sel) - 1);
-						Installator.installatorMenu();
 					}else{
 						System.err.println("Installer not found! Please download the installer!");
 						Utility.keyword.readLine();
-						Installator.installatorMenu();
+						installatorMenu();
 					}
 				}
 			}
@@ -87,12 +86,13 @@ public class Installator {
 							if(confirm.equalsIgnoreCase("y")){
 								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "BETA");
 							}else{
-								Installator.installatorMenu();
+								installatorMenu();
 							}
 							
 						}else{
 							System.out.println("Phar file not found, before download it!");
-							Installator.installatorMenu();
+							Utility.keyword.readLine();
+							installatorMenu();
 						}
 					}
 				}else{
@@ -118,17 +118,18 @@ public class Installator {
 							if(confirm.equalsIgnoreCase("y")){
 								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "DEV");
 							}else{
-								Installator.installatorMenu();
+								installatorMenu();
 							}
 							
 						}else{
 							System.out.println("Phar file not found, before download it!");
-							Installator.installatorMenu();
+							Utility.keyword.readLine();
+							installatorMenu();
 						}
 					}
 				}else{
 					System.err.println("ERROR! You don't select a path in the first start");
-					Installator.installatorMenu();
+					Utility.keyword.readLine();
 				}
 			}
 			
@@ -149,22 +150,25 @@ public class Installator {
 							if(confirm.equalsIgnoreCase("y")){
 								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "SOFT");
 							}else{
-								Installator.installatorMenu();
+								installatorMenu();
 							}
 							
 						}else{
 							System.out.println("Phar file not found, before download it!");
-							Installator.installatorMenu();
+							Utility.keyword.readLine();
+							installatorMenu();
 						}
 					}
 				}else{
 					System.err.println("ERROR! You don't select a path in the first start");
-					Installator.installatorMenu();
+					Utility.keyword.readLine();
 				}
 			}
 			
 			if(ver.equals("5"))
-				Installator.installatorMenu();
+				installatorMenu();
+			
+			installatorMenu();
 		}
 		
 		
