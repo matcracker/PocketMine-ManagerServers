@@ -22,8 +22,6 @@ public class Informations {
 	*(at your option) any later version. 
 	*/
 	
-	
-	
 	public static void informationsMenu() throws IOException{
 		final String gitlink = "https://github.com/matcracker/PocketMine-ManagerServers-Java";
 		final String twitterlink = "https://twitter.com/matcracker98";

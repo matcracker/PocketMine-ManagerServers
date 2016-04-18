@@ -45,7 +45,7 @@ public class ManagerInstaller {
 		
 	}
 	
-	public static void changeInstallationsFile(String path, String version) throws IOException{
+	protected static void changeInstallationsFile(String path, String version) throws IOException{
 		File newPhar = new File(path + File.separator + "PocketMine-MP.phar");
 		File oldPhar = new File(path + File.separator + "PocketMine-MP_OLD.phar");
 		

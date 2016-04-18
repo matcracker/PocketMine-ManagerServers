@@ -24,7 +24,7 @@ public class Loader {
 	*(at your option) any later version.
 	*/
 		
-	public static void startLoader() throws InterruptedException, IOException{
+	public static void startLoader(){
 		String[] dirsName = {
 				"Data",
 				"ServersName",
@@ -57,23 +57,29 @@ public class Loader {
 		if(!firstStart[(int)(Math.random() * dirsName.length)] && checkLicense.exists()){
 			return;
 		}else{
-			System.out.println("Preparing the first start...");
-			Thread.sleep(500);
-
-			for(int i = 1; i < dirsName.length; i++){
-				dirMaker = new File(dirsName[i]);
-				dirMaker.mkdir();
+			try{
+				System.out.println("Preparing the first start...");
+				
+				Thread.sleep(500);
+	
+				for(int i = 1; i < dirsName.length; i++){
+					dirMaker = new File(dirsName[i]);
+					dirMaker.mkdir();
+				}
+				
+				System.out.print("[");
+				for(int i = 0; i <= 77; i++){
+					System.out.print("=");
+					Thread.sleep(150);
+				}
+				System.out.print("]");
+				
+				Thread.sleep(1000);
+				completeLoader();
+				
+			}catch (InterruptedException | IOException e) {
+				System.err.println(Utility.generalError);
 			}
-			
-			System.out.print("[");
-			for(int i = 0; i <= 77; i++){
-				System.out.print("=");
-				Thread.sleep(150);
-			}
-			System.out.print("]");
-			
-			Thread.sleep(1000);
-			completeLoader();
 		}
 	}
 				

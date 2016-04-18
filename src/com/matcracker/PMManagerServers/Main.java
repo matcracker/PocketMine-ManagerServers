@@ -6,8 +6,9 @@ import com.matcracker.PMManagerServers.Loaders.Loader;
 import com.matcracker.PMManagerServers.Manager.Manager;
 import com.matcracker.PMManagerServers.Settings.Settings;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
-public class Main{
+class Main{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
@@ -24,7 +25,7 @@ public class Main{
 	*(at your option) any later version.
 	*/
 		
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args){
 		String menu = "", quit = "n";
 		String version = "0.1J";
 						
@@ -33,6 +34,7 @@ public class Main{
 		try{
 			while(quit.equalsIgnoreCase("n")){
 				Utility.cleanScreen();
+				System.out.println(UtilityColor.format("&1Hello &4worlds!&kare"));
 				System.out.println("========================<PocketMine Manager Servers>============================");
 				System.out.println("---------------------------------<Main menu>------------------------------------");
 				System.out.println("Developed by matcracker                                            Version: " + version);
