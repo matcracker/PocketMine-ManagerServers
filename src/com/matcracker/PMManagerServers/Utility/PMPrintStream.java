@@ -1,0 +1,15 @@
+package com.matcracker.PMManagerServers.Utility;
+
+import java.io.OutputStream;
+import java.io.PrintStream;
+
+public class PMPrintStream extends PrintStream{
+	public PMPrintStream(final OutputStream outputStream) {
+        super(outputStream);
+    }
+ 
+    @Override
+    public void println(final String string) {
+        super.println(UtilityColor.format(string, false));
+    }
+}

@@ -5,6 +5,7 @@ import com.matcracker.PMManagerServers.Installer.ManagerInstaller;
 import com.matcracker.PMManagerServers.Loaders.Loader;
 import com.matcracker.PMManagerServers.Manager.Manager;
 import com.matcracker.PMManagerServers.Settings.Settings;
+import com.matcracker.PMManagerServers.Utility.PMPrintStream;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 class Main{
@@ -27,13 +28,13 @@ class Main{
 	public static void main(String[] args){
 		String menu = "", quit = "n";
 		String version = "0.1J";
-						
+		
+		System.setOut(new PMPrintStream(System.out));			
 		Loader.startLoader();
-				
+		
 		try{
 			while(quit.equalsIgnoreCase("n")){
 				Utility.cleanScreen();
-				//System.out.println(UtilityColor.format("&1C&2o&3l&4o&5r&6s &9C&ar&be&ca&dt&ei&fo&1n&2s"));
 				System.out.println("========================<PocketMine Manager Servers>============================");
 				System.out.println("---------------------------------<Main menu>------------------------------------");
 				System.out.println("Developed by matcracker                                            Version: " + version);
@@ -43,8 +44,9 @@ class Main{
 				System.out.println("4- Informations");
 				System.out.println("5- Exit\n");
 				System.out.print("What would you like to do? ");
+				
 				menu = Utility.keyword.readLine();
-	
+				
 				if(menu.equalsIgnoreCase("1"))
 					ManagerInstaller.managerInstallerMenu();
 					

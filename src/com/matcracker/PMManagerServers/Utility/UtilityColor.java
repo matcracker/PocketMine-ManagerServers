@@ -43,12 +43,13 @@ public class UtilityColor{
 	public static final String BACKGROUND_WHITE = "\u001B[107m";
 	public final static String FORMAT_OBFUSCATED = ubfuscated();
 	
-	public static String format(String content){
-		String phrase = null;
-		phrase = colorTranslator(content + "&r");
+	protected static String format(String content, boolean debug){
+		String phrase = content;
+		if(!debug) //Is useful for me during the debug tests
+			phrase = colorTranslator(content + "&f");
 		return phrase;
 	}
-
+		
 	private static String colorTranslator(String phrase){
 		phrase = phrase.replaceAll("&0", COLOR_BLACK);
 		phrase = phrase.replaceAll("&1", COLOR_DARK_BLUE);
