@@ -25,7 +25,6 @@ public class BaseLang {
 	*/
 		
 	/**
-	 * 
 	 * @param param -> the translation (pm.words)
 	 * @return
 	 * @throws IOException 
@@ -36,18 +35,10 @@ public class BaseLang {
 		return param;
 	}
 	
-	public static String getStringKey(String fileName, String key){
-		try{
-			Properties props = new Properties();
-			props.load(new FileInputStream("Languages" + File.separator + fileName + ".ini"));
-			return props.getProperty(key);
-			 
-		}catch(IOException ex){
-			return key;
-		}
-		
-	}
-	
+
+	/**
+	 * @param lang Can be a number or ISO 639-1
+	 */
 	public static void setLanguage(String lang){
 		switch(lang){
 			case "en":
@@ -65,7 +56,22 @@ public class BaseLang {
 		Utility.writeStringData(new File("Data" + File.separator + "langSel.pm"), lang);
 	}
 	
+	/**
+	 * @return language ISO 639-1
+	 */
 	public static String getLanguage(){
 		return Utility.readStringData(new File("Data" + File.separator + "langSel.pm")).toLowerCase();
+	}
+	
+	private static String getStringKey(String fileName, String key){
+		try{
+			Properties props = new Properties();
+			props.load(new FileInputStream("Languages" + File.separator + fileName + ".ini"));
+			return props.getProperty(key);
+			 
+		}catch(IOException ex){
+			return key;
+		}
+		
 	}
 }

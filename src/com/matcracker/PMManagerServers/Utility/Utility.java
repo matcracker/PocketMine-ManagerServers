@@ -32,7 +32,7 @@ public class Utility{
 	*/
 	
 	public static final String version = "0.1J";
-		
+	public static final String softwareName = "&a========================&e<&bPocketMine Manager Servers&e>&a============================";
 	public static String defaultServersName = "Server_Minecraft_PE";
 	
 	public static InputStreamReader input = new InputStreamReader(System.in);
@@ -41,15 +41,14 @@ public class Utility{
 	/**
 	 * Errors costants
 	 */	
-	public static final String inputError =  "&cError during the chooise!";
-	public static final String generalError =  "&cAn error occured!";
+	public static final String inputError =  "&cAn error occured!"/*BaseLang.translate("pm.errors.input")*/;
+	public static final String generalError =  "&cAn error occured!"/*BaseLang.translate("pm.errors.general")*/;
 	
 	public static void cleanScreen(){
 		try {
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
 		} catch (InterruptedException | IOException e) {
 			System.out.println("Error during the console cleaning.");
-			
 		}
 
 	}
@@ -139,7 +138,6 @@ public class Utility{
 		}
 		BufferedReader buffer = new BufferedReader(readerData);
 	    
-
 		try{
 			data = buffer.readLine();
 			if(readerData != null)

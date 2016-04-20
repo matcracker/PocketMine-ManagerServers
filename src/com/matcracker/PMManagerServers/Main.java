@@ -38,7 +38,7 @@ class Main{
 		try{
 			while(quit.equalsIgnoreCase("n")){
 				Utility.cleanScreen();
-				System.out.println(BaseLang.translate("pm.title.main"));
+				System.out.println(Utility.softwareName);
 				System.out.println(BaseLang.translate("pm.title.mainMenu"));
 				System.out.println("&eDeveloped by matcracker                                            Version: " + version);
 				System.out.println("&f1- " + BaseLang.translate("pm.mainMenu.download-install"));
@@ -63,16 +63,13 @@ class Main{
 				
 				if(menu.equalsIgnoreCase("5")){
 					Utility.cleanScreen();
-					System.out.println("========================<PocketMine Manager Servers>============================");
-					System.out.println("=====================================<Exit>=====================================");
-					System.out.print("Are you sure you want to quit? <y/n>: ");
+					System.out.println(Utility.softwareName);
+					System.out.println(BaseLang.translate("pm.title.exit"));
+					System.out.print(BaseLang.translate("pm.chooise.exit") + " <y/n>: ");
 					quit = Utility.keyword.readLine();
 					
 					if(quit.equalsIgnoreCase("y"))
 						System.exit(0);
-					else
-						quit = "n";
-					
 				}
 			}
 		}catch(Exception e){

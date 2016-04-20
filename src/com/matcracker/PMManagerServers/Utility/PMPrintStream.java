@@ -17,4 +17,8 @@ public class PMPrintStream extends PrintStream{
     public void print(final String string) {
         super.print(UtilityColor.format(string, false));
     }
+    
+    public void printf(final String string) {
+        super.printf(UtilityColor.format(string, false));
+    }
 }

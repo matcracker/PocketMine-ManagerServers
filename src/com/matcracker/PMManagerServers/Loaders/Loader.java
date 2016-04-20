@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import com.matcracker.PMManagerServers.API.InstallatorAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
+import com.matcracker.PMManagerServers.Languages.BaseLang;
+import com.matcracker.PMManagerServers.Languages.LangSelector;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Loader {
@@ -58,7 +60,7 @@ public class Loader {
 			return;
 		}else{
 			try{
-				System.out.println("Preparing the first start...");
+				System.out.println("&fPreparing the first start...");
 				
 				Thread.sleep(500);
 	
@@ -67,7 +69,7 @@ public class Loader {
 					dirMaker.mkdir();
 				}
 				
-				System.out.print("[");
+				System.out.print("&3[");
 				for(int i = 0; i <= 77; i++){
 					System.out.print("=");
 					Thread.sleep(150);
@@ -78,22 +80,23 @@ public class Loader {
 				completeLoader();
 				
 			}catch (InterruptedException | IOException e) {
-				System.err.println(Utility.generalError);
+				System.err.println("&cAn error occured!");
 			}
 		}
 	}
 				
 	public static void completeLoader() throws IOException{
 		int nservers = 0;
-		if(UtilityServersAPI.checkServersFile("Data", "nservers", -1)){
+		if(UtilityServersAPI.checkServersFile("Data", "nservers", -1) && UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
 			nservers = Utility.readIntData(new File("Data" + File.separator + "nservers.pm"));
 			return;
-		}else{
+		}else{	
 			do{
+				LangSelector.langMenu();
 				Utility.cleanScreen();
-				System.out.println("========================<PocketMine Manager Servers>============================");
-				System.out.println("-------------------------<Complete the informations>----------------------------");
-				System.out.print("How many servers do you want to manage? <1/2/3/...> : ");
+				System.out.println(Utility.softwareName);
+				System.out.println(BaseLang.translate("pm.title.completeLoad"));
+				System.out.print(BaseLang.translate("pm.chooise.servers") + " <1/2/3/...> : ");
 				
 				try{
 					nservers = Integer.valueOf(Utility.keyword.readLine());
@@ -103,7 +106,7 @@ public class Loader {
 				}
 				
 				if(nservers <= 0){
-					System.out.println("ERROR! You have to manage one or more server! (MAX TEN!!)");
+					System.out.println(BaseLang.translate("pm.errors.fewServers"));
 					Utility.keyword.readLine();
 				}
 			}while(nservers <= 0);
@@ -113,9 +116,9 @@ public class Loader {
 		}
 			
 		Utility.cleanScreen();
-		System.out.println("========================<PocketMine Manager Servers>============================");
-		System.out.println("-------------------------<Complete the informations>----------------------------");
-		System.out.printf("If you do not enter a name for your server , by default it will be '%s'\n", Utility.defaultServersName);
+		System.out.println(Utility.softwareName);
+		System.out.println(BaseLang.translate("pm.title.completeLoad"));
+		System.out.printf(BaseLang.translate("pm.loader.caution") + " '%s'\n", Utility.defaultServersName);
 		
 		if(nservers >= 1){
 			String[] nameServers = new String[nservers];
@@ -127,8 +130,8 @@ public class Loader {
 
 				for(int i = 1; i <= nservers; i++){
 					UtilityServersAPI.setNameServer(i - 1, nameServers[i-1]);
-					InstallatorAPI.setStatus("Not downloaded", i-1);
-					InstallatorAPI.setVersion("No version", i-1);
+					InstallatorAPI.setStatus(BaseLang.translate("pm.status.noDownload"), i-1);
+					InstallatorAPI.setVersion(BaseLang.translate("pm.status.noVersion"), i-1);
 					
 					UtilityServersAPI.setPath(i - 1, path[i-1]);
 				}
@@ -138,7 +141,7 @@ public class Loader {
 			System.out.println(Utility.generalError);
 		}
 		
-		System.out.println("Complete! Press ENTER to continue.");
+		System.out.println(BaseLang.translate("pm.loader.complete"));
 		Utility.keyword.readLine();
 
 	}

@@ -1,5 +1,7 @@
 package com.matcracker.PMManagerServers.Languages;
 
+import java.io.IOException;
+
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class LangSelector {
@@ -19,10 +21,29 @@ public class LangSelector {
 	*(at your option) any later version.
 	*/
 		
-	public static void langMenu(){
+	public static void langMenu() throws IOException{
 		Utility.cleanScreen();
-		System.out.println("========================<PocketMine Manager Servers>============================");
-		System.out.println("----------------------------<Selection Languages>-------------------------------");
+		System.out.println(Utility.softwareName);
+		System.out.println("&c----------------------------<Selection Languages>-------------------------------&f");
+		System.out.println("1) Afrikaans\t\t\t16) Italian");
+		System.out.println("2) Arabic\t\t\t17) Japanese");
+		System.out.println("3) Catalan\t\t\t18) Korean");
+		System.out.println("4) Chinese Simplified\t\t19) Norwegian");
+		System.out.println("5) Chinese Traditional\t\t20) Polish");
+		System.out.println("6) Czech\t\t\t21) Portuguese");
+		System.out.println("7) Danish\t\t\t22) Portuguese, Brazilian");
+		System.out.println("8) Dutch\t\t\t23) Romanian");
+		System.out.println("9) English\t\t\t24) Russian");
+		System.out.println("10) Finnish\t\t\t25) Serbian(Cyrillic)");
+		System.out.println("11) French\t\t\t26) Spanish");
+		System.out.println("12) German\t\t\t27) Swedish");
+		System.out.println("13) Greek\t\t\t28) Turkish");
+		System.out.println("14) Hebrew\t\t\t29) Ukrainian");
+		System.out.println("15) Hungarian\t\t\t30) Vietnamese");
 		System.out.println();
+		System.out.print("Choose language: ");
+		String lang = Utility.keyword.readLine();
+		
+		BaseLang.setLanguage(lang);
 	}
 }
