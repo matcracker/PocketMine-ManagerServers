@@ -2,6 +2,7 @@ package com.matcracker.PMManagerServers.Languages;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -64,11 +65,18 @@ public class BaseLang {
 	}
 	
 	private static String getStringKey(String fileName, String key){
+		FileInputStream fis = null;
+		try{
+			fis = new FileInputStream("Languages" + File.separator + fileName + ".ini");
+		}catch (FileNotFoundException e){
+			return key;
+		}
 		try{
 			Properties props = new Properties();
-			props.load(new FileInputStream("Languages" + File.separator + fileName + ".ini"));
+			props.load(fis);
+			if(props.getProperty(key) != null)
+				fis.close();
 			return props.getProperty(key);
-			 
 		}catch(IOException ex){
 			return key;
 		}

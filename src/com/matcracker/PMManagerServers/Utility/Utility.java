@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import com.matcracker.PMManagerServers.Loaders.Loader;
 
 public class Utility{
@@ -41,8 +40,8 @@ public class Utility{
 	/**
 	 * Errors costants
 	 */	
-	public static final String inputError =  "&cAn error occured!"/*BaseLang.translate("pm.errors.input")*/;
-	public static final String generalError =  "&cAn error occured!"/*BaseLang.translate("pm.errors.general")*/;
+	public static final String inputError = "&cError during the chooise!";
+	public static final String generalError =  "&cAn error occured!";
 	
 	public static void cleanScreen(){
 		try {
@@ -187,7 +186,7 @@ public class Utility{
 	public static void selection(int nservers, String[] nameServers, String[] path){
 		for(int i = 1; i <= nservers; i++){
 			defaultServersName = "Server_Minecraft_PE_" + i;
-			System.out.printf("%d) Name of %d° server?: ", i, i);
+			System.out.printf("%d) Name of %d° server: ", i, i);
 			
 			try{
 				nameServers[i-1] = keyword.readLine();

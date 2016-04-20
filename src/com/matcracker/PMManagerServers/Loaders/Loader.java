@@ -56,7 +56,7 @@ public class Loader {
 			}
 		}
 		
-		if(!firstStart[(int)(Math.random() * dirsName.length)] && checkLicense.exists()){
+		if(!firstStart[(int)(Math.random() * dirsName.length)] && checkLicense.exists() && UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
 			return;
 		}else{
 			try{
@@ -80,7 +80,7 @@ public class Loader {
 				completeLoader();
 				
 			}catch (InterruptedException | IOException e) {
-				System.err.println("&cAn error occured!");
+				System.err.println(Utility.generalError);
 			}
 		}
 	}

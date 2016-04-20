@@ -45,7 +45,7 @@ public class UtilityColor{
 	
 	protected static String format(String content, boolean debug){
 		String phrase = content;
-		if(!debug) //Is useful for me during the debug tests
+		if(!debug)
 			phrase = colorTranslator(content);
 		return phrase;
 	}
