@@ -2,6 +2,7 @@ package com.matcracker.PMManagerServers;
 
 import com.matcracker.PMManagerServers.Informations.Informations;
 import com.matcracker.PMManagerServers.Installer.ManagerInstaller;
+import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Loaders.Loader;
 import com.matcracker.PMManagerServers.Manager.Manager;
 import com.matcracker.PMManagerServers.Settings.Settings;
@@ -29,22 +30,23 @@ class Main{
 		String menu = "", quit = "n";
 		String version = "0.1J";
 		
-		System.setOut(new PMPrintStream(System.out));			
+		System.setOut(new PMPrintStream(System.out));
+		System.setErr(new PMPrintStream(System.out));
+		
 		Loader.startLoader();
 		
 		try{
 			while(quit.equalsIgnoreCase("n")){
 				Utility.cleanScreen();
-				System.out.println("========================<PocketMine Manager Servers>============================");
-				System.out.println("---------------------------------<Main menu>------------------------------------");
-				System.out.println("Developed by matcracker                                            Version: " + version);
-				System.out.println("1- Download/Install PocketMine-MP");
-				System.out.println("2- Manage Servers");
-				System.out.println("3- Options");
-				System.out.println("4- Informations");
-				System.out.println("5- Exit\n");
-				System.out.print("What would you like to do? ");
-				
+				System.out.println(BaseLang.translate("pm.title.main"));
+				System.out.println(BaseLang.translate("pm.title.mainMenu"));
+				System.out.println("&eDeveloped by matcracker                                            Version: " + version);
+				System.out.println("&f1- " + BaseLang.translate("pm.mainMenu.download-install"));
+				System.out.println("2- " + BaseLang.translate("pm.mainMenu.manager"));
+				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
+				System.out.println("4- " + BaseLang.translate("pm.mainMenu.informations"));
+				System.out.println("5- " + BaseLang.translate("pm.mainMenu.exit") + "\n");
+				System.out.print(BaseLang.translate("pm.chooise.mainMenu")+ " ");
 				menu = Utility.keyword.readLine();
 				
 				if(menu.equalsIgnoreCase("1"))

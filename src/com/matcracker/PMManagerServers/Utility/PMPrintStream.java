@@ -12,4 +12,9 @@ public class PMPrintStream extends PrintStream{
     public void println(final String string) {
         super.println(UtilityColor.format(string, false));
     }
+    
+    @Override
+    public void print(final String string) {
+        super.print(UtilityColor.format(string, false));
+    }
 }

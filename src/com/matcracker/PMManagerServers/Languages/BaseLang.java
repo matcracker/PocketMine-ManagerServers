@@ -2,7 +2,6 @@ package com.matcracker.PMManagerServers.Languages;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -31,22 +30,22 @@ public class BaseLang {
 	 * @return
 	 * @throws IOException 
 	 */
-	public static String translate(String param) throws IOException{
-		param = param.replaceAll(param, getKeyString(getLanguage(), param));
+	public static String translate(String param){
+		param = param.replaceAll(param, getStringKey(getLanguage(), param));
 		
 		return param;
 	}
 	
-	public static String getKeyString(String fileName, String key) throws FileNotFoundException, IOException{
+	public static String getStringKey(String fileName, String key){
 		try{
 			Properties props = new Properties();
 			props.load(new FileInputStream("Languages" + File.separator + fileName + ".ini"));
 			return props.getProperty(key);
 			 
-		}catch (Exception ex){
-			ex.printStackTrace();
+		}catch(IOException ex){
+			return key;
 		}
-		return null;
+		
 	}
 	
 	public static void setLanguage(String lang){

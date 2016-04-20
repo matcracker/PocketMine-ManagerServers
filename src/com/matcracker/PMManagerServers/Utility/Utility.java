@@ -41,8 +41,8 @@ public class Utility{
 	/**
 	 * Errors costants
 	 */	
-	public static final String inputError =  "Error during the chooise!";
-	public static final String generalError =  "An error occured!";
+	public static final String inputError =  "&cError during the chooise!";
+	public static final String generalError =  "&cAn error occured!";
 	
 	public static void cleanScreen(){
 		try {
