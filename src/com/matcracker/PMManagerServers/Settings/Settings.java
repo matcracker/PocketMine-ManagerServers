@@ -2,6 +2,7 @@ package com.matcracker.PMManagerServers.Settings;
 
 import java.io.IOException;
 
+import com.matcracker.PMManagerServers.Languages.LangSelector;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Settings{
@@ -36,7 +37,7 @@ public class Settings{
 		String options = Utility.keyword.readLine();
 		
 		if(options.equalsIgnoreCase("1"))
-			System.out.println("Work in progress...");
+			LangSelector.langMenu();
 		
 		if(options.equalsIgnoreCase("2"))
 			System.out.println("Work in progress");

@@ -107,7 +107,7 @@ public class UtilityServersAPI{
 			file = new File(folder + File.separator + name + index + ".pm");
 		}
 		
-		if(file.exists() && file.exists())
+		if(file.exists())
 			return true;
 		else
 			return false;

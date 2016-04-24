@@ -46,7 +46,7 @@ class Main{
 				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
 				System.out.println("4- " + BaseLang.translate("pm.mainMenu.informations"));
 				System.out.println("5- " + BaseLang.translate("pm.mainMenu.exit") + "\n");
-				System.out.print(BaseLang.translate("pm.chooise.mainMenu")+ " ");
+				System.out.print(BaseLang.translate("pm.chooise.ask")+ " ");
 				menu = Utility.keyword.readLine();
 				
 				if(menu.equalsIgnoreCase("1"))

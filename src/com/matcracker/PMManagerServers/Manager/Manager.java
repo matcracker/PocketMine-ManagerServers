@@ -23,7 +23,7 @@ public class Manager {
 	
 	public static void managerMenu() throws IOException{
 		Utility.cleanScreen();
-		System.out.println("========================<PocketMine Manager Servers>============================");
+		System.out.println(Utility.softwareName);
 		System.out.println("-------------------------------<Manage Servers>---------------------------------");
 		System.out.println("1- Open [Server/Folder]");
 		System.out.println("2- Edit server performance");
@@ -38,7 +38,7 @@ public class Manager {
 		if(option.equalsIgnoreCase("4"))
 			return;
 		
-		Manager.managerMenu();
+		managerMenu();
 		
 	}
 }

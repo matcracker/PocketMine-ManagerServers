@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class BaseLang {
@@ -36,9 +37,8 @@ public class BaseLang {
 		return param;
 	}
 	
-
 	/**
-	 * @param lang Can be a number or ISO 639-1
+	 * @param lang Can be a string number or ISO 639-1
 	 */
 	public static void setLanguage(String lang){
 		switch(lang){
@@ -64,6 +64,22 @@ public class BaseLang {
 		return Utility.readStringData(new File("Data" + File.separator + "langSel.pm")).toLowerCase();
 	}
 	
+	/**
+	 * @return bool
+	 */
+	public static boolean isLanguageSetted(){
+		String lang = Utility.readStringData(new File("Data" + File.separator + "langSel.pm"));
+		if(UtilityServersAPI.checkServersFile("Data", "langSel", -1) &&  lang != null)
+			return true;
+		else
+			return false;
+	}
+	
+	/**
+	 * @param fileName
+	 * @param key
+	 * @return key content
+	 */
 	private static String getStringKey(String fileName, String key){
 		FileInputStream fis = null;
 		try{

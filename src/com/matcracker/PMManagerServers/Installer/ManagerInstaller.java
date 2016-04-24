@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class ManagerInstaller {
@@ -26,12 +27,12 @@ public class ManagerInstaller {
 	
 	public static void managerInstallerMenu() throws IOException{
 		Utility.cleanScreen();
-		System.out.println("========================<PocketMine Manager Servers>============================");
-		System.out.println("-------------------------<Initialize PocketMine-MP>-----------------------------");
-		System.out.println("1- Download");
-		System.out.println("2- Install");
-		System.out.println("3- Back");
-		System.out.print("\nChoose what do you want to do: ");
+		System.out.println(Utility.softwareName);
+		System.out.println(BaseLang.translate("pm.title.managerInstaller"));
+		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.download"));
+		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.install"));
+		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
+		System.out.print("\n" + BaseLang.translate("pm.chooise.ask") + ": ");
 		String inst = Utility.keyword.readLine();
 		
 		if(inst.equalsIgnoreCase("1"))

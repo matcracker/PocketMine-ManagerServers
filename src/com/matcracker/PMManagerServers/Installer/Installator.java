@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import com.matcracker.PMManagerServers.API.InstallatorAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
+import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Installator {
@@ -28,13 +29,14 @@ public class Installator {
 		Utility.cleanScreen();
 		int nservers = UtilityServersAPI.getNumberServers();
 		
-		System.out.println("========================<PocketMine Manager Servers>============================");
-		System.out.println("---------------------------<Install PocketMine-MP>------------------------------");
-		for(int i = 0; i < nservers; i++){
+		System.out.println(Utility.softwareName);
+		System.out.println(BaseLang.translate("pm.title.installator"));
+		
+		for(int i = 0; i < nservers; i++)
 			System.out.printf("%d) %s -> Version: %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i), InstallatorAPI.getVersion(i), InstallatorAPI.getStatus(i));
-		}
-		System.out.println((nservers + 1) + ") Back");
-		System.out.print("\nOn which server do you want install PocketMine-MP?: ");
+		
+		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
+		System.out.print("\n" + BaseLang.translate("pm.chooise.installServers") + ": ");
 		String sel = Utility.keyword.readLine();
 		
 		if(sel.equalsIgnoreCase(String.valueOf(nservers + 1))){ //Back
@@ -46,7 +48,7 @@ public class Installator {
 			System.out.println("4- Soft (Phar File)");
 			System.out.println("5- Back");
 			
-			System.out.print("\nSelect a version for your server: ");
+			System.out.print("\n" + BaseLang.translate("pm.chooise.version") + ": ");
 			String ver = Utility.keyword.readLine();
 			
 			if(ver.equalsIgnoreCase("1")){ //Stable
@@ -62,7 +64,7 @@ public class Installator {
 						InstallatorAPI.setVersion("Stable", Integer.valueOf(sel) - 1);
 						InstallatorAPI.setStatus("Installed", Integer.valueOf(sel) - 1);
 					}else{
-						System.err.println("Installer not found! Please download the installer!");
+						System.err.println(BaseLang.translate("pm.errors.instNotFound"));
 						Utility.keyword.readLine();
 						installatorMenu();
 					}
@@ -73,7 +75,7 @@ public class Installator {
 				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
 					System.out.println("\nAvaiable types:");
 					System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
-					System.out.print("\nSelect the type of version: ");
+					System.out.print("\n" + BaseLang.translate("pm.chooise.version") + ": ");
 					String type = Utility.keyword.readLine();
 					
 					if(type.equalsIgnoreCase("1")){
@@ -105,7 +107,7 @@ public class Installator {
 				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
 					System.out.println("\nAvaiable types:");
 					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 23] {MC:PE 0.15.x}");
-					System.out.print("\nSelect the type of version: ");
+					System.out.print("\n" + BaseLang.translate("pm.chooise.version") + ": ");
 					String type = Utility.keyword.readLine();
 					
 					if(type.equalsIgnoreCase("1")){
@@ -137,7 +139,7 @@ public class Installator {
 				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
 					System.out.println("\nAvaiable types:");
 					System.out.println("1) 1.5 API 1.12.0 Kappatsu-Fugu {MC:PE 0.11.x}");
-					System.out.print("\nSelect the type of version: ");
+					System.out.print("\n" + BaseLang.translate("pm.chooise.version") + ": ");
 					String type = Utility.keyword.readLine();
 					
 					if(type.equalsIgnoreCase("1")){

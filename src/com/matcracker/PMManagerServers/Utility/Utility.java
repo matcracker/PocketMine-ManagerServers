@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
+
+import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Loaders.Loader;
 
 public class Utility{
@@ -166,11 +168,70 @@ public class Utility{
 		}
 	}
 	
+	public static void waitConfirm(String text){
+		try{
+			System.out.println(text);
+			keyword.readLine();
+		}catch (IOException e){
+		}
+	}
+	
 	public static void deleteFolder(String folder, int index){
 		File dir = new File(folder);
 
 		for(int i = 0; i < index; i++)
 			dir.delete();
+	}
+	
+	public static void showServers(){
+		int nservers = UtilityServersAPI.getNumberServers();
+		for(int i = 0; i < nservers; i++){
+			System.out.print((i+1) + ") " + UtilityServersAPI.getNameServer(i));
+			System.out.println();
+		}
+	}
+	
+	public static String readString(String text){
+		String content = null;
+		
+		System.out.println();
+		System.out.print(text);
+		try{
+			content = keyword.readLine();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		
+		return content;
+		
+	}
+	
+	public static int readInt(String text, String addition){
+		String content = null;
+		
+		System.out.println();
+		if(addition != null)
+			System.out.println(addition);
+		System.out.print(text);
+		try{
+			content = keyword.readLine();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+		if(isInt(content))
+			return Integer.parseInt(content);
+		else
+			return -1;
+		
+	}
+	
+	private static boolean isInt(String content){
+		try{
+			Integer.parseInt(content);
+			return true;
+		}catch(NumberFormatException e){
+			return false;
+		}
 	}
 	
 	public static void deleteFile(String folder){

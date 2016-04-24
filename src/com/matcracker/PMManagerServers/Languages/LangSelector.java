@@ -24,7 +24,10 @@ public class LangSelector {
 	public static void langMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println("&c----------------------------<Selection Languages>-------------------------------&f");
+		if(!BaseLang.isLanguageSetted())
+			System.out.println("&c----------------------------<Selection Languages>-------------------------------&f");
+		else
+			System.out.println(BaseLang.translate("pm.title.language"));
 		System.out.println("1) Afrikaans\t\t\t16) Italian");
 		System.out.println("2) Arabic\t\t\t17) Japanese");
 		System.out.println("3) Catalan\t\t\t18) Korean");
