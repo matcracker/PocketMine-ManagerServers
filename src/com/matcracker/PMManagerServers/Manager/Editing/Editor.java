@@ -35,6 +35,9 @@ public class Editor {
 		if(sel == 1)
 			Properties.propertiesMenu();
 		
+		if(sel == 2)
+			Performance.performanceMenu();
+		
 		if(sel == 3)
 			Manager.managerMenu();
 		

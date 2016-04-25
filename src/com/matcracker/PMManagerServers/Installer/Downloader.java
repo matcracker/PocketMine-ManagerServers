@@ -3,7 +3,7 @@ package com.matcracker.PMManagerServers.Installer;
 import java.io.File;
 import java.io.IOException;
 
-import com.matcracker.PMManagerServers.API.InstallatorAPI;
+import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
@@ -36,7 +36,7 @@ public class Downloader {
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("---------------------------<Download PocketMine-MP>-----------------------------");
 		for(int i = 0; i < nservers; i++){
-			System.out.printf("%d) %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i), InstallatorAPI.getStatus(i));
+			System.out.printf("%d) %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getStatus(i));
 		}
 		System.out.println((nservers + 1) + ") Back");
 		System.out.print("\nWhat kind of version you want to download?: ");
@@ -70,7 +70,7 @@ public class Downloader {
 						System.out.println("Starting download installer...");
 						Utility.openSoftware("url", linkstable);
 						System.out.println("Installer downloaded! Press ENTER to continue.");
-						InstallatorAPI.setStatus("Downloaded", Integer.valueOf(sel) - 1);
+						StatusAPI.setStatus("Downloaded", Integer.valueOf(sel) - 1);
 						Utility.keyword.readLine();
 					}
 				}

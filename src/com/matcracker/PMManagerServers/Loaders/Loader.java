@@ -3,7 +3,7 @@ package com.matcracker.PMManagerServers.Loaders;
 import java.io.File;
 import java.io.IOException;
 
-import com.matcracker.PMManagerServers.API.InstallatorAPI;
+import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Languages.LangSelector;
@@ -130,9 +130,9 @@ public class Loader {
 
 				for(int i = 1; i <= nservers; i++){
 					UtilityServersAPI.setNameServer(i - 1, nameServers[i-1]);
-					InstallatorAPI.setStatus(BaseLang.translate("pm.status.noDownload"), i-1);
-					InstallatorAPI.setVersion(BaseLang.translate("pm.status.noVersion"), i-1);
-					
+					StatusAPI.setStatus(BaseLang.translate("pm.status.noDownload"), i-1);
+					StatusAPI.setVersion(BaseLang.translate("pm.status.noVersion"), i-1);
+					StatusAPI.setPerformance("Personal", i-1);
 					UtilityServersAPI.setPath(i - 1, path[i-1]);
 				}
 				

@@ -3,7 +3,7 @@ package com.matcracker.PMManagerServers.Installer;
 import java.io.File;
 import java.io.IOException;
 
-import com.matcracker.PMManagerServers.API.InstallatorAPI;
+import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
@@ -33,7 +33,7 @@ public class Installator {
 		System.out.println(BaseLang.translate("pm.title.installator"));
 		
 		for(int i = 0; i < nservers; i++)
-			System.out.printf("%d) %s -> Version: %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i), InstallatorAPI.getVersion(i), InstallatorAPI.getStatus(i));
+			System.out.printf("%d) %s -> Version: %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getVersion(i), StatusAPI.getStatus(i));
 		
 		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		System.out.print("\n" + BaseLang.translate("pm.chooise.installServers") + ": ");
@@ -61,8 +61,8 @@ public class Installator {
 					File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
 					if(installer.exists()){
 						Utility.openSoftware("software", String.valueOf(installer));
-						InstallatorAPI.setVersion("Stable", Integer.valueOf(sel) - 1);
-						InstallatorAPI.setStatus("Installed", Integer.valueOf(sel) - 1);
+						StatusAPI.setVersion("Stable", Integer.valueOf(sel) - 1);
+						StatusAPI.setStatus("Installed", Integer.valueOf(sel) - 1);
 					}else{
 						System.err.println(BaseLang.translate("pm.errors.instNotFound"));
 						Utility.keyword.readLine();

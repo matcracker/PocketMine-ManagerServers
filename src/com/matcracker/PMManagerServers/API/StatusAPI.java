@@ -4,7 +4,7 @@ import java.io.File;
 
 import com.matcracker.PMManagerServers.Utility.Utility;
 
-public class InstallatorAPI {
+public class StatusAPI {
   /** _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
@@ -55,6 +55,25 @@ public class InstallatorAPI {
 	public static String getStatus(int index){
 		index++;
 		return Utility.readStringData(new File("Installations" + File.separator + "Status" + File.separator + "Status_" + index + ".pm"));
+	}
+	
+	/**
+	 * @param index from 0 to max number of server
+	 * @return status of server performance
+	 */
+	public static String getPerformace(int index) {
+		index++;
+		return Utility.readStringData(new File("Performance" + File.separator + "PerformanceStatus_" + index + ".pm"));
+	}
+	
+	/**
+	 * @param status name of performance status(Only Personal, High, Medium, Low)
+	 * @param index
+	 */
+	public static void setPerformance(String status, int index) {
+		index++;
+		Utility.writeStringData(new File("Performance" + File.separator + "PerformanceStatus_" + index + ".pm"), status);
+		
 	}
 	
 }
