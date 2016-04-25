@@ -76,7 +76,7 @@ public class UtilityColor{
 		return phrase;
 	}
 	
-	private static String ubfuscated(){
+	public static String ubfuscated(){
 		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 		
 		StringBuilder sb = new StringBuilder(6);

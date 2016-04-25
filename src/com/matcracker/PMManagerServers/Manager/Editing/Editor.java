@@ -1,13 +1,12 @@
-package com.matcracker.PMManagerServers.Manager;
+package com.matcracker.PMManagerServers.Manager.Editing;
 
 import java.io.IOException;
 
-import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Manager.Editing.Editor;
+import com.matcracker.PMManagerServers.Manager.Manager;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
-public class Manager {
+public class Editor {
   /** _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
@@ -23,27 +22,23 @@ public class Manager {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	
-	public static void managerMenu() throws IOException{
+
+	public static void editorMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.manager"));
-		System.out.println("1- Open [Server/Folder]");
-		System.out.println("2- Edit server performance");
-		System.out.println("3- Backup/Restore servers");
-		System.out.println("4- Back");
-		int option = Utility.readInt("Select option: ", null);
+		System.out.println(BaseLang.translate("pm.title.editor"));
+		System.out.println("1- Edit servers properties");
+		System.out.println("2- Edit servers performance");
+		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
+		int sel = Utility.readInt("Select option: ", null);
 		
-		if(option == 1)
-			Opener.openerMenu();
+		if(sel == 1)
+			Properties.propertiesMenu();
 		
-		if(option == 2)
-			Editor.editorMenu();
-				
-		if(option == 4)
-			Main.main(null);
+		if(sel == 3)
+			Manager.managerMenu();
 		
-		managerMenu();
+		editorMenu();
 		
 	}
 }

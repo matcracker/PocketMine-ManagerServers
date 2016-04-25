@@ -28,8 +28,7 @@ public class BaseLang {
 		
 	/**
 	 * @param param -> the translation (pm.words)
-	 * @return
-	 * @throws IOException 
+	 * @return string translated
 	 */
 	public static String translate(String param){
 		param = param.replaceAll(param, getStringKey(getLanguage(), param));
@@ -68,11 +67,12 @@ public class BaseLang {
 	 * @return bool
 	 */
 	public static boolean isLanguageSetted(){
-		String lang = Utility.readStringData(new File("Data" + File.separator + "langSel.pm"));
-		if(UtilityServersAPI.checkServersFile("Data", "langSel", -1) &&  lang != null)
-			return true;
-		else
-			return false;
+		if(UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
+			String lang = Utility.readStringData(new File("Data" + File.separator + "langSel.pm"));
+			if(lang != null)
+				return true;
+		}
+		return false;
 	}
 	
 	/**

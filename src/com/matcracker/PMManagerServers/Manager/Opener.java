@@ -59,7 +59,7 @@ public class Opener {
 				if(pathContent != null){
 					System.out.println("Opening " + UtilityServersAPI.getNameServer(server - 1));
 					if(isServer)
-						Utility.openSoftware("software", pathContent + "/start.cmd");
+						Utility.openSoftware("software", pathContent + "start.cmd");
 					else
 						Utility.openSoftware("software", pathContent);
 				}else

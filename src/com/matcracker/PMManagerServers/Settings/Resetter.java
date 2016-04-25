@@ -23,17 +23,19 @@ public class Resetter{
 	*(at your option) any later version.
 	*/
 	
-	public static String[] dirsName = {
+	private static String[] dirsName = {
 			"Data",
 			"ServersName",
 			"Path",
 			"Performance",
 			"Utils", 
 			"Installations",
+			"Installations" + File.separator + "Status",
+			"Installations" + File.separator + "Version",
 			"Languages",
 			"Backups",
-			//"Backups" + File.separator + "Status",
-			//"Backups" + File.separator + "Servers"
+			"Backups" + File.separator + "Status",
+			"Backups" + File.separator + "Servers"
 	};
 	
 	public static void resetterMenu() throws IOException{

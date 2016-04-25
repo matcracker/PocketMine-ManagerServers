@@ -72,7 +72,7 @@ public class Loader {
 				System.out.print("&3[");
 				for(int i = 0; i <= 77; i++){
 					System.out.print("=");
-					Thread.sleep(150);
+					Thread.sleep(50);
 				}
 				System.out.print("]");
 				
