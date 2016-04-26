@@ -103,6 +103,7 @@ public class Performance {
 				Utility.waitConfirm("Path can't be null!");
 		}else
 			Utility.waitConfirm("This server path doesn't exist!");
+		
 		performanceMenu();
 	}
 	

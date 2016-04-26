@@ -27,8 +27,8 @@ public class Editor {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.editor"));
-		System.out.println("1- Edit servers properties");
-		System.out.println("2- Edit servers performance");
+		System.out.println("1- " + BaseLang.translate("pm.editor.properties"));
+		System.out.println("2- " + BaseLang.translate("pm.editor.performance"));
 		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
 		int sel = Utility.readInt("Select option: ", null);
 		
