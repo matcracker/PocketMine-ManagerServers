@@ -3,6 +3,8 @@ package com.matcracker.PMManagerServers.Informations;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
+
+import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Informations {
@@ -28,15 +30,15 @@ public class Informations {
 		
 		Utility.cleanScreen();
 	    
-		System.out.println("========================<PocketMine Manager Servers>============================");
-		System.out.println("--------------------------------<Informations>----------------------------------");
-		System.out.println("1- License");
-		System.out.println("2- Credits");
-		System.out.println("3- More informations");
-		System.out.println("4- Disclaimer");
+		System.out.println(Utility.softwareName);
+		System.out.println(BaseLang.translate("pm.title.informations"));
+		System.out.println("1- " + BaseLang.translate("pm.informations.license"));
+		System.out.println("2- " + BaseLang.translate("pm.informations.credits"));
+		System.out.println("3- " + BaseLang.translate("pm.informations.more"));
+		System.out.println("4- " + BaseLang.translate("pm.informations.disclaimer"));
 		System.out.println("5- Back");
 		
-		System.out.print("\nChoose information: ");
+		System.out.print("\n " + BaseLang.translate("pm.chooise.option"));
 		String info = Utility.keyword.readLine();
 		
 		if(info.equalsIgnoreCase("1")){
@@ -44,7 +46,7 @@ public class Informations {
 				if(license.isFile() && license.exists())
 					Desktop.getDesktop().open(license);
 				else{
-					System.out.println("BAD SOFTWARE, you are using a wrong version of software.");
+					System.out.println(BaseLang.translate("pm.informations.bad"));
 					Utility.keyword.readLine();
 				}
 				
@@ -52,8 +54,8 @@ public class Informations {
 		
 		if(info.equalsIgnoreCase("2")){
 			Utility.cleanScreen();
-			System.out.println("========================<PocketMine Manager Servers>============================");
-			System.out.println("-----------------------------------<Credits>------------------------------------");
+			System.out.println(Utility.softwareName);
+			System.out.println(BaseLang.translate("pm.title.credits"));
 			System.out.println("This program is free software made by matcracker: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or at your option) any later version.");
 			System.out.println("\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.");
 			System.out.println("\nYou should have received a copy of the GNU Lesser General Public License along with this program.  If not, see in this program in the section 'Informations ->  License'.");
@@ -65,13 +67,13 @@ public class Informations {
 		
 		if(info.equalsIgnoreCase("3")){
 			Utility.cleanScreen();
-			System.out.println("========================<PocketMine Manager Servers>============================");
-			System.out.println("-----------------------------<More Informations>--------------------------------");
+			System.out.println(Utility.softwareName);
+			System.out.println(BaseLang.translate("pm.title.moreinformations"));
 			System.out.println("1- GitHub");
 			System.out.println("2- Twitter");
-			System.out.println("3- Back");
+			System.out.println("3- " + BaseLang.translate("pm.standard.back"));
 			
-			System.out.print("\nChoose information: ");
+			System.out.print("\n " + BaseLang.translate("pm.chooise.option"));
 			String moreInfo = Utility.keyword.readLine();
 			
 			if(moreInfo.equalsIgnoreCase("1"))
@@ -86,8 +88,8 @@ public class Informations {
 		
 		if(info.equalsIgnoreCase("4")){
 			Utility.cleanScreen();
-			System.out.println("========================<PocketMine Manager Servers>============================");
-			System.out.println("---------------------------------<Disclaimer>-----------------------------------");
+			System.out.println(Utility.softwareName);
+			System.out.println(BaseLang.translate("pm.title.disclaimer"));
 			System.out.println("I do not assume responsibility for the use of this program if being deleted folders or files, for you, important.");
 			System.out.println("The use is personal and therefore the connections you supply will have to be primarily related to the creation program server 'PocketMine-MP' or relative.");
 			Utility.keyword.readLine();
