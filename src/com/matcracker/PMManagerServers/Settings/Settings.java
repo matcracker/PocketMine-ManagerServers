@@ -25,7 +25,6 @@ public class Settings{
 	
 	public static void settingsMenu() throws IOException{
 	    Utility.cleanScreen();
-	    
 		System.out.println("========================<PocketMine Manager Servers>============================");
 		System.out.println("------------------------------<Program Options>---------------------------------");
 		System.out.println("1- Language");
@@ -40,7 +39,7 @@ public class Settings{
 			LangSelector.langMenu();
 		
 		if(options.equalsIgnoreCase("2"))
-			System.out.println("Work in progress");
+			PMServersManager.serverManagerMenu();
 		
 		if(options.equalsIgnoreCase("3"))
 			Resetter.resetterMenu();

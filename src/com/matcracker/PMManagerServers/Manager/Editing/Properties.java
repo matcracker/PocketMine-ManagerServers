@@ -29,7 +29,7 @@ public class Properties {
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.properties"));
 		Utility.showServers();
-		int server = Utility.readInt("Select server: ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.editor.server") + " ", null);
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 			String pathContent = UtilityServersAPI.getPath(server-1);
@@ -140,7 +140,7 @@ public class Properties {
 				propFile = propFile + configOptions[i] + config[i] + "\n";
 			}
 			
-			String confirm = Utility.readString("Do you want to confirm your choices? <Y/n>: ");
+			String confirm = Utility.readString("Do you want to confirm your choices? <Y/n>: ", null);
 			
 			if(confirm.equalsIgnoreCase("y"))
 				Utility.writeStringData(new File(path + "server.properties"), propFile);

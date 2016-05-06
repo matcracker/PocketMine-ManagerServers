@@ -24,7 +24,7 @@ public class LangSelector {
 	public static void langMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		if(!BaseLang.isLanguageSetted())
+		if(!BaseLang.isLanguageSet())
 			System.out.println("&c----------------------------<Selection Languages>-------------------------------&f");
 		else
 			System.out.println(BaseLang.translate("pm.title.language"));

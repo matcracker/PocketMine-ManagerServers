@@ -45,7 +45,7 @@ public class UtilityColor{
 	
 	protected static String format(String content, boolean debug){
 		String phrase = content;
-		if(!debug)
+		if(!debug && phrase.contains("&"))
 			phrase = colorTranslator(content);
 		return phrase;
 	}
@@ -84,6 +84,6 @@ public class UtilityColor{
 	  		sb.append(chars.charAt(new Random().nextInt(chars.length())));
 	  	}
 	  	
-	  	return sb.toString();	  	
+	  	return sb.toString();
 	}
 }

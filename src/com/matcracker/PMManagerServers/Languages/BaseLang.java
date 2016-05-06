@@ -66,7 +66,7 @@ public class BaseLang {
 	/**
 	 * @return bool
 	 */
-	public static boolean isLanguageSetted(){
+	public static boolean isLanguageSet(){
 		if(UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
 			String lang = Utility.readStringData(new File("Data" + File.separator + "langSel.pm"));
 			if(lang != null)

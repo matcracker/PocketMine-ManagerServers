@@ -3,7 +3,7 @@ package com.matcracker.PMManagerServers.Installer;
 import java.io.File;
 import java.io.IOException;
 
-import com.matcracker.PMManagerServers.API.InstallatorAPI;
+import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
@@ -37,7 +37,7 @@ public class Downloader {
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.download"));
 		for(int i = 0; i < nservers; i++){
-			System.out.printf("%d) %s -> "+BaseLang.translate("pm.standard.status")+": %s\n", i+1, UtilityServersAPI.getNameServer(i), InstallatorAPI.getStatus(i));
+			System.out.printf("%d) %s -> "+BaseLang.translate("pm.standard.status")+": %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getStatus(i));
 		}
 		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		System.out.print("\n" + BaseLang.translate("pm.downloader.version")+ " ");
@@ -46,11 +46,11 @@ public class Downloader {
 		if(sel.equalsIgnoreCase(String.valueOf(nservers + 1))){ //Back
 			ManagerInstaller.managerInstallerMenu();
 		}else{
-			System.out.println("\n1- Stable (Setup File)");
-			System.out.println("2- Beta (Phar File)");
-			System.out.println("3- Dev (Phar File)");
-			System.out.println("4- Soft (Phar File)");
-			System.out.println("5- Back");
+			System.out.println("\n1- " + BaseLang.translate("pm.managerInstaller.stable") + " (Setup File)");
+			System.out.println("2- " + BaseLang.translate("pm.managerInstaller.beta") + " (Phar File)");
+			System.out.println("3- " + BaseLang.translate("pm.managerInstaller.dev") + " (Phar File)");
+			System.out.println("4- " + BaseLang.translate("pm.managerInstaller.soft") + " (Phar File)");
+			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 			
 			System.out.print("\n" + BaseLang.translate("pm.downloader.versionserv") + " ");
 			String ver = Utility.keyword.readLine();
@@ -71,7 +71,7 @@ public class Downloader {
 						System.out.println(BaseLang.translate("pm.downloader.startDown"));
 						Utility.openSoftware("url", linkstable);
 						System.out.println(BaseLang.translate("pm.downloader.succInst"));
-						InstallatorAPI.setStatus("Downloaded", Integer.valueOf(sel) - 1);
+						StatusAPI.setStatus("Downloaded", Integer.valueOf(sel) - 1);
 						Utility.keyword.readLine();
 					}
 				}
@@ -99,7 +99,7 @@ public class Downloader {
 						}
 					}
 				}else{
-					System.err.println(BaseLang.translate("pm.errors.dirNotFound"));
+					System.err.println(BaseLang.translate("pm.errors.pathNotFound"));
 					Utility.keyword.readLine();
 				}
 			}
@@ -126,7 +126,7 @@ public class Downloader {
 						}
 					}
 				}else{
-					System.err.println(BaseLang.translate("pm.errors.dirNotFound"));
+					System.err.println(BaseLang.translate("pm.errors.pathNotFound"));
 					Utility.keyword.readLine();
 				}
 			}
@@ -153,7 +153,7 @@ public class Downloader {
 						}
 					}
 				}else{
-					System.err.println(BaseLang.translate("pm.errors.dirNotFound"));
+					System.err.println(BaseLang.translate("pm.errors.pathNotFound"));
 					Utility.keyword.readLine();
 				}
 			}

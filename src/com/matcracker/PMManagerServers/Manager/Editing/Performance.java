@@ -30,18 +30,18 @@ public class Performance {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.performance"));
-		System.out.println("Your current performance are: ");
+		System.out.println(BaseLang.translate("pm.performance.select") + " ");
 		for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++)
 			System.out.printf("%d) %s: %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getPerformace(i));
 		
-		int server = Utility.readInt("Select server: ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.editor.server") + " ", null);
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server - 1)){
 			String pathContent = UtilityServersAPI.getPath(server-1);
 			if(pathContent != null){			
 				String confirm = null;
 				
-				System.out.println("What features do you want to assign to your servers?");
+				System.out.println(BaseLang.translate("pm.performance.type"));
 				System.out.println("1- High");
 				System.out.println("2- Medium");
 				System.out.println("3- Low");
@@ -53,7 +53,7 @@ public class Performance {
 					File high = new File("Utils" + File.separator + "pocketmine_HIGH.yml");
 					if(high.exists()){
 						System.out.println("If you choose this option, you'll need to have a PC that supports it, so if you do not own it is strongly advised not to use it.");
-						confirm = Utility.readString("Do you want continue? <y/n>: ");
+						confirm = Utility.readString("Do you want continue? <y/n>: ", null);
 						
 						if(confirm.equalsIgnoreCase("y")){
 							changePerformaceFile(pathContent, "HIGH");
@@ -68,7 +68,7 @@ public class Performance {
 					File med = new File("Utils" + File.separator + "pocketmine_MEDIUM.yml");
 					if(med.exists()){
 						System.out.println("If you choose this option, you'll need a PC not too handsome, it is suitable for handling small servers.");
-						confirm = Utility.readString("Do you want continue? <y/n>: ");
+						confirm = Utility.readString("Do you want continue? <y/n>: ", null);
 						
 						if(confirm.equalsIgnoreCase("y")){
 							changePerformaceFile(pathContent, "MEDIUM");
@@ -84,7 +84,7 @@ public class Performance {
 					File low = new File("Utils" + File.separator + "pocketmine_LOW.yml");
 					if(low.exists()){
 						System.out.println("If you choose this option, you'll need a PC not too handsome, it is suitable to manage servers with friends.");
-						confirm = Utility.readString("Do you want continue? <y/n>: ");
+						confirm = Utility.readString("Do you want continue? <y/n>: ", null);
 						
 						if(confirm.equalsIgnoreCase("y")){
 							changePerformaceFile(pathContent, "LOW");
@@ -100,9 +100,9 @@ public class Performance {
 				
 				performanceMenu();
 			}else
-				Utility.waitConfirm("Path can't be null!");
+				Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
 		}else
-			Utility.waitConfirm("This server path doesn't exist!");
+			Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
 		
 		performanceMenu();
 	}

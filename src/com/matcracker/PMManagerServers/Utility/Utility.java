@@ -191,10 +191,11 @@ public class Utility{
 		}
 	}
 	
-	public static String readString(String text){
+	public static String readString(String text, String addition){
 		String content = null;
 		
-		System.out.println();
+		if(addition != null)
+			System.out.println(addition);
 		System.out.print(text);
 		try{
 			content = keyword.readLine();
@@ -237,7 +238,7 @@ public class Utility{
 	public static void deleteFile(String folder){
 		File dir = new File(folder);
 		File[] files = dir.listFiles();
-		
+	
 		for(File file : files){
 			if(!file.delete())
 				System.err.println("Failed to delete " + file);

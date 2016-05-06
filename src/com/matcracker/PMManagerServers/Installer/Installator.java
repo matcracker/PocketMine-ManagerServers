@@ -33,7 +33,7 @@ public class Installator {
 		System.out.println(BaseLang.translate("pm.title.installator"));
 		
 		for(int i = 0; i < nservers; i++)
-			System.out.printf("%d) %s -> Version: %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getVersion(i), StatusAPI.getStatus(i));
+			System.out.printf("%d) %s -> " + BaseLang.translate("pm.standard.version") + ": %s -> " + BaseLang.translate("pm.standard.status") + ": %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getVersion(i), StatusAPI.getStatus(i));
 		
 		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		System.out.print("\n" + BaseLang.translate("pm.chooise.installServers") + ": ");
@@ -42,11 +42,11 @@ public class Installator {
 		if(sel.equalsIgnoreCase(String.valueOf(nservers + 1))){ //Back
 			ManagerInstaller.managerInstallerMenu();
 		}else{
-			System.out.println("\n1- Stable (Setup File)");
-			System.out.println("2- Beta (Phar File)");
-			System.out.println("3- Dev (Phar File)");
-			System.out.println("4- Soft (Phar File)");
-			System.out.println("5- Back");
+			System.out.println("\n1- " + BaseLang.translate("pm.managerInstaller.stable") + " (Setup File)");
+			System.out.println("2- " + BaseLang.translate("pm.managerInstaller.beta") + " (Phar File)");
+			System.out.println("3- " + BaseLang.translate("pm.managerInstaller.dev") + " (Phar File)");
+			System.out.println("4- " + BaseLang.translate("pm.managerInstaller.soft") + " (Phar File)");
+			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 			
 			System.out.print("\n" + BaseLang.translate("pm.chooise.version") + ": ");
 			String ver = Utility.keyword.readLine();

@@ -65,7 +65,7 @@ public class Resetter{
 			Utility.cleanScreen();
 			System.out.println("========================<PocketMine Manager Servers>============================");
 			System.out.println("-------------------------------<Reset Program>----------------------------------");
-			String confirm = Utility.readString("Are you sure to want reset data of servers (only program)? <y/n>: ");
+			String confirm = Utility.readString("Are you sure to want reset data of servers (only program)? <y/n>: ", null);
 			
 			if(confirm.equalsIgnoreCase("y")){
 				for(int i = 0; i < dirsName.length; i++){
@@ -90,7 +90,7 @@ public class Resetter{
 			Utility.cleanScreen();
 			System.out.println("========================<PocketMine Manager Servers>============================");
 			System.out.println("-------------------------------<Reset Program>----------------------------------");
-			String confirm = Utility.readString("WARNING! Are you sure to want to reset data of servers (paths and names)? <Y/N>: ");
+			String confirm = Utility.readString("WARNING! Are you sure to want to reset data of servers (paths and names)? <Y/N>: ", null);
 		
 			if(confirm.equalsIgnoreCase("y")){
 				for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++){
