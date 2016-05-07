@@ -18,12 +18,19 @@ public class APIManager{
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	private final String APIVersion = "0.1";
 	
+	private final String APIVersion = "1.0";
+	
+	/**
+	 * @return String
+	 */
 	public String getAPIVersion(){
 		return APIVersion;
 	}
 	
+	/**
+	 * @return String
+	 */
 	public String getVersion(){
 		return Utility.version;
 	}

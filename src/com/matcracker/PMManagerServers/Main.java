@@ -25,10 +25,12 @@ public class Main{
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-		
+	
+	public static int mode = 0;
+	
 	public static void main(String[] args){
 		String menu = "", quit = "n";
-		String version = "0.1J";
+		String version = "1.0 Alpha 1";
 		
 		System.setOut(new PMPrintStream(System.out));
 		System.setErr(new PMPrintStream(System.out));
@@ -40,7 +42,7 @@ public class Main{
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
 				System.out.println(BaseLang.translate("pm.title.mainMenu"));
-				System.out.println("&eDeveloped by matcracker                                            Version: " + version);
+				System.out.println("&eDeveloped by matcracker                                     Version: " + version);
 				System.out.println("&f1- " + BaseLang.translate("pm.mainMenu.download-install"));
 				System.out.println("2- " + BaseLang.translate("pm.mainMenu.manager"));
 				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
