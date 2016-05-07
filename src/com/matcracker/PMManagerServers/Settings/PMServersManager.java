@@ -35,6 +35,7 @@ public class PMServersManager {
 		
 		if(sel == 3)
 			addServer();
+		
 		else if(sel == 1 || sel == 2){
 			Utility.showServers();
 			int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
@@ -57,10 +58,10 @@ public class PMServersManager {
 		int nservers = UtilityServersAPI.getNumberServers();
 
 		Files.delete(new File("ServersName" + File.separator + "ServerName_" + server + ".pm").toPath());
-		for(int i = server+1; i < nservers-1; i++){
-			String temp = UtilityServersAPI.getNameServer(i);
+		for(int i = server+1; i <= nservers; i++){
+			String temp = UtilityServersAPI.getNameServer(i-1);
 			Files.delete(new File("ServersName" + File.separator + "ServerName_" + i + ".pm").toPath());
-			UtilityServersAPI.setNameServer(i, temp);		
+			UtilityServersAPI.setNameServer(i-2, temp);
 		}
 		nservers--;
 		UtilityServersAPI.setNumberServer(nservers);
