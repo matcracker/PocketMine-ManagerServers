@@ -2,6 +2,7 @@ package com.matcracker.PMManagerServers.Settings;
 
 import java.io.IOException;
 
+import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Languages.LangSelector;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
@@ -25,12 +26,12 @@ public class Settings{
 	
 	public static void settingsMenu() throws IOException{
 	    Utility.cleanScreen();
-		System.out.println("========================<PocketMine Manager Servers>============================");
-		System.out.println("------------------------------<Program Options>---------------------------------");
-		System.out.println("1- Language");
-		System.out.println("2- Change/Delete servers name");
-		System.out.println("3- Reset program");
-		System.out.println("4- Back");
+		System.out.println(Utility.softwareName);
+		System.out.println(BaseLang.translate("pm.title.settings"));
+		System.out.println("1- " + BaseLang.translate("pm.settings.language"));
+		System.out.println("2- " + BaseLang.translate("pm.settings.serversManager"));
+		System.out.println("3- " + BaseLang.translate("pm.settings.reset"));
+		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 		
 		System.out.print("\nChoose option: ");
 		String options = Utility.keyword.readLine();

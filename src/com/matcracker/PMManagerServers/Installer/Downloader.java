@@ -106,7 +106,7 @@ public class Downloader {
 			
 			if(ver.equalsIgnoreCase("3")){ //Dev
 				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
-					System.out.println("\nAvaiable types:");
+					System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 23] {MC:PE 0.15.x}");
 					System.out.print("\n" + BaseLang.translate("pm.downloader.types") + " ");
 					String type = Utility.keyword.readLine();

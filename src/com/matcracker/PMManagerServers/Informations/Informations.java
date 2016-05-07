@@ -38,7 +38,7 @@ public class Informations {
 		System.out.println("4- " + BaseLang.translate("pm.informations.disclaimer"));
 		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 		
-		System.out.print("\n " + BaseLang.translate("pm.chooise.option"));
+		System.out.print("\n " + BaseLang.translate("pm.chooise.option") + " ");
 		String info = Utility.keyword.readLine();
 		
 		if(info.equalsIgnoreCase("1")){

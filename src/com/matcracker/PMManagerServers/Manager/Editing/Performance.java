@@ -34,7 +34,7 @@ public class Performance {
 		for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++)
 			System.out.printf("%d) %s: %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getPerformace(i));
 		
-		int server = Utility.readInt(BaseLang.translate("pm.editor.server") + " ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server - 1)){
 			String pathContent = UtilityServersAPI.getPath(server-1);
@@ -42,57 +42,57 @@ public class Performance {
 				String confirm = null;
 				
 				System.out.println(BaseLang.translate("pm.performance.type"));
-				System.out.println("1- High");
-				System.out.println("2- Medium");
-				System.out.println("3- Low");
+				System.out.println("1- " + BaseLang.translate("pm.status.high"));
+				System.out.println("2- " + BaseLang.translate("pm.status.medium"));
+				System.out.println("3- " + BaseLang.translate("pm.status.low"));
 				System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 				
-				int feat = Utility.readInt("Choose feature: ", null);
+				int feat = Utility.readInt(BaseLang.translate("pm.chooise.feature"), null);
 				
 				if(feat == 1){ //HIGH
 					File high = new File("Utils" + File.separator + "pocketmine_HIGH.yml");
 					if(high.exists()){
-						System.out.println("If you choose this option, you'll need to have a PC that supports it, so if you do not own it is strongly advised not to use it.");
-						confirm = Utility.readString("Do you want continue? <y/n>: ", null);
+						System.out.println(BaseLang.translate("pm.performance.selHigh"));
+						confirm = Utility.readString(BaseLang.translate("pm.performance.continue") + " <y/n>: ", null);
 						
 						if(confirm.equalsIgnoreCase("y")){
-							changePerformaceFile(pathContent, "HIGH");
-							StatusAPI.setPerformance("High", server-1);
-							Utility.waitConfirm("Performace changed!");
+							changePerformaceFile(pathContent, BaseLang.translate("pm.status.high").toUpperCase());
+							StatusAPI.setPerformance(BaseLang.translate("pm.status.high"), server-1);
+							Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
 						}
 					}else
-						Utility.waitConfirm("The HIGH configuration doesn't exist!");
+						Utility.waitConfirm(BaseLang.translate("pm.performance.noHighConf"));
 				}
 				
 				if(feat == 2){ //MEDIUM
 					File med = new File("Utils" + File.separator + "pocketmine_MEDIUM.yml");
 					if(med.exists()){
-						System.out.println("If you choose this option, you'll need a PC not too handsome, it is suitable for handling small servers.");
-						confirm = Utility.readString("Do you want continue? <y/n>: ", null);
+						System.out.println(BaseLang.translate("pm.performance.selMedium"));
+						confirm = Utility.readString(BaseLang.translate("pm.performance.continue") + " <y/n>: ", null);
 						
 						if(confirm.equalsIgnoreCase("y")){
-							changePerformaceFile(pathContent, "MEDIUM");
-							StatusAPI.setPerformance("Medium", server-1);
-							Utility.waitConfirm("Performace changed!");
+							changePerformaceFile(pathContent, BaseLang.translate("pm.status.medium").toUpperCase());
+							StatusAPI.setPerformance(BaseLang.translate("pm.status.medium"), server-1);
+							Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
 						}
 					}else
-						Utility.waitConfirm("The MEDIUM configuration doesn't exist!");
+						Utility.waitConfirm(BaseLang.translate("pm.performance.noMediumConf"));
 				}
 					
 				
 				if(feat == 3){ //LOW
 					File low = new File("Utils" + File.separator + "pocketmine_LOW.yml");
 					if(low.exists()){
-						System.out.println("If you choose this option, you'll need a PC not too handsome, it is suitable to manage servers with friends.");
-						confirm = Utility.readString("Do you want continue? <y/n>: ", null);
+						System.out.println(BaseLang.translate("pm.performance.selLow"));
+						confirm = Utility.readString(BaseLang.translate("pm.performance.continue") + " <y/n>: ", null);
 						
 						if(confirm.equalsIgnoreCase("y")){
-							changePerformaceFile(pathContent, "LOW");
-							StatusAPI.setPerformance("Low", server-1);
-							Utility.waitConfirm("Performace changed!");
+							changePerformaceFile(pathContent, BaseLang.translate("pm.status.low").toUpperCase());
+							StatusAPI.setPerformance(BaseLang.translate("pm.status.low"), server-1);
+							Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
 						}
 					}else
-						Utility.waitConfirm("The LOW configuration doesn't exist!");				
+						Utility.waitConfirm(BaseLang.translate("pm.performance.noLowConf"));				
 				}
 
 				if(feat == 4)

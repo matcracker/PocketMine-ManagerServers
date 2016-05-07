@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
+import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Resetter{
@@ -33,7 +34,6 @@ public class Resetter{
 			"Installations" + File.separator + "Status",
 			"Installations" + File.separator + "Version",
 			"Installations",
-			//"Languages",
 			"Backups" + File.separator + "Status",
 			"Backups" + File.separator + "Servers",
 			"Backups"
@@ -42,12 +42,12 @@ public class Resetter{
 	public static void resetterMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println("-------------------------------<Reset Program>----------------------------------");
-		System.out.println("1- Reset data of servers (Only program)");
-		System.out.println("2- Reset data of servers (Only servers path and names)");
-		System.out.println("3- Back");
+		System.out.println(BaseLang.translate("pm.title.reset"));
+		System.out.println("1- " + BaseLang.translate("pm.resetter.programData"));
+		System.out.println("2- " + BaseLang.translate("pm.resetter.serversData"));
+		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
 		
-		int reset = Utility.readInt("\nChoose what do you want to reset: ", null);
+		int reset = Utility.readInt("\n" + BaseLang.translate("pm.resetter.selReset") + " ", null);
 		
 		if(reset == 1)
 			resetProgram();
@@ -63,16 +63,16 @@ public class Resetter{
 	private static void resetProgram(){
 		try{
 			Utility.cleanScreen();
-			System.out.println("========================<PocketMine Manager Servers>============================");
-			System.out.println("-------------------------------<Reset Program>----------------------------------");
-			String confirm = Utility.readString("Are you sure to want reset data of servers (only program)? <y/n>: ", null);
+			System.out.println(Utility.softwareName);
+			System.out.println(BaseLang.translate("pm.title.reset"));
+			String confirm = Utility.readString(BaseLang.translate("pm.resetter.confirmProgram") + " <y/n>: ", null);
 			
 			if(confirm.equalsIgnoreCase("y")){
 				for(int i = 0; i < dirsName.length; i++){
 					Utility.deleteFile(dirsName[i]);
 					Utility.deleteFolder(dirsName[i], dirsName.length);
 				}
-				System.out.println("Closing program...");
+				System.out.println(BaseLang.translate("pm.resetter.close"));
 				Thread.sleep(1000);
 				Desktop.getDesktop().open(new File("run.bat"));
 				System.exit(0);
@@ -88,9 +88,9 @@ public class Resetter{
 	private static void resetServers(){
 		try{
 			Utility.cleanScreen();
-			System.out.println("========================<PocketMine Manager Servers>============================");
-			System.out.println("-------------------------------<Reset Program>----------------------------------");
-			String confirm = Utility.readString("WARNING! Are you sure to want to reset data of servers (paths and names)? <Y/N>: ", null);
+			System.out.println(Utility.softwareName);
+			System.out.println(BaseLang.translate("pm.title.reset"));
+			String confirm = Utility.readString(BaseLang.translate("pm.resetter.confirmServers") + " <Y/N>: ", null);
 		
 			if(confirm.equalsIgnoreCase("y")){
 				for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++){
@@ -100,7 +100,7 @@ public class Resetter{
 						Utility.waitConfirm("Paths deleted!");
 						Thread.sleep(1000);
 					}else{
-						System.out.println((i+1) + ")This server path doesn't exist!");
+						System.out.println((i+1) + ")" + BaseLang.translate("pm.errors.pathNotFound"));
 						Utility.waitConfirm("");
 					}
 				}

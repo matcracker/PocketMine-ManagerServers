@@ -29,7 +29,7 @@ public class Properties {
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.properties"));
 		Utility.showServers();
-		int server = Utility.readInt(BaseLang.translate("pm.editor.server") + " ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 			String pathContent = UtilityServersAPI.getPath(server-1);
@@ -40,9 +40,9 @@ public class Properties {
 					e.printStackTrace();
 				}
 			}else
-				Utility.waitConfirm("Path can't be null!");
+				Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
 		}else
-			Utility.waitConfirm("This server path doesn't exist!");
+			Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
 	}
 	
 	private static void editProperties(String path) throws IOException{
@@ -140,7 +140,7 @@ public class Properties {
 				propFile = propFile + configOptions[i] + config[i] + "\n";
 			}
 			
-			String confirm = Utility.readString("Do you want to confirm your choices? <Y/n>: ", null);
+			String confirm = Utility.readString(BaseLang.translate("pm.properties.confirm") + " <Y/n>: ", null);
 			
 			if(confirm.equalsIgnoreCase("y"))
 				Utility.writeStringData(new File(path + "server.properties"), propFile);

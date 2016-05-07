@@ -132,7 +132,7 @@ public class Loader {
 					UtilityServersAPI.setNameServer(i - 1, nameServers[i-1]);
 					StatusAPI.setStatus(BaseLang.translate("pm.status.noDownload"), i-1);
 					StatusAPI.setVersion(BaseLang.translate("pm.status.noVersion"), i-1);
-					StatusAPI.setPerformance("Personal", i-1);
+					StatusAPI.setPerformance(BaseLang.translate("pm.status.personal"), i-1);
 					UtilityServersAPI.setPath(i - 1, path[i-1]);
 				}
 				
