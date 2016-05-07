@@ -31,8 +31,11 @@ public class BaseLang {
 	 * @return string translated
 	 */
 	public static String translate(String param){
-		param = param.replaceAll(param, getStringKey(getLanguage(), param));
-		
+		try{
+			param = param.replaceAll(param, getStringKey(getLanguage(), param));
+		}catch(NullPointerException e){
+			return param;
+		}
 		return param;
 	}
 	
@@ -85,7 +88,6 @@ public class BaseLang {
 		try{
 			fis = new FileInputStream("Languages" + File.separator + fileName + ".ini");
 		}catch (FileNotFoundException e){
-			return key;
 		}
 		try{
 			Properties props = new Properties();
@@ -94,8 +96,9 @@ public class BaseLang {
 				fis.close();
 			return props.getProperty(key);
 		}catch(IOException ex){
-			return key;
 		}
+		
+		return key;
 		
 	}
 }

@@ -12,7 +12,7 @@ public class PMPrintStream extends PrintStream{
     }
  
     @Override
-    public void println(final String string) {
+    public void println(final String string){
         super.println(UtilityColor.format(string, debug));
     }
     
@@ -24,4 +24,5 @@ public class PMPrintStream extends PrintStream{
     public void printf(final String string) {
         super.printf(UtilityColor.format(string, debug));
     }
+    
 }
