@@ -23,7 +23,7 @@ public class PMServersManager {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version. 
 	*/
-	public static void serverManagerMenu() throws IOException{
+	protected static void serverManagerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.serversManager"));

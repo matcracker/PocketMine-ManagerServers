@@ -25,7 +25,7 @@ public class Installator {
 	*(at your option) any later version.
 	*/
 	
-	public static void installatorMenu() throws IOException{
+	protected static void installatorMenu() throws IOException{
 		Utility.cleanScreen();
 		int nservers = UtilityServersAPI.getNumberServers();
 		

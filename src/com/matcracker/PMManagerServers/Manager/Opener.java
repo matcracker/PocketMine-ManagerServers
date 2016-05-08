@@ -7,7 +7,7 @@ import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Opener {
-	public static void openerMenu() throws IOException{
+	protected static void openerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.opener"));

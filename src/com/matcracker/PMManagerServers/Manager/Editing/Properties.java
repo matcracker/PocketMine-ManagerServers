@@ -24,7 +24,7 @@ public class Properties {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	public static void propertiesMenu(){
+	protected static void propertiesMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.properties"));

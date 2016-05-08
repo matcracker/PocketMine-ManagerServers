@@ -26,7 +26,7 @@ public class Performance {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	public static void performanceMenu() throws IOException {
+	protected static void performanceMenu() throws IOException {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.performance"));

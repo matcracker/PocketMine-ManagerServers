@@ -39,7 +39,7 @@ public class Resetter{
 			"Backups"
 	};
 	
-	public static void resetterMenu() throws IOException{
+	protected static void resetterMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.reset"));

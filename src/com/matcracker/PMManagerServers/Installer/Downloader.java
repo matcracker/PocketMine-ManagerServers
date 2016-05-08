@@ -25,7 +25,7 @@ public class Downloader {
 	*(at your option) any later version.
 	*/
 	
-	public static void downloaderMenu() throws IOException{
+	protected static void downloaderMenu() throws IOException{
 		Utility.cleanScreen();
 		int nservers = UtilityServersAPI.getNumberServers();
 		
