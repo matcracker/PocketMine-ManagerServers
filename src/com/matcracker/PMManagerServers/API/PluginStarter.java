@@ -1,12 +1,6 @@
-package com.matcracker.PMManagerServers.Settings;
+package com.matcracker.PMManagerServers.API;
 
-import java.io.IOException;
-
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Languages.LangSelector;
-import com.matcracker.PMManagerServers.Utility.Utility;
-
-public class Settings{
+public interface PluginStarter{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
@@ -21,35 +15,15 @@ public class Settings{
 	*it under the terms of the GNU Lesser General Public License as published by 
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
-	* 
 	*/
 	
-	public static void settingsMenu() throws IOException{
-	    Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.settings"));
-		System.out.println("1- " + BaseLang.translate("pm.settings.language"));
-		System.out.println("2- " + BaseLang.translate("pm.settings.serversManager"));
-		System.out.println("3- " + BaseLang.translate("pm.settings.reset"));
-		System.out.println("4- Plugin manager");
-		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
-		
-		System.out.print("\nChoose option: ");
-		String options = Utility.keyword.readLine();
-		
-		if(options.equalsIgnoreCase("1"))
-			LangSelector.langMenu();
-		
-		if(options.equalsIgnoreCase("2"))
-			PMServersManager.serverManagerMenu();
-		
-		if(options.equalsIgnoreCase("3"))
-			Resetter.resetterMenu();
-		
-		if(options.equalsIgnoreCase("4"))
-			PluginManager.plugMenu();
-		
-		if(options.equalsIgnoreCase("5"))
-			return;
-	}
+	/**
+	 * In this method you can print what happen when the plugin start.
+	 */
+	public void onEnable();
+	
+	/**
+	 * In this method you can print what happen when the plugin stop.
+	 */
+	public void onDisable();
 }

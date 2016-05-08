@@ -4,6 +4,7 @@ import com.matcracker.PMManagerServers.Informations.Informations;
 import com.matcracker.PMManagerServers.Installer.ManagerInstaller;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Loaders.Loader;
+import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
 import com.matcracker.PMManagerServers.Manager.Manager;
 import com.matcracker.PMManagerServers.Settings.Settings;
 import com.matcracker.PMManagerServers.Utility.PMPrintStream;
@@ -70,8 +71,10 @@ public class Main{
 					System.out.print(BaseLang.translate("pm.chooise.exit") + " <y/n>: ");
 					quit = Utility.keyword.readLine();
 					
-					if(quit.equalsIgnoreCase("y"))
+					if(quit.equalsIgnoreCase("y")){
+						PluginsLoader.unloadPlugins();
 						System.exit(0);
+					}
 				}
 			}
 		}catch(Exception e){
