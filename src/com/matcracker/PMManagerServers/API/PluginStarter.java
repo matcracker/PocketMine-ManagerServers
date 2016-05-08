@@ -26,4 +26,9 @@ public interface PluginStarter{
 	 * In this method you can print what happen when the plugin stop.
 	 */
 	public void onDisable();
+	
+	/**
+	 * This method must be used, it provides a start when a user launch it.
+	 */
+	public void execute();
 }

@@ -11,6 +11,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import com.matcracker.PMManagerServers.API.PluginStarter;
+import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class PluginsLoader{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -29,13 +30,14 @@ public class PluginsLoader{
 	*(at your option) any later version.
 	*/
 		
-	private final static File folder = new File("plugins");
+	public final static File folder = new File("plugins");
+	public static boolean pluginFound = false;
 	
-	protected static void loadPlugins() throws IOException{
-		boolean pluginFound = false;
-		
+	protected static void loadPlugins() throws IOException{		
 		if(!folder.exists())
 			folder.mkdir();
+		
+		int numPlug = 0;
 		
 		for(File plugins : folder.listFiles()){
 			if(plugins.isFile() && plugins.getName().endsWith(".jar")){
@@ -47,8 +49,11 @@ public class PluginsLoader{
 					e1.printStackTrace();
 				}
 				pluginFound = true;
+				numPlug++;
 			}
 		}
+		
+		Utility.writeIntData(new File("Data" + File.separator + "nplugins.pm"), numPlug);
 		
 		if(!pluginFound){
 			System.out.println("&6Any plugin found!");

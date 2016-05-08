@@ -14,6 +14,7 @@ import java.net.URL;
 
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Loaders.Loader;
+import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
 
 public class Utility{
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -242,6 +243,20 @@ public class Utility{
 		for(File file : files){
 			if(!file.delete())
 				System.err.println("Failed to delete " + file);
+		}
+	}
+	
+	public static void showPlugins(){
+		File folder = PluginsLoader.folder;
+		
+		if(PluginsLoader.pluginFound){
+			int i = 0;
+			for(File plugins : folder.listFiles()){
+				if(plugins.isFile() && plugins.getName().endsWith(".jar")){
+					System.out.println(i + "- " + plugins.getName().replace(".jar", ""));
+					i++;
+				}
+			}
 		}
 	}
 	
