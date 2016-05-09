@@ -27,17 +27,22 @@ public class Main{
 	*(at your option) any later version.
 	*/
 	
-	public static int mode = 0;
+	private static boolean pluginsLoaded = false;
 	
 	public static void main(String[] args){
 		String menu = "", quit = "n";
-		String version = "1.0 Alpha 1";
+		String version = "1.0 Alpha 2";
 		
 		System.setOut(new PMPrintStream(System.out));
 		System.setErr(new PMPrintStream(System.out));
 		
 		Loader.startLoader();
 		
+		if(!pluginsLoaded){
+			PluginsLoader.loadPlugins();
+			pluginsLoaded = true;
+		}
+
 		try{
 			while(quit.equalsIgnoreCase("n")){
 				Utility.cleanScreen();
