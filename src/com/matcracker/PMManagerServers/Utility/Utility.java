@@ -246,11 +246,20 @@ public class Utility{
 		}
 	}
 	
+	public static boolean is_numeric(String content){
+		try{
+			Integer.parseInt(content);
+			return true;
+		}catch(NumberFormatException e){
+			return false;
+		}
+	}
+	
 	public static void showPlugins(){
 		File folder = PluginsLoader.folder;
 		
 		if(PluginsLoader.pluginFound){
-			int i = 0;
+			int i = 1;
 			for(File plugins : folder.listFiles()){
 				if(plugins.isFile() && plugins.getName().endsWith(".jar")){
 					System.out.println(i + "- " + plugins.getName().replace(".jar", ""));

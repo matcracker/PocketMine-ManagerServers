@@ -1,8 +1,10 @@
 package com.matcracker.PMManagerServers.API;
 
-import com.matcracker.PMManagerServers.Utility.Utility;
+import java.io.File;
 
-public class APIManager{
+import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
+
+public class PluginsAPI {
   /** _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
@@ -19,21 +21,36 @@ public class APIManager{
 	*(at your option) any later version.
 	*/
 	
-	private static final String APIVersion = "1.0";
+	/**
+	 * @param pluginFileName without .jar
+	 * @return author of plugin
+	 */
+	public static String getPluginAuthor(String pluginFileName){
+		return (String) PluginsLoader.pluginExec(new File("plugins" + File.separator + pluginFileName + ".jar"), "getAuthor");
+	}
+	
+	/**
+	 * @param pluginFileName without .jar
+	 * @return version of plugin
+	 */
+	public static String getPluginVersion(String pluginFileName){
+		return (String) PluginsLoader.pluginExec(new File("plugins" + File.separator + pluginFileName + ".jar"), "getVersion");
+	}
+	
+	/**
+	 * @param pluginFileName without .jar
+	 * @return API version used by plugin
+	 */
+	public static String getPluginAPI(String pluginFileName){
+		return (String) PluginsLoader.pluginExec(new File("plugins" + File.separator + pluginFileName + ".jar"), "getAPIVersion");
+	}
+	
+	/**
+	 * @param pluginFileName
+	 * @return name of plugin
+	 */
+	public static String getPluginName(String pluginFileName){
+		return (String) PluginsLoader.pluginExec(new File("plugins" + File.separator + pluginFileName + ".jar"), "getName");
+	}
 
-	/**
-	 * @return String
-	 */
-	public static String getAPIVersion(){
-		return APIVersion;
-	}
-	
-	/**
-	 * @return String
-	 */
-	public static String getVersion(){
-		return Utility.version;
-	}
-	
-	
 }

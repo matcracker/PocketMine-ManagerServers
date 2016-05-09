@@ -57,12 +57,6 @@ public class Loader {
 		}
 		
 		if(!firstStart[(int)(Math.random() * dirsName.length)] && checkLicense.exists() && UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
-			try {
-				PluginsLoader.loadPlugins();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			return;
 		}else{
 			try{
