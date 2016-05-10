@@ -1,7 +1,5 @@
 package com.matcracker.PMManagerServers.Utility;
 
-import java.util.Random;
-
 public class UtilityColor{
 
 	public static final String FORMAT_RESET = "\u001B[0m";
@@ -41,7 +39,7 @@ public class UtilityColor{
 	public static final String BACKGROUND_PURPLE = "\u001B[105m";
 	public static final String BACKGROUND_CYAN = "\u001B[106m";
 	public static final String BACKGROUND_WHITE = "\u001B[107m";
-	public final static String FORMAT_OBFUSCATED = ubfuscated();
+	public final static String FORMAT_OBFUSCATED = Utility.ubfuscated(6);
 	
 	protected static String format(String content, boolean debug){
 		String phrase = content;
@@ -74,16 +72,5 @@ public class UtilityColor{
 		phrase = phrase.replaceAll("&r", FORMAT_RESET);
 		
 		return phrase;
-	}
-	
-	public static String ubfuscated(){
-		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-		
-		StringBuilder sb = new StringBuilder(6);
-	  	for(int i = 0; i < 6; i++){
-	  		sb.append(chars.charAt(new Random().nextInt(chars.length())));
-	  	}
-	  	
-	  	return sb.toString();
 	}
 }

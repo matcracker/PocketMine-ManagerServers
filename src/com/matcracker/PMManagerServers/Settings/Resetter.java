@@ -69,8 +69,8 @@ public class Resetter{
 			
 			if(confirm.equalsIgnoreCase("y")){
 				for(int i = 0; i < dirsName.length; i++){
-					Utility.deleteFile(dirsName[i]);
-					Utility.deleteFolder(dirsName[i], dirsName.length);
+					deleteFile(dirsName[i]);
+					deleteFolder(dirsName[i], dirsName.length);
 				}
 				System.out.println(BaseLang.translate("pm.resetter.close"));
 				Thread.sleep(1000);
@@ -95,8 +95,8 @@ public class Resetter{
 			if(confirm.equalsIgnoreCase("y")){
 				for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++){
 					if(UtilityServersAPI.checkServersFile("Path", "path_", i) && UtilityServersAPI.checkServersFile("ServersName", "ServerName_", i)){
-						Utility.deleteFile("Path");
-						Utility.deleteFile("ServersName");
+						deleteFile("Path");
+						deleteFile("ServersName");
 						Utility.waitConfirm("Paths deleted!");
 						Thread.sleep(1000);
 					}else{
@@ -110,4 +110,22 @@ public class Resetter{
 			e.printStackTrace();
 		}
 	}
+	
+	private static void deleteFolder(String folder, int index){
+		File dir = new File(folder);
+
+		for(int i = 0; i < index; i++)
+			dir.delete();
+	}
+	
+	private static void deleteFile(String folder){
+		File dir = new File(folder);
+		File[] files = dir.listFiles();
+	
+		for(File file : files){
+			if(!file.delete())
+				System.err.println("Failed to delete " + file);
+		}
+	}
+
 }

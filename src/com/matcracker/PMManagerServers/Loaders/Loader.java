@@ -7,6 +7,7 @@ import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Languages.LangSelector;
+import com.matcracker.PMManagerServers.Utility.FileChooser;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Loader {
@@ -91,25 +92,20 @@ public class Loader {
 			nservers = Utility.readIntData(new File("Data" + File.separator + "nservers.pm"));
 			return;
 		}else{	
+			String temp = "";
 			do{
 				LangSelector.langMenu();
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
 				System.out.println(BaseLang.translate("pm.title.completeLoad"));
-				System.out.print(BaseLang.translate("pm.chooise.servers") + " <1/2/3/...> : ");
+				temp = Utility.readString(BaseLang.translate("pm.chooise.servers") + " <1/2/3/...>: ", null);
 				
-				try{
-					nservers = Integer.valueOf(Utility.keyword.readLine());
+				if(nservers <= 0)
+					Utility.waitConfirm(BaseLang.translate("pm.errors.fewServers"));
 				
-				}catch (IOException e){
-					System.out.println(Utility.inputError);
-				}
-				
-				if(nservers <= 0){
-					System.out.println(BaseLang.translate("pm.errors.fewServers"));
-					Utility.keyword.readLine();
-				}
-			}while(nservers <= 0);
+			}while(!Utility.is_numeric(temp) || nservers <= 0);
+			
+			nservers = Integer.valueOf(temp);
 			
 			UtilityServersAPI.setNumberServer(nservers);
 			
@@ -123,10 +119,11 @@ public class Loader {
 		if(nservers >= 1){
 			String[] nameServers = new String[nservers];
 			String[] path = new String[nservers];
+			
 			if(UtilityServersAPI.checkServersFile("ServersName", "ServerName_", nservers - 1)){
 				return;
 			}else{
-				Utility.selection(nservers, nameServers, path);
+				selection(nservers, nameServers, path);
 
 				for(int i = 1; i <= nservers; i++){
 					UtilityServersAPI.setNameServer(i - 1, nameServers[i-1]);
@@ -135,14 +132,37 @@ public class Loader {
 					StatusAPI.setPerformance(BaseLang.translate("pm.status.personal"), i-1);
 					UtilityServersAPI.setPath(i - 1, path[i-1]);
 				}
-				
 			}
 		}else{
 			System.out.println(Utility.generalError);
 		}
 		
-		System.out.println(BaseLang.translate("pm.loader.complete"));
-		Utility.keyword.readLine();
-
+		Utility.waitConfirm(BaseLang.translate("pm.loader.complete"));
+	}
+	
+	private static void selection(int nservers, String[] nameServers, String[] path){
+		for(int i = 1; i <= nservers; i++){
+			Utility.defaultServersName = "Server_Minecraft_PE_" + i;
+			System.out.printf("%d) Name of %d° server: ", i, i);
+			
+			try{
+				nameServers[i-1] = Utility.keyword.readLine();
+				
+				if(nameServers[i-1].contains(" ")){
+					System.out.println("\nSorry, but you can't insert space from name");
+					Utility.keyword.readLine();
+					Loader.completeLoader();
+					
+				}else if(nameServers[i-1].equalsIgnoreCase("")){
+					nameServers[i-1] = Utility.defaultServersName;
+				}
+			}catch (IOException e){
+				e.printStackTrace();
+			}
+		}		
+		for(int i = 1; i <= nservers; i++){
+			System.out.printf("\n%d) Path of %d° server?: ", i, i);
+			path[i-1] = FileChooser.get("Select " + i + "° path of PocketMine-MP.phar");
+		}
 	}
 }

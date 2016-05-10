@@ -6,7 +6,6 @@ import java.util.Calendar;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class Properties {
   /** _____           _        _   __  __ _                   __  __                                   _____                              
@@ -117,7 +116,7 @@ public class Properties {
 				"DEFAULT",
 				"off",
 				"on",
-				UtilityColor.ubfuscated(),
+				Utility.ubfuscated(6),
 				"on"				
 		};
 		

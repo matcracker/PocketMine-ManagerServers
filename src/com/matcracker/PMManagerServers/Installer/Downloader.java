@@ -40,12 +40,11 @@ public class Downloader {
 			System.out.printf("%d) %s -> "+BaseLang.translate("pm.standard.status")+": %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getStatus(i));
 		}
 		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
-		System.out.print("\n" + BaseLang.translate("pm.downloader.version")+ " ");
-		String sel = Utility.keyword.readLine();
-		
-		if(sel.equalsIgnoreCase(String.valueOf(nservers + 1))){ //Back
+		String sel = Utility.readString("\n" + BaseLang.translate("pm.downloader.version")+ " ", null);
+
+		if(sel.equalsIgnoreCase(String.valueOf(nservers + 1))) //Back
 			ManagerInstaller.managerInstallerMenu();
-		}else{
+		else{
 			System.out.println("\n1- " + BaseLang.translate("pm.managerInstaller.stable") + " (Setup File)");
 			System.out.println("2- " + BaseLang.translate("pm.managerInstaller.beta") + " (Phar File)");
 			System.out.println("3- " + BaseLang.translate("pm.managerInstaller.dev") + " (Phar File)");

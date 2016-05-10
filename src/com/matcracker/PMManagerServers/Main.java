@@ -1,5 +1,7 @@
 package com.matcracker.PMManagerServers;
 
+import java.io.IOException;
+
 import com.matcracker.PMManagerServers.Informations.Informations;
 import com.matcracker.PMManagerServers.Installer.ManagerInstaller;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
@@ -54,8 +56,7 @@ public class Main{
 				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
 				System.out.println("4- " + BaseLang.translate("pm.mainMenu.informations"));
 				System.out.println("5- " + BaseLang.translate("pm.mainMenu.exit") + "\n");
-				System.out.print(BaseLang.translate("pm.chooise.ask")+ " ");
-				menu = Utility.keyword.readLine();
+				menu = Utility.readString(BaseLang.translate("pm.chooise.ask")+ " ", null);
 				
 				if(menu.equalsIgnoreCase("1"))
 					ManagerInstaller.managerInstallerMenu();
@@ -73,16 +74,15 @@ public class Main{
 					Utility.cleanScreen();
 					System.out.println(Utility.softwareName);
 					System.out.println(BaseLang.translate("pm.title.exit"));
-					System.out.print(BaseLang.translate("pm.chooise.exit") + " <y/n>: ");
-					quit = Utility.keyword.readLine();
-					
+					quit = Utility.readString(BaseLang.translate("pm.chooise.exit") + " <y/n>: ", null);
+
 					if(quit.equalsIgnoreCase("y")){
 						PluginsLoader.unloadPlugins();
 						System.exit(0);
 					}
 				}
 			}
-		}catch(Exception e){
+		}catch(IOException e){
 			e.printStackTrace();
 		}
 	}

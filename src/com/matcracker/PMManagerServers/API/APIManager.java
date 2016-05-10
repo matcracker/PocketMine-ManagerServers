@@ -22,18 +22,17 @@ public class APIManager{
 	private static final String APIVersion = "1.0";
 
 	/**
-	 * @return String
+	 * @return API version
 	 */
 	public static String getAPIVersion(){
 		return APIVersion;
 	}
 	
 	/**
-	 * @return String
+	 * @return version of software
 	 */
 	public static String getVersion(){
 		return Utility.version;
-	}
-	
+	}	
 	
 }

@@ -11,9 +11,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Random;
 
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
-import com.matcracker.PMManagerServers.Loaders.Loader;
 import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
 
 public class Utility{
@@ -46,6 +46,9 @@ public class Utility{
 	public static final String inputError = "&cError during the chooise!";
 	public static final String generalError =  "&cAn error occured!";
 	
+	/**
+	 * Clean the screen
+	 */
 	public static void cleanScreen(){
 		try {
 			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
@@ -55,18 +58,10 @@ public class Utility{
 
 	}
 	
-	public static void checking(int nservers){
-		Object[] checkPath = new Object[nservers];
-		boolean[] checkNameServer = new boolean[nservers];
-		for(int i = 1; i <= nservers; i++){
-			checkNameServer[i-1] = new File("ServersName" + File.separator + "ServerName_" + i + ".pm") != null;
-			checkPath[i-1] = new File("Path" + File.separator + "path_" + i + ".pm");
-			
-			if(checkNameServer[i-1])
-				checkNameServer[i-1] = true;
-		}
-	}
-	
+	/**
+	 * @param file 
+	 * @param data
+	 */
 	public static void writeStringData(File file, String data){
 		BufferedWriter writerData = null;
 		
@@ -87,6 +82,10 @@ public class Utility{
 		}
 	}
 	
+	/**
+	 * @param file
+	 * @param data
+	 */
 	public static void writeIntData(File file, int data){
 		BufferedWriter writerData = null;
 		
@@ -106,6 +105,10 @@ public class Utility{
 		}
 	}
 	
+	/**
+	 * @param file
+	 * @return int of file
+	 */
 	public static int readIntData(File file){
 		FileReader readerData = null;
 		String data = null;
@@ -129,6 +132,10 @@ public class Utility{
 		return Integer.parseInt(data);
 	}
 	
+	/**
+	 * @param file
+	 * @return string of file
+	 */
 	public static String readStringData(File file){
 		FileReader readerData = null;
 		String data = null;
@@ -151,6 +158,10 @@ public class Utility{
 		return data;
 	}
 	
+	/**
+	 * @param type (url or software)
+	 * @param content path
+	 */
 	public static void openSoftware(String type, String content){
 		try{
 			if(type.equalsIgnoreCase("url")){
@@ -169,6 +180,9 @@ public class Utility{
 		}
 	}
 	
+	/**
+	 * @param text Useful for wait a confirm from user
+	 */
 	public static void waitConfirm(String text){
 		try{
 			System.out.println(text);
@@ -177,13 +191,9 @@ public class Utility{
 		}
 	}
 	
-	public static void deleteFolder(String folder, int index){
-		File dir = new File(folder);
-
-		for(int i = 0; i < index; i++)
-			dir.delete();
-	}
-	
+	/**
+	 * Show all the servers
+	 */
 	public static void showServers(){
 		int nservers = UtilityServersAPI.getNumberServers();
 		for(int i = 0; i < nservers; i++){
@@ -192,6 +202,11 @@ public class Utility{
 		}
 	}
 	
+	/**
+	 * @param text
+	 * @param addition
+	 * @return string input
+	 */
 	public static String readString(String text, String addition){
 		String content = null;
 		
@@ -208,6 +223,11 @@ public class Utility{
 		
 	}
 	
+	/**
+	 * @param text
+	 * @param addition
+	 * @return int input
+	 */
 	public static int readInt(String text, String addition){
 		String content = null;
 		
@@ -220,32 +240,17 @@ public class Utility{
 		}catch (IOException e){
 			e.printStackTrace();
 		}
-		if(isInt(content))
+		if(is_numeric(content))
 			return Integer.parseInt(content);
 		else
 			return -1;
 		
 	}
 	
-	private static boolean isInt(String content){
-		try{
-			Integer.parseInt(content);
-			return true;
-		}catch(NumberFormatException e){
-			return false;
-		}
-	}
-	
-	public static void deleteFile(String folder){
-		File dir = new File(folder);
-		File[] files = dir.listFiles();
-	
-		for(File file : files){
-			if(!file.delete())
-				System.err.println("Failed to delete " + file);
-		}
-	}
-	
+	/**
+	 * @param content
+	 * @return
+	 */
 	public static boolean is_numeric(String content){
 		try{
 			Integer.parseInt(content);
@@ -255,6 +260,9 @@ public class Utility{
 		}
 	}
 	
+	/**
+	 * Show plugins
+	 */
 	public static void showPlugins(){
 		File folder = PluginsLoader.folder;
 		
@@ -269,30 +277,19 @@ public class Utility{
 		}
 	}
 	
-	public static void selection(int nservers, String[] nameServers, String[] path){
-		for(int i = 1; i <= nservers; i++){
-			defaultServersName = "Server_Minecraft_PE_" + i;
-			System.out.printf("%d) Name of %d° server: ", i, i);
-			
-			try{
-				nameServers[i-1] = keyword.readLine();
-				
-				if(nameServers[i-1].contains(" ")){
-					System.out.println("\nSorry, but you can't insert space from name");
-					Utility.keyword.readLine();
-					Loader.completeLoader();
-					
-				}else if(nameServers[i-1].equalsIgnoreCase("")){
-					nameServers[i-1] = defaultServersName;
-				}
-			}catch (IOException e){
-				e.printStackTrace();
-			}
-		}		
-		for(int i = 1; i <= nservers; i++){
-			System.out.printf("\n%d) Path of %d° server?: ", i, i);
-			path[i-1] = FileChooser.get("Select " + i + "° path of PocketMine-MP.phar");
-		}
+	/**
+	 * @param lenght of word
+	 * @return a string obfuscated
+	 */
+	public static String ubfuscated(int lenght){
+		String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+		
+		StringBuilder sb = new StringBuilder(6);
+	  	for(int i = 0; i < lenght; i++){
+	  		sb.append(chars.charAt(new Random().nextInt(chars.length())));
+	  	}
+	  	
+	  	return sb.toString();
 	}
 	
 }
