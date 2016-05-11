@@ -93,23 +93,25 @@ public class Loader {
 			return;
 		}else{	
 			String temp = "";
+			LangSelector.langMenu();
 			do{
-				LangSelector.langMenu();
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
 				System.out.println(BaseLang.translate("pm.title.completeLoad"));
 				temp = Utility.readString(BaseLang.translate("pm.chooise.servers") + " <1/2/3/...>: ", null);
 				
-				if(nservers <= 0)
-					Utility.waitConfirm(BaseLang.translate("pm.errors.fewServers"));
+				if(Utility.is_numeric(temp))
+					if(Integer.parseInt(temp) <= 0)
+						Utility.waitConfirm(BaseLang.translate("pm.errors.fewServers"));
 				
-			}while(!Utility.is_numeric(temp) || nservers <= 0);
+			}while(Integer.parseInt(temp) <= 0 || !Utility.is_numeric(temp));
 			
-			nservers = Integer.valueOf(temp);
+			nservers = Integer.parseInt(temp);
 			
 			UtilityServersAPI.setNumberServer(nservers);
 			
 		}
+
 			
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
@@ -125,12 +127,12 @@ public class Loader {
 			}else{
 				selection(nservers, nameServers, path);
 
-				for(int i = 1; i <= nservers; i++){
-					UtilityServersAPI.setNameServer(i - 1, nameServers[i-1]);
-					StatusAPI.setStatus(BaseLang.translate("pm.status.noDownload"), i-1);
-					StatusAPI.setVersion(BaseLang.translate("pm.status.noVersion"), i-1);
-					StatusAPI.setPerformance(BaseLang.translate("pm.status.personal"), i-1);
-					UtilityServersAPI.setPath(i - 1, path[i-1]);
+				for(int i = 0; i < nservers; i++){
+					UtilityServersAPI.setNameServer(i, nameServers[i]);
+					StatusAPI.setStatus(BaseLang.translate("pm.status.noDownload"), i);
+					StatusAPI.setVersion(BaseLang.translate("pm.status.noVersion"), i);
+					StatusAPI.setPerformance(BaseLang.translate("pm.status.personal"), i);
+					UtilityServersAPI.setPath(i, path[i]);
 				}
 			}
 		}else{
