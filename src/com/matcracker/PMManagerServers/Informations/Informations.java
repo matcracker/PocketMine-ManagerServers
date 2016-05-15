@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
+import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
@@ -97,6 +98,6 @@ public class Informations {
 		}
 		
 		if(info.equalsIgnoreCase("5"))
-			return;
+			Main.main(null);
 	}
 }

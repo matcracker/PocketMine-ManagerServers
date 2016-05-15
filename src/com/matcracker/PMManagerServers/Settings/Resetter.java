@@ -57,6 +57,8 @@ public class Resetter{
 		
 		if(reset == 3)
 			Settings.settingsMenu();
+		
+		resetterMenu();
 	
 	}
 	

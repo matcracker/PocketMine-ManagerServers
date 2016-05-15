@@ -52,5 +52,7 @@ public class Settings{
 		
 		if(options.equalsIgnoreCase("5"))
 			Main.main(null);
+		
+		settingsMenu();
 	}
 }

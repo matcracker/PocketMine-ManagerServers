@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
@@ -42,8 +43,9 @@ public class ManagerInstaller {
 			Installator.installatorMenu();
 		
 		if(inst.equalsIgnoreCase("3"))
-			return;
+			Main.main(null);
 		
+		managerInstallerMenu();
 	}
 	
 	public static void changeInstallationsFile(String path, String version) throws IOException{

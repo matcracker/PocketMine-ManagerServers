@@ -1,10 +1,12 @@
 package com.matcracker.PMManagerServers.Manager.Editing;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
+import com.matcracker.PMManagerServers.Manager.Manager;
 import com.matcracker.PMManagerServers.Utility.Utility;
 import com.matcracker.PMManagerServers.Utility.Zipper;
 
@@ -30,7 +32,7 @@ public class Rescuer {
 	public static final String backupedServersPath = "Backups" + File.separator + "Servers";
 	public static final String extractedServersPath = "Backups" + File.separator + "Servers" + File.separator + "Extracted";
 	
-	public static void rescuerMenu(){
+	public static void rescuerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.rescuer"));
@@ -42,11 +44,14 @@ public class Rescuer {
 		
 		if(sel == 1)
 			backup();
+		
 		if(sel == 2)
 			restore();
 			
 		if(sel == 3)
-			return;
+			Manager.managerMenu();
+		
+		rescuerMenu();
 	}
 	
 	private static void restore() {
