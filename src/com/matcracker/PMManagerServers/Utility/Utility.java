@@ -17,7 +17,7 @@ import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
 
 public class Utility{
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+   /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
@@ -50,12 +50,25 @@ public class Utility{
 	 * Clean the screen
 	 */
 	public static void cleanScreen(){
-		try {
-			new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-		} catch (InterruptedException | IOException e) {
-			System.out.println("Error during the console cleaning.");
+		if(getOSName().startsWith("Linux") || getOSName().startsWith("Mac")){
+			try{
+				Runtime.getRuntime().exec("clear");
+			}catch (IOException e){
+				for(int i = 0; i < 100; i++)
+					System.out.println();
+			}
+			
+		}else if(getOSName().startsWith("Windows")){
+			try{
+				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+			} catch (IOException | InterruptedException e) {
+				System.out.println("Error during the console cleaning.");
+			}
 		}
-
+	}
+	
+	public static String getOSName(){
+		return System.getProperty("os.name");
 	}
 	
 	/**
@@ -197,7 +210,7 @@ public class Utility{
 	public static void showServers(){
 		int nservers = UtilityServersAPI.getNumberServers();
 		for(int i = 0; i < nservers; i++){
-			System.out.print((i+1) + ") " + UtilityServersAPI.getNameServer(i));
+			System.out.print((i+1) + ") " + UtilityServersAPI.getNameServer(i+1));
 			System.out.println();
 		}
 	}
