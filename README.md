@@ -18,7 +18,7 @@ There are 2 type of versions for PocketMine-ManagerServers:
 - **Alpha versions**: It's the last build with new fuctions added in future version.
 
 ### How to use PocketMine-ManagerServers
-[Download](https://github.com/matcracker/PocketMine-ManagerServers/releases) the latest version of PM-MS (stable or alpha), then extract the zip file. If you are using Windows open **run.bat**, if you are using Linux write on terminal **sh run.sh** and enjoy!
+[Download](https://github.com/matcracker/PocketMine-ManagerServers-Java/releases) the latest version of PM-MS (stable or alpha), then extract the zip file. If you are using Windows open **run.bat**, if you are using Linux write on terminal **sh run.sh** and enjoy!
 
 For the """more""" experts, you can use the command **java -jar PocketMine-ManagerServers_{version}.jar**.
 
