@@ -68,7 +68,7 @@ public class Rescuer {
 				String pathContent = UtilityServersAPI.getPath(server);
 				if(pathContent != null){
 					Zipper.unzip(pathContent, backupedServersPath, null);
-					
+					Utility.waitConfirm(BaseLang.translate("pm.rescuer.extracted"));
 				}else
 					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
 			}else
@@ -93,6 +93,7 @@ public class Rescuer {
 					try{
 						Zipper.zip(pathContent, backupedServersPath, null);
 						StatusAPI.setBackuped("Backuped", server);
+						Utility.waitConfirm(BaseLang.translate("pm.rescuer.backuped"));
 					}catch (ZipException e){
 						e.printStackTrace();
 					}

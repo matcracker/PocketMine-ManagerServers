@@ -13,15 +13,15 @@ public class PluginManager {
 	protected static void plugMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println("-------------------------<Plugin manager>-------------------------&f");
-		System.out.println("1- Show list of enabled plugins");
-		System.out.println("2- Use plugins");
+		System.out.println(BaseLang.translate("pm.title.pluginManager"));
+		System.out.println("1- " + BaseLang.translate("pm.plugManager.list"));
+		System.out.println("2- " + BaseLang.translate("pm.plugManager.use"));
 		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
-		int opt = Utility.readInt("Select option: ", null);
+		int opt = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
 		
 		if(opt == 1){
 			Utility.showPlugins();
-			Utility.waitConfirm("Press ENTER to continue");
+			Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
 		}
 		
 		if(opt == 2){
@@ -30,7 +30,7 @@ public class PluginManager {
 				File plugin;
 				do{
 					Utility.showPlugins();
-					name = Utility.readString("Write plugin name to use: ", null);
+					name = Utility.readString(BaseLang.translate("pm.plugManager.name") + ": ", null);
 					plugin = new File("plugins" + File.separator + name + ".jar");
 					String pidName = ManagementFactory.getRuntimeMXBean().getName();
 					System.out.println(pidName);
@@ -39,7 +39,7 @@ public class PluginManager {
 					
 				}while(!plugin.exists() || Utility.is_numeric(name));
 			}else
-				System.out.println("&cAny plugin found!");
+				System.out.println(BaseLang.translate("pm.plugManager.noPlugins"));
 		}
 			
 		

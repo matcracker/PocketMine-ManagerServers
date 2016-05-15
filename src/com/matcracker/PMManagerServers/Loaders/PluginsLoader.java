@@ -46,8 +46,7 @@ public class PluginsLoader{
 				
 				if(!APIManager.getAPIVersion().equalsIgnoreCase((String) pluginExec(plugins, "getAPIVersion")))
 					System.out.println("&3Be careful, this plugin API isn't updated!");
-				
-				
+
 				try{
 					Thread.sleep(1000);
 				}catch(InterruptedException e1){
