@@ -8,7 +8,7 @@ import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class PMServersManager {
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+   /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
@@ -57,9 +57,9 @@ public class PMServersManager {
 
 		Files.delete(new File("ServersName" + File.separator + "ServerName_" + server + ".pm").toPath());
 		for(int i = server+1; i <= nservers; i++){
-			String temp = UtilityServersAPI.getNameServer(i-1);
+			String temp = UtilityServersAPI.getNameServer(i);
 			Files.delete(new File("ServersName" + File.separator + "ServerName_" + i + ".pm").toPath());
-			UtilityServersAPI.setNameServer(i-2, temp);
+			UtilityServersAPI.setNameServer(i-1, temp);
 		}
 		nservers--;
 		UtilityServersAPI.setNumberServer(nservers);
@@ -87,7 +87,7 @@ public class PMServersManager {
 		if(newName == null)
 			newName = UtilityServersAPI.getDefaultServerName() + "_" + server;
 		
-		UtilityServersAPI.setNameServer(server-1, UtilityServersAPI.getDefaultServerName() + "_" + server);
+		UtilityServersAPI.setNameServer(server, UtilityServersAPI.getDefaultServerName() + "_" + server);
 		
 		Utility.waitConfirm(BaseLang.translate("pm.serverManager.correctChange"));
 	}

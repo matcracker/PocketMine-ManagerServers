@@ -9,7 +9,7 @@ import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Installator {
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+   /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
@@ -61,8 +61,8 @@ public class Installator {
 					File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
 					if(installer.exists()){
 						Utility.openSoftware("software", String.valueOf(installer));
-						StatusAPI.setVersion(BaseLang.translate("pm.status.stable"), Integer.valueOf(sel) - 1);
-						StatusAPI.setStatus(BaseLang.translate("pm.status.install"), Integer.valueOf(sel) - 1);
+						StatusAPI.setVersion(BaseLang.translate("pm.status.stable"), Integer.valueOf(sel));
+						StatusAPI.setStatus(BaseLang.translate("pm.status.install"), Integer.valueOf(sel));
 					}else{
 						System.err.println(BaseLang.translate("pm.errors.instNotFound"));
 						Utility.keyword.readLine();
@@ -118,7 +118,7 @@ public class Installator {
 							String confirm = Utility.keyword.readLine();
 							
 							if(confirm.equalsIgnoreCase("y")){
-								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "DEV");
+								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers), "DEV");
 							}else{
 								installatorMenu();
 							}

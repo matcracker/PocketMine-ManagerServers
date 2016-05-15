@@ -5,7 +5,7 @@ import java.io.File;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class UtilityServersAPI{
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+   /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
@@ -29,11 +29,10 @@ public class UtilityServersAPI{
 	}
 	
 	/**
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 * @param content name of server
 	 */
 	public static void setNameServer(int index, String content){
-		index++;
 		Utility.writeStringData(new File("ServersName" + File.separator + "ServerName_" + index + ".pm"), content);
 	}
 	
@@ -48,11 +47,10 @@ public class UtilityServersAPI{
 	}
 	
 	/**
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 * @return name of server
 	 */
 	public static String getNameServer(int index){
-		index++;
 		return Utility.readStringData(new File("ServersName" + File.separator + "ServerName_" + index + ".pm"));
 	}
 	
@@ -71,20 +69,18 @@ public class UtilityServersAPI{
 	}
 	
 	/**
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 * @return content of path
 	 */
 	public static String getPath(int index){
-		index++;
 		return Utility.readStringData(new File("Path" + File.separator + "path_" + index + ".pm"));
 	}
 	
 	/**
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 * @param path file path
 	 */
 	public static void setPath(int index, String path){
-		index++;
 		if(path != null)
 			Utility.writeStringData(new File("Path" + File.separator + "path_" + index + ".pm"), path);
 		else
@@ -95,7 +91,7 @@ public class UtilityServersAPI{
 	/**
 	 * @param folder name of folder
 	 * @param name of file
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 * @return true if exist
 	 */
 	public static boolean checkServersFile(String folder, String name, int index){
@@ -103,7 +99,6 @@ public class UtilityServersAPI{
 		if(index < 0){
 			file = new File(folder + File.separator + name + ".pm");
 		}else{
-			index++;
 			file = new File(folder + File.separator + name + index + ".pm");
 		}
 		

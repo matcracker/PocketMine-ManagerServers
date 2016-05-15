@@ -8,7 +8,7 @@ import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Properties {
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+   /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
@@ -31,7 +31,7 @@ public class Properties {
 		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
-			String pathContent = UtilityServersAPI.getPath(server-1);
+			String pathContent = UtilityServersAPI.getPath(server);
 			if(pathContent != null){
 				try{
 					editProperties(pathContent);

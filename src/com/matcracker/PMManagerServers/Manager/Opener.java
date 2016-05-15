@@ -36,9 +36,9 @@ public class Opener {
 		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", "[" + BaseLang.translate("pm.opener.suggest") + "]");
 		
 		if(server == -1){
-			for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++){
+			for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++){
 				if(UtilityServersAPI.checkServersFile("Path", "path_", i)){
-					String pathContent = UtilityServersAPI.getPath(i);
+					String pathContent = UtilityServersAPI.getPath(i+1);
 					if(pathContent != null){
 						System.out.println(BaseLang.translate("pm.opener.opening") + " " + UtilityServersAPI.getNameServer(i));
 						if(isServer)
@@ -56,9 +56,9 @@ public class Opener {
 			}
 		}else{
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
-				String pathContent = UtilityServersAPI.getPath(server-1);
+				String pathContent = UtilityServersAPI.getPath(server);
 				if(pathContent != null){
-					System.out.println(BaseLang.translate("pm.opener.opening") + " " + UtilityServersAPI.getNameServer(server - 1));
+					System.out.println(BaseLang.translate("pm.opener.opening") + " " + UtilityServersAPI.getNameServer(server));
 					if(isServer)
 						Utility.openSoftware("software", pathContent + "start.cmd");
 					else

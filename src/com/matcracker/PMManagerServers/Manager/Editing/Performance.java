@@ -11,7 +11,7 @@ import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Performance {
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+   /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
@@ -37,7 +37,7 @@ public class Performance {
 		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server - 1)){
-			String pathContent = UtilityServersAPI.getPath(server-1);
+			String pathContent = UtilityServersAPI.getPath(server);
 			if(pathContent != null){			
 				String confirm = null;
 				
@@ -57,7 +57,7 @@ public class Performance {
 						
 						if(confirm.equalsIgnoreCase("y")){
 							changePerformaceFile(pathContent, BaseLang.translate("pm.status.high").toUpperCase());
-							StatusAPI.setPerformance(BaseLang.translate("pm.status.high"), server-1);
+							StatusAPI.setPerformance(BaseLang.translate("pm.status.high"), server);
 							Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
 						}
 					}else
@@ -72,7 +72,7 @@ public class Performance {
 						
 						if(confirm.equalsIgnoreCase("y")){
 							changePerformaceFile(pathContent, BaseLang.translate("pm.status.medium").toUpperCase());
-							StatusAPI.setPerformance(BaseLang.translate("pm.status.medium"), server-1);
+							StatusAPI.setPerformance(BaseLang.translate("pm.status.medium"), server);
 							Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
 						}
 					}else
@@ -88,7 +88,7 @@ public class Performance {
 						
 						if(confirm.equalsIgnoreCase("y")){
 							changePerformaceFile(pathContent, BaseLang.translate("pm.status.low").toUpperCase());
-							StatusAPI.setPerformance(BaseLang.translate("pm.status.low"), server-1);
+							StatusAPI.setPerformance(BaseLang.translate("pm.status.low"), server);
 							Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
 						}
 					}else

@@ -5,7 +5,7 @@ import java.io.File;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class StatusAPI {
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+   /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
@@ -23,46 +23,41 @@ public class StatusAPI {
 	
 	/**
 	 * @param version name of version (Only Stable, Beta, Dev, Soft)
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 */
 	public static void setVersion(String version, int index){
-		index++;
 		Utility.writeStringData(new File("Installations" + File.separator + "Version" + File.separator + "Status_" + index + ".pm"), version);
 	}
 	
 	/**
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 * @return version of server
 	 */
 	public static String getVersion(int index){
-		index++;
 		return Utility.readStringData(new File("Installations" + File.separator + "Version" + File.separator + "Status_" + index + ".pm"));
 	}
 	
 	/**
 	 * @param status name of status(Only Downloaded, Not downloaded, Installed, Not installed)
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 */
 	public static void setStatus(String status, int index){
-		index++;
 		Utility.writeStringData(new File("Installations" + File.separator + "Status" + File.separator + "Status_" + index + ".pm"), status);
 	}
 	
 	/**
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 * @return status of server
 	 */
 	public static String getStatus(int index){
-		index++;
 		return Utility.readStringData(new File("Installations" + File.separator + "Status" + File.separator + "Status_" + index + ".pm"));
 	}
 	
 	/**
-	 * @param index from 0 to max number of server
+	 * @param index from 1 to max number of server
 	 * @return status of server performance
 	 */
 	public static String getPerformace(int index) {
-		index++;
 		return Utility.readStringData(new File("Performance" + File.separator + "PerformanceStatus_" + index + ".pm"));
 	}
 	
@@ -71,8 +66,24 @@ public class StatusAPI {
 	 * @param index
 	 */
 	public static void setPerformance(String status, int index) {
-		index++;
 		Utility.writeStringData(new File("Performance" + File.separator + "PerformanceStatus_" + index + ".pm"), status);
+		
+	}
+	
+	/**
+	 * @param index from 1 to max number of server
+	 * @return status of server performance
+	 */
+	public static String getBackuped(int index) {
+		return Utility.readStringData(new File("Backups" + File.separator + "Status" + File.separator + "BackupStatus_"+ index + ".pm"));
+	}
+	
+	/**
+	 * @param status name of performance status(Only Personal, High, Medium, Low)
+	 * @param index
+	 */
+	public static void setBackuped(String status, int index) {
+		Utility.writeStringData(new File("Backups" + File.separator + "Status" + File.separator + "BackupStatus_"+ index + ".pm"), status);
 		
 	}
 	

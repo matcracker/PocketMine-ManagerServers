@@ -11,7 +11,7 @@ import com.matcracker.PMManagerServers.Utility.FileChooser;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Loader {
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+   /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
@@ -125,14 +125,39 @@ public class Loader {
 			if(UtilityServersAPI.checkServersFile("ServersName", "ServerName_", nservers - 1)){
 				return;
 			}else{
-				selection(nservers, nameServers, path);
+				
+				for(int i = 1; i <= nservers; i++){
+					Utility.defaultServersName = "Server_Minecraft_PE_" + i;
+					System.out.printf("%d) Name of %d° server: ", i, i);
+					
+					try{
+						nameServers[i-1] = Utility.keyword.readLine();
+						
+						if(nameServers[i-1].contains(" ")){
+							System.out.println("\nSorry, but you can't insert space from name");
+							Utility.keyword.readLine();
+							Loader.completeLoader();
+							
+						}else if(nameServers[i-1].equalsIgnoreCase("")){
+							nameServers[i-1] = Utility.defaultServersName;
+						}
+					}catch (IOException e){
+						e.printStackTrace();
+					}
+				}	
+				
+				for(int i = 1; i <= nservers; i++){
+					System.out.printf("\n%d) Path of %d° server?: ", i, i);
+					path[i-1] = FileChooser.get("Select " + i + "° path of PocketMine-MP.phar");
+				}
 
-				for(int i = 0; i < nservers; i++){
-					UtilityServersAPI.setNameServer(i, nameServers[i]);
+				for(int i = 1; i <= nservers; i++){
+					UtilityServersAPI.setNameServer(i, nameServers[i-1]);
 					StatusAPI.setStatus(BaseLang.translate("pm.status.noDownload"), i);
 					StatusAPI.setVersion(BaseLang.translate("pm.status.noVersion"), i);
 					StatusAPI.setPerformance(BaseLang.translate("pm.status.personal"), i);
-					UtilityServersAPI.setPath(i, path[i]);
+					StatusAPI.setBackuped(BaseLang.translate("pm.status.noBackuped"), i);
+					UtilityServersAPI.setPath(i, path[i-1]);
 				}
 			}
 		}else{
@@ -140,31 +165,5 @@ public class Loader {
 		}
 		
 		Utility.waitConfirm(BaseLang.translate("pm.loader.complete"));
-	}
-	
-	private static void selection(int nservers, String[] nameServers, String[] path){
-		for(int i = 1; i <= nservers; i++){
-			Utility.defaultServersName = "Server_Minecraft_PE_" + i;
-			System.out.printf("%d) Name of %d° server: ", i, i);
-			
-			try{
-				nameServers[i-1] = Utility.keyword.readLine();
-				
-				if(nameServers[i-1].contains(" ")){
-					System.out.println("\nSorry, but you can't insert space from name");
-					Utility.keyword.readLine();
-					Loader.completeLoader();
-					
-				}else if(nameServers[i-1].equalsIgnoreCase("")){
-					nameServers[i-1] = Utility.defaultServersName;
-				}
-			}catch (IOException e){
-				e.printStackTrace();
-			}
-		}		
-		for(int i = 1; i <= nservers; i++){
-			System.out.printf("\n%d) Path of %d° server?: ", i, i);
-			path[i-1] = FileChooser.get("Select " + i + "° path of PocketMine-MP.phar");
-		}
 	}
 }
