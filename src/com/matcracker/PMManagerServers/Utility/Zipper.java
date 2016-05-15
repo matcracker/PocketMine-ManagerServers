@@ -42,14 +42,13 @@ public class Zipper{
 
         File targetFile = new File(targetFolderPath);
         
-        if(targetFile.isFile()){
+        if(targetFile.isFile())
             zipFile.addFile(targetFile, parameters);
-            System.out.println("File");
-        }else if(targetFile.isDirectory()){
-            zipFile.addFolder(targetFile, parameters);
-            System.out.println("DIR");
             
-        }
+        else if(targetFile.isDirectory())
+            zipFile.addFolder(targetFile, parameters);
+            
+        
     }
 
     public static void unzip(String targetZipFilePath, String destinationFolderPath, String password) {

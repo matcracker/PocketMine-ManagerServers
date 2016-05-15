@@ -28,10 +28,7 @@ public class Rescuer {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	
-	public static final String backupedServersPath = "Backups" + File.separator + "Servers";
-	public static final String extractedServersPath = "Backups" + File.separator + "Servers" + File.separator + "Extracted";
-	
+
 	public static void rescuerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
@@ -57,9 +54,11 @@ public class Rescuer {
 	private static void restore() {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.restoreen.ini"));
-		Utility.showServers();
-		int server = Utility.readInt(BaseLang.translate("pm.chooise.server"), null);
+		System.out.println(BaseLang.translate("pm.title.restore"));
+		for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++)
+			System.out.printf("%d) %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i+1), StatusAPI.getBackuped(i+1));
+		
+		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
 		if(server >= UtilityServersAPI.getNumberServers())
 			backup();
@@ -67,8 +66,15 @@ public class Rescuer {
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 				String pathContent = UtilityServersAPI.getPath(server);
 				if(pathContent != null){
-					Zipper.unzip(pathContent, backupedServersPath, null);
-					Utility.waitConfirm(BaseLang.translate("pm.rescuer.extracted"));
+					if(StatusAPI.getBackuped(server).equalsIgnoreCase(BaseLang.translate("pm.status.backuped"))){
+						String extractServersPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip";
+						String destinationPath = "Backups" + File.separator + "Servers" + File.separator + "Extracted";
+						
+						System.out.println(BaseLang.translate("pm.rescuer.extracting"));
+						Zipper.unzip(extractServersPath, destinationPath, null);
+						Utility.waitConfirm(BaseLang.translate("pm.rescuer.extracted"));
+					}else
+						Utility.waitConfirm(BaseLang.translate("pm.rescuer.noBackup"));
 				}else
 					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
 			}else
@@ -81,8 +87,10 @@ public class Rescuer {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.backup"));
-		Utility.showServers();
-		int server = Utility.readInt(BaseLang.translate("pm.chooise.server"), null);
+		for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++)
+			System.out.printf("%d) %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i+1), StatusAPI.getBackuped(i+1));
+		
+		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
 		if(server >= UtilityServersAPI.getNumberServers())
 			backup();
@@ -90,14 +98,18 @@ public class Rescuer {
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 				String pathContent = UtilityServersAPI.getPath(server);
 				if(pathContent != null){
-					try{
-						Zipper.zip(pathContent, backupedServersPath, null);
-						StatusAPI.setBackuped("Backuped", server);
-						Utility.waitConfirm(BaseLang.translate("pm.rescuer.backuped"));
-					}catch (ZipException e){
-						e.printStackTrace();
-					}
-					
+					String backupedServersPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip";
+					if(StatusAPI.getBackuped(server).equalsIgnoreCase(BaseLang.translate("pm.status.noBackuped"))){
+						try{
+							System.out.println(BaseLang.translate("pm.rescuer.create"));
+							Zipper.zip(pathContent, backupedServersPath, null);
+							StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
+							Utility.waitConfirm(BaseLang.translate("pm.rescuer.backuped"));
+						}catch (ZipException e){
+							e.printStackTrace();
+						}
+					}else
+						Utility.waitConfirm(BaseLang.translate("pm.rescuer.existBackup"));
 				}else
 					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
 			}else
