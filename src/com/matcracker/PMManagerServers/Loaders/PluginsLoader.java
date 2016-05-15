@@ -15,7 +15,7 @@ import com.matcracker.PMManagerServers.API.PluginInformation;
 import com.matcracker.PMManagerServers.API.PluginStarter;
 
 public class PluginsLoader{
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+   /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|

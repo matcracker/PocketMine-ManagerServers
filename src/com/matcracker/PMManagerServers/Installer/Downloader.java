@@ -9,7 +9,7 @@ import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Downloader {
-  /** _____           _        _   __  __ _                   __  __                                   _____                              
+    /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
 	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
@@ -70,7 +70,7 @@ public class Downloader {
 						System.out.println(BaseLang.translate("pm.downloader.startDown"));
 						Utility.openSoftware("url", linkstable);
 						System.out.println(BaseLang.translate("pm.downloader.succInst"));
-						StatusAPI.setStatus("Downloaded", Integer.valueOf(sel) - 1);
+						StatusAPI.setStatus("Downloaded", Integer.valueOf(sel));
 						Utility.keyword.readLine();
 					}
 				}
