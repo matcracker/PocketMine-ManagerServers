@@ -128,7 +128,7 @@ public class Loader {
 				
 				for(int i = 1; i <= nservers; i++){
 					Utility.defaultServersName = "Server_Minecraft_PE_" + i;
-					System.out.printf("%d) Name of %dï¿½ server: ", i, i);
+					System.out.printf("%d) Name of %d° server: ", i, i);
 					
 					try{
 						nameServers[i-1] = Utility.keyword.readLine();
@@ -147,8 +147,8 @@ public class Loader {
 				}	
 				
 				for(int i = 1; i <= nservers; i++){
-					System.out.printf("\n%d) Path of %dï¿½ server?: ", i, i);
-					path[i-1] = FileChooser.getPhar("Select " + i + "ï¿½ path of PocketMine-MP.phar");
+					System.out.printf("\n%d) Path of %d° server?: ", i, i);
+					path[i-1] = FileChooser.getPhar("Select " + i + "° path of PocketMine-MP.phar");
 				}
 
 				for(int i = 1; i <= nservers; i++){

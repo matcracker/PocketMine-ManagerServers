@@ -46,8 +46,7 @@ public class Resetter{
 		System.out.println("1- " + BaseLang.translate("pm.resetter.programData"));
 		System.out.println("2- " + BaseLang.translate("pm.resetter.serversData"));
 		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
-		
-		int reset = Utility.readInt("\n" + BaseLang.translate("pm.resetter.selReset") + " ", null);
+		int reset = Utility.readInt(BaseLang.translate("pm.resetter.selReset") + " ", null);
 		
 		if(reset == 1)
 			resetProgram();
@@ -95,16 +94,15 @@ public class Resetter{
 			String confirm = Utility.readString(BaseLang.translate("pm.resetter.confirmServers") + " <Y/N>: ", null);
 		
 			if(confirm.equalsIgnoreCase("y")){
-				for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++){
+				for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++){
 					if(UtilityServersAPI.checkServersFile("Path", "path_", i) && UtilityServersAPI.checkServersFile("ServersName", "ServerName_", i)){
 						deleteFile("Path");
 						deleteFile("ServersName");
 						Utility.waitConfirm("Paths deleted!");
 						Thread.sleep(1000);
-					}else{
-						System.out.println((i+1) + ")" + BaseLang.translate("pm.errors.pathNotFound"));
-						Utility.waitConfirm("");
-					}
+					}else
+						Utility.waitConfirm((i+1) + ")" + BaseLang.translate("pm.errors.pathNotFound"));
+					
 				}
 			}else
 				resetterMenu();

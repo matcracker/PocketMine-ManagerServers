@@ -40,12 +40,16 @@ public class PMServersManager {
 			Utility.showServers();
 			int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 			
-			if(sel == 1)
-				changeServerName(server);
-			
-			if(sel == 2)
-				deleteServer(server);
+			if(server <= UtilityServersAPI.getNumberServers()){
+				if(sel == 1)
+					changeServerName(server);
+				
+				if(sel == 2)
+					deleteServer(server);
+			}else
+				Utility.waitConfirm("Select a valid server!");
 		}
+		
 		if(sel == 4)
 			Settings.settingsMenu();
 		
@@ -71,11 +75,11 @@ public class PMServersManager {
 		String newName = Utility.readString(BaseLang.translate("pm.serverManager.choose") + " ", "[" + BaseLang.translate("pm.serverManager.suggest") + " " + UtilityServersAPI.getDefaultServerName() + "]");
 		int nservers = UtilityServersAPI.getNumberServers();
 		
-		if(newName == null)
+		nservers++;
+		if(newName.equalsIgnoreCase(""))
 			newName = UtilityServersAPI.getDefaultServerName() + "_" + nservers;
 		
 		UtilityServersAPI.setNameServer(nservers, newName);
-		nservers++;
 		UtilityServersAPI.setNumberServer(nservers);
 		
 		Utility.waitConfirm(BaseLang.translate("pm.serverManager.correctAdd"));
@@ -84,10 +88,10 @@ public class PMServersManager {
 	private static void changeServerName(int server) {
 		String newName = Utility.readString(BaseLang.translate("pm.serverManager.choose") + " ", "[" + BaseLang.translate("pm.serverManager.suggest") + " " + UtilityServersAPI.getDefaultServerName() + "]");
 		
-		if(newName == null)
+		if(newName.equalsIgnoreCase(""))
 			newName = UtilityServersAPI.getDefaultServerName() + "_" + server;
 		
-		UtilityServersAPI.setNameServer(server, UtilityServersAPI.getDefaultServerName() + "_" + server);
+		UtilityServersAPI.setNameServer(server, newName);
 		
 		Utility.waitConfirm(BaseLang.translate("pm.serverManager.correctChange"));
 	}
