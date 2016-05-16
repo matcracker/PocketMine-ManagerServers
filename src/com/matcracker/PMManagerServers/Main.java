@@ -33,7 +33,7 @@ public class Main{
 	
 	public static void main(String[] args){
 		String menu = "", quit = "n";
-		String version = "1.0 Alpha 4";
+		String version = "1.0 Alpha 5";
 		
 		System.setOut(new PMPrintStream(System.out));
 		System.setErr(new PMPrintStream(System.out));
