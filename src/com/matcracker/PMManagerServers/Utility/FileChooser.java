@@ -9,7 +9,7 @@ public class FileChooser{
 
 	private static JFrame frame = new JFrame();
         
-    public static String get(String title) {
+    public static String getPhar(String title) {
     	JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File(System.getProperty("user.home")));
         fc.setDialogTitle(title);
@@ -45,6 +45,51 @@ public class FileChooser{
         	
         	if(path.endsWith("PocketMine-MP.phar")){
         		path = path.replaceAll("PocketMine-MP.phar", "");
+        		return path;
+        	}
+        }else
+        	frame.setVisible(false);
+        
+        return null;
+    }
+    
+    public static String get(String title, String description, String extension) {
+    	JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fc.setDialogTitle(title);
+        
+        fc.setFileFilter(new FileFilter() {
+			
+			@Override
+			public String getDescription() {
+				return description;
+			}
+			
+			@Override
+			public boolean accept(File f) {
+				if(f.isDirectory()){
+					return true;
+				}else{
+					String path = f.getAbsolutePath().toLowerCase();
+					if(path.endsWith(extension))
+						return true;
+				}
+				return false;
+			}
+		});
+        
+        frame.setExtendedState(JFrame.ICONIFIED);
+        frame.setExtendedState(JFrame.NORMAL);
+        frame.setVisible(true);
+        
+        int value = fc.showOpenDialog(frame.getGlassPane());
+
+        if(JFileChooser.APPROVE_OPTION == value){
+        	String name = fc.getSelectedFile().getName();
+        	String path = fc.getSelectedFile().getAbsolutePath();
+        	
+        	if(path.endsWith(name)){
+        		path = path.replaceAll(name, "");
         		return path;
         	}
         }else

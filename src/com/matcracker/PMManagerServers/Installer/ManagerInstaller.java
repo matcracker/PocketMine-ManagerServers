@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
 import com.matcracker.PMManagerServers.Main;
+import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
@@ -47,7 +48,11 @@ public class ManagerInstaller {
 		
 		managerInstallerMenu();
 	}
-	
+	/**
+	 * @param path
+	 * @param version
+	 * @throws IOException
+	 */
 	public static void changeInstallationsFile(String path, String version) throws IOException{
 		File newPhar = new File(path + File.separator + "PocketMine-MP.phar");
 		File oldPhar = new File(path + File.separator + "PocketMine-MP_OLD.phar");
@@ -70,7 +75,28 @@ public class ManagerInstaller {
 			Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			pharDest.renameTo(newPhar);
 		}
+	}
 	
-	
+	/**
+	 * @param downloadPath
+	 * @param file
+	 * @param type
+	 * @throws IOException
+	 */
+	public static void moveDownloadedFiles(String downloadPath, String file, String type){
+		File destFolder = new File("Utils" + File.separator + file);
+		File downloadFile = new File(downloadPath + File.separator + file);
+		
+		if(UtilityServersAPI.checkServersFile("Path", "downloadPath", -1)){
+			try{
+				Files.copy(downloadFile.toPath(), destFolder.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			}catch (IOException e){
+				System.out.println("File not found!");
+			}
+			if(type != null)
+				destFolder.renameTo(new File("Utils" + File.separator + "PocketMine-MP_" + type.toUpperCase() + ".phar"));
+			
+		}else
+			System.out.println("Something wrong occured! This path doesn't exist!");
 	}
 }

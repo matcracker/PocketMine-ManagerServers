@@ -32,142 +32,115 @@ public class Installator {
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.installator"));
 		
-		for(int i = 0; i < nservers; i++)
-			System.out.printf("%d) %s -> " + BaseLang.translate("pm.standard.version") + ": %s -> " + BaseLang.translate("pm.standard.status") + ": %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getVersion(i), StatusAPI.getStatus(i));
+		for(int i = 1; i <= nservers; i++)
+			System.out.printf("%d) %s | %s: %s | %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.version"), StatusAPI.getVersion(i), BaseLang.translate("pm.standard.status"), StatusAPI.getStatus(i));
 		
 		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
-		System.out.print("\n" + BaseLang.translate("pm.chooise.installServers") + ": ");
-		String sel = Utility.keyword.readLine();
+		int server = Utility.readInt(BaseLang.translate("pm.chooise.installServers") + ": ", null);
 		
-		if(sel.equalsIgnoreCase(String.valueOf(nservers + 1))){ //Back
+		if(server == (nservers + 1)){ //Back
 			ManagerInstaller.managerInstallerMenu();
 		}else{
-			System.out.println("\n1- " + BaseLang.translate("pm.status.stable") + " (Setup File)");
-			System.out.println("2- " + BaseLang.translate("pm.status.beta") + " (Phar File)");
-			System.out.println("3- " + BaseLang.translate("pm.status.dev") + " (Phar File)");
-			System.out.println("4- " + BaseLang.translate("pm.status.soft") + " (Phar File)");
+			System.out.println("\n1- Stable (Setup File)");
+			System.out.println("2- Beta (Phar File)");
+			System.out.println("3- Dev (Phar File)");
+			System.out.println("4- Soft (Phar File)");
 			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 			
-			System.out.print("\n" + BaseLang.translate("pm.chooise.version") + ": ");
-			String ver = Utility.keyword.readLine();
+			int ver = Utility.readInt(BaseLang.translate("pm.chooise.version") + ": ", null);
 			
-			if(ver.equalsIgnoreCase("1")){ //Stable
+			if(ver == 1){ //Stable
 				System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
-				System.out.print("\n" + BaseLang.translate("pm.installer.types") + " ");
-				String type = Utility.keyword.readLine();
-				
-				if(type.equalsIgnoreCase("1")){
+				int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
+
+				if(type == 1){
 					File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
+					
 					if(installer.exists()){
 						Utility.openSoftware("software", String.valueOf(installer));
-						StatusAPI.setVersion(BaseLang.translate("pm.status.stable"), Integer.valueOf(sel));
-						StatusAPI.setStatus(BaseLang.translate("pm.status.install"), Integer.valueOf(sel));
-					}else{
-						System.err.println(BaseLang.translate("pm.errors.instNotFound"));
-						Utility.keyword.readLine();
-						installatorMenu();
-					}
+						StatusAPI.setVersion(BaseLang.translate("pm.status.stable"), server);
+						StatusAPI.setStatus(BaseLang.translate("pm.status.install"), server);
+					}else
+						Utility.waitConfirm(BaseLang.translate("pm.errors.instNotFound"));					
 				}
 			}
 			
-			if(ver.equalsIgnoreCase("2")){ //Beta
-				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
+			if(ver == 2){ //Beta
+				if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 					System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 					System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
-					System.out.print("\n" + BaseLang.translate("pm.installer.types") + " ");
-					String type = Utility.keyword.readLine();
+					int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
 					
-					if(type.equalsIgnoreCase("1")){
+					if(type == 1){
 						File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
 						
 						if(beta.exists()){
-							System.out.print(BaseLang.translate("pm.installer.replace") + " <Y/n>: ");
-							String confirm = Utility.keyword.readLine();
+							String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 							
 							if(confirm.equalsIgnoreCase("y")){
 								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "BETA");
-							}else{
-								installatorMenu();
-							}
-							
-						}else{
-							System.out.println(BaseLang.translate("pm.installer.pharNotFound"));
-							Utility.keyword.readLine();
-							installatorMenu();
-						}
+								StatusAPI.setVersion(BaseLang.translate("pm.status.beta"), server);
+							}	
+						}else
+							Utility.waitConfirm(BaseLang.translate("pm.installer.pharNotFound"));
+						
 					}
-				}else{
-					System.err.println(BaseLang.translate("pm.errors.pathNotFound"));
-					Installator.installatorMenu();
-				}
+				}else
+					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));		
 			}
 			
-			if(ver.equalsIgnoreCase("3")){ //Dev
-				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
+			if(ver == 3){ //Dev
+				if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 					System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 23] {MC:PE 0.15.x}");
-					System.out.print("\n" + BaseLang.translate("pm.installer.types") + " ");
-					String type = Utility.keyword.readLine();
-					
-					if(type.equalsIgnoreCase("1")){
+					int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
+
+					if(type == 1){
 						File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
 						
 						if(dev.exists()){
-							System.out.print(BaseLang.translate("pm.installer.replace") + " <Y/n>: ");
-							String confirm = Utility.keyword.readLine();
+							String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 							
 							if(confirm.equalsIgnoreCase("y")){
 								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers), "DEV");
-							}else{
-								installatorMenu();
-							}
-							
-						}else{
-							System.out.println(BaseLang.translate("pm.installer.pharNotFound"));
-							Utility.keyword.readLine();
-							installatorMenu();
-						}
+								StatusAPI.setVersion(BaseLang.translate("pm.status.dev"), server);
+							}	
+						}else
+							Utility.waitConfirm(BaseLang.translate("pm.installer.pharNotFound"));
+
 					}
-				}else{
-					System.err.println(BaseLang.translate("pm.errors.pathNotFound"));
-					Utility.keyword.readLine();
-				}
+				}else
+					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+				
 			}
 			
-			if(ver.equalsIgnoreCase("4")){ //Soft
-				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
+			if(ver == 4){ //Soft
+				if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 					System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 					System.out.println("1) 1.5 API 1.12.0 Kappatsu-Fugu {MC:PE 0.11.x}");
-					System.out.print("\n" + BaseLang.translate("pm.installer.types") + " ");
-					String type = Utility.keyword.readLine();
+					int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
 					
-					if(type.equalsIgnoreCase("1")){
+					if(type == 1){
 						File soft = new File("Utils" + File.separator + "PocketMine-MP_SOFT.phar");
 						
 						if(soft.exists()){
-							System.out.print(BaseLang.translate("pm.installer.replace") + " <Y/n>: ");
-							String confirm = Utility.keyword.readLine();
+							String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 							
 							if(confirm.equalsIgnoreCase("y")){
 								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "SOFT");
-							}else{
-								installatorMenu();
-							}
-							
-						}else{
-							System.out.println(BaseLang.translate("pm.installer.pharNotFound"));
-							Utility.keyword.readLine();
-							installatorMenu();
-						}
+								StatusAPI.setVersion(BaseLang.translate("pm.status.soft"), server);
+							}	
+						}else
+							Utility.waitConfirm(BaseLang.translate("pm.installer.pharNotFound"));
+						
 					}
-				}else{
-					System.err.println(BaseLang.translate("pm.errors.pathNotFound"));
-					Utility.keyword.readLine();
-				}
+				}else
+					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+				
 			}
 			
-			if(ver.equals("5"))
+			if(ver == 5)
 				installatorMenu();
 			
 			installatorMenu();

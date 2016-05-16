@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
+import com.matcracker.PMManagerServers.Utility.FileChooser;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class Downloader {
@@ -36,133 +37,125 @@ public class Downloader {
 		
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.download"));
-		for(int i = 0; i < nservers; i++){
-			System.out.printf("%d) %s -> "+BaseLang.translate("pm.standard.status")+": %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getStatus(i));
-		}
+		
+		for(int i = 1; i <= nservers; i++)
+			System.out.printf("%d) %s | %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.status"), StatusAPI.getStatus(i));
+		
 		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
-		String sel = Utility.readString("\n" + BaseLang.translate("pm.downloader.version")+ " ", null);
-
-		if(sel.equalsIgnoreCase(String.valueOf(nservers + 1))) //Back
+		int server = Utility.readInt(BaseLang.translate("pm.chooise.server")+ " ", null);
+		
+		if(server == (nservers + 1)) //Back
 			ManagerInstaller.managerInstallerMenu();
-		else{
-			System.out.println("\n1- " + BaseLang.translate("pm.managerInstaller.stable") + " (Setup File)");
-			System.out.println("2- " + BaseLang.translate("pm.managerInstaller.beta") + " (Phar File)");
-			System.out.println("3- " + BaseLang.translate("pm.managerInstaller.dev") + " (Phar File)");
-			System.out.println("4- " + BaseLang.translate("pm.managerInstaller.soft") + " (Phar File)");
+		
+		if(server <= nservers){
+			System.out.println("\n1- Stable (Setup File)");
+			System.out.println("2- Beta (Phar File)");
+			System.out.println("3- Dev (Phar File)");
+			System.out.println("4- Soft (Phar File)");
 			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 			
-			System.out.print("\n" + BaseLang.translate("pm.downloader.versionserv") + " ");
-			String ver = Utility.keyword.readLine();
+			int ver = Utility.readInt(BaseLang.translate("pm.downloader.versionserv") + " ", null);
 			
-			if(ver.equalsIgnoreCase("1")){ //Stable
-				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
-				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
-				System.out.print("\n" + BaseLang.translate("pm.downloader.types") + " ");
-				String type = Utility.keyword.readLine();
-				
-				if(type.equalsIgnoreCase("1")){
-					File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
-					if(installer.exists()){
-						System.err.println(BaseLang.translate("pm.errors.instDownloaded"));
-						Utility.keyword.readLine();
-						
-					}else{
-						System.out.println(BaseLang.translate("pm.downloader.startDown"));
-						Utility.openSoftware("url", linkstable);
-						System.out.println(BaseLang.translate("pm.downloader.succInst"));
-						StatusAPI.setStatus("Downloaded", Integer.valueOf(sel));
-						Utility.keyword.readLine();
-					}
-				}
-			}
-			
-			if(ver.equalsIgnoreCase("2")){ //Beta
-				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
+			if(ver == 1){ //Stable
+				if(UtilityServersAPI.checkServersFile("Path", "downloadPath", -1)){
 					System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 					System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
-					System.out.print("\n" + BaseLang.translate("pm.downloader.types") + " ");
-					String type = Utility.keyword.readLine();
+					int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
 					
-					if(type.equalsIgnoreCase("1")){
-						File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
-						
-						if(beta.exists()){
-							System.err.println(BaseLang.translate("pm.errors.fileDownloaded"));
-							Utility.keyword.readLine();
-							
+					if(type == 1){
+						File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
+						if(installer.exists()){
+							Utility.waitConfirm(BaseLang.translate("pm.errors.instDownloaded"));				
 						}else{
-							System.out.println(BaseLang.translate("pm.downloader.downPhar"));
-							Utility.openSoftware("url", linkbeta);
-							System.out.println(BaseLang.translate("pm.downloader.succDownPhar"));
-							Utility.keyword.readLine();
+							System.out.println(BaseLang.translate("pm.downloader.startDown"));
+							Utility.openSoftware("url", linkstable);
+							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+							Utility.waitConfirm(BaseLang.translate("pm.downloader.succInst"));
+							
+							ManagerInstaller.moveDownloadedFiles(UtilityServersAPI.getDownloadPath(), "PocketMine-MP_Installer_1.4.1_x86.exe", null);
 						}
 					}
-				}else{
-					System.err.println(BaseLang.translate("pm.errors.pathNotFound"));
-					Utility.keyword.readLine();
-				}
+				}else
+					UtilityServersAPI.setDownloadPath(FileChooser.get("Select the path where do you usually download the files", "Select a file", ""));
 			}
 			
-			if(ver.equalsIgnoreCase("3")){ //Dev
-				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
+			if(ver == 2){ //Beta
+				if(UtilityServersAPI.checkServersFile("Path", "downloadPath", -1)){
+						System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
+						System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
+						int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+						
+						if(type == 1){
+							File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
+							
+							if(beta.exists()){
+								Utility.waitConfirm(BaseLang.translate("pm.errors.fileDownloaded"));
+							}else{
+								System.out.println(BaseLang.translate("pm.downloader.downPhar"));
+								Utility.openSoftware("url", linkbeta);
+								StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+								Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
+								ManagerInstaller.moveDownloadedFiles(UtilityServersAPI.getDownloadPath(), "PocketMine-MP_1.4.1dev-936.phar", "BETA");
+							}
+						}
+
+				}else
+					UtilityServersAPI.setDownloadPath(FileChooser.get("Select the path where do you usually download the files", "Select a file", ""));
+			}
+			
+			if(ver == 3){ //Dev
+				if(UtilityServersAPI.checkServersFile("Path", "downloadPath", -1)){
 					System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 23] {MC:PE 0.15.x}");
-					System.out.print("\n" + BaseLang.translate("pm.downloader.types") + " ");
-					String type = Utility.keyword.readLine();
 					
-					if(type.equalsIgnoreCase("1")){
+					int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+					
+					if(type == 1){
 						File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
 						
 						if(dev.exists()){
-							System.err.println(BaseLang.translate("pm.errors.fileDownloaded"));
-							Utility.keyword.readLine();
+							Utility.waitConfirm(BaseLang.translate("pm.errors.fileDownloaded"));
 							
 						}else{
 							System.out.println(BaseLang.translate("pm.downloader.downPhar"));
 							Utility.openSoftware("url", linkdev);
-							System.out.println(BaseLang.translate("pm.downloader.succDownPhar"));
-							Utility.keyword.readLine();
+							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+							Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
+							ManagerInstaller.moveDownloadedFiles(UtilityServersAPI.getDownloadPath(), "PocketMine-MP_1.6dev-23_6ba0abf5_API-2.0.0.phar", "DEV");
 						}
 					}
-				}else{
-					System.err.println(BaseLang.translate("pm.errors.pathNotFound"));
-					Utility.keyword.readLine();
-				}
+				}else
+					UtilityServersAPI.setDownloadPath(FileChooser.get("Select the path where do you usually download the files", "Select a file", ""));
 			}
 			
-			if(ver.equalsIgnoreCase("4")){ //Soft
-				if(UtilityServersAPI.checkServersFile("Path", "path_", nservers-1)){
+			if(ver == 4){ //Soft
+				if(UtilityServersAPI.checkServersFile("Path", "downloadPath", -1)){
 					System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 					System.out.println("1) 1.5 API 1.12.0 Kappatsu-Fugu {MC:PE 0.11.x}");
-					System.out.print("\n" + BaseLang.translate("pm.downloader.types") + " ");
-					String type = Utility.keyword.readLine();
+					int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
 					
-					if(type.equalsIgnoreCase("1")){
+					if(type == 1){
 						File soft = new File("Utils" + File.separator + "PocketMine-MP_SOFT.phar");
 						
 						if(soft.exists()){
-							System.err.println(BaseLang.translate("pm.errors.fileDownloaded"));
-							Utility.keyword.readLine();
-							
+							Utility.waitConfirm(BaseLang.translate("pm.errors.fileDownloaded"));
 						}else{
 							System.out.println(BaseLang.translate("pm.downloader.downPhar"));
 							Utility.openSoftware("url", linksoft);
-							System.out.println(BaseLang.translate("pm.downloader.succDownPhar"));
-							Utility.keyword.readLine();
+							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+							Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
+							ManagerInstaller.moveDownloadedFiles(UtilityServersAPI.getDownloadPath(), "PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar", "SOFT");
 						}
 					}
-				}else{
-					System.err.println(BaseLang.translate("pm.errors.pathNotFound"));
-					Utility.keyword.readLine();
-				}
+				}else
+					UtilityServersAPI.setDownloadPath(FileChooser.get("Select the path where do you usually download the files", "Select a file", ""));
 			}
 			
-			if(ver.equalsIgnoreCase("5"))
+			if(ver == 5)
 				downloaderMenu();
-			
-			downloaderMenu();
-		
 		}
+		
+		downloaderMenu();
 	}
 
 }

@@ -89,6 +89,24 @@ public class UtilityServersAPI{
 	}
 	
 	/**
+	 * @return path of download
+	 */
+	public static String getDownloadPath(){
+		return Utility.readStringData(new File("Path" + File.separator + "downloadPath.pm"));
+	}
+	
+	/**
+	 * @param path of download
+	 */
+	public static void setDownloadPath(String path){
+		if(path != null)
+			Utility.writeStringData(new File("Path" + File.separator + "downloadPath.pm"), path);
+		else
+			System.err.println("Path can't be null!");
+			
+	}
+	
+	/**
 	 * @param folder name of folder
 	 * @param name of file
 	 * @param index from 1 to max number of server
