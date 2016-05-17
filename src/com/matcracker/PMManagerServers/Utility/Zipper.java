@@ -47,8 +47,6 @@ public class Zipper{
             
         else if(targetFile.isDirectory())
             zipFile.addFolder(targetFile, parameters);
-            
-        
     }
 
     public static void unzip(String targetZipFilePath, String destinationFolderPath, String password) {

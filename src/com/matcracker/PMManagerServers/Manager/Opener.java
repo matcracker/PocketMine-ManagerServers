@@ -54,7 +54,7 @@ public class Opener {
 					break;
 				}
 			}
-		}else{
+		}else if(server <= UtilityServersAPI.getNumberServers()){
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 				String pathContent = UtilityServersAPI.getPath(server);
 				if(pathContent != null){

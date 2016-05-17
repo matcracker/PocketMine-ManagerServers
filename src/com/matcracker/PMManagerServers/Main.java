@@ -2,6 +2,7 @@ package com.matcracker.PMManagerServers;
 
 import java.io.IOException;
 
+import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.Informations.Informations;
 import com.matcracker.PMManagerServers.Installer.ManagerInstaller;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
@@ -32,9 +33,6 @@ public class Main{
 	private static boolean pluginsLoaded = false;
 	
 	public static void main(String[] args){
-		String menu = "", quit = "n";
-		String version = "1.0 Alpha 5";
-		
 		System.setOut(new PMPrintStream(System.out));
 		System.setErr(new PMPrintStream(System.out));
 		
@@ -44,13 +42,19 @@ public class Main{
 			PluginsLoader.loadPlugins();
 			pluginsLoaded = true;
 		}
+		
+		mainMenu();
+	}
+	
+	public static void mainMenu(){
+		String menu = "", quit = "n";
 
 		try{
 			while(quit.equalsIgnoreCase("n")){
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
 				System.out.println(BaseLang.translate("pm.title.mainMenu"));
-				System.out.println("&eDeveloped by matcracker                                     Version: " + version);
+				System.out.printf("&eDeveloped by matcracker			   Version: %s		API: %s\n", APIManager.getVersion(), APIManager.getAPIVersion());
 				System.out.println("&f1- " + BaseLang.translate("pm.mainMenu.download-install"));
 				System.out.println("2- " + BaseLang.translate("pm.mainMenu.manager"));
 				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
@@ -74,7 +78,7 @@ public class Main{
 					Utility.cleanScreen();
 					System.out.println(Utility.softwareName);
 					System.out.println(BaseLang.translate("pm.title.exit"));
-					quit = Utility.readString(BaseLang.translate("pm.chooise.exit") + " <y/n>: ", null);
+					quit = Utility.readString(BaseLang.translate("pm.chooise.exit") + " <y/N>: ", null);
 
 					if(quit.equalsIgnoreCase("y")){
 						PluginsLoader.unloadPlugins();

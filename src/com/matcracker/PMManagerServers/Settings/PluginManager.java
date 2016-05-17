@@ -2,15 +2,13 @@ package com.matcracker.PMManagerServers.Settings;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
-
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
 import com.matcracker.PMManagerServers.Utility.Utility;
 
 public class PluginManager {
 	
-	protected static void plugMenu() throws IOException{
+	public static void plugMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.pluginManager"));
@@ -32,8 +30,6 @@ public class PluginManager {
 					Utility.showPlugins();
 					name = Utility.readString(BaseLang.translate("pm.plugManager.name") + ": ", null);
 					plugin = new File("plugins" + File.separator + name + ".jar");
-					String pidName = ManagementFactory.getRuntimeMXBean().getName();
-					System.out.println(pidName);
 					if(!Utility.is_numeric(name) && plugin.exists())
 						PluginsLoader.pluginExec(plugin, "execute");
 					

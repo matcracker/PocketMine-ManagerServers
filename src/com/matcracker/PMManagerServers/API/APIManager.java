@@ -1,7 +1,5 @@
 package com.matcracker.PMManagerServers.API;
 
-import com.matcracker.PMManagerServers.Utility.Utility;
-
 public class APIManager{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
@@ -20,7 +18,7 @@ public class APIManager{
 	*/
 	
 	private static final String APIVersion = "1.0";
-
+	private static final String softwareVersion = "1.0 Alpha 6";
 	/**
 	 * @return API version
 	 */
@@ -32,7 +30,7 @@ public class APIManager{
 	 * @return version of software
 	 */
 	public static String getVersion(){
-		return Utility.version;
+		return softwareVersion;
 	}	
 	
 }

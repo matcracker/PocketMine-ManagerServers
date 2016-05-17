@@ -31,12 +31,12 @@ public class Performance {
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.performance"));
 		System.out.println(BaseLang.translate("pm.performance.select") + " ");
-		for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++)
-			System.out.printf("%d) %s: %s\n", i+1, UtilityServersAPI.getNameServer(i), StatusAPI.getPerformace(i));
+		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
+			System.out.printf("%d) %s: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getPerformace(i));
 		
 		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
-		if(UtilityServersAPI.checkServersFile("Path", "path_", server - 1)){
+		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 			String pathContent = UtilityServersAPI.getPath(server);
 			if(pathContent != null){			
 				String confirm = null;

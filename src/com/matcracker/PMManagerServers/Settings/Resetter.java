@@ -69,13 +69,17 @@ public class Resetter{
 			String confirm = Utility.readString(BaseLang.translate("pm.resetter.confirmProgram") + " <y/n>: ", null);
 			
 			if(confirm.equalsIgnoreCase("y")){
+				System.out.println(BaseLang.translate("pm.resetter.close"));
 				for(int i = 0; i < dirsName.length; i++){
 					deleteFile(dirsName[i]);
 					deleteFolder(dirsName[i], dirsName.length);
 				}
-				System.out.println(BaseLang.translate("pm.resetter.close"));
 				Thread.sleep(1000);
-				Desktop.getDesktop().open(new File("run.bat"));
+				try{
+					Desktop.getDesktop().open(new File("run.bat"));
+				}catch(IllegalArgumentException e){
+					System.out.println("Run.bat not found!");
+				}
 				System.exit(0);
 	
 			}else
@@ -95,13 +99,13 @@ public class Resetter{
 		
 			if(confirm.equalsIgnoreCase("y")){
 				for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++){
-					if(UtilityServersAPI.checkServersFile("Path", "path_", i) && UtilityServersAPI.checkServersFile("ServersName", "ServerName_", i)){
+					if(UtilityServersAPI.checkServersFile("Path", "path_", i) || UtilityServersAPI.checkServersFile("ServersName", "ServerName_", i)){
 						deleteFile("Path");
 						deleteFile("ServersName");
 						Utility.waitConfirm("Paths deleted!");
 						Thread.sleep(1000);
 					}else
-						Utility.waitConfirm((i+1) + ")" + BaseLang.translate("pm.errors.pathNotFound"));
+						Utility.waitConfirm(i + ")" + BaseLang.translate("pm.errors.pathNotFound"));
 					
 				}
 			}else

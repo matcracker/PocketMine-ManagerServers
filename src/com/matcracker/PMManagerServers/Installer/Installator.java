@@ -79,7 +79,7 @@ public class Installator {
 							String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 							
 							if(confirm.equalsIgnoreCase("y")){
-								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "BETA");
+								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "BETA");
 								StatusAPI.setVersion(BaseLang.translate("pm.status.beta"), server);
 							}	
 						}else
@@ -103,7 +103,7 @@ public class Installator {
 							String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 							
 							if(confirm.equalsIgnoreCase("y")){
-								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers), "DEV");
+								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "DEV");
 								StatusAPI.setVersion(BaseLang.translate("pm.status.dev"), server);
 							}	
 						}else
@@ -128,7 +128,7 @@ public class Installator {
 							String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 							
 							if(confirm.equalsIgnoreCase("y")){
-								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(nservers-1), "SOFT");
+								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "SOFT");
 								StatusAPI.setVersion(BaseLang.translate("pm.status.soft"), server);
 							}	
 						}else

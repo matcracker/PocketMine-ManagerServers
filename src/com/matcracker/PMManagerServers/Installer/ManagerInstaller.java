@@ -44,7 +44,7 @@ public class ManagerInstaller {
 			Installator.installatorMenu();
 		
 		if(inst.equalsIgnoreCase("3"))
-			Main.main(null);
+			Main.mainMenu();
 		
 		managerInstallerMenu();
 	}

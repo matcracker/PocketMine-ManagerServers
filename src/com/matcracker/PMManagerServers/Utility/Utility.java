@@ -13,6 +13,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Random;
 
+import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
 
@@ -32,8 +33,7 @@ public class Utility{
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	
-	public static final String version = "0.1J";
+
 	public static final String softwareName = "&a========================&e<&bPocketMine Manager Servers&e>&a============================";
 	public static String defaultServersName = "Server_Minecraft_PE";
 	
@@ -61,8 +61,9 @@ public class Utility{
 		}else if(getOSName().startsWith("Windows")){
 			try{
 				new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-			} catch (IOException | InterruptedException e) {
-				System.out.println("Error during the console cleaning.");
+			}catch (IOException | InterruptedException e){
+				for(int i = 0; i < 100; i++)
+					System.out.println();
 			}
 		}
 	}
@@ -209,9 +210,14 @@ public class Utility{
 	 */
 	public static void showServers(){
 		int nservers = UtilityServersAPI.getNumberServers();
-		for(int i = 0; i < nservers; i++){
-			System.out.print((i+1) + ") " + UtilityServersAPI.getNameServer(i+1));
-			System.out.println();
+		try{
+			for(int i = 0; i < nservers; i++){
+				System.out.print((i+1) + ") " + UtilityServersAPI.getNameServer(i+1));
+				System.out.println();
+			}
+		}catch(NullPointerException e){
+			Utility.waitConfirm("&cCan't find any server!");
+			Main.mainMenu();
 		}
 	}
 	
@@ -239,7 +245,7 @@ public class Utility{
 	/**
 	 * @param text
 	 * @param addition
-	 * @return int input
+	 * @return input
 	 */
 	public static int readInt(String text, String addition){
 		String content = null;

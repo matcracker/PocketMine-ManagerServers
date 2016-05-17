@@ -44,13 +44,10 @@ public class Informations {
 		
 		if(info.equalsIgnoreCase("1")){
 			File license = new File("LICENSE.pdf");
-				if(license.isFile() && license.exists())
-					Desktop.getDesktop().open(license);
-				else{
-					System.out.println(BaseLang.translate("pm.informations.bad"));
-					Utility.keyword.readLine();
-				}
-				
+			if(license.isFile() && license.exists())
+				Desktop.getDesktop().open(license);
+			else
+				Utility.waitConfirm(BaseLang.translate("pm.informations.bad"));
 		}
 		
 		if(info.equalsIgnoreCase("2")){
@@ -60,8 +57,7 @@ public class Informations {
 			System.out.println("This program is free software made by matcracker: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or at your option) any later version.");
 			System.out.println("\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.");
 			System.out.println("\nYou should have received a copy of the GNU Lesser General Public License along with this program.  If not, see in this program in the section 'Informations ->  License'.");
-			System.out.println("\nPress ENTER go to back");
-			Utility.keyword.readLine();
+			Utility.waitConfirm("\n" + BaseLang.translate("pm.standard.enter"));
 			
 			Informations.informationsMenu();
 		}
@@ -93,11 +89,11 @@ public class Informations {
 			System.out.println(BaseLang.translate("pm.title.disclaimer"));
 			System.out.println("I do not assume responsibility for the use of this program if being deleted folders or files, for you, important.");
 			System.out.println("The use is personal and therefore the connections you supply will have to be primarily related to the creation program server 'PocketMine-MP' or relative.");
-			Utility.keyword.readLine();
+			Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
 			Informations.informationsMenu();
 		}
 		
 		if(info.equalsIgnoreCase("5"))
-			Main.main(null);
+			Main.mainMenu();
 	}
 }

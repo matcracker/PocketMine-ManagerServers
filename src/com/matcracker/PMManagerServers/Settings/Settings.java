@@ -32,7 +32,7 @@ public class Settings{
 		System.out.println("1- " + BaseLang.translate("pm.settings.language"));
 		System.out.println("2- " + BaseLang.translate("pm.settings.serversManager"));
 		System.out.println("3- " + BaseLang.translate("pm.settings.reset"));
-		System.out.println("4- Plugin manager");
+		System.out.println("4- " + BaseLang.translate("pm.settings.plugManager"));
 		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 		
 		System.out.print("\nChoose option: ");
@@ -51,7 +51,7 @@ public class Settings{
 			PluginManager.plugMenu();
 		
 		if(options.equalsIgnoreCase("5"))
-			Main.main(null);
+			Main.mainMenu();
 		
 		settingsMenu();
 	}

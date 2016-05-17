@@ -45,7 +45,7 @@ public class Manager {
 			Rescuer.rescuerMenu();
 		
 		if(option == 4)
-			Main.main(null);
+			Main.mainMenu();
 		
 		managerMenu();
 		
