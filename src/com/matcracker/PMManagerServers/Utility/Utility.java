@@ -68,6 +68,9 @@ public class Utility{
 		}
 	}
 	
+	/**
+	 * @return OS name
+	 */
 	public static String getOSName(){
 		return System.getProperty("os.name");
 	}

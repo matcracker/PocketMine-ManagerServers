@@ -3,6 +3,7 @@ package com.matcracker.PMManagerServers.Loaders;
 import java.io.File;
 import java.io.IOException;
 
+import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
@@ -75,11 +76,11 @@ public class Loader {
 					System.out.print("=");
 					Thread.sleep(50);
 				}
+				APIManager.setDevMode(false);
 				System.out.print("]");
 				
 				Thread.sleep(1000);
 				completeLoader();
-				
 			}catch (InterruptedException | IOException e) {
 				System.err.println(Utility.generalError);
 			}

@@ -48,9 +48,13 @@ public class Main{
 	
 	public static void mainMenu(){
 		String menu = "", quit = "n";
-
+		int i = 0;
+				
 		try{
 			while(quit.equalsIgnoreCase("n")){
+				
+				boolean devMode = APIManager.isDevMode();
+				
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
 				System.out.println(BaseLang.translate("pm.title.mainMenu"));
@@ -60,21 +64,25 @@ public class Main{
 				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
 				System.out.println("4- " + BaseLang.translate("pm.mainMenu.informations"));
 				System.out.println("5- " + BaseLang.translate("pm.mainMenu.exit") + "\n");
+				
+				if(devMode)
+					DevMode.devMenu(menu);
+	
 				menu = Utility.readString(BaseLang.translate("pm.chooise.ask")+ " ", null);
 				
 				if(menu.equalsIgnoreCase("1"))
 					ManagerInstaller.managerInstallerMenu();
 					
-				if(menu.equalsIgnoreCase("2"))
+				else if(menu.equalsIgnoreCase("2"))
 					Manager.managerMenu();
 
-				if(menu.equalsIgnoreCase("3"))
+				else if(menu.equalsIgnoreCase("3"))
 					Settings.settingsMenu();
 				
-				if(menu.equalsIgnoreCase("4"))
+				else if(menu.equalsIgnoreCase("4"))
 					Informations.informationsMenu();
 				
-				if(menu.equalsIgnoreCase("5")){
+				else if(menu.equalsIgnoreCase("5")){
 					Utility.cleanScreen();
 					System.out.println(Utility.softwareName);
 					System.out.println(BaseLang.translate("pm.title.exit"));
@@ -84,6 +92,21 @@ public class Main{
 						PluginsLoader.unloadPlugins();
 						System.exit(0);
 					}
+				}
+				
+				if(i >= 3)
+					i = 0;
+				
+				if(menu.equalsIgnoreCase("dev"))
+					i++;	
+	
+				if(i == 3 && !devMode){
+					Utility.waitConfirm("&eDEVMODE enabled!");
+					APIManager.setDevMode(true);
+					
+				}else if(i == 3 && devMode){
+					Utility.waitConfirm("&cDEVMODE disabled!");
+					APIManager.setDevMode(false);
 				}
 			}
 		}catch(IOException e){

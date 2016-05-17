@@ -1,5 +1,9 @@
 package com.matcracker.PMManagerServers.API;
 
+import java.io.File;
+
+import com.matcracker.PMManagerServers.Utility.Utility;
+
 public class APIManager{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
@@ -31,6 +35,25 @@ public class APIManager{
 	 */
 	public static String getVersion(){
 		return softwareVersion;
-	}	
+	}
+	
+	/**
+	 * @param mode
+	 */
+	public static void setDevMode(boolean mode){
+		Utility.writeStringData(new File("Data" + File.separator + "devmode.pm"), String.valueOf(mode));
+	}
+	
+	/**
+	 * @return
+	 */
+	public static boolean isDevMode(){
+		String value = Utility.readStringData(new File("Data" + File.separator + "devmode.pm"));
+		
+		if(value.equalsIgnoreCase("true"))
+			return true;
+		else
+			return false;
+	}
 	
 }
