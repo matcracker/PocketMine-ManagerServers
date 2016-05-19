@@ -36,6 +36,9 @@ public class Performance {
 		
 		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
+		if(server > UtilityServersAPI.getNumberServers())
+			performanceMenu();
+		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 			String pathContent = UtilityServersAPI.getPath(server);
 			if(pathContent != null){			

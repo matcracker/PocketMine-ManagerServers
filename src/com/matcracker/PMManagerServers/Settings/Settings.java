@@ -35,22 +35,21 @@ public class Settings{
 		System.out.println("4- " + BaseLang.translate("pm.settings.plugManager"));
 		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 		
-		System.out.print("\nChoose option: ");
-		String options = Utility.keyword.readLine();
-		
-		if(options.equalsIgnoreCase("1"))
+		int opt = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
+			
+		if(opt == 1)
 			LangSelector.langMenu();
 		
-		if(options.equalsIgnoreCase("2"))
+		if(opt == 2)
 			PMServersManager.serverManagerMenu();
 		
-		if(options.equalsIgnoreCase("3"))
+		if(opt == 3)
 			Resetter.resetterMenu();
 		
-		if(options.equalsIgnoreCase("4"))
+		if(opt == 4)
 			PluginManager.plugMenu();
 		
-		if(options.equalsIgnoreCase("5"))
+		if(opt == 5)
 			Main.mainMenu();
 		
 		settingsMenu();

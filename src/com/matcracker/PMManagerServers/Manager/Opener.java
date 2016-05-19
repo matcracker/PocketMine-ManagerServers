@@ -38,7 +38,7 @@ public class Opener {
 		if(server == -1){
 			for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++){
 				if(UtilityServersAPI.checkServersFile("Path", "path_", i)){
-					String pathContent = UtilityServersAPI.getPath(i+1);
+					String pathContent = UtilityServersAPI.getPath(i);
 					if(pathContent != null){
 						System.out.println(BaseLang.translate("pm.opener.opening") + " " + UtilityServersAPI.getNameServer(i));
 						if(isServer)

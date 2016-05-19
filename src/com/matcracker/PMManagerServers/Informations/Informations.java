@@ -39,10 +39,9 @@ public class Informations {
 		System.out.println("4- " + BaseLang.translate("pm.informations.disclaimer"));
 		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 		
-		System.out.print("\n " + BaseLang.translate("pm.chooise.option") + " ");
-		String info = Utility.keyword.readLine();
+		int info = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
 		
-		if(info.equalsIgnoreCase("1")){
+		if(info == 1){
 			File license = new File("LICENSE.pdf");
 			if(license.isFile() && license.exists())
 				Desktop.getDesktop().open(license);
@@ -50,7 +49,7 @@ public class Informations {
 				Utility.waitConfirm(BaseLang.translate("pm.informations.bad"));
 		}
 		
-		if(info.equalsIgnoreCase("2")){
+		if(info == 2){
 			Utility.cleanScreen();
 			System.out.println(Utility.softwareName);
 			System.out.println(BaseLang.translate("pm.title.credits"));
@@ -58,11 +57,9 @@ public class Informations {
 			System.out.println("\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.");
 			System.out.println("\nYou should have received a copy of the GNU Lesser General Public License along with this program.  If not, see in this program in the section 'Informations ->  License'.");
 			Utility.waitConfirm("\n" + BaseLang.translate("pm.standard.enter"));
-			
-			Informations.informationsMenu();
 		}
 		
-		if(info.equalsIgnoreCase("3")){
+		if(info == 3){
 			Utility.cleanScreen();
 			System.out.println(Utility.softwareName);
 			System.out.println(BaseLang.translate("pm.title.moreinformations"));
@@ -70,30 +67,27 @@ public class Informations {
 			System.out.println("2- Twitter");
 			System.out.println("3- " + BaseLang.translate("pm.standard.back"));
 			
-			System.out.print("\n " + BaseLang.translate("pm.chooise.option"));
-			String moreInfo = Utility.keyword.readLine();
-			
-			if(moreInfo.equalsIgnoreCase("1"))
+			int more = Utility.readInt(BaseLang.translate("pm.chooise.option"), null);
+
+			if(more == 1)
 				Utility.openSoftware("url", gitlink);
 			
-			if(moreInfo.equalsIgnoreCase("2"))
+			if(more == 2)
 				Utility.openSoftware("url", twitterlink);
-			
-			if(moreInfo.equalsIgnoreCase("3"))
-				Informations.informationsMenu();
 		}
 		
-		if(info.equalsIgnoreCase("4")){
+		if(info == 4){
 			Utility.cleanScreen();
 			System.out.println(Utility.softwareName);
 			System.out.println(BaseLang.translate("pm.title.disclaimer"));
 			System.out.println("I do not assume responsibility for the use of this program if being deleted folders or files, for you, important.");
 			System.out.println("The use is personal and therefore the connections you supply will have to be primarily related to the creation program server 'PocketMine-MP' or relative.");
 			Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
-			Informations.informationsMenu();
 		}
 		
-		if(info.equalsIgnoreCase("5"))
+		if(info == 5)
 			Main.mainMenu();
+		
+		informationsMenu();
 	}
 }

@@ -55,12 +55,12 @@ public class Rescuer {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.restore"));
-		for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++)
-			System.out.printf("%d) %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i+1), StatusAPI.getBackuped(i+1));
+		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
+			System.out.printf("%d) %s -> Status: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getBackuped(i));
 		
 		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
-		if(server >= UtilityServersAPI.getNumberServers())
+		if(server > UtilityServersAPI.getNumberServers())
 			backup();
 		else{
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
@@ -87,12 +87,12 @@ public class Rescuer {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.backup"));
-		for(int i = 0; i < UtilityServersAPI.getNumberServers(); i++)
-			System.out.printf("%d) %s -> Status: %s\n", i+1, UtilityServersAPI.getNameServer(i+1), StatusAPI.getBackuped(i+1));
+		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
+			System.out.printf("%d) %s -> Status: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getBackuped(i));
 		
 		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
 		
-		if(server >= UtilityServersAPI.getNumberServers())
+		if(server > UtilityServersAPI.getNumberServers())
 			backup();
 		else{
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){

@@ -39,26 +39,24 @@ public class DevMode{
 			if(menu.equalsIgnoreCase("8"))
 				reboot();
 		}
-		
-
 	}
 	
 	public static void getMemoryUsage(){
 		Runtime runtime = Runtime.getRuntime();
 
-		int mb = 1024 * 1024;
-		int gb = mb * 1024;
-		
+		double mb = 1024 * 1024;
+
 		long maxMemory = runtime.maxMemory();
 		long allocatedMemory = runtime.totalMemory();
 		long freeMemory = runtime.freeMemory();
 		long usedMemory = (allocatedMemory - freeMemory);
+		long totalFreeMemory =(freeMemory + (maxMemory - allocatedMemory));
 		
-		System.out.println("Free memory: " + (freeMemory / mb) + " MB");
-		System.out.println("Allocated memory: " + (allocatedMemory / mb) + " MB");
-		System.out.println("Max memory: " + (maxMemory / gb) + " GB");
-		System.out.println("Total free memory: " + ((freeMemory + (maxMemory - allocatedMemory)) / gb) + " GB");
-        System.out.println("Used Memory: " + (usedMemory / mb) + " MB");
+		System.out.printf("Free memory: %.2f MB\n", freeMemory / mb);
+		System.out.printf("Allocated memory: %.2f MB\n", allocatedMemory / mb);
+		System.out.printf("Max memory: %.2f MB\n", maxMemory / mb);
+		System.out.printf("Total free memory: %.2f MB\n", totalFreeMemory / mb);
+        System.out.printf("Used Memory: %.2f MB\n", usedMemory / mb);
 
         System.out.println();
 		Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
@@ -86,7 +84,7 @@ public class DevMode{
 	public static void reboot(){
 		try{
 			Utility.openSoftware("software", "run.bat");
-		}catch(NullPointerException e){
+		}catch(IllegalArgumentException e){
 			System.out.println("run.bat not found");
 		}
 		System.exit(0);

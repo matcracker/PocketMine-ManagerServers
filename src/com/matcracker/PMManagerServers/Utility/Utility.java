@@ -227,7 +227,7 @@ public class Utility{
 	/**
 	 * @param text
 	 * @param addition
-	 * @return string input
+	 * @return input
 	 */
 	public static String readString(String text, String addition){
 		String content = null;

@@ -52,13 +52,12 @@ public class Main{
 				
 		try{
 			while(quit.equalsIgnoreCase("n")){
-				
 				boolean devMode = APIManager.isDevMode();
-				
+
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
 				System.out.println(BaseLang.translate("pm.title.mainMenu"));
-				System.out.printf("&eDeveloped by matcracker			   Version: %s		API: %s\n", APIManager.getVersion(), APIManager.getAPIVersion());
+				System.out.printf("&eDeveloped by matcracker			   	Version: %s		API: %s\n", APIManager.getVersion(), APIManager.getAPIVersion());
 				System.out.println("&f1- " + BaseLang.translate("pm.mainMenu.download-install"));
 				System.out.println("2- " + BaseLang.translate("pm.mainMenu.manager"));
 				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
@@ -67,7 +66,7 @@ public class Main{
 				
 				if(devMode)
 					DevMode.devMenu(menu);
-	
+
 				menu = Utility.readString(BaseLang.translate("pm.chooise.ask")+ " ", null);
 				
 				if(menu.equalsIgnoreCase("1"))

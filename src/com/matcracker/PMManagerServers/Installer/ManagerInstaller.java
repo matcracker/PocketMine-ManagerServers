@@ -81,7 +81,6 @@ public class ManagerInstaller {
 	 * @param downloadPath
 	 * @param file
 	 * @param type
-	 * @throws IOException
 	 */
 	public static void moveDownloadedFiles(String downloadPath, String file, String type){
 		File destFolder = new File("Utils" + File.separator + file);
