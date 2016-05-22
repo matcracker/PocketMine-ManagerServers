@@ -28,12 +28,12 @@ public class Manager {
 	public static void managerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.manager"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.manager")));
 		System.out.println("1- " + BaseLang.translate("pm.manager.open"));
 		System.out.println("2- " + BaseLang.translate("pm.manager.edit"));
 		System.out.println("3- " + BaseLang.translate("pm.manager.rescuer"));
 		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
-		int option = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
+		int option = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
 		if(option == 1)
 			Opener.openerMenu();

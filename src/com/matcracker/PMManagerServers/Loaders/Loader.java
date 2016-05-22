@@ -10,6 +10,7 @@ import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Languages.LangSelector;
 import com.matcracker.PMManagerServers.Utility.FileChooser;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class Loader {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -98,12 +99,12 @@ public class Loader {
 			do{
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
-				System.out.println(BaseLang.translate("pm.title.completeLoad"));
-				temp = Utility.readString(BaseLang.translate("pm.chooise.servers") + " <1/2/3/...>: ", null);
+				System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.completeLoad")));
+				temp = Utility.readString(BaseLang.translate("pm.choice.servers") + " <1/2/3/...>: ", null);
 				
 				if(Utility.is_numeric(temp))
 					if(Integer.parseInt(temp) <= 0)
-						Utility.waitConfirm(BaseLang.translate("pm.errors.fewServers"));
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.fewServers"));
 				
 			}while(Integer.parseInt(temp) <= 0 || !Utility.is_numeric(temp));
 			
@@ -116,7 +117,7 @@ public class Loader {
 			
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.completeLoad"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.completeLoad")));
 		System.out.printf(BaseLang.translate("pm.loader.caution") + " '%s'\n", Utility.defaultServersName);
 		
 		if(nservers >= 1){
@@ -135,8 +136,7 @@ public class Loader {
 						nameServers[i-1] = Utility.keyword.readLine();
 						
 						if(nameServers[i-1].contains(" ")){
-							System.out.println("\nSorry, but you can't insert space from name");
-							Utility.keyword.readLine();
+							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.loader.noSpaces"));
 							Loader.completeLoader();
 							
 						}else if(nameServers[i-1].equalsIgnoreCase("")){

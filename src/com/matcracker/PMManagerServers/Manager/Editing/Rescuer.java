@@ -8,6 +8,7 @@ import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Manager.Manager;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 import com.matcracker.PMManagerServers.Utility.Zipper;
 
 import net.lingala.zip4j.exception.ZipException;
@@ -32,12 +33,12 @@ public class Rescuer {
 	public static void rescuerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.rescuer"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.rescuer")));
 		System.out.println("1- " + BaseLang.translate("pm.rescuer.backup"));
 		System.out.println("2- " + BaseLang.translate("pm.rescuer.restore"));
 		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
 		
-		int sel = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
+		int sel = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
 		if(sel == 1)
 			backup();
@@ -56,9 +57,9 @@ public class Rescuer {
 		System.out.println(Utility.softwareName);
 		System.out.println(BaseLang.translate("pm.title.restore"));
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
-			System.out.printf("%d) %s -> Status: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getBackuped(i));
+			System.out.printf("%d) %s -> %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.status"), StatusAPI.getBackuped(i));
 		
-		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
 		if(server > UtilityServersAPI.getNumberServers())
 			backup();
@@ -72,13 +73,13 @@ public class Rescuer {
 						
 						System.out.println(BaseLang.translate("pm.rescuer.extracting"));
 						Zipper.unzip(extractServersPath, destinationPath, null);
-						Utility.waitConfirm(BaseLang.translate("pm.rescuer.extracted"));
+						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.extracted"));
 					}else
-						Utility.waitConfirm(BaseLang.translate("pm.rescuer.noBackup"));
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.noBackup"));
 				}else
-					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
-				Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 			
 		}
 	}
@@ -90,7 +91,7 @@ public class Rescuer {
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
 			System.out.printf("%d) %s -> Status: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getBackuped(i));
 		
-		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
 		if(server > UtilityServersAPI.getNumberServers())
 			backup();
@@ -104,16 +105,16 @@ public class Rescuer {
 							System.out.println(BaseLang.translate("pm.rescuer.create"));
 							Zipper.zip(pathContent, backupedServersPath, null);
 							StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
-							Utility.waitConfirm(BaseLang.translate("pm.rescuer.backuped"));
+							Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.backuped"));
 						}catch (ZipException e){
 							e.printStackTrace();
 						}
 					}else
-						Utility.waitConfirm(BaseLang.translate("pm.rescuer.existBackup"));
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.existBackup"));
 				}else
-					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
-				Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 			
 		}
 	}

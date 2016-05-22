@@ -8,6 +8,7 @@ import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.FileChooser;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class Downloader {
     /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -36,22 +37,22 @@ public class Downloader {
 		String linksoft = "http://jenkins.pocketmine.net/job/PocketMine-Soft/lastSuccessfulBuild/artifact/PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar";
 		
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.download"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.download")));
 		
 		for(int i = 1; i <= nservers; i++)
 			System.out.printf("%d) %s | %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.status"), StatusAPI.getStatus(i));
 		
 		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
-		int server = Utility.readInt(BaseLang.translate("pm.chooise.server")+ " ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
 		if(server == (nservers + 1)) //Back
 			ManagerInstaller.managerInstallerMenu();
 		
 		if(server <= nservers){
-			System.out.println("\n1- Stable (Setup File)");
-			System.out.println("2- Beta (Phar File)");
-			System.out.println("3- Dev (Phar File)");
-			System.out.println("4- Soft (Phar File)");
+			System.out.println("\n1- " + BaseLang.translate("pm.status.stable") + " (Setup File)");
+			System.out.println("2- " + BaseLang.translate("pm.status.beta") + " (Phar File)");
+			System.out.println("3- " + BaseLang.translate("pm.status.dev") + " (Phar File)");
+			System.out.println("4- " + BaseLang.translate("pm.status.soft") + " (Phar File)");
 			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 			
 			int ver = Utility.readInt(BaseLang.translate("pm.downloader.versionserv") + " ", null);
@@ -65,7 +66,7 @@ public class Downloader {
 					if(type == 1){
 						File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
 						if(installer.exists()){
-							Utility.waitConfirm(BaseLang.translate("pm.errors.instDownloaded"));				
+							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.instDownloaded"));				
 						}else{
 							System.out.println(BaseLang.translate("pm.downloader.startDown"));
 							Utility.openSoftware("url", linkstable);
@@ -76,7 +77,7 @@ public class Downloader {
 						}
 					}
 				}else
-					UtilityServersAPI.setDownloadPath(FileChooser.get("Select the path where do you usually download the files", "Select a file", ""));
+					UtilityServersAPI.setDownloadPath(FileChooser.get(BaseLang.translate("pm.downloader.downloadPath"), BaseLang.translate("pm.downloader.selectFile"), ""));
 			}
 			
 			if(ver == 2){ //Beta
@@ -89,7 +90,7 @@ public class Downloader {
 							File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
 							
 							if(beta.exists()){
-								Utility.waitConfirm(BaseLang.translate("pm.errors.fileDownloaded"));
+								Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 							}else{
 								System.out.println(BaseLang.translate("pm.downloader.downPhar"));
 								Utility.openSoftware("url", linkbeta);
@@ -100,7 +101,7 @@ public class Downloader {
 						}
 
 				}else
-					UtilityServersAPI.setDownloadPath(FileChooser.get("Select the path where do you usually download the files", "Select a file", ""));
+					UtilityServersAPI.setDownloadPath(FileChooser.get(BaseLang.translate("pm.downloader.downloadPath"), BaseLang.translate("pm.downloader.selectFile"), ""));
 			}
 			
 			if(ver == 3){ //Dev
@@ -114,7 +115,7 @@ public class Downloader {
 						File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
 						
 						if(dev.exists()){
-							Utility.waitConfirm(BaseLang.translate("pm.errors.fileDownloaded"));
+							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 							
 						}else{
 							System.out.println(BaseLang.translate("pm.downloader.downPhar"));
@@ -125,7 +126,7 @@ public class Downloader {
 						}
 					}
 				}else
-					UtilityServersAPI.setDownloadPath(FileChooser.get("Select the path where do you usually download the files", "Select a file", ""));
+					UtilityServersAPI.setDownloadPath(FileChooser.get(BaseLang.translate("pm.downloader.downloadPath"), BaseLang.translate("pm.downloader.selectFile"), ""));
 			}
 			
 			if(ver == 4){ //Soft
@@ -138,7 +139,7 @@ public class Downloader {
 						File soft = new File("Utils" + File.separator + "PocketMine-MP_SOFT.phar");
 						
 						if(soft.exists()){
-							Utility.waitConfirm(BaseLang.translate("pm.errors.fileDownloaded"));
+							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 						}else{
 							System.out.println(BaseLang.translate("pm.downloader.downPhar"));
 							Utility.openSoftware("url", linksoft);
@@ -148,7 +149,7 @@ public class Downloader {
 						}
 					}
 				}else
-					UtilityServersAPI.setDownloadPath(FileChooser.get("Select the path where do you usually download the files", "Select a file", ""));
+					UtilityServersAPI.setDownloadPath(FileChooser.get(BaseLang.translate("pm.downloader.downloadPath"), BaseLang.translate("pm.downloader.selectFile"), ""));
 			}
 			
 			if(ver == 5)

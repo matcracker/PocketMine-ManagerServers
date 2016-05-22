@@ -12,6 +12,7 @@ import com.matcracker.PMManagerServers.Manager.Manager;
 import com.matcracker.PMManagerServers.Settings.Settings;
 import com.matcracker.PMManagerServers.Utility.PMPrintStream;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class Main{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -56,8 +57,8 @@ public class Main{
 
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
-				System.out.println(BaseLang.translate("pm.title.mainMenu"));
-				System.out.printf("&eDeveloped by matcracker			   	Version: %s		API: %s\n", APIManager.getVersion(), APIManager.getAPIVersion());
+				System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.mainMenu")));
+				System.out.printf("&eDeveloped by matcracker			   Version: %s		API: %s\n", APIManager.getVersion(), APIManager.getAPIVersion());
 				System.out.println("&f1- " + BaseLang.translate("pm.mainMenu.download-install"));
 				System.out.println("2- " + BaseLang.translate("pm.mainMenu.manager"));
 				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
@@ -67,7 +68,7 @@ public class Main{
 				if(devMode)
 					DevMode.devMenu(menu);
 
-				menu = Utility.readString(BaseLang.translate("pm.chooise.ask")+ " ", null);
+				menu = Utility.readString(BaseLang.translate("pm.choice.ask")+ " ", null);
 				
 				if(menu.equalsIgnoreCase("1"))
 					ManagerInstaller.managerInstallerMenu();
@@ -84,8 +85,8 @@ public class Main{
 				else if(menu.equalsIgnoreCase("5")){
 					Utility.cleanScreen();
 					System.out.println(Utility.softwareName);
-					System.out.println(BaseLang.translate("pm.title.exit"));
-					quit = Utility.readString(BaseLang.translate("pm.chooise.exit") + " <y/N>: ", null);
+					System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.exit")));
+					quit = Utility.readString(BaseLang.translate("pm.choice.exit") + " <y/N>: ", null);
 
 					if(quit.equalsIgnoreCase("y")){
 						PluginsLoader.unloadPlugins();
@@ -100,11 +101,11 @@ public class Main{
 					i++;	
 	
 				if(i == 3 && !devMode){
-					Utility.waitConfirm("&eDEVMODE enabled!");
+					Utility.waitConfirm(UtilityColor.COLOR_YELLOW +  BaseLang.translate("pm.devmenu.enabled"));
 					APIManager.setDevMode(true);
 					
 				}else if(i == 3 && devMode){
-					Utility.waitConfirm("&cDEVMODE disabled!");
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.devmenu.disabled"));
 					APIManager.setDevMode(false);
 				}
 			}

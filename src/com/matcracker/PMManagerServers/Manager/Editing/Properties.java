@@ -6,6 +6,7 @@ import java.util.Calendar;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class Properties {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -26,9 +27,9 @@ public class Properties {
 	protected static void propertiesMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.properties"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.properties")));
 		Utility.showServers();
-		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
 		if(server > UtilityServersAPI.getNumberServers())
 			propertiesMenu();
@@ -42,9 +43,9 @@ public class Properties {
 					e.printStackTrace();
 				}
 			}else
-				Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
+				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 		}else
-			Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+			Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 	}
 	
 	private static void editProperties(String path) throws IOException{

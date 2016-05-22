@@ -9,6 +9,7 @@ import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class Performance {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -29,12 +30,12 @@ public class Performance {
 	protected static void performanceMenu() throws IOException {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.performance"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.performance")));
 		System.out.println(BaseLang.translate("pm.performance.select") + " ");
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
 			System.out.printf("%d) %s: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getPerformace(i));
 		
-		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
 		if(server > UtilityServersAPI.getNumberServers())
 			performanceMenu();
@@ -50,7 +51,7 @@ public class Performance {
 				System.out.println("3- " + BaseLang.translate("pm.status.low"));
 				System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 				
-				int feat = Utility.readInt(BaseLang.translate("pm.chooise.feature"), null);
+				int feat = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 				
 				if(feat == 1){ //HIGH
 					File high = new File("Utils" + File.separator + "pocketmine_HIGH.yml");
@@ -103,9 +104,9 @@ public class Performance {
 				
 				performanceMenu();
 			}else
-				Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
+				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 		}else
-			Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+			Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 		
 		performanceMenu();
 	}

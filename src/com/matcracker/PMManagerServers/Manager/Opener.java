@@ -5,16 +5,17 @@ import java.io.IOException;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class Opener {
 	protected static void openerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.opener"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.opener")));
 		System.out.println("1- " + BaseLang.translate("pm.opener.server"));
 		System.out.println("2- " + BaseLang.translate("pm.opener.folders"));
 		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
-		int opt = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
+		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
 		if(opt == 1)
 			open(true);
@@ -33,7 +34,7 @@ public class Opener {
 	 */
 	private static void open(boolean isServer){
 		Utility.showServers();
-		int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", "[" + BaseLang.translate("pm.opener.suggest") + "]");
+		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", "[" + BaseLang.translate("pm.opener.suggest") + "]");
 		
 		if(server == -1){
 			for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++){
@@ -46,11 +47,11 @@ public class Opener {
 						else
 							Utility.openSoftware("software", pathContent);
 					}else{
-						Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 						break;
 					}
 				}else{
-					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 					break;
 				}
 			}
@@ -64,9 +65,9 @@ public class Opener {
 					else
 						Utility.openSoftware("software", pathContent);
 				}else
-					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
-				Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 		}
 	}
 }

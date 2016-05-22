@@ -28,14 +28,14 @@ public class Settings{
 	public static void settingsMenu() throws IOException{
 	    Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.settings"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.settings")));
 		System.out.println("1- " + BaseLang.translate("pm.settings.language"));
 		System.out.println("2- " + BaseLang.translate("pm.settings.serversManager"));
 		System.out.println("3- " + BaseLang.translate("pm.settings.reset"));
 		System.out.println("4- " + BaseLang.translate("pm.settings.plugManager"));
 		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 		
-		int opt = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
+		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 			
 		if(opt == 1)
 			LangSelector.langMenu();

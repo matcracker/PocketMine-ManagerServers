@@ -26,11 +26,11 @@ public class Editor {
 	public static void editorMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.editor"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.editor")));
 		System.out.println("1- " + BaseLang.translate("pm.editor.properties"));
 		System.out.println("2- " + BaseLang.translate("pm.editor.performance"));
 		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
-		int sel = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
+		int sel = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
 		if(sel == 1)
 			Properties.propertiesMenu();

@@ -42,7 +42,7 @@ public class Resetter{
 	protected static void resetterMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.reset"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.reset")));
 		System.out.println("1- " + BaseLang.translate("pm.resetter.programData"));
 		System.out.println("2- " + BaseLang.translate("pm.resetter.serversData"));
 		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
@@ -65,7 +65,7 @@ public class Resetter{
 		try{
 			Utility.cleanScreen();
 			System.out.println(Utility.softwareName);
-			System.out.println(BaseLang.translate("pm.title.reset"));
+			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.reset")));
 			String confirm = Utility.readString(BaseLang.translate("pm.resetter.confirmProgram") + " <y/n>: ", null);
 			
 			if(confirm.equalsIgnoreCase("y")){
@@ -94,7 +94,7 @@ public class Resetter{
 		try{
 			Utility.cleanScreen();
 			System.out.println(Utility.softwareName);
-			System.out.println(BaseLang.translate("pm.title.reset"));
+			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.reset")));
 			String confirm = Utility.readString(BaseLang.translate("pm.resetter.confirmServers") + " <Y/N>: ", null);
 		
 			if(confirm.equalsIgnoreCase("y")){
@@ -102,7 +102,7 @@ public class Resetter{
 					if(UtilityServersAPI.checkServersFile("Path", "path_", i) || UtilityServersAPI.checkServersFile("ServersName", "ServerName_", i)){
 						deleteFile("Path");
 						deleteFile("ServersName");
-						Utility.waitConfirm("Paths deleted!");
+						Utility.waitConfirm(BaseLang.translate("pm.resetter.pathsDeleted"));
 						Thread.sleep(1000);
 					}else
 						Utility.waitConfirm(i + ")" + BaseLang.translate("pm.errors.pathNotFound"));

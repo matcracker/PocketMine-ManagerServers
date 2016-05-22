@@ -26,9 +26,9 @@ public class DevMode{
 	public static void devMenu(String menu){
 		if(APIManager.isDevMode()){
 			System.out.println("\n&e==={&bDEVMODE&e}===&5");
-			System.out.println("6- Memory usage (MB/GB)");
-			System.out.println("7- System information");
-			System.out.println("8- Restart PocketMine-ManagerServers&f\n");
+			System.out.println("6- " + BaseLang.translate("pm.devmenu.memory") + " (MB/GB)");
+			System.out.println("7- " + BaseLang.translate("pm.devmenu.systemInfo"));
+			System.out.println("8- " + BaseLang.translate("pm.devmenu.restart") + "&f\n");
 			
 			if(menu.equalsIgnoreCase("6"))
 				getMemoryUsage();

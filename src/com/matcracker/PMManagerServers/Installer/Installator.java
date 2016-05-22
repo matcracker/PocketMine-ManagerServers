@@ -7,6 +7,7 @@ import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class Installator {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -30,24 +31,24 @@ public class Installator {
 		int nservers = UtilityServersAPI.getNumberServers();
 		
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.installator"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.installator")));
 		
 		for(int i = 1; i <= nservers; i++)
 			System.out.printf("%d) %s | %s: %s | %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.version"), StatusAPI.getVersion(i), BaseLang.translate("pm.standard.status"), StatusAPI.getStatus(i));
 		
 		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
-		int server = Utility.readInt(BaseLang.translate("pm.chooise.installServers") + ": ", null);
+		int server = Utility.readInt(BaseLang.translate("pm.choice.installServers") + ": ", null);
 		
 		if(server == (nservers + 1)){ //Back
 			ManagerInstaller.managerInstallerMenu();
 		}else{
-			System.out.println("\n1- Stable (Setup File)");
-			System.out.println("2- Beta (Phar File)");
-			System.out.println("3- Dev (Phar File)");
-			System.out.println("4- Soft (Phar File)");
+			System.out.println("\n1- " + BaseLang.translate("pm.status.stable") + " (Setup File)");
+			System.out.println("2- " + BaseLang.translate("pm.status.beta") + " (Phar File)");
+			System.out.println("3- " + BaseLang.translate("pm.status.dev") + " (Phar File)");
+			System.out.println("4- " + BaseLang.translate("pm.status.soft") + " (Phar File)");
 			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 			
-			int ver = Utility.readInt(BaseLang.translate("pm.chooise.version") + ": ", null);
+			int ver = Utility.readInt(BaseLang.translate("pm.choice.version") + ": ", null);
 			
 			if(ver == 1){ //Stable
 				System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
@@ -62,7 +63,7 @@ public class Installator {
 						StatusAPI.setVersion(BaseLang.translate("pm.status.stable"), server);
 						StatusAPI.setStatus(BaseLang.translate("pm.status.install"), server);
 					}else
-						Utility.waitConfirm(BaseLang.translate("pm.errors.instNotFound"));					
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.instNotFound"));					
 				}
 			}
 			
@@ -83,11 +84,11 @@ public class Installator {
 								StatusAPI.setVersion(BaseLang.translate("pm.status.beta"), server);
 							}	
 						}else
-							Utility.waitConfirm(BaseLang.translate("pm.installer.pharNotFound"));
+							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
 						
 					}
 				}else
-					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));		
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 			}
 			
 			if(ver == 3){ //Dev
@@ -107,11 +108,11 @@ public class Installator {
 								StatusAPI.setVersion(BaseLang.translate("pm.status.dev"), server);
 							}	
 						}else
-							Utility.waitConfirm(BaseLang.translate("pm.installer.pharNotFound"));
+							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
 
 					}
 				}else
-					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 				
 			}
 			
@@ -132,11 +133,11 @@ public class Installator {
 								StatusAPI.setVersion(BaseLang.translate("pm.status.soft"), server);
 							}	
 						}else
-							Utility.waitConfirm(BaseLang.translate("pm.installer.pharNotFound"));
+							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
 						
 					}
 				}else
-					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNotFound"));
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 				
 			}
 			

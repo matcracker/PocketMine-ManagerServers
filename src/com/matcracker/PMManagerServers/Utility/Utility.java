@@ -34,7 +34,7 @@ public class Utility{
 	*(at your option) any later version.
 	*/
 
-	public static final String softwareName = "&a========================&e<&bPocketMine Manager Servers&e>&a============================";
+	public static final String softwareName = "&a=========================&e<&bPocketMine Manager Servers&e>&a===========================";
 	public static String defaultServersName = "Server_Minecraft_PE";
 	
 	public static InputStreamReader input = new InputStreamReader(System.in);
@@ -43,8 +43,8 @@ public class Utility{
 	/**
 	 * Errors costants
 	 */	
-	public static final String inputError = "&cError during the chooise!";
-	public static final String generalError =  "&cAn error occured!";
+	public static final String inputError = UtilityColor.COLOR_RED + "Error during the choice!";
+	public static final String generalError =  UtilityColor.COLOR_RED + "An error occured!";
 	
 	/**
 	 * Clean the screen
@@ -66,6 +66,26 @@ public class Utility{
 					System.out.println();
 			}
 		}
+	}
+	
+	public static String setTitle(String color, String subtitle){
+		int size = 80;
+		subtitle = "<" + subtitle + ">";
+		int left = (size - subtitle.length()) / 2;
+	    int right = size - left - subtitle.length(); 
+	    String repeatedChar = "-";
+	    
+	    StringBuffer buff = new StringBuffer();
+	    for (int i = 0; i < left; i++) {
+	        buff.append(repeatedChar);
+	    }
+	    buff.append(subtitle);
+	    for (int i = 0; i < right; i++) {
+	        buff.append(repeatedChar);
+	    }
+
+		return color + buff.toString() + UtilityColor.COLOR_WHITE;
+		
 	}
 	
 	/**
@@ -219,7 +239,7 @@ public class Utility{
 				System.out.println();
 			}
 		}catch(NullPointerException e){
-			Utility.waitConfirm("&cCan't find any server!");
+			Utility.waitConfirm(UtilityColor.COLOR_RED + "Can't find any server!");
 			Main.mainMenu();
 		}
 	}

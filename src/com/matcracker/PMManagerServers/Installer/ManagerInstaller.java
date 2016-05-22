@@ -9,6 +9,7 @@ import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class ManagerInstaller {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -30,20 +31,19 @@ public class ManagerInstaller {
 	public static void managerInstallerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.managerInstaller"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.managerInstaller")));
 		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.download"));
 		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.install"));
 		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
-		System.out.print("\n" + BaseLang.translate("pm.chooise.ask") + ": ");
-		String inst = Utility.keyword.readLine();
+		int inst = Utility.readInt(BaseLang.translate("pm.choice.ask") + ": ", null);
 		
-		if(inst.equalsIgnoreCase("1"))
+		if(inst == 1)
 			Downloader.downloaderMenu();
 		
-		if(inst.equalsIgnoreCase("2"))
+		if(inst == 2)
 			Installator.installatorMenu();
 		
-		if(inst.equalsIgnoreCase("3"))
+		if(inst == 3)
 			Main.mainMenu();
 		
 		managerInstallerMenu();
@@ -90,12 +90,12 @@ public class ManagerInstaller {
 			try{
 				Files.copy(downloadFile.toPath(), destFolder.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			}catch (IOException e){
-				System.out.println("File not found!");
+				System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.fileNotFound"));
 			}
 			if(type != null)
 				destFolder.renameTo(new File("Utils" + File.separator + "PocketMine-MP_" + type.toUpperCase() + ".phar"));
 			
 		}else
-			System.out.println("Something wrong occured! This path doesn't exist!");
+			System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.noDownloadPath"));
 	}
 }

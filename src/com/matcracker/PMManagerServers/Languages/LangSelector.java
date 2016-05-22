@@ -3,6 +3,7 @@ package com.matcracker.PMManagerServers.Languages;
 import java.io.IOException;
 
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class LangSelector {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -25,10 +26,11 @@ public class LangSelector {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		if(!BaseLang.isLanguageSet())
-			System.out.println("&c----------------------------<Selection Languages>-------------------------------&f");
+			System.out.println(Utility.setTitle(UtilityColor.COLOR_RED, "Selection Language"));
 		else
-			System.out.println(BaseLang.translate("pm.title.language"));
+			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.language")));
 		
+		String lang = "";
 		System.out.println("1) Afrikaans\t\t\t16) Italian");
 		System.out.println("2) Arabic\t\t\t17) Japanese");
 		System.out.println("3) Catalan\t\t\t18) Korean");
@@ -45,7 +47,10 @@ public class LangSelector {
 		System.out.println("14) Hebrew\t\t\t29) Ukrainian");
 		System.out.println("15) Hungarian\t\t\t30) Vietnamese");
 		System.out.println();
-		String lang = Utility.readString("Choose language: ", null);
+		if(!BaseLang.isLanguageSet())
+			lang = Utility.readString("Choose language: ", null);
+		else
+			lang = Utility.readString(BaseLang.translate("pm.choice.language"), null);
 		
 		BaseLang.setLanguage(lang);
 	}

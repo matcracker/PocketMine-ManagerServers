@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class PMServersManager {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -26,19 +27,19 @@ public class PMServersManager {
 	protected static void serverManagerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.serversManager"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.serversManager")));
 		System.out.println("1- " + BaseLang.translate("pm.serverManager.change"));
 		System.out.println("2- " + BaseLang.translate("pm.serverManager.delete"));
 		System.out.println("3- " + BaseLang.translate("pm.serverManager.add"));
 		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
-		int sel = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
+		int sel = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
 		if(sel == 3)
 			addServer();
 		
 		else if(sel == 1 || sel == 2){
 			Utility.showServers();
-			int server = Utility.readInt(BaseLang.translate("pm.chooise.server") + " ", null);
+			int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 			
 			if(server <= UtilityServersAPI.getNumberServers()){
 				if(sel == 1)
@@ -47,7 +48,7 @@ public class PMServersManager {
 				if(sel == 2)
 					deleteServer(server);
 			}else
-				Utility.waitConfirm("Select a valid server!");
+				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.noValid"));
 		}
 		
 		if(sel == 4)
@@ -67,7 +68,7 @@ public class PMServersManager {
 		}
 		nservers--;
 		UtilityServersAPI.setNumberServer(nservers);
-		Utility.waitConfirm(BaseLang.translate("pm.serverManager.correctDelete"));
+		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctDelete"));
 	
 	}
 	
@@ -82,17 +83,23 @@ public class PMServersManager {
 		UtilityServersAPI.setNameServer(nservers, newName);
 		UtilityServersAPI.setNumberServer(nservers);
 		
-		Utility.waitConfirm(BaseLang.translate("pm.serverManager.correctAdd"));
+		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctAdd"));
 	}
 
 	private static void changeServerName(int server) {
 		String newName = Utility.readString(BaseLang.translate("pm.serverManager.choose") + " ", "[" + BaseLang.translate("pm.serverManager.suggest") + " " + UtilityServersAPI.getDefaultServerName() + "]");
+		File oldBackupFile = new File("Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip");
 		
 		if(newName.equalsIgnoreCase(""))
 			newName = UtilityServersAPI.getDefaultServerName() + "_" + server;
 		
+		File newBackupFile = new File("Backups" + File.separator + "Servers" + File.separator + newName + ".zip");
 		UtilityServersAPI.setNameServer(server, newName);
+
+		if(oldBackupFile.exists())
+			oldBackupFile.renameTo(newBackupFile);
 		
-		Utility.waitConfirm(BaseLang.translate("pm.serverManager.correctChange"));
+		
+		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctChange"));
 	}
 }

@@ -5,17 +5,18 @@ import java.io.IOException;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class PluginManager {
 	
 	public static void plugMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.pluginManager"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.pluginManager")));
 		System.out.println("1- " + BaseLang.translate("pm.plugManager.list"));
 		System.out.println("2- " + BaseLang.translate("pm.plugManager.use"));
 		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
-		int opt = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
+		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
 		if(opt == 1){
 			Utility.showPlugins();
@@ -35,7 +36,7 @@ public class PluginManager {
 					
 				}while(!plugin.exists() || Utility.is_numeric(name));
 			}else
-				System.out.println(BaseLang.translate("pm.plugManager.noPlugins"));
+				System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.plugins.noPluginFound"));
 		}
 			
 		

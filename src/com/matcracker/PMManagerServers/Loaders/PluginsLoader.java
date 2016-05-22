@@ -13,6 +13,8 @@ import java.util.jar.JarFile;
 import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.API.PluginInformation;
 import com.matcracker.PMManagerServers.API.PluginStarter;
+import com.matcracker.PMManagerServers.Languages.BaseLang;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class PluginsLoader{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -41,12 +43,12 @@ public class PluginsLoader{
 
 		for(File plugins : folder.listFiles()){
 			if(plugins.isFile() && plugins.getName().endsWith(".jar")){
-				System.out.println("&eLoading " + pluginExec(plugins, "getName"));
+				System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.plugins.loading") + " " + pluginExec(plugins, "getName"));
 				pluginExec(plugins, "onEnable");
 				
 				if(!APIManager.getAPIVersion().equalsIgnoreCase((String) pluginExec(plugins, "getAPIVersion")))
-					System.out.println("&3Be careful, this plugin API isn't updated!");
-
+					System.out.println(UtilityColor.BACKGROUND_DARK_CYAN + BaseLang.translate("pm.plugins.noApiUpdated"));
+				
 				try{
 					Thread.sleep(1000);
 				}catch(InterruptedException e1){
@@ -58,7 +60,7 @@ public class PluginsLoader{
 		}
 
 		if(!pluginFound){
-			System.out.println("&6Any plugin found!");
+			System.out.println(UtilityColor.BACKGROUND_DARK_YELLOW + BaseLang.translate("pm.plugins.noPluginFound"));
 			try{
 				Thread.sleep(1000);
 			}catch (InterruptedException e){
@@ -70,7 +72,7 @@ public class PluginsLoader{
 	public static void unloadPlugins(){
 		for(File plugins : folder.listFiles()){
 			if(plugins.isFile() && plugins.getName().endsWith(".jar")){
-				System.out.println("&eUnloading " + pluginExec(plugins, "getName"));
+				System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.plugins.unloading") + " " + pluginExec(plugins, "getName"));
 				pluginExec(plugins, "onDisable");
 			
 				try{
@@ -120,13 +122,13 @@ public class PluginsLoader{
 			if(instance instanceof PluginStarter && instance instanceof PluginInformation)
 				return method.invoke(instance);
 			else{
-				System.out.println("&cThis isn't a PocketMine-ManagerServers plugin!");
-				System.out.println("&eUnloading " + path.getName());
+				System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.plugins.noPlugin"));
+				System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.plugins.unloading") + " " + path.getName());
 			}
 			
 			Thread.sleep(1500);
 		}catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InterruptedException e2){
-			System.out.println("&cError on loading this plugin! Can't find method " + methodName);
+			System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.plugins.errorLoading") + " " + methodName);
 
 		}
 		return false;

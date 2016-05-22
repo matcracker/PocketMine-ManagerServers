@@ -7,6 +7,7 @@ import java.io.IOException;
 import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.Languages.BaseLang;
 import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.Utility.UtilityColor;
 
 public class Informations {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -32,21 +33,21 @@ public class Informations {
 		Utility.cleanScreen();
 	    
 		System.out.println(Utility.softwareName);
-		System.out.println(BaseLang.translate("pm.title.informations"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.informations")));
 		System.out.println("1- " + BaseLang.translate("pm.informations.license"));
 		System.out.println("2- " + BaseLang.translate("pm.informations.credits"));
 		System.out.println("3- " + BaseLang.translate("pm.informations.more"));
 		System.out.println("4- " + BaseLang.translate("pm.informations.disclaimer"));
 		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 		
-		int info = Utility.readInt(BaseLang.translate("pm.chooise.option") + " ", null);
+		int info = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
 		if(info == 1){
 			File license = new File("LICENSE.pdf");
 			if(license.isFile() && license.exists())
 				Desktop.getDesktop().open(license);
 			else
-				Utility.waitConfirm(BaseLang.translate("pm.informations.bad"));
+				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.informations.bad"));
 		}
 		
 		if(info == 2){
@@ -67,7 +68,7 @@ public class Informations {
 			System.out.println("2- Twitter");
 			System.out.println("3- " + BaseLang.translate("pm.standard.back"));
 			
-			int more = Utility.readInt(BaseLang.translate("pm.chooise.option"), null);
+			int more = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 
 			if(more == 1)
 				Utility.openSoftware("url", gitlink);
