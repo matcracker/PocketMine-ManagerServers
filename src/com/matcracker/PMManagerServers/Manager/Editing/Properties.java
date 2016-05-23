@@ -24,14 +24,17 @@ public class Properties {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
 	*/
-	protected static void propertiesMenu(){
+	protected static void propertiesMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.properties")));
 		Utility.showServers();
+		System.out.println((UtilityServersAPI.getNumberServers() + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
-		if(server > UtilityServersAPI.getNumberServers())
+		if(server == (UtilityServersAPI.getNumberServers() + 1))
+			Editor.editorMenu();
+		else
 			propertiesMenu();
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){

@@ -22,7 +22,7 @@ public class APIManager{
 	*/
 	
 	private static final String APIVersion = "1.0";
-	private static final String softwareVersion = "1.0.1";
+	private static final String softwareVersion = "1.0.2";
 	
 	/**
 	 * @return API version

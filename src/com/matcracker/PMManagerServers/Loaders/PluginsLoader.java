@@ -60,7 +60,7 @@ public class PluginsLoader{
 		}
 
 		if(!pluginFound){
-			System.out.println(UtilityColor.BACKGROUND_DARK_YELLOW + BaseLang.translate("pm.plugins.noPluginFound"));
+			System.out.println(UtilityColor.COLOR_DARK_YELLOW + BaseLang.translate("pm.plugins.noPluginFound"));
 			try{
 				Thread.sleep(1000);
 			}catch (InterruptedException e){

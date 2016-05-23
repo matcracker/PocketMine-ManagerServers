@@ -35,9 +35,12 @@ public class Performance {
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
 			System.out.printf("%d) %s: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getPerformace(i));
 		
+		System.out.println((UtilityServersAPI.getNumberServers() + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
-		if(server > UtilityServersAPI.getNumberServers())
+		if(server == (UtilityServersAPI.getNumberServers() + 1))
+			Editor.editorMenu();
+		else
 			performanceMenu();
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
@@ -49,7 +52,6 @@ public class Performance {
 				System.out.println("1- " + BaseLang.translate("pm.status.high"));
 				System.out.println("2- " + BaseLang.translate("pm.status.medium"));
 				System.out.println("3- " + BaseLang.translate("pm.status.low"));
-				System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 				
 				int feat = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 				

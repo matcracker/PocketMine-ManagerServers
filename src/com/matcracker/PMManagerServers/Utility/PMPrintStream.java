@@ -4,7 +4,6 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 
 public class PMPrintStream extends PrintStream{
-	
 	private boolean debug = false;
 	
 	public PMPrintStream(final OutputStream outputStream) {
