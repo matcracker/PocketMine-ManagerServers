@@ -36,8 +36,8 @@ public class Main{
 	
 	public static void main(String[] args){
 		try{
-			System.setOut(new PMPrintStream(System.out));
-			System.setErr(new PMPrintStream(System.out));
+			System.setOut(new PMPrintStream());
+			System.setErr(new PMPrintStream());
 		}catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

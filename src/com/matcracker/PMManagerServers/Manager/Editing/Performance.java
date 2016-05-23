@@ -40,7 +40,7 @@ public class Performance {
 		
 		if(server == (UtilityServersAPI.getNumberServers() + 1))
 			Editor.editorMenu();
-		else
+		else if(server > UtilityServersAPI.getNumberServers())
 			performanceMenu();
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){

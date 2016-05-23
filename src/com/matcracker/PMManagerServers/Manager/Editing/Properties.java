@@ -34,7 +34,7 @@ public class Properties {
 		
 		if(server == (UtilityServersAPI.getNumberServers() + 1))
 			Editor.editorMenu();
-		else
+		else if(server > UtilityServersAPI.getNumberServers())
 			propertiesMenu();
 		
 		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
