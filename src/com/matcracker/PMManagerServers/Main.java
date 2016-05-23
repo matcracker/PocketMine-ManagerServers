@@ -1,6 +1,7 @@
 package com.matcracker.PMManagerServers;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.Informations.Informations;
@@ -34,8 +35,12 @@ public class Main{
 	private static boolean pluginsLoaded = false;
 	
 	public static void main(String[] args){
-		System.setOut(new PMPrintStream(System.out));
-		System.setErr(new PMPrintStream(System.out));
+		try{
+			System.setOut(new PMPrintStream(System.out));
+			System.setErr(new PMPrintStream(System.out));
+		}catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		
 		Loader.startLoader();
 		

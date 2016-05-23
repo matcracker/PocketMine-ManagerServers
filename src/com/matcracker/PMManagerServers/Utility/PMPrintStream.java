@@ -2,12 +2,13 @@ package com.matcracker.PMManagerServers.Utility;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 
 public class PMPrintStream extends PrintStream{
 	private boolean debug = false;
 	
-	public PMPrintStream(final OutputStream outputStream) {
-        super(outputStream);
+	public PMPrintStream(final OutputStream outputStream) throws UnsupportedEncodingException{
+        super(outputStream, true, "UTF-8");
     }
  
     @Override
