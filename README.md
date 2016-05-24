@@ -8,8 +8,8 @@ PocketMine-ManagerServers is a useful software that allow you to install and man
 ##Minimum System Requirements
 - Operative System (OS): Linux Distribution, Windows, Macintosh
 - CPU Frequency: 1 GHz
-- Hard Disk space (HDD): 50 MByte  
-- RAM: 500 MB
+- Hard Disk space (HDD): 2 MB
+- RAM: 50 MB
 - Java version: 8
 
 ## How to install PocketMine-ManagerServers
