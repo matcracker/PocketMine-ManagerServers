@@ -1,4 +1,4 @@
-package com.matcracker.PMManagerServers.Utility;
+package com.matcracker.PMManagerServers.utility;
 
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;

@@ -1,10 +1,11 @@
 package com.matcracker.PMManagerServers;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import com.matcracker.PMManagerServers.API.APIManager;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.Utility;
 
 public class DevMode{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -41,6 +42,9 @@ public class DevMode{
 		}
 	}
 	
+	/**
+	 * Show all the memories usage
+	 */
 	public static void getMemoryUsage(){
 		Runtime runtime = Runtime.getRuntime();
 
@@ -63,6 +67,9 @@ public class DevMode{
 		Main.mainMenu();
 	}
 	
+	/**
+	 * Show the system's information
+	 */
 	public static void systemInfo(){
 		Calendar calendar = Calendar.getInstance();
 		String strDate = calendar.getTime().toString();
@@ -81,11 +88,17 @@ public class DevMode{
 		Main.mainMenu();
 	}
 	
+	/**
+	 * Reboot software
+	 */
 	public static void reboot(){
 		try{
-			Utility.openSoftware("software", "run.bat");
-		}catch(IllegalArgumentException e){
-			System.out.println("run.bat not found");
+			if(Utility.getOSName().contains("Windows"))
+				Utility.openSoftware("software", "run.bat");
+			else
+				Runtime.getRuntime().exec("sh run.sh");
+		}catch(IllegalArgumentException | IOException e){
+			System.out.println("run.bat or run.sh not found");
 		}
 		System.exit(0);
 	}

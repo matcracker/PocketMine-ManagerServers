@@ -1,4 +1,4 @@
-package com.matcracker.PMManagerServers.Loaders;
+package com.matcracker.PMManagerServers.loaders;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +13,8 @@ import java.util.jar.JarFile;
 import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.API.PluginInformation;
 import com.matcracker.PMManagerServers.API.PluginStarter;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Utility.UtilityColor;
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class PluginsLoader{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -37,6 +37,9 @@ public class PluginsLoader{
 	public static boolean pluginFound = false;
 	public static boolean[] isLoaded;
 	
+	/**
+	 * This method load all the plugins present in the folder "plugins"
+	 */
 	public static void loadPlugins(){		
 		if(!folder.exists())
 			folder.mkdir();
@@ -69,6 +72,9 @@ public class PluginsLoader{
 		}
 	}
 	
+	/**
+	 * This method unload all the plugins present in the folder "plugins"
+	 */
 	public static void unloadPlugins(){
 		for(File plugins : folder.listFiles()){
 			if(plugins.isFile() && plugins.getName().endsWith(".jar")){
@@ -114,6 +120,11 @@ public class PluginsLoader{
 		}
 	}
 	
+	/**
+	 * @param path where the plugin is saved
+	 * @param methodName name of method to recall
+	 * @return content of method
+	 */
 	public static Object pluginExec(File path, String methodName){
 		Class<?> pluginClass = getJarClass(path);
 		try{

@@ -4,16 +4,16 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import com.matcracker.PMManagerServers.API.APIManager;
-import com.matcracker.PMManagerServers.Informations.Informations;
-import com.matcracker.PMManagerServers.Installer.ManagerInstaller;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Loaders.Loader;
-import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
-import com.matcracker.PMManagerServers.Manager.Manager;
-import com.matcracker.PMManagerServers.Settings.Settings;
-import com.matcracker.PMManagerServers.Utility.PMPrintStream;
-import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityColor;
+import com.matcracker.PMManagerServers.informations.Informations;
+import com.matcracker.PMManagerServers.installer.ManagerInstaller;
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.loaders.Loader;
+import com.matcracker.PMManagerServers.loaders.PluginsLoader;
+import com.matcracker.PMManagerServers.managers.Manager;
+import com.matcracker.PMManagerServers.settings.Settings;
+import com.matcracker.PMManagerServers.utility.PMPrintStream;
+import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Main{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -48,18 +48,18 @@ public class Main{
 			PluginsLoader.loadPlugins();
 			pluginsLoaded = true;
 		}
-		
+
 		mainMenu();
 	}
 	
 	public static void mainMenu(){
 		String menu = "", quit = "n";
 		int i = 0;
-				
+
 		try{
 			while(quit.equalsIgnoreCase("n")){
 				boolean devMode = APIManager.isDevMode();
-
+				
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
 				System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.mainMenu")));
@@ -69,7 +69,7 @@ public class Main{
 				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
 				System.out.println("4- " + BaseLang.translate("pm.mainMenu.informations"));
 				System.out.println("5- " + BaseLang.translate("pm.mainMenu.exit") + "\n");
-				
+
 				if(devMode)
 					DevMode.devMenu(menu);
 

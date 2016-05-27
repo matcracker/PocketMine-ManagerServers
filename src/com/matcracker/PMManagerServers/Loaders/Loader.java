@@ -1,4 +1,4 @@
-package com.matcracker.PMManagerServers.Loaders;
+package com.matcracker.PMManagerServers.loaders;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,11 +6,11 @@ import java.io.IOException;
 import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Languages.LangSelector;
-import com.matcracker.PMManagerServers.Utility.FileChooser;
-import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityColor;
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.lang.LangSelector;
+import com.matcracker.PMManagerServers.utility.FileChooser;
+import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Loader {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -55,7 +55,7 @@ public class Loader {
 			dirMaker = new File(dirsName[i]);
 			if(!dirMaker.exists()){
 				firstStart[i] = true;
-				dirMaker.mkdir(); //Make first directory for the start.pm
+				dirMaker.mkdir();
 			}
 		}
 		
@@ -87,7 +87,7 @@ public class Loader {
 			}
 		}
 	}
-				
+	
 	public static void completeLoader() throws IOException{
 		int nservers = 0;
 		if(UtilityServersAPI.checkServersFile("Data", "nservers", -1) && UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
@@ -130,7 +130,7 @@ public class Loader {
 				
 				for(int i = 1; i <= nservers; i++){
 					Utility.defaultServersName = "Server_Minecraft_PE_" + i;
-					System.out.printf("%d) Name of %d° server: ", i, i);
+					System.out.printf("%d) Name of %dÂ° server: ", i, i);
 					
 					try{
 						nameServers[i-1] = Utility.keyword.readLine();
@@ -148,8 +148,12 @@ public class Loader {
 				}	
 				
 				for(int i = 1; i <= nservers; i++){
-					System.out.printf("\n%d) Path of %d° server?: ", i, i);
-					path[i-1] = FileChooser.getPhar("Select " + i + "° path of PocketMine-MP.phar");
+					System.out.printf("\n%d) Path of %dÂ° server?: ", i, i);
+					
+					if(Utility.getOSName().contains("server"))
+						path[i-1] = Utility.keyword.readLine();
+					else
+						path[i-1] = FileChooser.getPhar("Select " + i + "Â° path of PocketMine-MP.phar");
 				}
 
 				for(int i = 1; i <= nservers; i++){

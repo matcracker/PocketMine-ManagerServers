@@ -2,7 +2,7 @@ package com.matcracker.PMManagerServers.API;
 
 import java.io.File;
 
-import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.utility.Utility;
 
 public class UtilityServersAPI{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -91,6 +91,7 @@ public class UtilityServersAPI{
 	/**
 	 * @return path of download
 	 */
+	@Deprecated
 	public static String getDownloadPath(){
 		return Utility.readStringData(new File("Path" + File.separator + "downloadPath.pm"));
 	}
@@ -98,6 +99,7 @@ public class UtilityServersAPI{
 	/**
 	 * @param path of download
 	 */
+	@Deprecated
 	public static void setDownloadPath(String path){
 		if(path != null)
 			Utility.writeStringData(new File("Path" + File.separator + "downloadPath.pm"), path);

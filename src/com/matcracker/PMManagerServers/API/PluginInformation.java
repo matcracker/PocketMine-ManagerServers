@@ -18,7 +18,7 @@ public interface PluginInformation {
 	*/
 
 	/**
-	 * @return Name of plugin
+	 * @return name of plugin
 	 */
 	public String getName();
 	

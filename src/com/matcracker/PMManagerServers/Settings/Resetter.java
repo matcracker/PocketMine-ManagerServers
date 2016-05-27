@@ -1,12 +1,11 @@
-package com.matcracker.PMManagerServers.Settings;
+package com.matcracker.PMManagerServers.settings;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.Utility;
 
 public class Resetter{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -76,9 +75,12 @@ public class Resetter{
 				}
 				Thread.sleep(1000);
 				try{
-					Desktop.getDesktop().open(new File("run.bat"));
+					if(Utility.getOSName().contains("Windows"))
+						Utility.openSoftware("software", "run.bat");
+					else
+						Runtime.getRuntime().exec("sh run.sh");
 				}catch(IllegalArgumentException e){
-					System.out.println("Run.bat not found!");
+					System.out.println("Run.bat or run.sh not found!");
 				}
 				System.exit(0);
 	

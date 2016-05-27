@@ -1,21 +1,24 @@
-package com.matcracker.PMManagerServers.Utility;
+package com.matcracker.PMManagerServers.utility;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Random;
 
 import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
-import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
+import com.matcracker.PMManagerServers.loaders.PluginsLoader;
 
 public class Utility{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -68,6 +71,11 @@ public class Utility{
 		}
 	}
 	
+	/**
+	 * @param color tag of color
+	 * @param subtitle name of title
+	 * @return
+	 */
 	public static String setTitle(String color, String subtitle){
 		int size = 80;
 		subtitle = "<" + subtitle + ">";
@@ -264,6 +272,52 @@ public class Utility{
 		return content;
 		
 	}
+	
+	/**
+	 * @param fileURL
+	 * @param saveDir
+	 * @throws IOException
+	 */
+	public static void downloadFile(String fileURL, String saveDir) throws IOException {
+		int BUFFER_SIZE = 4096;
+		
+		URL url = new URL(fileURL);
+        HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+        int responseCode = httpConn.getResponseCode();
+ 
+        if (responseCode == HttpURLConnection.HTTP_OK) {
+            String fileName = "";
+            String disposition = httpConn.getHeaderField("Content-Disposition");
+            
+            if(disposition != null){
+                int index = disposition.indexOf("filename=");
+                
+                if(index > 0){
+                    fileName = disposition.substring(index + 9, disposition.length());
+                }
+                fileName = fileName.replace('"', (char) 32);
+                
+            }else{
+                fileName = fileURL.substring(fileURL.lastIndexOf("/") + 1, fileURL.length());
+            }
+ 
+            InputStream inputStream = httpConn.getInputStream();
+            FileOutputStream outputStream = new FileOutputStream(saveDir + File.separator + fileName);
+ 
+            int bytesRead = -1;
+            byte[] buffer = new byte[BUFFER_SIZE];
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+ 
+            outputStream.close();
+            inputStream.close();
+ 
+        }else{
+            System.out.println("No file to download. Server replied HTTP code: " + responseCode);
+        }
+        httpConn.disconnect();
+    }
 	
 	/**
 	 * @param text

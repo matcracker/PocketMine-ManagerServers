@@ -1,4 +1,4 @@
-package com.matcracker.PMManagerServers.Utility;
+package com.matcracker.PMManagerServers.utility;
 
 import java.io.File;
 
@@ -24,6 +24,12 @@ public class Zipper{
 	*(at your option) any later version.
 	*/
 	
+	/**
+	 * @param targetFolderPath
+	 * @param destinationFilePath
+	 * @param password
+	 * @throws ZipException
+	 */
 	public static void zip(String targetFolderPath, String destinationFilePath, String password) throws ZipException{
         ZipParameters parameters = new ZipParameters();
         parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
@@ -48,7 +54,12 @@ public class Zipper{
         else if(targetFile.isDirectory())
             zipFile.addFolder(targetFile, parameters);
     }
-
+	
+	/**
+	 * @param targetZipFilePath
+	 * @param destinationFolderPath
+	 * @param password
+	 */
     public static void unzip(String targetZipFilePath, String destinationFolderPath, String password) {
         try{
             ZipFile zipFile = new ZipFile(targetZipFilePath);

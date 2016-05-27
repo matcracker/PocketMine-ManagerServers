@@ -2,7 +2,7 @@ package com.matcracker.PMManagerServers.API;
 
 import java.io.File;
 
-import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
+import com.matcracker.PMManagerServers.loaders.PluginsLoader;
 
 public class PluginsAPI {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -51,6 +51,22 @@ public class PluginsAPI {
 	 */
 	public static String getPluginName(String pluginFileName){
 		return (String) PluginsLoader.pluginExec(new File("plugins" + File.separator + pluginFileName + ".jar"), "getName");
+	}
+	
+	/**
+	 * @param pluginFileName
+	 * This method load only an specified plugin
+	 */
+	public static void loadPlugin(String pluginFileName){
+		PluginsLoader.pluginExec(new File(PluginsLoader.folder + File.separator + pluginFileName + ".jar"), "onExecute");
+	}
+	
+	/**
+	 * @param pluginFileName
+	 * This method unload only an specified plugin
+	 */
+	public static void unloadPlugin(String pluginFileName){
+		PluginsLoader.pluginExec(new File(PluginsLoader.folder + File.separator + pluginFileName + ".jar"), "onDisable");
 	}
 
 }

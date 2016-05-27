@@ -2,7 +2,7 @@ package com.matcracker.PMManagerServers.API;
 
 import java.io.File;
 
-import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.utility.Utility;
 
 public class StatusAPI {
    /* _____           _        _   __  __ _                   __  __                                   _____                              

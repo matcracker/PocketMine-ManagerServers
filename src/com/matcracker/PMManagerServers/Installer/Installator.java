@@ -1,13 +1,13 @@
-package com.matcracker.PMManagerServers.Installer;
+package com.matcracker.PMManagerServers.installer;
 
 import java.io.File;
 import java.io.IOException;
 
 import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityColor;
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Installator {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -94,7 +94,7 @@ public class Installator {
 			if(ver == 3){ //Dev
 				if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 					System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
-					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 23] {MC:PE 0.15.x}");
+					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 25] {MC:PE 0.14.3}");
 					int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
 
 					if(type == 1){

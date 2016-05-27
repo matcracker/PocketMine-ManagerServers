@@ -1,4 +1,4 @@
-package com.matcracker.PMManagerServers.Installer;
+package com.matcracker.PMManagerServers.installer;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,9 +7,9 @@ import java.nio.file.StandardCopyOption;
 
 import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityColor;
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class ManagerInstaller {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -49,8 +49,8 @@ public class ManagerInstaller {
 		managerInstallerMenu();
 	}
 	/**
-	 * @param path
-	 * @param version
+	 * @param path where the PocketMine-MP.phar is located
+	 * @param version name of PocketMine-MP (STABLE, BETA, DEV, SOFT)
 	 * @throws IOException
 	 */
 	public static void changeInstallationsFile(String path, String version) throws IOException{
@@ -77,11 +77,13 @@ public class ManagerInstaller {
 		}
 	}
 	
+	
 	/**
-	 * @param downloadPath
-	 * @param file
-	 * @param type
+	 * @param downloadPath where the user usually download files
+	 * @param file name of file
+	 * @param type version name of PocketMine-MP (STABLE, BETA, DEV, SOFT)
 	 */
+	@Deprecated
 	public static void moveDownloadedFiles(String downloadPath, String file, String type){
 		File destFolder = new File("Utils" + File.separator + file);
 		File downloadFile = new File(downloadPath + File.separator + file);
@@ -95,6 +97,16 @@ public class ManagerInstaller {
 			if(type != null)
 				destFolder.renameTo(new File("Utils" + File.separator + "PocketMine-MP_" + type.toUpperCase() + ".phar"));
 			
+		}else
+			System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.noDownloadPath"));
+	}
+	
+	public static void renameDownloadedFile(String file, String type){
+		File fileFolder = new File("Utils" + File.separator + file);
+		
+		if(fileFolder.exists()){
+			if(type != null)
+				fileFolder.renameTo(new File("Utils" + File.separator + "PocketMine-MP_" + type.toUpperCase() + ".phar"));
 		}else
 			System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.noDownloadPath"));
 	}

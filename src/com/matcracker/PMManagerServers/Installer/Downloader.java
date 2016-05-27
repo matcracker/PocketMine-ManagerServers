@@ -1,14 +1,13 @@
-package com.matcracker.PMManagerServers.Installer;
+package com.matcracker.PMManagerServers.installer;
 
 import java.io.File;
 import java.io.IOException;
 
 import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Utility.FileChooser;
-import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityColor;
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Downloader {
     /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -33,7 +32,7 @@ public class Downloader {
 		
 		String linkstable = "https://github.com/PocketMine/PocketMine-MP/releases/download/1.4.1/PocketMine-MP_Installer_1.4.1_x86.exe";
 		String linkbeta = "https://github.com/PocketMine/PocketMine-MP/releases/download/1.4.1dev-936/PocketMine-MP_1.4.1dev-936.phar";
-		String linkdev = "https://bintray.com/artifact/download/pocketmine/PocketMine/PocketMine-MP_1.6dev-23_6ba0abf5_API-2.0.0.phar";
+		String linkdev = "https://bintray.com/pocketmine/PocketMine/download_file?file_path=PocketMine-MP_1.6dev-25_e2d079a7_API-2.0.0.phar";
 		String linksoft = "http://jenkins.pocketmine.net/job/PocketMine-Soft/lastSuccessfulBuild/artifact/PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar";
 		
 		System.out.println(Utility.softwareName);
@@ -58,98 +57,84 @@ public class Downloader {
 			int ver = Utility.readInt(BaseLang.translate("pm.downloader.versionserv") + " ", null);
 			
 			if(ver == 1){ //Stable
-				if(UtilityServersAPI.checkServersFile("Path", "downloadPath", -1)){
-					System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
-					System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
-					int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
-					
-					if(type == 1){
-						File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
-						if(installer.exists()){
-							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.instDownloaded"));				
-						}else{
-							System.out.println(BaseLang.translate("pm.downloader.startDown"));
-							Utility.openSoftware("url", linkstable);
-							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-							Utility.waitConfirm(BaseLang.translate("pm.downloader.succInst"));
-							
-							ManagerInstaller.moveDownloadedFiles(UtilityServersAPI.getDownloadPath(), "PocketMine-MP_Installer_1.4.1_x86.exe", null);
-						}
+				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
+				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
+				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+				
+				if(type == 1){
+					File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
+					if(installer.exists()){
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.instDownloaded"));				
+					}else{
+						System.out.println(BaseLang.translate("pm.downloader.startDown"));
+						Utility.downloadFile(linkstable, "Utils");
+						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+						Utility.waitConfirm(BaseLang.translate("pm.downloader.succInst"));
 					}
-				}else
-					UtilityServersAPI.setDownloadPath(FileChooser.get(BaseLang.translate("pm.downloader.downloadPath"), BaseLang.translate("pm.downloader.selectFile"), ""));
+				}
 			}
 			
 			if(ver == 2){ //Beta
-				if(UtilityServersAPI.checkServersFile("Path", "downloadPath", -1)){
-						System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
-						System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
-						int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
-						
-						if(type == 1){
-							File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
-							
-							if(beta.exists()){
-								Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
-							}else{
-								System.out.println(BaseLang.translate("pm.downloader.downPhar"));
-								Utility.openSoftware("url", linkbeta);
-								StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-								Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
-								ManagerInstaller.moveDownloadedFiles(UtilityServersAPI.getDownloadPath(), "PocketMine-MP_1.4.1dev-936.phar", "BETA");
-							}
-						}
-
-				}else
-					UtilityServersAPI.setDownloadPath(FileChooser.get(BaseLang.translate("pm.downloader.downloadPath"), BaseLang.translate("pm.downloader.selectFile"), ""));
+				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
+				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
+				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+				
+				if(type == 1){
+					File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
+					
+					if(beta.exists()){
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
+					}else{
+						System.out.println(BaseLang.translate("pm.downloader.downPhar"));
+						Utility.downloadFile(linkbeta, "Utils");
+						ManagerInstaller.renameDownloadedFile("PocketMine-MP_1.4.1dev-936.phar", "BETA");
+						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+						Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
+					}
+				}
 			}
 			
 			if(ver == 3){ //Dev
-				if(UtilityServersAPI.checkServersFile("Path", "downloadPath", -1)){
-					System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
-					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 23] {MC:PE 0.15.x}");
+				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
+				System.out.println("1) 1.6 API 2.0.0 [#Dev Build 25] {MC:PE 0.14.3}");
+				
+				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+				
+				if(type == 1){
+					File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
 					
-					int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
-					
-					if(type == 1){
-						File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
+					if(dev.exists()){
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 						
-						if(dev.exists()){
-							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
-							
-						}else{
-							System.out.println(BaseLang.translate("pm.downloader.downPhar"));
-							Utility.openSoftware("url", linkdev);
-							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-							Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
-							ManagerInstaller.moveDownloadedFiles(UtilityServersAPI.getDownloadPath(), "PocketMine-MP_1.6dev-23_6ba0abf5_API-2.0.0.phar", "DEV");
-						}
+					}else{
+						System.out.println(BaseLang.translate("pm.downloader.downPhar"));
+						Utility.downloadFile(linkdev, "Utils");
+						ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-25_e2d079a7_API-2.0.0.phar ", "DEV");
+						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+						Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
 					}
-				}else
-					UtilityServersAPI.setDownloadPath(FileChooser.get(BaseLang.translate("pm.downloader.downloadPath"), BaseLang.translate("pm.downloader.selectFile"), ""));
+				}
 			}
 			
 			if(ver == 4){ //Soft
-				if(UtilityServersAPI.checkServersFile("Path", "downloadPath", -1)){
-					System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
-					System.out.println("1) 1.5 API 1.12.0 Kappatsu-Fugu {MC:PE 0.11.x}");
-					int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
+				System.out.println("1) 1.5 API 1.12.0 Kappatsu-Fugu {MC:PE 0.11.x}");
+				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+				
+				if(type == 1){
+					File soft = new File("Utils" + File.separator + "PocketMine-MP_SOFT.phar");
 					
-					if(type == 1){
-						File soft = new File("Utils" + File.separator + "PocketMine-MP_SOFT.phar");
-						
-						if(soft.exists()){
-							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
-						}else{
-							System.out.println(BaseLang.translate("pm.downloader.downPhar"));
-							Utility.openSoftware("url", linksoft);
-							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-							Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
-							ManagerInstaller.moveDownloadedFiles(UtilityServersAPI.getDownloadPath(), "PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar", "SOFT");
-						}
+					if(soft.exists()){
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
+					}else{
+						System.out.println(BaseLang.translate("pm.downloader.downPhar"));
+						Utility.downloadFile(linksoft, "Utils");
+						ManagerInstaller.renameDownloadedFile("PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar", "SOFT");
+						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+						Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
+
 					}
-				}else
-					UtilityServersAPI.setDownloadPath(FileChooser.get(BaseLang.translate("pm.downloader.downloadPath"), BaseLang.translate("pm.downloader.selectFile"), ""));
+				}
 			}
 			
 			if(ver == 5)

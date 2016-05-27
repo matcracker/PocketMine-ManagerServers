@@ -1,13 +1,14 @@
-package com.matcracker.PMManagerServers.settings;
+package com.matcracker.PMManagerServers.managers;
 
 import java.io.IOException;
 
 import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.lang.BaseLang;
-import com.matcracker.PMManagerServers.lang.LangSelector;
+import com.matcracker.PMManagerServers.managers.editing.Editor;
+import com.matcracker.PMManagerServers.managers.editing.Rescuer;
 import com.matcracker.PMManagerServers.utility.Utility;
 
-public class Settings{
+public class Manager {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
 	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
 	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
@@ -22,36 +23,31 @@ public class Settings{
 	*it under the terms of the GNU Lesser General Public License as published by 
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version.
-	* 
 	*/
 	
-	public static void settingsMenu() throws IOException{
-	    Utility.cleanScreen();
+	public static void managerMenu() throws IOException{
+		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.settings")));
-		System.out.println("1- " + BaseLang.translate("pm.settings.language"));
-		System.out.println("2- " + BaseLang.translate("pm.settings.serversManager"));
-		System.out.println("3- " + BaseLang.translate("pm.settings.reset"));
-		System.out.println("4- " + BaseLang.translate("pm.settings.plugManager"));
-		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.manager")));
+		System.out.println("1- " + BaseLang.translate("pm.manager.open"));
+		System.out.println("2- " + BaseLang.translate("pm.manager.edit"));
+		System.out.println("3- " + BaseLang.translate("pm.manager.rescuer"));
+		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
+		int option = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
-		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
-			
-		if(opt == 1)
-			LangSelector.langMenu();
+		if(option == 1)
+			Opener.openerMenu();
 		
-		if(opt == 2)
-			PMServersManager.serverManagerMenu();
+		if(option == 2)
+			Editor.editorMenu();
 		
-		if(opt == 3)
-			Resetter.resetterMenu();
+		if(option == 3)
+			Rescuer.rescuerMenu();
 		
-		if(opt == 4)
-			PluginManager.plugMenu();
-		
-		if(opt == 5)
+		if(option == 4)
 			Main.mainMenu();
 		
-		settingsMenu();
+		managerMenu();
+		
 	}
 }

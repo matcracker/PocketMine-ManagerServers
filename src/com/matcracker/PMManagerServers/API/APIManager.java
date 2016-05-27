@@ -2,7 +2,7 @@ package com.matcracker.PMManagerServers.API;
 
 import java.io.File;
 
-import com.matcracker.PMManagerServers.Utility.Utility;
+import com.matcracker.PMManagerServers.utility.Utility;
 
 public class APIManager{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -46,7 +46,7 @@ public class APIManager{
 	}
 	
 	/**
-	 * @return
+	 * @return true if devmode is enabled, false if not
 	 */
 	public static boolean isDevMode(){
 		String value = Utility.readStringData(new File("Data" + File.separator + "devmode.pm"));

@@ -1,12 +1,12 @@
-package com.matcracker.PMManagerServers.Settings;
+package com.matcracker.PMManagerServers.settings;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityColor;
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class PMServersManager {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -24,6 +24,7 @@ public class PMServersManager {
 	*the Free Software Foundation, either version 3 of the License, or 
 	*(at your option) any later version. 
 	*/
+	
 	protected static void serverManagerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);

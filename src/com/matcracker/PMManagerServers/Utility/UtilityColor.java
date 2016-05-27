@@ -1,4 +1,4 @@
-package com.matcracker.PMManagerServers.Utility;
+package com.matcracker.PMManagerServers.utility;
 
 public class UtilityColor{
 

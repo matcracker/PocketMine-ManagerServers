@@ -1,11 +1,12 @@
-package com.matcracker.PMManagerServers.Settings;
+package com.matcracker.PMManagerServers.settings;
 
 import java.io.File;
 import java.io.IOException;
-import com.matcracker.PMManagerServers.Languages.BaseLang;
-import com.matcracker.PMManagerServers.Loaders.PluginsLoader;
-import com.matcracker.PMManagerServers.Utility.Utility;
-import com.matcracker.PMManagerServers.Utility.UtilityColor;
+
+import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.loaders.PluginsLoader;
+import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class PluginManager {
 	

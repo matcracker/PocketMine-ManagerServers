@@ -1,4 +1,4 @@
-package com.matcracker.PMManagerServers.Utility;
+package com.matcracker.PMManagerServers.utility;
 
 import java.io.File;
 import javax.swing.JFileChooser;
@@ -8,7 +8,11 @@ import javax.swing.filechooser.FileFilter;
 public class FileChooser{
 
 	private static JFrame frame = new JFrame();
-        
+	
+    /**
+     * @param title that go on top of the JFrame
+     * @return file selector of phar files
+     */
     public static String getPhar(String title) {
     	JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File(System.getProperty("user.home")));
@@ -53,6 +57,12 @@ public class FileChooser{
         return null;
     }
     
+    /**
+	 * @param title that go on top of the JFrame
+	 * @param description file description
+	 * @param extension file extension
+	 * @return file selector of files
+	 */
     public static String get(String title, String description, String extension) {
     	JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File(System.getProperty("user.home")));
