@@ -15,9 +15,9 @@ import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Random;
-
 import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
+import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.loaders.PluginsLoader;
 
 public class Utility{
@@ -303,16 +303,25 @@ public class Utility{
  
             InputStream inputStream = httpConn.getInputStream();
             FileOutputStream outputStream = new FileOutputStream(saveDir + File.separator + fileName);
- 
+            
             int bytesRead = -1;
             byte[] buffer = new byte[BUFFER_SIZE];
+            long total = 0;
             while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
+            	total += bytesRead;
+            	outputStream.write(buffer, 0, bytesRead);
+            	
+            	String bar = BaseLang.translate("pm.status.download") + " " + (int)((total*100) / httpConn.getContentLength()) + "%";
+            	String back = "";
+            	for(int i = 0; i < bar.length() + 2; i++)
+            		back = back + "\b";
+            	
+                System.out.print(back + bar);
+                
             }
- 
+            System.out.println();
             outputStream.close();
             inputStream.close();
- 
         }else{
             System.out.println("No file to download. Server replied HTTP code: " + responseCode);
         }
