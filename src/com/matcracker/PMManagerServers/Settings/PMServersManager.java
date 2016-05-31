@@ -42,7 +42,7 @@ public class PMServersManager {
 			Utility.showServers();
 			int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 			
-			if(server <= UtilityServersAPI.getNumberServers()){
+			if(server <= UtilityServersAPI.getNumberServers() && server > 0){
 				if(sel == 1)
 					changeServerName(server);
 				
@@ -60,16 +60,20 @@ public class PMServersManager {
 
 	private static void deleteServer(int server) throws IOException {
 		int nservers = UtilityServersAPI.getNumberServers();
-
-		Files.delete(new File("ServersName" + File.separator + "ServerName_" + server + ".pm").toPath());
-		for(int i = server+1; i <= nservers; i++){
-			String temp = UtilityServersAPI.getNameServer(i);
-			Files.delete(new File("ServersName" + File.separator + "ServerName_" + i + ".pm").toPath());
-			UtilityServersAPI.setNameServer(i-1, temp);
-		}
-		nservers--;
-		UtilityServersAPI.setNumberServer(nservers);
-		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctDelete"));
+		
+		if(nservers > 1){
+			Files.delete(new File("ServersName" + File.separator + "ServerName_" + server + ".pm").toPath());
+			for(int i = server+1; i <= nservers; i++){
+				String temp = UtilityServersAPI.getNameServer(i);
+				Files.delete(new File("ServersName" + File.separator + "ServerName_" + i + ".pm").toPath());
+				UtilityServersAPI.setNameServer(i-1, temp);
+			}
+		
+			nservers--;
+			UtilityServersAPI.setNumberServer(nservers);
+			Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctDelete"));
+		}else
+			Utility.waitConfirm("Can't delete this server! It's the last!");
 	
 	}
 	
@@ -99,7 +103,6 @@ public class PMServersManager {
 
 		if(oldBackupFile.exists())
 			oldBackupFile.renameTo(newBackupFile);
-		
 		
 		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctChange"));
 	}

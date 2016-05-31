@@ -129,8 +129,10 @@ public class Loader {
 			}else{
 				
 				for(int i = 1; i <= nservers; i++){
-					Utility.defaultServersName = "Server_Minecraft_PE_" + i;
-					System.out.printf("%d) Name of %d° server: ", i, i);
+					String defaults = UtilityServersAPI.getDefaultServerName();
+					defaults = defaults + "_" + i;
+					
+					System.out.printf("%d) %s %d° %s: ",i ,BaseLang.translate("pm.loader.nameOf"),i ,BaseLang.translate("pm.standard.server"));
 					
 					try{
 						nameServers[i-1] = Utility.keyword.readLine();
@@ -140,29 +142,31 @@ public class Loader {
 							Loader.completeLoader();
 							
 						}else if(nameServers[i-1].equalsIgnoreCase("")){
-							nameServers[i-1] = Utility.defaultServersName;
+							nameServers[i-1] = defaults;
 						}
+						
+						UtilityServersAPI.setNameServer(i, nameServers[i-1]);
 					}catch (IOException e){
 						e.printStackTrace();
 					}
 				}	
 				
 				for(int i = 1; i <= nservers; i++){
-					System.out.printf("\n%d) Path of %d° server?: ", i, i);
+					System.out.printf("\n%d) %s %d° %s: ",i ,BaseLang.translate("pm.loader.pathOf"),i ,BaseLang.translate("pm.standard.server"));
 					
 					if(Utility.getOSName().contains("server"))
 						path[i-1] = Utility.keyword.readLine();
 					else
 						path[i-1] = FileChooser.getPhar("Select " + i + "° path of PocketMine-MP.phar");
+					
+					UtilityServersAPI.setPath(i, path[i-1]);
 				}
 
 				for(int i = 1; i <= nservers; i++){
-					UtilityServersAPI.setNameServer(i, nameServers[i-1]);
 					StatusAPI.setStatus(BaseLang.translate("pm.status.noDownload"), i);
 					StatusAPI.setVersion(BaseLang.translate("pm.status.noVersion"), i);
 					StatusAPI.setPerformance(BaseLang.translate("pm.status.personal"), i);
 					StatusAPI.setBackuped(BaseLang.translate("pm.status.noBackuped"), i);
-					UtilityServersAPI.setPath(i, path[i-1]);
 				}
 			}
 		}else{

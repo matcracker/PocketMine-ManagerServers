@@ -49,11 +49,17 @@ public class PluginsLoader{
 				System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.plugins.loading") + " " + pluginExec(plugins, "getName"));
 				pluginExec(plugins, "onEnable");
 				
-				if(!APIManager.getAPIVersion().equalsIgnoreCase((String) pluginExec(plugins, "getAPIVersion")))
-					System.out.println(UtilityColor.BACKGROUND_DARK_CYAN + BaseLang.translate("pm.plugins.noApiUpdated"));
+				double plugApi = Double.parseDouble((String) pluginExec(plugins, "getAPIVersion"));
+				double api = Double.parseDouble(APIManager.getAPIVersion());
 				
+				if(plugApi < api)
+					System.out.println(UtilityColor.COLOR_DARK_CYAN + BaseLang.translate("pm.plugins.minorApi"));
+				
+				if(plugApi > api)
+					System.out.println(UtilityColor.COLOR_DARK_CYAN + BaseLang.translate("pm.plugins.majorApi"));
+		
 				try{
-					Thread.sleep(1000);
+					Thread.sleep(1200);
 				}catch(InterruptedException e1){
 					e1.printStackTrace();
 				}

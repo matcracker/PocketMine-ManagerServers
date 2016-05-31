@@ -77,8 +77,6 @@ public class Resetter{
 				try{
 					if(Utility.getOSName().contains("Windows"))
 						Utility.openSoftware("software", "run.bat");
-					else
-						Runtime.getRuntime().exec("sh run.sh");
 				}catch(IllegalArgumentException e){
 					System.out.println("Run.bat or run.sh not found!");
 				}

@@ -1,6 +1,5 @@
 package com.matcracker.PMManagerServers.informations;
 
-import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
@@ -44,8 +43,8 @@ public class Informations {
 		
 		if(info == 1){
 			File license = new File("LICENSE.pdf");
-			if(license.isFile() && license.exists())
-				Desktop.getDesktop().open(license);
+			if(license.exists())
+				Utility.openSoftware("software", license.toString());
 			else
 				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.informations.bad"));
 		}
@@ -53,7 +52,7 @@ public class Informations {
 		if(info == 2){
 			Utility.cleanScreen();
 			System.out.println(Utility.softwareName);
-			System.out.println(BaseLang.translate("pm.title.credits"));
+			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.credits")));
 			System.out.println("This program is free software made by matcracker: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License as published by the Free Software Foundation, either version 3 of the License, or at your option) any later version.");
 			System.out.println("\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more details.");
 			System.out.println("\nYou should have received a copy of the GNU Lesser General Public License along with this program.  If not, see in this program in the section 'Informations ->  License'.");
@@ -63,7 +62,7 @@ public class Informations {
 		if(info == 3){
 			Utility.cleanScreen();
 			System.out.println(Utility.softwareName);
-			System.out.println(BaseLang.translate("pm.title.moreinformations"));
+			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.moreinformations")));
 			System.out.println("1- GitHub");
 			System.out.println("2- Twitter");
 			System.out.println("3- " + BaseLang.translate("pm.standard.back"));
@@ -80,7 +79,7 @@ public class Informations {
 		if(info == 4){
 			Utility.cleanScreen();
 			System.out.println(Utility.softwareName);
-			System.out.println(BaseLang.translate("pm.title.disclaimer"));
+			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.disclaimer")));
 			System.out.println("I do not assume responsibility for the use of this program if being deleted folders or files, for you, important.");
 			System.out.println("The use is personal and therefore the connections you supply will have to be primarily related to the creation program server 'PocketMine-MP' or relative.");
 			Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));

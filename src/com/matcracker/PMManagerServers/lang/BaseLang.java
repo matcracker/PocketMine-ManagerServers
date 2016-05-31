@@ -46,6 +46,10 @@ public class BaseLang {
 	 */
 	public static void setLanguage(String lang){
 		switch(lang){
+			case "cn":
+			case "4":
+				lang = "cn";
+				break;
 			case "en":
 			case "9":
 				lang = "en";

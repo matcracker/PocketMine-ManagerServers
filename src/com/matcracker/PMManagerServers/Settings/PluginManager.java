@@ -40,7 +40,6 @@ public class PluginManager {
 				System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.plugins.noPluginFound"));
 		}
 			
-		
 		if(opt == 3)
 			Settings.settingsMenu();
 		

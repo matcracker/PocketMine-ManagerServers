@@ -1,6 +1,5 @@
 package com.matcracker.PMManagerServers;
 
-import java.io.IOException;
 import java.util.Calendar;
 
 import com.matcracker.PMManagerServers.API.APIManager;
@@ -95,9 +94,7 @@ public class DevMode{
 		try{
 			if(Utility.getOSName().contains("Windows"))
 				Utility.openSoftware("software", "run.bat");
-			else
-				Runtime.getRuntime().exec("sh run.sh");
-		}catch(IllegalArgumentException | IOException e){
+		}catch(IllegalArgumentException e){
 			System.out.println("run.bat or run.sh not found");
 		}
 		System.exit(0);

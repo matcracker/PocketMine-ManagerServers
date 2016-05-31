@@ -15,7 +15,6 @@ import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Random;
-import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.loaders.PluginsLoader;
@@ -242,13 +241,12 @@ public class Utility{
 	public static void showServers(){
 		int nservers = UtilityServersAPI.getNumberServers();
 		try{
-			for(int i = 0; i < nservers; i++){
-				System.out.print((i+1) + ") " + UtilityServersAPI.getNameServer(i+1));
+			for(int i = 1; i <= nservers; i++){
+				System.out.print(i + ") " + UtilityServersAPI.getNameServer(i));
 				System.out.println();
 			}
 		}catch(NullPointerException e){
 			Utility.waitConfirm(UtilityColor.COLOR_RED + "Can't find any server!");
-			Main.mainMenu();
 		}
 	}
 	
