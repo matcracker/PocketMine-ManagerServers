@@ -333,7 +333,7 @@ public class Utility{
 	 */
 	public static int readInt(String text, String addition){
 		String content = null;
-		
+
 		System.out.println();
 		if(addition != null)
 			System.out.println(addition);

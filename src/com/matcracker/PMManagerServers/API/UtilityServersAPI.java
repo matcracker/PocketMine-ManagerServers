@@ -29,6 +29,14 @@ public class UtilityServersAPI{
 	}
 	
 	/**
+	 * @return number of path
+	 */
+	public static int getNumberPaths(){
+		File folder = new File("Path");
+		return folder.listFiles().length;
+	}
+	
+	/**
 	 * @param index from 1 to max number of server
 	 * @param content name of server
 	 */
@@ -128,5 +136,4 @@ public class UtilityServersAPI{
 			return false;
 	
 	}
-	
 }

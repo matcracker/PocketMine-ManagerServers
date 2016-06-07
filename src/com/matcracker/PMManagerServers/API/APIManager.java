@@ -1,7 +1,7 @@
 package com.matcracker.PMManagerServers.API;
 
 import java.io.File;
-
+import com.matcracker.PMManagerServers.Main;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class APIManager{
@@ -21,8 +21,8 @@ public class APIManager{
 	*(at your option) any later version.
 	*/
 	
-	private static final String APIVersion = "1.1";
-	private static final String softwareVersion = "1.0.4";
+	private static final String APIVersion = "1.2";
+	private static final String softwareVersion = "1.1";
 	
 	/**
 	 * @return API version
@@ -56,4 +56,38 @@ public class APIManager{
 		else
 			return false;
 	}
+	
+	/**
+	 * @param mode
+	 */
+	public static void setCommandsMode(boolean mode){
+		Utility.writeStringData(new File("Data" + File.separator + "commandsmode.pm"), String.valueOf(mode));
+	}
+	
+	/**
+	 * @return true if commandsmode is enabled, false if not
+	 */
+	public static boolean isCommandsMode(){
+		String value = Utility.readStringData(new File("Data" + File.separator + "commandsmode.pm"));
+		
+		if(value.equalsIgnoreCase("true"))
+			return true;
+		else
+			return false;
+	}
+	
+	/**
+	 * @return true if user enabled the software in "server mode"
+	 */
+	public static boolean isServerMode(){
+		return Main.isServerVersion;
+	}
+	
+	/**
+	 * @param mode if true enable a mode for Server's OS
+	 */
+	public static void setServerMode(boolean mode){
+		Main.isServerVersion = mode;
+	}
+	
 }

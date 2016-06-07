@@ -33,12 +33,16 @@ public class Main{
 	*/
 	
 	private static boolean pluginsLoaded = false;
+	public static boolean isServerVersion = false;
 	
 	public static void main(String[] args){
+		if(args.length >= 0 && args[0].equalsIgnoreCase("-server"))
+			isServerVersion = true;
+		
 		try{
 			System.setOut(new PMPrintStream());
 			System.setErr(new PMPrintStream());
-		}catch (UnsupportedEncodingException e) {
+		}catch (UnsupportedEncodingException e){
 			e.printStackTrace();
 		}
 		
