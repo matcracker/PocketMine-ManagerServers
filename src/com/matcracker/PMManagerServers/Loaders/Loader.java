@@ -78,6 +78,8 @@ public class Loader {
 					Thread.sleep(50);
 				}
 				APIManager.setDevMode(false);
+				APIManager.setCommandsMode(false);
+				
 				System.out.print("]");
 				
 				Thread.sleep(1000);
