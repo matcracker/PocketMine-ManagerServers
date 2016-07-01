@@ -5,6 +5,7 @@ import java.util.Calendar;
 
 import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.ProcessManager;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class DevMode{
@@ -30,7 +31,8 @@ public class DevMode{
 			System.out.println("6- " + BaseLang.translate("pm.devmenu.memory") + " (MB/GB)");
 			System.out.println("7- " + BaseLang.translate("pm.devmenu.systemInfo"));
 			System.out.println("8- Commands mode");
-			System.out.println("9- " + BaseLang.translate("pm.devmenu.restart") + "&f\n");
+			System.out.println("9- " + "Get list of enabled processes");
+			System.out.println("10- " + BaseLang.translate("pm.devmenu.restart") + "&f\n");
 			
 			if(menu.equalsIgnoreCase("6"))
 				getMemoryUsage();
@@ -41,7 +43,13 @@ public class DevMode{
 			if(menu.equalsIgnoreCase("8"))
 				CommandsMode.menu();
 			
-			if(menu.equalsIgnoreCase("9"))
+			if(menu.equalsIgnoreCase("9")){
+				ProcessManager.getListOfProcesses();
+				Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
+				Main.mainMenu();
+			}
+					
+			if(menu.equalsIgnoreCase("10"))
 				reboot();
 		}
 	}

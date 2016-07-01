@@ -94,7 +94,7 @@ public class Utility{
 		return color + buff.toString() + UtilityColor.COLOR_WHITE;
 		
 	}
-	
+		
 	/**
 	 * @return OS name
 	 */
@@ -394,5 +394,8 @@ public class Utility{
 	  	
 	  	return sb.toString();
 	}
+	
+	
+
 	
 }
