@@ -35,7 +35,9 @@ public class ManagerInstaller {
 		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.newbie"));
 		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.download"));
 		System.out.println("3- " + BaseLang.translate("pm.managerInstaller.install"));
-		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
+		System.out.println("4- " + BaseLang.translate("pm.managerInstaller.downloadPHP"));
+		System.out.println("5- " + BaseLang.translate("pm.managerInstaller.installPHP"));
+		System.out.println("6- " + BaseLang.translate("pm.standard.back"));
 		int inst = Utility.readInt(BaseLang.translate("pm.choice.ask") + ": ", null);
 		
 		if(inst == 1)
@@ -48,6 +50,12 @@ public class ManagerInstaller {
 			Installator.installatorMenu();
 		
 		if(inst == 4)
+			Downloader.downloadPHP();
+		
+		if(inst == 5)
+			Installator.installPHP(null);
+		
+		if(inst == 6)
 			Main.mainMenu();
 		
 		managerInstallerMenu();

@@ -2,12 +2,16 @@ package com.matcracker.PMManagerServers.installer;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import org.rauschig.jarchivelib.ArchiveFormat;
+import org.rauschig.jarchivelib.CompressionType;
 
 import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
+import com.matcracker.PMManagerServers.utility.Zipper;
 
 public class Installator {
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -155,8 +159,38 @@ public class Installator {
 			
 			installatorMenu();
 		}
-		
-		
+	}
 	
+	/**
+	 * @param fileArchive if null find automatic tar.gz archive
+	 */
+	protected static void installPHP(String fileArchive){
+		Utility.showServers();
+		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
+		
+		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
+			String path = UtilityServersAPI.getPath(server);
+			if(path != null){
+				if(fileArchive == null){
+					ArrayList<File> tars = new ArrayList<File>();
+					int i = 1;
+					for(File tar : new File("Utils").listFiles()){
+						if(tar.isFile() && tar.getName().endsWith(".tar.gz")){
+							System.out.println(i + ") " + tar.getName());
+							tars.add(tar);
+							i++;
+						}
+					}
+					int tar = Utility.readInt(BaseLang.translate("pm.php.selectArchive") + " ", null);
+					fileArchive = tars.get(tar-1).getName();
+				}
+				
+				System.out.println(BaseLang.translate("pm.php.extractBinaries"));
+				Zipper.unzip("Utils" + File.separator + fileArchive, path, ArchiveFormat.TAR, CompressionType.GZIP);
+				Utility.waitConfirm(BaseLang.translate("pm.php.extracted"));
+			}else
+				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+		}else
+			Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 	}
 }

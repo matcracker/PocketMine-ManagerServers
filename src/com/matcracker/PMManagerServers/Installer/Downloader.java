@@ -159,4 +159,58 @@ public class Downloader {
 		downloaderMenu();
 	}
 
+	protected static void downloadPHP() throws IOException {
+		String phplink;
+		
+		Utility.cleanScreen();
+		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.downloader.phpBinaries")));
+		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.download") + " PHP 5.6.10");
+		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.download") + " PHP 7.0.3");
+		System.out.println("3- " + BaseLang.translate("pm.php.downloadOthers"));
+		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
+		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
+		
+		String arch = System.getProperty("os.arch");
+		String os = Utility.getOSName();
+		
+		if(opt == 3)
+			Utility.openSoftware("url", "https://dl.bintray.com/pocketmine/PocketMine/");
+
+		if(arch.contains("32"))
+			arch = "86";
+		else if(arch.contains("64"))
+			arch = "64";
+		else if(arch.contains("64") && (os.contains("Linux") || os.contains("Mac")))
+			arch = "86-64";
+		
+		if(os.contains("Windows"))
+			os = "Windows";
+		else if(os.contains("Linux"))
+			os = "Linux";
+		else if(os.contains("Mac"))
+			os = "MacOS";
+		
+		if(opt == 1 || opt == 2){
+			String php;
+			
+			if(opt == 1)
+				php = "5.6.10";
+			else
+				php = "7.0.3";
+			
+			phplink = "https://dl.bintray.com/pocketmine/PocketMine/PHP_" + php + "_x" + arch + "_" + os + ".tar.gz";
+			Utility.downloadFile(phplink, "Utils");
+			Utility.waitConfirm(BaseLang.translate("pm.php.binariesDownloaded"));
+			String confirm = Utility.readString("Do you want to extract it in your server? <Y/n>: ", null);
+			String filePHP = " PHP_" + php + "_x" + arch + "_" + os + ".tar.gz";
+
+			if(confirm.equalsIgnoreCase("Y"))
+				Installator.installPHP(filePHP);
+				
+			ManagerInstaller.managerInstallerMenu();
+		}
+		
+	}
+
 }

@@ -1,11 +1,12 @@
 package com.matcracker.PMManagerServers.utility;
 
 import java.io.File;
+import java.io.IOException;
 
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-import net.lingala.zip4j.model.ZipParameters;
-import net.lingala.zip4j.util.Zip4jConstants;
+import org.rauschig.jarchivelib.ArchiveFormat;
+import org.rauschig.jarchivelib.Archiver;
+import org.rauschig.jarchivelib.ArchiverFactory;
+import org.rauschig.jarchivelib.CompressionType;
 
 public class Zipper{
    /* _____           _        _   __  __ _                   __  __                                   _____                              
@@ -25,53 +26,50 @@ public class Zipper{
 	*/
 	
 	/**
-	 * @param targetFolderPath
+	 * @param targetFolder
 	 * @param destinationFilePath
-	 * @param password
-	 * @throws ZipException
+	 * @param format
+	 * @param type
+	 * @throws IOException
 	 */
-	public static void zip(String targetFolderPath, String destinationFilePath, String password) throws ZipException{
-        ZipParameters parameters = new ZipParameters();
-        parameters.setCompressionMethod(Zip4jConstants.COMP_DEFLATE);
-        parameters.setCompressionLevel(Zip4jConstants.DEFLATE_LEVEL_NORMAL);
-        
-        if(password != null){
-        	if(password.length() > 0){
-                parameters.setEncryptFiles(true);
-                parameters.setEncryptionMethod(Zip4jConstants.ENC_METHOD_AES);
-                parameters.setAesKeyStrength(Zip4jConstants.AES_STRENGTH_256);
-                parameters.setPassword(password);
-        	}
-        }
+	public static void zip(String name, String targetFolder, String destinationFilePath, ArchiveFormat format, CompressionType type){
+		Archiver zip;
+		if(type == null)
+			zip = ArchiverFactory.createArchiver(format);
+		else
+			zip = ArchiverFactory.createArchiver(format, type);
+		
+		File target = new File(targetFolder);
+		File destination = new File(destinationFilePath);
+		
+		if(name == null)
+			name = target.getName().replaceAll(".zip", "");
 
-        ZipFile zipFile = new ZipFile(destinationFilePath);
-
-        File targetFile = new File(targetFolderPath);
-        
-        if(targetFile.isFile())
-            zipFile.addFile(targetFile, parameters);
-            
-        else if(targetFile.isDirectory())
-            zipFile.addFolder(targetFile, parameters);
-    }
-	
+		try{
+			zip.create(name, destination, target);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 	/**
-	 * @param targetZipFilePath
-	 * @param destinationFolderPath
-	 * @param password
+	 * @param targetFile
+	 * @param destinationFilePath
+	 * @param format
+	 * @param type
 	 */
-    public static void unzip(String targetZipFilePath, String destinationFolderPath, String password) {
-        try{
-            ZipFile zipFile = new ZipFile(targetZipFilePath);
-            
-            if (zipFile.isEncrypted()) {
-                zipFile.setPassword(password);
-            }
-            
-            zipFile.extractAll(destinationFolderPath);
-            
-        }catch (ZipException e){
-            e.printStackTrace();
-        }
-    }
+	public static void unzip(String targetFile, String destinationFilePath, ArchiveFormat format, CompressionType type){
+		Archiver zip;
+		if(type == null)
+			zip = ArchiverFactory.createArchiver(format);
+		else
+			zip = ArchiverFactory.createArchiver(format, type);
+		
+		File target = new File(targetFile);
+		File destination = new File(destinationFilePath);
+		try{
+			zip.extract(target, destination);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
 }

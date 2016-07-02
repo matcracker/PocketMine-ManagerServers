@@ -106,7 +106,7 @@ public class DevMode{
 	public static void reboot(){
 		try{
 			if(Utility.getOSName().contains("Windows"))
-				Utility.openSoftware("software", "run.bat");
+				Utility.openSoftware("software", Utility.getRunName());
 		}catch(IllegalArgumentException e){
 			System.out.println("run.bat or run.sh not found");
 		}

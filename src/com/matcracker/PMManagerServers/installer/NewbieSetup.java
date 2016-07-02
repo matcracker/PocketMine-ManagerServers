@@ -39,7 +39,7 @@ public class NewbieSetup {
 		System.out.println(BaseLang.translate("pm.newbie.install"));
 		Utility.openSoftware("software", "Utils" + File.separator + "PocketMine-MP-x86.exe");
 		
-		System.out.println(Utility.setTitle("&a", BaseLang.translate("pm.title.newbiePMMS")));
+		System.out.println(Utility.setTitle("&a", BaseLang.translate("pm.title.newbieInstallation")));
 		System.out.println(BaseLang.translate("pm.newbie.setupPMMS"));
 		
 		/*

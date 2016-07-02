@@ -134,7 +134,7 @@ public class Loader {
 					String defaults = UtilityServersAPI.getDefaultServerName();
 					defaults = defaults + "_" + i;
 					
-					System.out.printf("%d) %s %d° %s: ",i ,BaseLang.translate("pm.loader.nameOf"),i ,BaseLang.translate("pm.standard.server"));
+					System.out.printf("%d) %s %d ° %s: ", i, BaseLang.translate("pm.loader.nameOf"), i, BaseLang.translate("pm.standard.server"));
 					
 					try{
 						nameServers[i-1] = Utility.keyword.readLine();

@@ -94,7 +94,17 @@ public class Utility{
 		return color + buff.toString() + UtilityColor.COLOR_WHITE;
 		
 	}
-		
+	
+	/**
+	 * @return the name of file executor (Windows->run.bat, others->run.sh)
+	 */
+	public static String getRunName(){
+		if(getOSName().contains("Windows"))
+			return "run.bat";
+		else
+			return "run.sh";
+	}
+	
 	/**
 	 * @return OS name
 	 */

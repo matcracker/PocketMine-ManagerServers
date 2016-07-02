@@ -2,14 +2,14 @@ package com.matcracker.PMManagerServers.commands;
 
 import java.io.File;
 
+import org.rauschig.jarchivelib.ArchiveFormat;
+
 import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 import com.matcracker.PMManagerServers.utility.Zipper;
-
-import net.lingala.zip4j.exception.ZipException;
 
 public class CommandRescuer {
 	public static void commandBackup(String[] args){
@@ -19,11 +19,7 @@ public class CommandRescuer {
 					for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++){
 						if(StatusAPI.getBackuped(i).equalsIgnoreCase(BaseLang.translate("pm.status.noBackuped"))){
 							String backupPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(i) + ".zip";
-							try{
-								Zipper.zip(UtilityServersAPI.getPath(i), backupPath, null);
-							}catch (ZipException e) {
-								e.printStackTrace();
-							}
+							Zipper.zip(null, UtilityServersAPI.getPath(i), backupPath, ArchiveFormat.ZIP, null);
 						}else
 							System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.existBackup"));
 					}
@@ -42,14 +38,10 @@ public class CommandRescuer {
 					
 					String backupPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip";
 					if(StatusAPI.getBackuped(server).equalsIgnoreCase(BaseLang.translate("pm.status.noBackuped"))){
-						try{
-							System.out.println(BaseLang.translate("pm.rescuer.create"));
-							Zipper.zip(UtilityServersAPI.getPath(server), backupPath, null);
-							StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
-							Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.backuped"));
-						}catch (ZipException e){
-							e.printStackTrace();
-						}
+						System.out.println(BaseLang.translate("pm.rescuer.create"));
+						Zipper.zip(null, UtilityServersAPI.getPath(server), backupPath, ArchiveFormat.ZIP, null);
+						StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
+						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.backuped"));
 					}else
 						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.existBackup"));
 				}
@@ -70,7 +62,7 @@ public class CommandRescuer {
 						extractServersPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(i) + ".zip";
 						if(StatusAPI.getBackuped(i).equalsIgnoreCase(BaseLang.translate("pm.status.backuped"))){
 							System.out.println(i + ")"+ BaseLang.translate("pm.rescuer.extracting"));
-							Zipper.unzip(extractServersPath, destinationPath, null);
+							Zipper.unzip(extractServersPath, destinationPath, ArchiveFormat.ZIP, null);
 							System.out.println(i + ")" + BaseLang.translate("pm.rescuer.extracted"));
 						}else
 							System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.noBackup"));
@@ -91,7 +83,7 @@ public class CommandRescuer {
 					
 					if(StatusAPI.getBackuped(server).equalsIgnoreCase(BaseLang.translate("pm.status.backuped"))){
 						System.out.println(BaseLang.translate("pm.rescuer.extracting"));
-						Zipper.unzip(extractServersPath, destinationPath, null);
+						Zipper.unzip(extractServersPath, destinationPath, ArchiveFormat.ZIP, null);
 						StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
 						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.extracted"));
 					}else
