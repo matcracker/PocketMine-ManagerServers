@@ -113,7 +113,7 @@ public class Performance {
 		performanceMenu();
 	}
 	
-	protected static void changePerformaceFile(String path, String feature) throws IOException{
+	public static void changePerformaceFile(String path, String feature) throws IOException{
 		File newPhar = new File(path + File.separator + "pocketmine.yml");
 		File oldPhar = new File(path + File.separator + "pocketmine_OLD.yml");
 		

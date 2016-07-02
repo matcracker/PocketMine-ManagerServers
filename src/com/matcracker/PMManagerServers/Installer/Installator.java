@@ -53,18 +53,24 @@ public class Installator {
 			if(ver == 1){ //Stable
 				System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
+				System.out.println("2) 1.6 API 2.0.0 Unleashed {MC:PE 0.14.0}");
 				int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
 
-				if(type == 1){
-					File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
-					
-					if(installer.exists()){
+				File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
+				File installer2 = new File("Utils" + File.separator + "PocketMine-MP-x86.exe");
+				
+				if(installer.exists() || installer2.exists()){
+					if(type == 1)
 						Utility.openSoftware("software", String.valueOf(installer));
-						StatusAPI.setVersion(BaseLang.translate("pm.status.stable"), server);
-						StatusAPI.setStatus(BaseLang.translate("pm.status.install"), server);
-					}else
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.instNotFound"));					
-				}
+					
+					if(type == 2)
+						Utility.openSoftware("software", String.valueOf(installer2));
+					
+					StatusAPI.setVersion(BaseLang.translate("pm.status.stable"), server);
+					StatusAPI.setStatus(BaseLang.translate("pm.status.install"), server);
+				}else
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.instNotFound"));					
+				
 			}
 			
 			if(ver == 2){ //Beta
@@ -85,7 +91,6 @@ public class Installator {
 							}	
 						}else
 							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
-						
 					}
 				}else
 					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
@@ -95,22 +100,26 @@ public class Installator {
 				if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 					System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 25] {MC:PE 0.14.3}");
+					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 27] {MC:PE 0.15.1}");
+					
 					int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
 
-					if(type == 1){
-						File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
+					File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
+					File dev2 = new File("Utils" + File.separator + "PocketMine-MP_DEV_2.phar");
+					if(dev.exists() || dev2.exists()){
+						String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 						
-						if(dev.exists()){
-							String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
-							
-							if(confirm.equalsIgnoreCase("y")){
+						if(confirm.equalsIgnoreCase("y")){
+							if(type == 1)
 								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "DEV");
-								StatusAPI.setVersion(BaseLang.translate("pm.status.dev"), server);
-							}	
-						}else
-							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
+							if(type == 2)
+								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "DEV_2");
+							StatusAPI.setVersion(BaseLang.translate("pm.status.dev"), server);
+						}	
+					}else
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
 
-					}
+					
 				}else
 					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 				

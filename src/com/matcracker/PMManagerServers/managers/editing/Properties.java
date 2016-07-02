@@ -51,7 +51,7 @@ public class Properties {
 			Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 	}
 	
-	private static void editProperties(String path) throws IOException{
+	public static void editProperties(String path) throws IOException{
 		File prop = new File(path + "server.properties");
 		String configMessages[] = {
 				"Motd <by default Server Minecraft PE>: ",

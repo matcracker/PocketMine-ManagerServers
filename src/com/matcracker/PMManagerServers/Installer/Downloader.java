@@ -31,8 +31,10 @@ public class Downloader {
 		int nservers = UtilityServersAPI.getNumberServers();
 		
 		String linkstable = "https://github.com/PocketMine/PocketMine-MP/releases/download/1.4.1/PocketMine-MP_Installer_1.4.1_x86.exe";
+		String linkstable2 = "https://github.com/TheDeibo/Windows-PocketMine-MP/raw/master/PocketMine-MP-x86.exe";
 		String linkbeta = "https://github.com/PocketMine/PocketMine-MP/releases/download/1.4.1dev-936/PocketMine-MP_1.4.1dev-936.phar";
 		String linkdev = "https://bintray.com/pocketmine/PocketMine/download_file?file_path=PocketMine-MP_1.6dev-25_e2d079a7_API-2.0.0.phar";
+		String linkdev2 = "https://dl.bintray.com/pocketmine/PocketMine/PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar";
 		String linksoft = "http://jenkins.pocketmine.net/job/PocketMine-Soft/lastSuccessfulBuild/artifact/PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar";
 		
 		System.out.println(Utility.softwareName);
@@ -59,19 +61,26 @@ public class Downloader {
 			if(ver == 1){ //Stable
 				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
+				System.out.println("2) 1.6 API 2.0.0 Unleashed {MC:PE 0.14.0}");
 				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
 				
-				if(type == 1){
-					File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
-					if(installer.exists()){
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.instDownloaded"));				
-					}else{
-						System.out.println(BaseLang.translate("pm.downloader.startDown"));
+				File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
+				File installer2 = new File("Utils" + File.separator + "PocketMine-MP-x86.exe");
+				
+				if(installer.exists() || installer2.exists()){
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.instDownloaded"));				
+				}else{
+					System.out.println(BaseLang.translate("pm.downloader.startDown"));
+					if(type == 1)
 						Utility.downloadFile(linkstable, "Utils");
-						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-						Utility.waitConfirm(BaseLang.translate("pm.downloader.succInst"));
-					}
+					
+					if(type == 2)
+						Utility.downloadFile(linkstable2, "Utils");
+					
+					StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+					Utility.waitConfirm(BaseLang.translate("pm.downloader.succInst"));
 				}
+				
 			}
 			
 			if(ver == 2){ //Beta
@@ -97,22 +106,28 @@ public class Downloader {
 			if(ver == 3){ //Dev
 				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 				System.out.println("1) 1.6 API 2.0.0 [#Dev Build 25] {MC:PE 0.14.3}");
+				System.out.println("1) 1.6 API 2.0.0 [#Dev Build 27] {MC:PE 0.15.1}");
 				
 				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
 				
-				if(type == 1){
-					File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
-					
-					if(dev.exists()){
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
-						
-					}else{
-						System.out.println(BaseLang.translate("pm.downloader.downPhar"));
+				File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
+				File dev2 = new File("Utils" + File.separator + "PocketMine-MP_DEV_2.phar");
+				
+				if(dev.exists() || dev2.exists()){
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
+				}else{
+					System.out.println(BaseLang.translate("pm.downloader.downPhar"));
+					if(type == 1){
 						Utility.downloadFile(linkdev, "Utils");
 						ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-25_e2d079a7_API-2.0.0.phar ", "DEV");
-						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-						Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
 					}
+					
+					if(type == 2){
+						Utility.downloadFile(linkdev2, "Utils");
+						ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar ", "DEV_2");
+					}
+					StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+					Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
 				}
 			}
 			

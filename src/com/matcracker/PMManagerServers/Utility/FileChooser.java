@@ -53,7 +53,6 @@ public class FileChooser{
         	}
         }else
         	frame.setVisible(false);
-        
         return null;
     }
     

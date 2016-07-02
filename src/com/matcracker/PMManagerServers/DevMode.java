@@ -1,9 +1,11 @@
 package com.matcracker.PMManagerServers;
 
+import java.io.IOException;
 import java.util.Calendar;
 
 import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.ProcessManager;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class DevMode{
@@ -23,12 +25,14 @@ public class DevMode{
 	*(at your option) any later version.
 	*/
 	
-	public static void devMenu(String menu){
+	public static void devMenu(String menu) throws IOException{
 		if(APIManager.isDevMode()){
 			System.out.println("\n&e==={&bDEVMODE&e}===&5");
 			System.out.println("6- " + BaseLang.translate("pm.devmenu.memory") + " (MB/GB)");
 			System.out.println("7- " + BaseLang.translate("pm.devmenu.systemInfo"));
-			System.out.println("8- " + BaseLang.translate("pm.devmenu.restart") + "&f\n");
+			System.out.println("8- " + BaseLang.translate("pm.devmenu.commandsMode"));
+			System.out.println("9- " + BaseLang.translate("pm.devmenu.listProcesses"));
+			System.out.println("10- " + BaseLang.translate("pm.devmenu.restart") + "&f\n");
 			
 			if(menu.equalsIgnoreCase("6"))
 				getMemoryUsage();
@@ -37,6 +41,15 @@ public class DevMode{
 				systemInfo();
 			
 			if(menu.equalsIgnoreCase("8"))
+				CommandsMode.menu();
+			
+			if(menu.equalsIgnoreCase("9")){
+				ProcessManager.getListOfProcesses();
+				Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
+				Main.mainMenu();
+			}
+					
+			if(menu.equalsIgnoreCase("10"))
 				reboot();
 		}
 	}

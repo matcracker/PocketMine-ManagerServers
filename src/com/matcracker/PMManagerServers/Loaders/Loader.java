@@ -78,6 +78,8 @@ public class Loader {
 					Thread.sleep(50);
 				}
 				APIManager.setDevMode(false);
+				APIManager.setCommandsMode(false);
+				
 				System.out.print("]");
 				
 				Thread.sleep(1000);
@@ -154,9 +156,10 @@ public class Loader {
 				for(int i = 1; i <= nservers; i++){
 					System.out.printf("\n%d) %s %d° %s: ",i ,BaseLang.translate("pm.loader.pathOf"),i ,BaseLang.translate("pm.standard.server"));
 					
-					if(Utility.getOSName().contains("server"))
+					if(APIManager.isServerMode()){
+						System.out.println("[Example: /home/User/PocketMine-MP/]");
 						path[i-1] = Utility.keyword.readLine();
-					else
+					}else
 						path[i-1] = FileChooser.getPhar("Select " + i + "° path of PocketMine-MP.phar");
 					
 					UtilityServersAPI.setPath(i, path[i-1]);

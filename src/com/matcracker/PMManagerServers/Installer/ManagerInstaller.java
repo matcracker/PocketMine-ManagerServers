@@ -32,18 +32,22 @@ public class ManagerInstaller {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.managerInstaller")));
-		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.download"));
-		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.install"));
-		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
+		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.newbie"));
+		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.download"));
+		System.out.println("3- " + BaseLang.translate("pm.managerInstaller.install"));
+		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 		int inst = Utility.readInt(BaseLang.translate("pm.choice.ask") + ": ", null);
 		
 		if(inst == 1)
-			Downloader.downloaderMenu();
+			NewbieSetup.setupMenu();
 		
 		if(inst == 2)
-			Installator.installatorMenu();
+			Downloader.downloaderMenu();
 		
 		if(inst == 3)
+			Installator.installatorMenu();
+		
+		if(inst == 4)
 			Main.mainMenu();
 		
 		managerInstallerMenu();

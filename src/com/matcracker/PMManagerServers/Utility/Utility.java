@@ -94,7 +94,7 @@ public class Utility{
 		return color + buff.toString() + UtilityColor.COLOR_WHITE;
 		
 	}
-	
+		
 	/**
 	 * @return OS name
 	 */
@@ -333,7 +333,7 @@ public class Utility{
 	 */
 	public static int readInt(String text, String addition){
 		String content = null;
-		
+
 		System.out.println();
 		if(addition != null)
 			System.out.println(addition);
@@ -394,5 +394,8 @@ public class Utility{
 	  	
 	  	return sb.toString();
 	}
+	
+	
+
 	
 }
