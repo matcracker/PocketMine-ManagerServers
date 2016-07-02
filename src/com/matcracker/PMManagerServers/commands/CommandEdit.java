@@ -56,11 +56,11 @@ public class CommandEdit {
 					Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
 					
 				}else
-					System.out.println("Too few arguments! Use &c/help&f for the commands list and usage");
+					System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));
 			}else
-				System.out.println("Too few arguments! Use &c/help&f for the commands list and usage");
+				System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));
 		}catch(ArrayIndexOutOfBoundsException e){
-			System.out.println("Too few or too much arguments! Use &c/help&f for the commands list and usage");
+			System.out.println(BaseLang.translate("pm.cmdMode.tooFewMuch"));
 		}
 	}
 }

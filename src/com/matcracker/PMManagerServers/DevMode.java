@@ -30,8 +30,8 @@ public class DevMode{
 			System.out.println("\n&e==={&bDEVMODE&e}===&5");
 			System.out.println("6- " + BaseLang.translate("pm.devmenu.memory") + " (MB/GB)");
 			System.out.println("7- " + BaseLang.translate("pm.devmenu.systemInfo"));
-			System.out.println("8- Commands mode");
-			System.out.println("9- " + "Get list of enabled processes");
+			System.out.println("8- " + BaseLang.translate("pm.devmenu.commandsMode"));
+			System.out.println("9- " + BaseLang.translate("pm.devmenu.listProcesses"));
 			System.out.println("10- " + BaseLang.translate("pm.devmenu.restart") + "&f\n");
 			
 			if(menu.equalsIgnoreCase("6"))

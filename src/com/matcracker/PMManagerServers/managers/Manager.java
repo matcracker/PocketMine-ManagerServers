@@ -33,7 +33,7 @@ public class Manager {
 		System.out.println("1- " + BaseLang.translate("pm.manager.open"));
 		System.out.println("2- " + BaseLang.translate("pm.manager.edit"));
 		System.out.println("3- " + BaseLang.translate("pm.manager.rescuer"));
-		System.out.println("4- " + "Restart server");
+		System.out.println("4- " + BaseLang.translate("pm.manager.restart"));
 		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 		int option = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		

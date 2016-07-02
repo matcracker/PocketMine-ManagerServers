@@ -19,9 +19,9 @@ public class Restarter {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.restarter")));
-		System.out.println("1- " + "Setup restarter timer");
-		System.out.println("2- " + "Restart now your servers");
-		System.out.println("3- " + "Kill restarter.");
+		System.out.println("1- " + BaseLang.translate("pm.restarter.setupTimer"));
+		System.out.println("2- " + BaseLang.translate("pm.restarter.restartNow"));
+		System.out.println("3- " + BaseLang.translate("pm.restarter.kill"));
 		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 		int option = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
@@ -54,9 +54,9 @@ public class Restarter {
 					int pid = ProcessManager.getPIDByName(proc);
 					ProcessManager.killProcess(pid);
 					ProcessManager.startProcess(UtilityServersAPI.getPath(server));
-					Utility.waitConfirm("Restarted " + UtilityServersAPI.getNameServer(server));
+					Utility.waitConfirm(BaseLang.translate("pm.restarter.restarted") + " " + UtilityServersAPI.getNameServer(server));
 				}else
-					Utility.waitConfirm("Server is not running!");
+					Utility.waitConfirm(BaseLang.translate("pm.restarter.serverNotRunning"));
 			}else
 				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 		}else
@@ -74,12 +74,12 @@ public class Restarter {
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 				String pathContent = UtilityServersAPI.getPath(server);
 				if(pathContent != null){
-					System.out.println("1- " + "Days");
-					System.out.println("2- " + "Hours");
-					System.out.println("3- " + "Minutes");
-					int opt = Utility.readInt("Select type of restarter time: ", null);
+					System.out.println("1- " + BaseLang.translate("pm.restarter.days"));
+					System.out.println("2- " + BaseLang.translate("pm.restarter.hours"));
+					System.out.println("3- " + BaseLang.translate("pm.restarter.minutes"));
+					int opt = Utility.readInt(BaseLang.translate("pm.restarter.selectTypeTime") + " ", null);
 					
-					int timer = Utility.readInt("Select how much time: ", "[Default will be 3 seconds]");
+					int timer = Utility.readInt(BaseLang.translate("pm.restarter.selectTime") + " ", "[" + BaseLang.translate("pm.restarter.defaultTime") + "]");
 					
 					if(timer > 0){
 						if(opt == 1)
@@ -109,11 +109,11 @@ public class Restarter {
 		if(task != null){
 			if(!task.isInterrupted() && task.isRunning()){
 				task.interrupt();
-				Utility.waitConfirm("Restarter killed!");
+				Utility.waitConfirm(BaseLang.translate("pm.restarter.killed"));
 			}else
-				Utility.waitConfirm("Restarter is not running!");
+				Utility.waitConfirm(BaseLang.translate("pm.restarter.restarterNotRunning"));
 		}else
-			Utility.waitConfirm("Restarter is not running!");
+			Utility.waitConfirm(BaseLang.translate("pm.restarter.restarterNotRunning"));
 	}
 }
 
@@ -164,20 +164,20 @@ class BackgroudTask extends Thread{
 					if(ProcessManager.isProcessEnabled(proc)){
 						int pid = ProcessManager.getPIDByName(proc);
 						sleep(getTime());
-						System.out.println("\nStopping server...");
+						System.out.println("\n" + BaseLang.translate("pm.task.stopping"));
 						ProcessManager.killProcess(pid);
-						System.out.println("\nStopped! Restarting server in 3 seconds...");
+						System.out.println("\n" + BaseLang.translate("pm.task.restarting"));
 						sleep(3000);
 						ProcessManager.startProcess(getPath() + File.separator + "start.cmd");
 
 						run();
 					}else{
-						System.out.println("\nServer is not running, killing background task...");
+						System.out.println("\n" + BaseLang.translate("pm.task.serverNotRunning"));
 						setRunning(false);
 					}
 				}
 			}catch(IOException | InterruptedException e){
-				System.out.println("\nError during the task execution, killing background task...");
+				System.out.println("\n"  + BaseLang.translate("pm.task.error"));
 				setRunning(false);
 			}
 	}

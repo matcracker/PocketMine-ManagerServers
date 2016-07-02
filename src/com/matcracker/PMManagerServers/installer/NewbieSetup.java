@@ -22,7 +22,7 @@ public class NewbieSetup {
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.newbieSetup")));
 		
-		String confirm = Utility.readString("Do you want to run this 'newbie' mode? <Y/n>: ", null);
+		String confirm = Utility.readString(BaseLang.translate("pm.newbie.confirmMode") + " <Y/n>: ", null);
 		/*
 		 * This part install PocketMine
 		 */
@@ -30,23 +30,23 @@ public class NewbieSetup {
 			ManagerInstaller.managerInstallerMenu();
 		
 		System.out.println(Utility.setTitle("&a", BaseLang.translate("pm.title.newbieInstallation")));
-		System.out.println("Ok, let's start!");
-		System.out.println("First we need to download the PocketMine Setup (for MC:PE 0.14) by TheDeibo");
+		System.out.println(BaseLang.translate("pm.newbie.start"));
+		System.out.println(BaseLang.translate("pm.newbie.download"));
 
 		if(!installer.exists())
 			Utility.downloadFile(link, "Utils");
 		
-		System.out.println("Very nice! Now we install PocketMine.");
+		System.out.println(BaseLang.translate("pm.newbie.install"));
 		Utility.openSoftware("software", "Utils" + File.separator + "PocketMine-MP-x86.exe");
 		
 		System.out.println(Utility.setTitle("&a", BaseLang.translate("pm.title.newbiePMMS")));
-		System.out.println("Installed! Now we setup the settings for manage this server!");
+		System.out.println(BaseLang.translate("pm.newbie.setupPMMS"));
 		
 		/*
 		 * This part install the important file of PocketMine-ManagerServers
 		 */
 		do{
-			name = Utility.readString("Select a name for this server: ", null);
+			name = Utility.readString(BaseLang.translate("pm.newbie.selectName") + " ", null);
 			if(name.contains(" "))
 				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.loader.noSpaces"));
 			else if(name.equalsIgnoreCase(""))
@@ -55,7 +55,9 @@ public class NewbieSetup {
 		}while(name.contains(" ") || name == null);
 		
 		UtilityServersAPI.setNameServer(nservers + 1, name);
-
+		
+		System.out.println(BaseLang.translate("pm.newbie.selectPath") + " ");
+		
 		do{
 			if(!APIManager.isServerMode())
 				path = FileChooser.getPhar("Select the file .phar where you installed PocketMine");
@@ -71,8 +73,8 @@ public class NewbieSetup {
 		
 		UtilityServersAPI.setNumberServer(nservers + 1);
 
-		System.out.println("GOOD! Now you have all the necessary things for run your server!");
-		String run = Utility.readString("Do you want to run your server? <Y/n>: ", null);
+		System.out.println(BaseLang.translate("pm.newbie.finish"));
+		String run = Utility.readString(BaseLang.translate("pm.newbie.run") + " <Y/n>: ", null);
 		
 		if(run.equalsIgnoreCase("Y"))
 			Utility.openSoftware("software", path + File.separator + "start.cmd"); 

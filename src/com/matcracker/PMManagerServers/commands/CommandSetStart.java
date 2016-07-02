@@ -1,6 +1,7 @@
 package com.matcracker.PMManagerServers.commands;
 
 import com.matcracker.PMManagerServers.API.APIManager;
+import com.matcracker.PMManagerServers.lang.BaseLang;
 
 public class CommandSetStart {
 	public static void command(String[] args){
@@ -8,15 +9,15 @@ public class CommandSetStart {
 			if(args.length > 1){
 				if(args[1].equalsIgnoreCase("commander")){
 					APIManager.setCommandsMode(true);
-					System.out.println("&2Enable default start in commands mode");
+					System.out.println("&2Enabled default start in commands mode");
 				}else if(args[1].equalsIgnoreCase("menu")){
 					APIManager.setCommandsMode(false);
-					System.out.println("&2Enable default start in menu mode");
+					System.out.println("&2Enabled default start in menu mode");
 				}
 			}else
-				System.out.println("Too few arguments! Use &c/help&f for the commands list and usage");
+				System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));
 		}catch(ArrayIndexOutOfBoundsException e){
-			System.out.println("Too few or too much arguments! Use &c/help&f for the commands list and usage");
+			System.out.println(BaseLang.translate("pm.cmdMode.tooFewMuch"));
 		}
 	}
 }

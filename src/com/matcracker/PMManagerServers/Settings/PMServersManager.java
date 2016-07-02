@@ -83,7 +83,7 @@ public class PMServersManager {
 			UtilityServersAPI.setNumberServer(nservers);
 			Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctDelete"));
 		}else
-			Utility.waitConfirm("Can't delete this server! It's the last!");
+			Utility.waitConfirm(BaseLang.translate("pm.serverManager.cantDelete"));
 	
 	}
 	

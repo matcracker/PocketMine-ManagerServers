@@ -54,9 +54,9 @@ public class CommandRescuer {
 						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.existBackup"));
 				}
 			}else
-				System.out.println("Too few arguments! Use &c/help&f for the commands list and usage");
+				System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));
 		}catch(ArrayIndexOutOfBoundsException e){
-			System.out.println("Too few or too much arguments! Use &c/help&f for the commands list and usage");
+			System.out.println(BaseLang.translate("pm.cmdMode.tooFewMuch"));
 		}
 	}
 	
@@ -98,10 +98,10 @@ public class CommandRescuer {
 						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.noBackup"));
 				}
 			}else
-				System.out.println("Too few arguments! Use &c/help&f for the commands list and usage");
+				System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));
 		
 		}catch(ArrayIndexOutOfBoundsException e){
-			System.out.println("Too few or too much arguments! Use &c/help&f for the commands list and usage");
+			System.out.println(BaseLang.translate("pm.cmdMode.tooFewMuch"));
 		}
 	}
 }
