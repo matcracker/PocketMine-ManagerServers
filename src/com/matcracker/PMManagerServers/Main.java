@@ -74,7 +74,7 @@ public class Main{
 				Utility.cleanScreen();
 				System.out.println(Utility.softwareName);
 				System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.mainMenu")));
-				System.out.printf("&eDeveloped by matcracker			     Version: %s		API: %s\n", APIManager.getVersion(), APIManager.getAPIVersion());
+				System.out.printf("&eDeveloped by matcracker		   Version: %s		        API: %s\n", APIManager.getVersion(), APIManager.getAPIVersion());
 				System.out.println("&f1- " + BaseLang.translate("pm.mainMenu.download-install"));
 				System.out.println("2- " + BaseLang.translate("pm.mainMenu.manager"));
 				System.out.println("3- " + BaseLang.translate("pm.mainMenu.options"));
