@@ -1,6 +1,8 @@
 package com.matcracker.PMManagerServers.utility;
 
+import java.awt.Frame;
 import java.io.File;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileFilter;
@@ -38,8 +40,8 @@ public class FileChooser{
 			}
 		});
         
-        frame.setExtendedState(JFrame.ICONIFIED);
-        frame.setExtendedState(JFrame.NORMAL);
+        frame.setExtendedState(Frame.ICONIFIED);
+        frame.setExtendedState(Frame.NORMAL);
         frame.setVisible(true);
         
         int value = fc.showOpenDialog(frame.getGlassPane());
@@ -87,8 +89,8 @@ public class FileChooser{
 			}
 		});
         
-        frame.setExtendedState(JFrame.ICONIFIED);
-        frame.setExtendedState(JFrame.NORMAL);
+        frame.setExtendedState(Frame.ICONIFIED);
+        frame.setExtendedState(Frame.NORMAL);
         frame.setVisible(true);
         
         int value = fc.showOpenDialog(frame.getGlassPane());
