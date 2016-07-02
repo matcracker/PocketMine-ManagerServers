@@ -19,7 +19,7 @@ There are 2 type of versions for PocketMine-ManagerServers:
 
 [Download](https://github.com/matcracker/PocketMine-ManagerServers-Java/releases) the latest version of PM-MS (stable or alpha), then extract the zip file. If you are using Windows open **run.bat**, if you are using Linux write on terminal **sh run.sh** and enjoy!
 
-For the """more""" experts, you can use the command **java -jar PocketMine-ManagerServers_{version}.jar**.
+If you are using a server OS you can use the command **java -jar PocketMine-ManagerServers_{version}.jar -server** for running PM-MS better for server machine and use argument **-pc** for standard OS.
 
 ## How it works PocketMine-ManagerServers?
 It's use is very simple! It will begin with a call screen in the main menu which lists the functions of the program.
