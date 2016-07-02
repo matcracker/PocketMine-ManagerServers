@@ -85,7 +85,6 @@ public class Installator {
 							}	
 						}else
 							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
-						
 					}
 				}else
 					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));

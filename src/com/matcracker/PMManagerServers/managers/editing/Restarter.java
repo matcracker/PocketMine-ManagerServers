@@ -3,7 +3,6 @@ package com.matcracker.PMManagerServers.managers.editing;
 import java.io.File;
 import java.io.IOException;
 
-import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.managers.Manager;
@@ -170,13 +169,7 @@ class BackgroudTask extends Thread{
 						System.out.println("\nStopped! Restarting server in 3 seconds...");
 						sleep(3000);
 						ProcessManager.startProcess(getPath() + File.separator + "start.cmd");
-						
-						if(APIManager.isDevMode()){
-							String kill = Utility.readString("Do you want to kill this task? <y/N>: ", null);
-							if(kill.equalsIgnoreCase("Y"))
-								setRunning(false);
-							
-						}
+
 						run();
 					}else{
 						System.out.println("\nServer is not running, killing background task...");

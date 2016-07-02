@@ -30,7 +30,7 @@ public class Downloader {
 		Utility.cleanScreen();
 		int nservers = UtilityServersAPI.getNumberServers();
 		
-		String linkstable = "https://github.com/PocketMine/PocketMine-MP/releases/download/1.4.1/PocketMine-MP_Installer_1.4.1_x86.exe";
+		String linkstable = "https://github.com/TheDeibo/Windows-PocketMine-MP/raw/master/PocketMine-MP-x86.exe";
 		String linkbeta = "https://github.com/PocketMine/PocketMine-MP/releases/download/1.4.1dev-936/PocketMine-MP_1.4.1dev-936.phar";
 		String linkdev = "https://bintray.com/pocketmine/PocketMine/download_file?file_path=PocketMine-MP_1.6dev-25_e2d079a7_API-2.0.0.phar";
 		String linksoft = "http://jenkins.pocketmine.net/job/PocketMine-Soft/lastSuccessfulBuild/artifact/PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar";
@@ -58,7 +58,7 @@ public class Downloader {
 			
 			if(ver == 1){ //Stable
 				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
-				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
+				System.out.println("1) 1.6 API 2.0.0 Unleashed {MC:PE 0.14.x}");
 				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
 				
 				if(type == 1){
