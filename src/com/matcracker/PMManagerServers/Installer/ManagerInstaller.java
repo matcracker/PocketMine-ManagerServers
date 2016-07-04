@@ -1,3 +1,19 @@
+/* _____           _        _   __  __ _                   __  __                                   _____                              
+ *|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
+ *| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
+ *|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
+ *| |  | (_) | (__|   <  __/ |_| |  | | | | | |  __/      | |  | | (_| | | | | (_| | (_| |  __/ |  ____) |  __/ |   \ V /  __/ |  \__ \
+ *|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
+ *                                                                                   __/ |                                             
+ *                                                                                  |___/                                              
+ *Copyright (C) 2015-2016 @author matcracker
+ *
+ *This program is free software: you can redistribute it and/or modify 
+ *it under the terms of the GNU Lesser General Public License as published by 
+ *the Free Software Foundation, either version 3 of the License, or 
+ *(at your option) any later version.
+*/
+	
 package com.matcracker.PMManagerServers.installer;
 
 import java.io.File;
@@ -12,54 +28,6 @@ import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class ManagerInstaller {
-   /* _____           _        _   __  __ _                   __  __                                   _____                              
-	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
-	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
-	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
-	*| |  | (_) | (__|   <  __/ |_| |  | | | | | |  __/      | |  | | (_| | | | | (_| | (_| |  __/ |  ____) |  __/ |   \ V /  __/ |  \__ \
-	*|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
-	*                                                                                   __/ |                                             
-	*                                                                                  |___/                                              
-	*Copyright (C) 2015-2016 @author matcracker
-	*
-	*This program is free software: you can redistribute it and/or modify 
-	*it under the terms of the GNU Lesser General Public License as published by 
-	*the Free Software Foundation, either version 3 of the License, or 
-	*(at your option) any later version.
-	*/
-	
-	public static void managerInstallerMenu() throws IOException{
-		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
-		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.managerInstaller")));
-		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.newbie"));
-		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.download"));
-		System.out.println("3- " + BaseLang.translate("pm.managerInstaller.install"));
-		System.out.println("4- " + BaseLang.translate("pm.managerInstaller.downloadPHP"));
-		System.out.println("5- " + BaseLang.translate("pm.managerInstaller.installPHP"));
-		System.out.println("6- " + BaseLang.translate("pm.standard.back"));
-		int inst = Utility.readInt(BaseLang.translate("pm.choice.ask") + ": ", null);
-		
-		if(inst == 1)
-			NewbieSetup.setupMenu();
-		
-		if(inst == 2)
-			Downloader.downloaderMenu();
-		
-		if(inst == 3)
-			Installator.installatorMenu();
-		
-		if(inst == 4)
-			Downloader.downloadPHP();
-		
-		if(inst == 5)
-			Installator.installPHP(null);
-		
-		if(inst == 6)
-			Main.mainMenu();
-		
-		managerInstallerMenu();
-	}
 	/**
 	 * @param path where the PocketMine-MP.phar is located
 	 * @param version name of PocketMine-MP (STABLE, BETA, DEV, SOFT)
@@ -89,6 +57,39 @@ public class ManagerInstaller {
 		}
 	}
 	
+	public static void managerInstallerMenu() throws IOException{
+		Utility.cleanScreen();
+		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.managerInstaller")));
+		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.newbie"));
+		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.download") + " PocketMine-MP");
+		System.out.println("3- " + BaseLang.translate("pm.managerInstaller.install") + " PocketMine-MP");
+		System.out.println("4- " + BaseLang.translate("pm.managerInstaller.downloadPHP"));
+		System.out.println("5- " + BaseLang.translate("pm.managerInstaller.installPHP"));
+		System.out.println("6- " + BaseLang.translate("pm.standard.back"));
+		int inst = Utility.readInt(BaseLang.translate("pm.choice.ask") + ": ", null);
+		
+		if(inst == 1)
+			NewbieSetup.setupMenu();
+		
+		if(inst == 2)
+			Downloader.downloaderMenu();
+		
+		if(inst == 3)
+			Installator.installatorMenu();
+		
+		if(inst == 4)
+			Downloader.downloadPHP();
+		
+		if(inst == 5)
+			Installator.installPHP(null);
+		
+		if(inst == 6)
+			Main.mainMenu();
+		
+		managerInstallerMenu();
+	}
+	
 	
 	/**
 	 * @param downloadPath where the user usually download files
@@ -112,7 +113,11 @@ public class ManagerInstaller {
 		}else
 			System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.noDownloadPath"));
 	}
-	
+	/**
+	 * When you download a file, you can rename it and add a suffix for recognize it.
+	 * @param file
+	 * @param type
+	 */
 	public static void renameDownloadedFile(String file, String type){
 		File fileFolder = new File("Utils" + File.separator + file);
 		

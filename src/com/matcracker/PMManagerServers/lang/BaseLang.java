@@ -29,56 +29,10 @@ public class BaseLang {
 	*/
 		
 	/**
-	 * @param param string of words to translate
-	 * @return string translated
-	 */
-	public static String translate(String param){
-		try{
-			param = param.replaceAll(param, getStringKey(getLanguage(), param));
-		}catch(NullPointerException e){
-			return param;
-		}
-		return param;
-	}
-	
-	/**
-	 * @param lang Can be a string number or ISO 639-1
-	 */
-	public static void setLanguage(String lang){
-		switch(lang){
-			case "cn": case "4":  lang = "cn"; break;
-			case "nl": case "8":  lang = "nl"; break;
-			case "en": case "9":  lang = "en"; break;
-			case "fr": case "11": lang = "fr"; break;
-			case "de": case "12": lang = "de"; break;
-			case "hu": case "15": lang = "hu"; break;
-			case "it": case "16": lang = "it"; break;
-			case "sw": case "27": lang = "sw"; break;
-			case "vi": case "30": lang = "vi"; break;
-			default:
-				lang = "en";
-		}
-		
-		Utility.writeStringData(new File("Data" + File.separator + "langSel.pm"), lang);
-	}
-	
-	/**
 	 * @return language ISO 639-1
 	 */
 	public static String getLanguage(){
 		return Utility.readStringData(new File("Data" + File.separator + "langSel.pm")).toLowerCase();
-	}
-	
-	/**
-	 * @return true if the language is set
-	 */
-	public static boolean isLanguageSet(){
-		if(UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
-			String lang = Utility.readStringData(new File("Data" + File.separator + "langSel.pm"));
-			if(lang != null)
-				return true;
-		}
-		return false;
 	}
 	
 	/**
@@ -103,5 +57,51 @@ public class BaseLang {
 		
 		return key;
 		
+	}
+	
+	/**
+	 * @return true if the language is set
+	 */
+	public static boolean isLanguageSet(){
+		if(UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
+			String lang = Utility.readStringData(new File("Data" + File.separator + "langSel.pm"));
+			if(lang != null)
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * @param lang Can be a string number or ISO 639-1
+	 */
+	public static void setLanguage(String lang){
+		switch(lang){
+			case "cn": case "4":  lang = "cn"; break;
+			case "nl": case "8":  lang = "nl"; break;
+			case "en": case "9":  lang = "en"; break;
+			case "fr": case "11": lang = "fr"; break;
+			case "de": case "12": lang = "de"; break;
+			case "hu": case "15": lang = "hu"; break;
+			case "it": case "16": lang = "it"; break;
+			case "sw": case "27": lang = "sw"; break;
+			case "vi": case "30": lang = "vi"; break;
+			default:
+				lang = "en";
+		}
+		
+		Utility.writeStringData(new File("Data" + File.separator + "langSel.pm"), lang);
+	}
+	
+	/**
+	 * @param param string of words to translate
+	 * @return string translated
+	 */
+	public static String translate(String param){
+		try{
+			param = param.replaceAll(param, getStringKey(getLanguage(), param));
+		}catch(NullPointerException e){
+			return param;
+		}
+		return param;
 	}
 }

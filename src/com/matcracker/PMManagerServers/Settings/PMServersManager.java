@@ -28,6 +28,81 @@ public class PMServersManager {
 	*(at your option) any later version. 
 	*/
 	
+	private static void addServer(){
+		String newName = Utility.readString(BaseLang.translate("pm.serverManager.choose") + " ", "[" + BaseLang.translate("pm.serverManager.suggest") + " " + UtilityServersAPI.getDefaultServerName() + "]");
+		String newPath = "";
+		
+		if(APIManager.isServerMode())
+			newPath = Utility.readString("Select path for this server: ", "[Example: /home/User/PocketMine-MP/]");
+		else
+			newPath = FileChooser.getPhar("Select new path of a server");
+		
+		int nservers = UtilityServersAPI.getNumberServers();
+		
+		nservers++;
+		if(newName.equalsIgnoreCase(""))
+			newName = UtilityServersAPI.getDefaultServerName() + "_" + nservers;
+		
+		UtilityServersAPI.setNameServer(nservers, newName);
+		
+		if(newPath != null)
+			UtilityServersAPI.setPath(nservers, newPath);
+		
+		UtilityServersAPI.setNumberServer(nservers);
+		
+		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctAdd"));
+	}
+	
+	private static void changeServerName(int server){
+		String newName = Utility.readString(BaseLang.translate("pm.serverManager.choose") + " ", "[" + BaseLang.translate("pm.serverManager.suggest") + " " + UtilityServersAPI.getDefaultServerName() + "]");
+		String newPath = "";
+		
+		File oldBackupFile = new File("Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip");
+		
+		if(newName.equalsIgnoreCase(""))
+			newName = UtilityServersAPI.getDefaultServerName() + "_" + server;
+		
+		if(APIManager.isServerMode())
+			newPath = Utility.readString("Select path for this server: ", "[Example: /home/User/PocketMine-MP/]");
+		else
+			newPath = FileChooser.getPhar("Select new path of a server");
+		
+		File newBackupFile = new File("Backups" + File.separator + "Servers" + File.separator + newName + ".zip");
+		UtilityServersAPI.setNameServer(server, newName);
+		UtilityServersAPI.setPath(server, newPath);
+		
+		if(oldBackupFile.exists())
+			oldBackupFile.renameTo(newBackupFile);
+		
+		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctChange"));
+	}
+	
+	private static void deleteServer(int server) throws IOException {
+		int nservers = UtilityServersAPI.getNumberServers();
+		int npath = UtilityServersAPI.getNumberPaths();
+		
+		if(nservers > 1 && npath > 1){
+			Files.delete(new File("ServersName" + File.separator + "ServerName_" + server + ".pm").toPath());
+			Files.delete(new File("Path" + File.separator + "path_" + server + ".pm").toPath());
+			for(int i = server+1; i <= nservers; i++){
+				String temp = UtilityServersAPI.getNameServer(i);
+				String tempPath = UtilityServersAPI.getPath(i);
+				
+				Files.delete(new File("ServersName" + File.separator + "ServerName_" + i + ".pm").toPath());
+				Files.delete(new File("Path" + File.separator + "path_" + i + ".pm").toPath());
+				
+				UtilityServersAPI.setNameServer(i-1, temp);
+				UtilityServersAPI.setPath(i-1, tempPath);
+			}
+		
+			nservers--;
+			UtilityServersAPI.setNumberServer(nservers);
+			Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctDelete"));
+		}else
+			Utility.waitConfirm(BaseLang.translate("pm.serverManager.cantDelete"));
+	
+	}
+
 	protected static void serverManagerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
@@ -59,80 +134,5 @@ public class PMServersManager {
 			Settings.settingsMenu();
 		
 		serverManagerMenu();
-	}
-	
-	private static void deleteServer(int server) throws IOException {
-		int nservers = UtilityServersAPI.getNumberServers();
-		int npath = UtilityServersAPI.getNumberPaths();
-		
-		if(nservers > 1 && npath > 1){
-			Files.delete(new File("ServersName" + File.separator + "ServerName_" + server + ".pm").toPath());
-			Files.delete(new File("Path" + File.separator + "path_" + server + ".pm").toPath());
-			for(int i = server+1; i <= nservers; i++){
-				String temp = UtilityServersAPI.getNameServer(i);
-				String tempPath = UtilityServersAPI.getPath(i);
-				
-				Files.delete(new File("ServersName" + File.separator + "ServerName_" + i + ".pm").toPath());
-				Files.delete(new File("Path" + File.separator + "path_" + i + ".pm").toPath());
-				
-				UtilityServersAPI.setNameServer(i-1, temp);
-				UtilityServersAPI.setPath(i-1, tempPath);
-			}
-		
-			nservers--;
-			UtilityServersAPI.setNumberServer(nservers);
-			Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctDelete"));
-		}else
-			Utility.waitConfirm(BaseLang.translate("pm.serverManager.cantDelete"));
-	
-	}
-	
-	private static void addServer(){
-		String newName = Utility.readString(BaseLang.translate("pm.serverManager.choose") + " ", "[" + BaseLang.translate("pm.serverManager.suggest") + " " + UtilityServersAPI.getDefaultServerName() + "]");
-		String newPath = "";
-		
-		if(APIManager.isServerMode())
-			newPath = Utility.readString("Select path for this server: ", "[Example: /home/User/PocketMine-MP/]");
-		else
-			newPath = FileChooser.getPhar("Select new path of a server");
-		
-		int nservers = UtilityServersAPI.getNumberServers();
-		
-		nservers++;
-		if(newName.equalsIgnoreCase(""))
-			newName = UtilityServersAPI.getDefaultServerName() + "_" + nservers;
-		
-		UtilityServersAPI.setNameServer(nservers, newName);
-		
-		if(newPath != null)
-			UtilityServersAPI.setPath(nservers, newPath);
-		
-		UtilityServersAPI.setNumberServer(nservers);
-		
-		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctAdd"));
-	}
-
-	private static void changeServerName(int server){
-		String newName = Utility.readString(BaseLang.translate("pm.serverManager.choose") + " ", "[" + BaseLang.translate("pm.serverManager.suggest") + " " + UtilityServersAPI.getDefaultServerName() + "]");
-		String newPath = "";
-		
-		File oldBackupFile = new File("Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip");
-		
-		if(newName.equalsIgnoreCase(""))
-			newName = UtilityServersAPI.getDefaultServerName() + "_" + server;
-		
-		if(APIManager.isServerMode())
-			newPath = Utility.readString("Select path for this server: ", "[Example: /home/User/PocketMine-MP/]");
-		else
-			newPath = FileChooser.getPhar("Select new path of a server");
-		
-		File newBackupFile = new File("Backups" + File.separator + "Servers" + File.separator + newName + ".zip");
-		UtilityServersAPI.setNameServer(server, newName);
-		UtilityServersAPI.setPath(server, newPath);
-		
-		if(oldBackupFile.exists())
-			oldBackupFile.renameTo(newBackupFile);
-		
-		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctChange"));
 	}	
 }

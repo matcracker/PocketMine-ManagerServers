@@ -34,8 +34,38 @@ public class PluginsLoader{
 	*/
 		
 	public final static File folder = new File("plugins");
-	public static boolean pluginFound = false;
 	public static boolean[] isLoaded;
+	public static boolean pluginFound = false;
+	
+	private static Class<?> getJarClass(File path){
+		try{
+			@SuppressWarnings("resource")
+			JarFile jarFile = new JarFile(path.getAbsolutePath());
+			Enumeration<JarEntry> e = jarFile.entries();
+			
+			URL[] urls = {
+				new URL("jar:file:" + path.getAbsolutePath() +"!/") 
+			};
+			
+			URLClassLoader cl = URLClassLoader.newInstance(urls);
+			
+			String className = "";
+			
+			while(e.hasMoreElements()){
+			    JarEntry je = e.nextElement();
+			    if(je.isDirectory() || !je.getName().endsWith(".class")){
+			        continue;
+			    }
+			    className = je.getName().substring(0, je.getName().length() - 6);
+			    className = className.replace('/', '.');
+		
+			}
+			return cl.loadClass(className);
+			
+		}catch(ClassNotFoundException | IOException e){
+			return null;
+		}
+	}
 	
 	/**
 	 * This method load all the plugins present in the folder "plugins"
@@ -79,54 +109,6 @@ public class PluginsLoader{
 	}
 	
 	/**
-	 * This method unload all the plugins present in the folder "plugins"
-	 */
-	public static void unloadPlugins(){
-		for(File plugins : folder.listFiles()){
-			if(plugins.isFile() && plugins.getName().endsWith(".jar")){
-				System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.plugins.unloading") + " " + pluginExec(plugins, "getName"));
-				pluginExec(plugins, "onDisable");
-			
-				try{
-					Thread.sleep(1000);
-				}catch(InterruptedException e){
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	private static Class<?> getJarClass(File path){
-		try{
-			@SuppressWarnings("resource")
-			JarFile jarFile = new JarFile(path.getAbsolutePath());
-			Enumeration<JarEntry> e = jarFile.entries();
-			
-			URL[] urls = {
-				new URL("jar:file:" + path.getAbsolutePath() +"!/") 
-			};
-			
-			URLClassLoader cl = URLClassLoader.newInstance(urls);
-			
-			String className = "";
-			
-			while(e.hasMoreElements()){
-			    JarEntry je = e.nextElement();
-			    if(je.isDirectory() || !je.getName().endsWith(".class")){
-			        continue;
-			    }
-			    className = je.getName().substring(0, je.getName().length() - 6);
-			    className = className.replace('/', '.');
-		
-			}
-			return cl.loadClass(className);
-			
-		}catch(ClassNotFoundException | IOException e){
-			return null;
-		}
-	}
-	
-	/**
 	 * @param path where the plugin is saved
 	 * @param methodName name of method to recall
 	 * @return content of method
@@ -149,5 +131,23 @@ public class PluginsLoader{
 
 		}
 		return false;
+	}
+	
+	/**
+	 * This method unload all the plugins present in the folder "plugins"
+	 */
+	public static void unloadPlugins(){
+		for(File plugins : folder.listFiles()){
+			if(plugins.isFile() && plugins.getName().endsWith(".jar")){
+				System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.plugins.unloading") + " " + pluginExec(plugins, "getName"));
+				pluginExec(plugins, "onDisable");
+			
+				try{
+					Thread.sleep(1000);
+				}catch(InterruptedException e){
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }

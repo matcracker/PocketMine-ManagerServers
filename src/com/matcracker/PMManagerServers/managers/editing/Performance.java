@@ -1,3 +1,18 @@
+/* _____           _        _   __  __ _                   __  __                                   _____                              
+ *|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
+ *| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
+ *|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
+ *| |  | (_) | (__|   <  __/ |_| |  | | | | | |  __/      | |  | | (_| | | | | (_| | (_| |  __/ |  ____) |  __/ |   \ V /  __/ |  \__ \
+ *|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
+ *                                                                                   __/ |                                             
+ *                                                                                  |___/                                              
+ *Copyright (C) 2015-2016 @author matcracker
+ *
+ *This program is free software: you can redistribute it and/or modify 
+ *it under the terms of the GNU Lesser General Public License as published by 
+ *the Free Software Foundation, either version 3 of the License, or 
+ *(at your option) any later version.
+*/
 package com.matcracker.PMManagerServers.managers.editing;
 
 import java.io.File;
@@ -12,22 +27,31 @@ import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Performance {
-   /* _____           _        _   __  __ _                   __  __                                   _____                              
-	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
-	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
-	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
-	*| |  | (_) | (__|   <  __/ |_| |  | | | | | |  __/      | |  | | (_| | | | | (_| | (_| |  __/ |  ____) |  __/ |   \ V /  __/ |  \__ \
-	*|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
-	*                                                                                   __/ |                                             
-	*                                                                                  |___/                                              
-	*Copyright (C) 2015-2016 @author matcracker
-	*
-	*This program is free software: you can redistribute it and/or modify 
-	*it under the terms of the GNU Lesser General Public License as published by 
-	*the Free Software Foundation, either version 3 of the License, or 
-	*(at your option) any later version.
-	*/
-	protected static void performanceMenu() throws IOException {
+   public static void changePerformaceFile(String path, String feature) throws IOException{
+		File newPhar = new File(path + File.separator + "pocketmine.yml");
+		File oldPhar = new File(path + File.separator + "pocketmine_OLD.yml");
+		
+		File pharToMove = new File("Utils" + File.separator + "pocketmine_" + feature + ".yml");
+		File pharDest = new File(path + File.separator + "pocketmine_" + feature + ".yml");
+		
+		if(newPhar.exists()){
+			if(oldPhar.exists()){
+				Files.delete(oldPhar.toPath());
+				Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				newPhar.renameTo(oldPhar);
+				pharDest.renameTo(newPhar);
+			}else{
+				newPhar.renameTo(oldPhar);
+				Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				pharDest.renameTo(newPhar);
+			}
+		}else{
+			Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			pharDest.renameTo(newPhar);
+		}
+	}
+	
+	protected static void performanceMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.performance")));
@@ -111,32 +135,6 @@ public class Performance {
 			Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 		
 		performanceMenu();
-	}
-	
-	public static void changePerformaceFile(String path, String feature) throws IOException{
-		File newPhar = new File(path + File.separator + "pocketmine.yml");
-		File oldPhar = new File(path + File.separator + "pocketmine_OLD.yml");
-		
-		File pharToMove = new File("Utils" + File.separator + "pocketmine_" + feature + ".yml");
-		File pharDest = new File(path + File.separator + "pocketmine_" + feature + ".yml");
-		
-		if(newPhar.exists()){
-			if(oldPhar.exists()){
-				Files.delete(oldPhar.toPath());
-				Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				newPhar.renameTo(oldPhar);
-				pharDest.renameTo(newPhar);
-			}else{
-				newPhar.renameTo(oldPhar);
-				Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
-				pharDest.renameTo(newPhar);
-			}
-		}else{
-			Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
-			pharDest.renameTo(newPhar);
-		}
-	
-	
 	}
 
 }

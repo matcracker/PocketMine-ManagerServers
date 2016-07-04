@@ -29,67 +29,6 @@ public class Loader {
 	*(at your option) any later version.
 	*/
 		
-	public static void startLoader(){
-		String[] dirsName = {
-				"Data",
-				"ServersName",
-				"Path",
-				"Performance",
-				"Utils", 
-				"Installations",
-				"Installations" + File.separator + "Status",
-				"Installations" + File.separator + "Version",
-				"Languages",
-				"Backups",
-				"Backups" + File.separator + "Status",
-				"Backups" + File.separator + "Servers"
-		};
-		
-		File checkLicense = new File("LICENSE.pdf");
-		File dirMaker;
-				
-		boolean[] firstStart = new boolean[dirsName.length];
-		
-		for(int i = 0; i < dirsName.length; i++){
-			firstStart[i] = false;
-			dirMaker = new File(dirsName[i]);
-			if(!dirMaker.exists()){
-				firstStart[i] = true;
-				dirMaker.mkdir();
-			}
-		}
-		
-		if(!firstStart[(int)(Math.random() * dirsName.length)] && checkLicense.exists() && UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
-			return;
-		}else{
-			try{
-				System.out.println("&fPreparing the first start...");
-				
-				Thread.sleep(500);
-	
-				for(int i = 1; i < dirsName.length; i++){
-					dirMaker = new File(dirsName[i]);
-					dirMaker.mkdir();
-				}
-				
-				System.out.print("&3[");
-				for(int i = 0; i <= 77; i++){
-					System.out.print("=");
-					Thread.sleep(50);
-				}
-				APIManager.setDevMode(false);
-				APIManager.setCommandsMode(false);
-				
-				System.out.print("]");
-				
-				Thread.sleep(1000);
-				completeLoader();
-			}catch (InterruptedException | IOException e) {
-				System.err.println(Utility.generalError);
-			}
-		}
-	}
-	
 	public static void completeLoader() throws IOException{
 		int nservers = 0;
 		if(UtilityServersAPI.checkServersFile("Data", "nservers", -1) && UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
@@ -177,5 +116,66 @@ public class Loader {
 		}
 		
 		Utility.waitConfirm(BaseLang.translate("pm.loader.complete"));
+	}
+	
+	public static void startLoader(){
+		String[] dirsName = {
+				"Data",
+				"ServersName",
+				"Path",
+				"Performance",
+				"Utils", 
+				"Installations",
+				"Installations" + File.separator + "Status",
+				"Installations" + File.separator + "Version",
+				"Languages",
+				"Backups",
+				"Backups" + File.separator + "Status",
+				"Backups" + File.separator + "Servers"
+		};
+		
+		File checkLicense = new File("LICENSE.pdf");
+		File dirMaker;
+				
+		boolean[] firstStart = new boolean[dirsName.length];
+		
+		for(int i = 0; i < dirsName.length; i++){
+			firstStart[i] = false;
+			dirMaker = new File(dirsName[i]);
+			if(!dirMaker.exists()){
+				firstStart[i] = true;
+				dirMaker.mkdir();
+			}
+		}
+		
+		if(!firstStart[(int)(Math.random() * dirsName.length)] && checkLicense.exists() && UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
+			return;
+		}else{
+			try{
+				System.out.println("&fPreparing the first start...");
+				
+				Thread.sleep(500);
+	
+				for(int i = 1; i < dirsName.length; i++){
+					dirMaker = new File(dirsName[i]);
+					dirMaker.mkdir();
+				}
+				
+				System.out.print("&3[");
+				for(int i = 0; i <= 77; i++){
+					System.out.print("=");
+					Thread.sleep(50);
+				}
+				APIManager.setDevMode(false);
+				APIManager.setCommandsMode(false);
+				
+				System.out.print("]");
+				
+				Thread.sleep(1000);
+				completeLoader();
+			}catch (InterruptedException | IOException e) {
+				System.err.println(Utility.generalError);
+			}
+		}
 	}
 }

@@ -38,26 +38,21 @@ public class Resetter{
 			"Backups"
 	};
 	
-	protected static void resetterMenu() throws IOException{
-		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
-		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.reset")));
-		System.out.println("1- " + BaseLang.translate("pm.resetter.programData"));
-		System.out.println("2- " + BaseLang.translate("pm.resetter.serversData"));
-		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
-		int reset = Utility.readInt(BaseLang.translate("pm.resetter.selReset") + " ", null);
-		
-		if(reset == 1)
-			resetProgram();
-		
-		if(reset == 2)
-			resetServers();
-		
-		if(reset == 3)
-			Settings.settingsMenu();
-		
-		resetterMenu();
+	private static void deleteFile(String folder){
+		File dir = new File(folder);
+		File[] files = dir.listFiles();
 	
+		for(File file : files){
+			if(!file.delete())
+				System.err.println("Failed to delete " + file);
+		}
+	}
+	
+	private static void deleteFolder(String folder, int index){
+		File dir = new File(folder);
+
+		for(int i = 0; i < index; i++)
+			dir.delete();
 	}
 	
 	private static void resetProgram(){
@@ -75,7 +70,7 @@ public class Resetter{
 				}
 				Thread.sleep(1000);
 				try{
-					if(Utility.getOSName().contains("Windows"))
+					if(Utility.getOSName().equalsIgnoreCase("Windows"))
 						Utility.openSoftware("software", Utility.getRunName());
 				}catch(IllegalArgumentException e){
 					System.out.println("Run.bat or run.sh not found!");
@@ -115,21 +110,26 @@ public class Resetter{
 		}
 	}
 	
-	private static void deleteFolder(String folder, int index){
-		File dir = new File(folder);
-
-		for(int i = 0; i < index; i++)
-			dir.delete();
-	}
+	protected static void resetterMenu() throws IOException{
+		Utility.cleanScreen();
+		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.reset")));
+		System.out.println("1- " + BaseLang.translate("pm.resetter.programData"));
+		System.out.println("2- " + BaseLang.translate("pm.resetter.serversData"));
+		System.out.println("3- " + BaseLang.translate("pm.standard.back"));
+		int reset = Utility.readInt(BaseLang.translate("pm.resetter.selReset") + " ", null);
+		
+		if(reset == 1)
+			resetProgram();
+		
+		if(reset == 2)
+			resetServers();
+		
+		if(reset == 3)
+			Settings.settingsMenu();
+		
+		resetterMenu();
 	
-	private static void deleteFile(String folder){
-		File dir = new File(folder);
-		File[] files = dir.listFiles();
-	
-		for(File file : files){
-			if(!file.delete())
-				System.err.println("Failed to delete " + file);
-		}
 	}
 
 }

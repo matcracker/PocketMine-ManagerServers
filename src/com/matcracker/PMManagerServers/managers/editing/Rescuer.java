@@ -30,6 +30,37 @@ public class Rescuer {
 	*(at your option) any later version.
 	*/
 
+	private static void backup(){
+		Utility.cleanScreen();
+		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.backup")));
+		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
+			System.out.printf("%d) %s -> Status: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getBackuped(i));
+		
+		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
+		
+		if(server > UtilityServersAPI.getNumberServers())
+			backup();
+		else{
+			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
+				String pathContent = UtilityServersAPI.getPath(server);
+				if(pathContent != null){
+					String backupedServersPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip";
+					if(StatusAPI.getBackuped(server).equalsIgnoreCase(BaseLang.translate("pm.status.noBackuped"))){
+						System.out.println(BaseLang.translate("pm.rescuer.create"));
+						Zipper.zip(null, pathContent, backupedServersPath, ArchiveFormat.ZIP, null);
+						StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
+						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.backuped"));
+					}else
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.existBackup"));
+				}else
+					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+			}else
+				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+			
+		}
+	}
+	
 	public static void rescuerMenu() throws IOException{
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
@@ -51,7 +82,7 @@ public class Rescuer {
 		
 		rescuerMenu();
 	}
-	
+
 	private static void restore() {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
@@ -76,37 +107,6 @@ public class Rescuer {
 						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.extracted"));
 					}else
 						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.noBackup"));
-				}else
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
-			}else
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
-			
-		}
-	}
-
-	private static void backup(){
-		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
-		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.backup")));
-		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
-			System.out.printf("%d) %s -> Status: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getBackuped(i));
-		
-		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
-		
-		if(server > UtilityServersAPI.getNumberServers())
-			backup();
-		else{
-			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
-				String pathContent = UtilityServersAPI.getPath(server);
-				if(pathContent != null){
-					String backupedServersPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip";
-					if(StatusAPI.getBackuped(server).equalsIgnoreCase(BaseLang.translate("pm.status.noBackuped"))){
-						System.out.println(BaseLang.translate("pm.rescuer.create"));
-						Zipper.zip(null, pathContent, backupedServersPath, ArchiveFormat.ZIP, null);
-						StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
-						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.backuped"));
-					}else
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.existBackup"));
 				}else
 					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 			}else

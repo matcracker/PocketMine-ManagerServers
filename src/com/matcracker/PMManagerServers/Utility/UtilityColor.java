@@ -2,52 +2,45 @@ package com.matcracker.PMManagerServers.utility;
 
 public class UtilityColor{
 
-	public static final String FORMAT_RESET = "\u001B[0m";
-	public static final String FORMAT_BOLD = "\u001B[1m";
-	public static final String FORMAT_ITALIC = "\u001B[3m";
-	public static final String FORMAT_UNDERLINE = "\u001B[4m";
-	public static final String FORMAT_HIDDEN = "\u001B[4m";
-	public static final String COLOR_BLACK = "\u001B[30m";
-	public static final String COLOR_DARK_RED = "\u001B[31m";
-	public static final String COLOR_DARK_GREEN = "\u001B[32m";
-	public static final String COLOR_DARK_YELLOW = "\u001B[33m";
-	public static final String COLOR_DARK_BLUE = "\u001B[34m";
-	public static final String COLOR_DARK_PURPLE = "\u001B[35m";
-	public static final String COLOR_DARK_CYAN = "\u001B[36m";
-	public static final String COLOR_GRAY = "\u001B[37m";
-	public static final String BACKGROUND_DARK_BLACK = "\u001B[40m";
-	public static final String BACKGROUND_DARK_RED = "\u001B[41m";
-	public static final String BACKGROUND_DARK_GREEN = "\u001B[42m";
-	public static final String BACKGROUND_DARK_YELLOW = "\u001B[43m";
-	public static final String BACKGROUND_DARK_BLUE = "\u001B[44m";
-	public static final String BACKGROUND_DARK_PURPLE = "\u001B[45m";
-	public static final String BACKGROUND_DARK_CYAN = "\u001B[46m";
-	public static final String BACKGROUND_GRAY = "\u001B[47m";
-	public static final String COLOR_DARK_GRAY = "\u001B[90m";
-	public static final String COLOR_RED = "\u001B[91m";
-	public static final String COLOR_GREEN = "\u001B[92m";
-	public static final String COLOR_YELLOW = "\u001B[93m";
-	public static final String COLOR_BLUE = "\u001B[94m";
-	public static final String COLOR_PURPLE = "\u001B[95m";
-	public static final String COLOR_CYAN = "\u001B[96m";
-	public static final String COLOR_WHITE = "\u001B[97m";
-	public static final String BACKGROUND_DARK_GRAY = "\u001B[100m";
-	public static final String BACKGROUND_RED = "\u001B[101m";
-	public static final String BACKGROUND_GREEN = "\u001B[102m";
-	public static final String BACKGROUND_YELLOW = "\u001B[103m";
 	public static final String BACKGROUND_BLUE = "\u001B[104m";
-	public static final String BACKGROUND_PURPLE = "\u001B[105m";
 	public static final String BACKGROUND_CYAN = "\u001B[106m";
+	public static final String BACKGROUND_DARK_BLACK = "\u001B[40m";
+	public static final String BACKGROUND_DARK_BLUE = "\u001B[44m";
+	public static final String BACKGROUND_DARK_CYAN = "\u001B[46m";
+	public static final String BACKGROUND_DARK_GRAY = "\u001B[100m";
+	public static final String BACKGROUND_DARK_GREEN = "\u001B[42m";
+	public static final String BACKGROUND_DARK_PURPLE = "\u001B[45m";
+	public static final String BACKGROUND_DARK_RED = "\u001B[41m";
+	public static final String BACKGROUND_DARK_YELLOW = "\u001B[43m";
+	public static final String BACKGROUND_GRAY = "\u001B[47m";
+	public static final String BACKGROUND_GREEN = "\u001B[102m";
+	public static final String BACKGROUND_PURPLE = "\u001B[105m";
+	public static final String BACKGROUND_RED = "\u001B[101m";
 	public static final String BACKGROUND_WHITE = "\u001B[107m";
+	public static final String BACKGROUND_YELLOW = "\u001B[103m";
+	public static final String COLOR_BLACK = "\u001B[30m";
+	public static final String COLOR_BLUE = "\u001B[94m";
+	public static final String COLOR_CYAN = "\u001B[96m";
+	public static final String COLOR_DARK_BLUE = "\u001B[34m";
+	public static final String COLOR_DARK_CYAN = "\u001B[36m";
+	public static final String COLOR_DARK_GRAY = "\u001B[90m";
+	public static final String COLOR_DARK_GREEN = "\u001B[32m";
+	public static final String COLOR_DARK_PURPLE = "\u001B[35m";
+	public static final String COLOR_DARK_RED = "\u001B[31m";
+	public static final String COLOR_DARK_YELLOW = "\u001B[33m";
+	public static final String COLOR_GRAY = "\u001B[37m";
+	public static final String COLOR_GREEN = "\u001B[92m";
+	public static final String COLOR_PURPLE = "\u001B[95m";
+	public static final String COLOR_RED = "\u001B[91m";
+	public static final String COLOR_WHITE = "\u001B[97m";
+	public static final String COLOR_YELLOW = "\u001B[93m";
+	public static final String FORMAT_BOLD = "\u001B[1m";
+	public static final String FORMAT_HIDDEN = "\u001B[4m";
+	public static final String FORMAT_ITALIC = "\u001B[3m";
 	public final static String FORMAT_OBFUSCATED = Utility.ubfuscated(6);
+	public static final String FORMAT_RESET = "\u001B[0m";
+	public static final String FORMAT_UNDERLINE = "\u001B[4m";
 	
-	protected static String format(String content, boolean debug){
-		String phrase = content;
-		if(!debug && phrase.contains("&"))
-			phrase = colorTranslator(content);
-		return phrase;
-	}
-		
 	private static String colorTranslator(String phrase){
 		phrase = phrase.replaceAll("&0", COLOR_BLACK);
 		phrase = phrase.replaceAll("&1", COLOR_DARK_BLUE);
@@ -71,6 +64,13 @@ public class UtilityColor{
 		phrase = phrase.replaceAll("&o", FORMAT_ITALIC);
 		phrase = phrase.replaceAll("&r", FORMAT_RESET);
 		
+		return phrase;
+	}
+		
+	protected static String format(String content, boolean debug){
+		String phrase = content;
+		if(!debug && phrase.contains("&"))
+			phrase = colorTranslator(content);
 		return phrase;
 	}
 }
