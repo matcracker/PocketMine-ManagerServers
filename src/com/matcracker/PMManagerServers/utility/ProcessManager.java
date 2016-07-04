@@ -1,3 +1,19 @@
+/* _____           _        _   __  __ _                   __  __                                   _____                              
+ *|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
+ *| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
+ *|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
+ *| |  | (_) | (__|   <  __/ |_| |  | | | | | |  __/      | |  | | (_| | | | | (_| | (_| |  __/ |  ____) |  __/ |   \ V /  __/ |  \__ \
+ *|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
+ *                                                                                   __/ |                                             
+ *                                                                                  |___/                                              
+ *Copyright (C) 2015-2016 @author matcracker
+ *
+ *This program is free software: you can redistribute it and/or modify 
+ *it under the terms of the GNU Lesser General Public License as published by 
+ *the Free Software Foundation, either version 3 of the License, or 
+ *(at your option) any later version.
+*/
+	
 package com.matcracker.PMManagerServers.utility;
 
 import java.io.BufferedReader;
@@ -5,8 +21,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class ProcessManager{
-	static int PID;
+	private static int PID;
 	
+	public static void getListOfProcesses() throws IOException{
+		 String line;
+		 Process p;
+
+		 if(Utility.getOSName().equalsIgnoreCase("Windows"))
+			 p = Runtime.getRuntime().exec("tasklist.exe");
+		 else
+			 p = Runtime.getRuntime().exec("ps");
+	
+	     BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
+	     while((line = input.readLine()) != null)
+	    	 System.out.println(line);
+	     
+	     input.close();
+	}
+		
 	/**
 	 * @return
 	 */
@@ -18,7 +50,7 @@ public class ProcessManager{
 		String line;
 		Process p;
 		 
-		if(Utility.getOSName().contains("Windows"))
+		if(Utility.getOSName().equalsIgnoreCase("Windows"))
 			p = Runtime.getRuntime().exec("tasklist.exe");
 		else
 			p = Runtime.getRuntime().exec("ps");
@@ -41,44 +73,7 @@ public class ProcessManager{
 	    
 		return 0;
 	}
-	
-	/**
-	 * @param pid
-	 */
-	public static void setPID(int pid){
-		PID = pid;
-	}
 		
-	/**
-	 * @param process
-	 * @throws IOException
-	 */
-	public static void killProcess(String process) throws IOException{
-		if(Utility.getOSName().contains("Windows"))
-			Runtime.getRuntime().exec("taskkill /F /IM " + process);
-		else
-			Runtime.getRuntime().exec("pkill -f " + process);
-	}
-	
-	/**
-	 * @param pid
-	 * @throws IOException
-	 */
-	public static void killProcess(int pid) throws IOException{
-		if(Utility.getOSName().contains("Windows"))
-			Runtime.getRuntime().exec("taskkill /pid " + pid);
-		else
-			Runtime.getRuntime().exec("kill " + pid);
-	}
-	
-	/**
-	 * @param path
-	 * @throws IOException
-	 */
-	public static void startProcess(String path) throws IOException{
-		Runtime.getRuntime().exec(path);
-	}
-	
 	/**
 	 * @param process
 	 * @return
@@ -88,7 +83,7 @@ public class ProcessManager{
 		 String list;
 		 Process p;
 		 
-		 if(Utility.getOSName().contains("Windows"))
+		 if(Utility.getOSName().equalsIgnoreCase("Windows"))
 			 p = Runtime.getRuntime().exec("tasklist.exe");
 		 else
 			 p = Runtime.getRuntime().exec("ps");
@@ -103,19 +98,42 @@ public class ProcessManager{
 	     return false;
 	}
 	
-	public static void getListOfProcesses() throws IOException{
-		 String line;
-		 Process p;
-		 
-		 if(Utility.getOSName().contains("Windows"))
-			 p = Runtime.getRuntime().exec("tasklist.exe");
-		 else
-			 p = Runtime.getRuntime().exec("ps");
+	/**
+	 * @param pid
+	 * @throws IOException
+	 */
+	public static void killProcess(int pid) throws IOException{
+		if(Utility.getOSName().equalsIgnoreCase("Windows"))
+			Runtime.getRuntime().exec("taskkill /pid " + pid);
+		else
+			Runtime.getRuntime().exec("kill " + pid);
+	}
 	
-	     BufferedReader input = new BufferedReader(new InputStreamReader(p.getInputStream()));
-	     while((line = input.readLine()) != null)
-	    	 System.out.println(line);
-	     
-	     input.close();
+	/**
+	 * @param process
+	 * @throws IOException
+	 */
+	public static void killProcess(String process) throws IOException{
+		if(Utility.getOSName().equalsIgnoreCase("Windows"))
+			Runtime.getRuntime().exec("taskkill /F /IM " + process);
+		else
+			Runtime.getRuntime().exec("pkill -f " + process);
+	}
+	
+	/**
+	 * @param pid
+	 */
+	private static void setPID(int pid){
+		PID = pid;
+	}
+
+	
+	/**
+	 * Start a process
+	 * @param path
+	 * @throws IOException
+	 */
+	public static void startProcess(String path) throws IOException{
+		Runtime.getRuntime().exec(path);
 	}
 }
