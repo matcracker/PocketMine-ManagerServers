@@ -26,6 +26,27 @@ public class Zipper{
 	*/
 	
 	/**
+	 * @param targetFile
+	 * @param destinationFilePath
+	 * @param format
+	 * @param type
+	 */
+	public static void unzip(String targetFile, String destinationFilePath, ArchiveFormat format, CompressionType type){
+		Archiver zip;
+		if(type == null)
+			zip = ArchiverFactory.createArchiver(format);
+		else
+			zip = ArchiverFactory.createArchiver(format, type);
+		
+		File target = new File(targetFile);
+		File destination = new File(destinationFilePath);
+		try{
+			zip.extract(target, destination);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+	}
+	/**
 	 * @param targetFolder
 	 * @param destinationFilePath
 	 * @param format
@@ -47,27 +68,6 @@ public class Zipper{
 
 		try{
 			zip.create(name, destination, target);
-		}catch(IOException e){
-			e.printStackTrace();
-		}
-	}
-	/**
-	 * @param targetFile
-	 * @param destinationFilePath
-	 * @param format
-	 * @param type
-	 */
-	public static void unzip(String targetFile, String destinationFilePath, ArchiveFormat format, CompressionType type){
-		Archiver zip;
-		if(type == null)
-			zip = ArchiverFactory.createArchiver(format);
-		else
-			zip = ArchiverFactory.createArchiver(format, type);
-		
-		File target = new File(targetFile);
-		File destination = new File(destinationFilePath);
-		try{
-			zip.extract(target, destination);
 		}catch(IOException e){
 			e.printStackTrace();
 		}

@@ -1,3 +1,19 @@
+/* _____           _        _   __  __ _                   __  __                                   _____                              
+ *|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
+ *| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
+ *|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
+ *| |  | (_) | (__|   <  __/ |_| |  | | | | | |  __/      | |  | | (_| | | | | (_| | (_| |  __/ |  ____) |  __/ |   \ V /  __/ |  \__ \
+ *|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
+ *                                                                                   __/ |                                             
+ *                                                                                  |___/                                              
+ *Copyright (C) 2015-2016 @author matcracker
+ *
+ *This program is free software: you can redistribute it and/or modify 
+ *it under the terms of the GNU Lesser General Public License as published by 
+ *the Free Software Foundation, either version 3 of the License, or 
+ *(at your option) any later version.
+*/
+	
 package com.matcracker.PMManagerServers.installer;
 
 import java.io.File;
@@ -10,22 +26,7 @@ import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Downloader {
-    /* _____           _        _   __  __ _                   __  __                                   _____                              
-	*|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
-	*| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
-	*|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
-	*| |  | (_) | (__|   <  __/ |_| |  | | | | | |  __/      | |  | | (_| | | | | (_| | (_| |  __/ |  ____) |  __/ |   \ V /  __/ |  \__ \
-	*|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
-	*                                                                                   __/ |                                             
-	*                                                                                  |___/                                              
-	*Copyright (C) 2015-2016 @author matcracker
-	*
-	*This program is free software: you can redistribute it and/or modify 
-	*it under the terms of the GNU Lesser General Public License as published by 
-	*the Free Software Foundation, either version 3 of the License, or 
-	*(at your option) any later version.
-	*/
-	
+
 	protected static void downloaderMenu() throws IOException{
 		Utility.cleanScreen();
 		int nservers = UtilityServersAPI.getNumberServers();
@@ -70,12 +71,15 @@ public class Downloader {
 				if(installer.exists() || installer2.exists()){
 					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.instDownloaded"));				
 				}else{
-					System.out.println(BaseLang.translate("pm.downloader.startDown"));
-					if(type == 1)
-						Utility.downloadFile(linkstable, "Utils");
-					
-					if(type == 2)
-						Utility.downloadFile(linkstable2, "Utils");
+					if(Utility.getOSName().equalsIgnoreCase("Windows")){
+						System.out.println(BaseLang.translate("pm.downloader.startDown"));
+						if(type == 1)
+							Utility.downloadFile(linkstable, "Utils");
+						
+						if(type == 2)
+							Utility.downloadFile(linkstable2, "Utils");
+					}else
+						Runtime.getRuntime().exec("wget -q -O - https://raw.githubusercontent.com/PocketMine/php-build-scripts/master/installer.sh | bash -s -");
 					
 					StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
 					Utility.waitConfirm(BaseLang.translate("pm.downloader.succInst"));
@@ -181,16 +185,9 @@ public class Downloader {
 			arch = "86";
 		else if(arch.contains("64"))
 			arch = "64";
-		else if(arch.contains("64") && (os.contains("Linux") || os.contains("Mac")))
+		else if(arch.contains("64") && (os.equalsIgnoreCase("Linux") || os.equalsIgnoreCase("Mac")))
 			arch = "86-64";
-		
-		if(os.contains("Windows"))
-			os = "Windows";
-		else if(os.contains("Linux"))
-			os = "Linux";
-		else if(os.contains("Mac"))
-			os = "MacOS";
-		
+
 		if(opt == 1 || opt == 2){
 			String php;
 			
@@ -204,7 +201,7 @@ public class Downloader {
 			Utility.waitConfirm(BaseLang.translate("pm.php.binariesDownloaded"));
 			String confirm = Utility.readString("Do you want to extract it in your server? <Y/n>: ", null);
 			String filePHP = " PHP_" + php + "_x" + arch + "_" + os + ".tar.gz";
-
+			
 			if(confirm.equalsIgnoreCase("Y"))
 				Installator.installPHP(filePHP);
 				

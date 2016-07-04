@@ -16,7 +16,7 @@ public class CommandStart {
 						if(UtilityServersAPI.checkServersFile("Path", "path_", i)){
 							String pathContent = UtilityServersAPI.getPath(i);
 							if(pathContent != null)
-								Utility.openSoftware("software", pathContent + File.separator + "start.cmd");
+								Utility.openSoftware("software", pathContent + File.separator + Utility.getStartName());
 							else
 								Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 						}else
@@ -38,7 +38,7 @@ public class CommandStart {
 					if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 						String pathContent = UtilityServersAPI.getPath(server);
 						if(pathContent != null)
-							Utility.openSoftware("software", pathContent + File.separator + "start.cmd");
+							Utility.openSoftware("software", pathContent + File.separator + Utility.getStartName());
 						else
 							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
 					}else
