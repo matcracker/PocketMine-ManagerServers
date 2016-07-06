@@ -185,7 +185,7 @@ public class Downloader {
 			arch = "86";
 		else if(arch.contains("64"))
 			arch = "64";
-		else if(arch.contains("64") && (os.equalsIgnoreCase("Linux") || os.equalsIgnoreCase("Mac")))
+		else if(arch.contains("64") && (os.equalsIgnoreCase("Linux") || os.equalsIgnoreCase("MacOS")))
 			arch = "86-64";
 
 		if(opt == 1 || opt == 2){
