@@ -18,7 +18,7 @@ package com.matcracker.PMManagerServers.managers;
 
 import java.io.IOException;
 
-import com.matcracker.PMManagerServers.Main;
+import com.matcracker.PMManagerServers.PMMS;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.managers.editing.Editor;
 import com.matcracker.PMManagerServers.managers.editing.Rescuer;
@@ -34,7 +34,8 @@ public class Manager {
 		System.out.println("2- " + BaseLang.translate("pm.manager.edit"));
 		System.out.println("3- " + BaseLang.translate("pm.manager.rescuer"));
 		System.out.println("4- " + BaseLang.translate("pm.manager.restart"));
-		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
+		System.out.println("5- " + "Command Sender");
+		System.out.println("6- " + BaseLang.translate("pm.standard.back"));
 		int option = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
 		if(option == 1)
@@ -50,7 +51,10 @@ public class Manager {
 			Restarter.restarterMenu();
 		
 		if(option == 5)
-			Main.mainMenu();
+			CommandsSender.commandSenderMenu();
+		
+		if(option == 6)
+			PMMS.mainMenu();
 				
 		managerMenu();
 		
