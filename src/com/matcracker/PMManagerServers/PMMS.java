@@ -31,7 +31,7 @@ import com.matcracker.PMManagerServers.utility.PMPrintStream;
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
-public class Main{	
+public class PMMS{
 	public static boolean isServerVersion = false;
 	private static boolean pluginsLoaded = false;
 	
@@ -120,14 +120,16 @@ public class Main{
 				
 				if(menu.equalsIgnoreCase("dev"))
 					i++;	
-	
-				if(i == 3 && !devMode){
-					Utility.waitConfirm(UtilityColor.COLOR_YELLOW +  BaseLang.translate("pm.devmenu.enabled"));
-					APIManager.setDevMode(true);
-					
-				}else if(i == 3 && devMode){
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.devmenu.disabled"));
-					APIManager.setDevMode(false);
+
+				if(i == 3){
+					if(!devMode){
+						Utility.waitConfirm(UtilityColor.COLOR_YELLOW +  BaseLang.translate("pm.devmenu.enabled"));
+						APIManager.setDevMode(true);
+						
+					}else{
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.devmenu.disabled"));
+						APIManager.setDevMode(false);
+					}
 				}
 			}
 		}catch(IOException e){

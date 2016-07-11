@@ -18,7 +18,7 @@ package com.matcracker.PMManagerServers.settings;
 
 import java.io.IOException;
 
-import com.matcracker.PMManagerServers.Main;
+import com.matcracker.PMManagerServers.PMMS;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.lang.LangSelector;
 import com.matcracker.PMManagerServers.utility.Utility;
@@ -49,7 +49,7 @@ public class Settings{
 			PluginManager.plugMenu();
 		
 		if(opt == 5)
-			Main.mainMenu();
+			PMMS.mainMenu();
 		
 		settingsMenu();
 	}

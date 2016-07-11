@@ -47,7 +47,7 @@ public class DevMode{
 			if(menu.equalsIgnoreCase("9")){
 				ProcessManager.getListOfProcesses();
 				Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
-				Main.mainMenu();
+				PMMS.mainMenu();
 			}
 					
 			if(menu.equalsIgnoreCase("10"))
@@ -77,7 +77,7 @@ public class DevMode{
 
         System.out.println();
 		Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
-		Main.mainMenu();
+		PMMS.mainMenu();
 	}
 	
 	/**
@@ -111,6 +111,6 @@ public class DevMode{
 		
 		System.out.println();
 		Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
-		Main.mainMenu();
+		PMMS.mainMenu();
 	}
 }

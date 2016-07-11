@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-import com.matcracker.PMManagerServers.Main;
+import com.matcracker.PMManagerServers.PMMS;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
@@ -85,7 +85,7 @@ public class ManagerInstaller {
 			Installator.installPHP(null);
 		
 		if(inst == 6)
-			Main.mainMenu();
+			PMMS.mainMenu();
 		
 		managerInstallerMenu();
 	}

@@ -18,7 +18,7 @@ package com.matcracker.PMManagerServers.API;
 
 import java.io.File;
 
-import com.matcracker.PMManagerServers.Main;
+import com.matcracker.PMManagerServers.PMMS;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class APIManager{
@@ -67,7 +67,7 @@ public class APIManager{
 	 * @return true if user enabled the software in "server mode"
 	 */
 	public static boolean isServerMode(){
-		return Main.isServerVersion;
+		return PMMS.isServerVersion;
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class APIManager{
 	 * @param mode if true enable a mode for Server's OS
 	 */
 	public static void setServerMode(boolean mode){
-		Main.isServerVersion = mode;
+		PMMS.isServerVersion = mode;
 	}
 	
 }

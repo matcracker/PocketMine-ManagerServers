@@ -19,7 +19,7 @@ package com.matcracker.PMManagerServers.informations;
 import java.io.File;
 import java.io.IOException;
 
-import com.matcracker.PMManagerServers.Main;
+import com.matcracker.PMManagerServers.PMMS;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
@@ -87,7 +87,7 @@ public class Informations {
 		}
 		
 		if(info == 5)
-			Main.mainMenu();
+			PMMS.mainMenu();
 		
 		informationsMenu();
 	}

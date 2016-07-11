@@ -49,7 +49,7 @@ public class CommandsMode {
 				case "exit": System.exit(0); break;
 				case "help": CommandHelp.command(); break;
 				case "language": LangSelector.langMenu(); break;
-				case "menu": Main.mainMenu(); break;
+				case "menu": PMMS.mainMenu(); break;
 				case "restart": CommandRestart.command(args); break;
 				case "restore": CommandRescuer.commandRestore(args);   break;
 				case "setstart": CommandSetStart.command(args); break;
