@@ -16,22 +16,23 @@
 	
 package com.matcracker.PMManagerServers.commands;
 
+import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class CommandHelp{
 	public static void command(){
 		System.out.println(UtilityColor.COLOR_YELLOW);
-        System.out.println("/backup <(servername|servernumber)|all> : Create a backup of one or all servers");
-        System.out.println("/clear : Clean the console screen.");
-        System.out.println("/edit <performance|properties> [PerformanceType] [(servername|servernumber)]: Edit your server's performace or properties");
-        System.out.println("/exit : Leave the program.");
-        System.out.println("/help : Show help page");
-        System.out.println("/language: Change language of program.");
-        System.out.println("/menu : Return in the main menu");
-        System.out.println("/restart <software|all> [time] : Restart PocketMine-ManagerServers or one or all servers.");
-        System.out.println("/restore <(servername|servernumber)|all> : Restore a backup of one or all servers");
-        System.out.println("/setstart <commander|menu> : Set the initial interface when the program starts");
-        System.out.println("/start <(servername|servernumber)|all> : Start one or all servers");
-        System.out.println("/stop : Stop all servers");
+        System.out.println("/backup <(servername|servernumber)|all> : " + BaseLang.translate("pm.cmdHelp.backup"));
+        System.out.println("/clear : " + BaseLang.translate("pm.cmdHelp.clear"));
+        System.out.println("/edit <performance|properties> [PerformanceType] [(servername|servernumber)]: " + BaseLang.translate("pm.cmdHelp.edit"));
+        System.out.println("/exit : " + BaseLang.translate("pm.cmdHelp.exit"));
+        System.out.println("/help : " + BaseLang.translate("pm.cmdHelp.help"));
+        System.out.println("/language : " + BaseLang.translate("pm.cmdHelp.language"));
+        System.out.println("/menu : " + BaseLang.translate("pm.cmdHelp.menu"));
+        System.out.println("/restart <software|all> [time] : " + BaseLang.translate("pm.cmdHelp.restart"));
+        System.out.println("/restore <(servername|servernumber)|all> : " + BaseLang.translate("pm.cmdHelp.restore"));
+        System.out.println("/setstart <commander|menu> : " + BaseLang.translate("pm.cmdHelp.setstart"));
+        System.out.println("/start <(servername|servernumber)|all> : " + BaseLang.translate("pm.cmdHelp.start"));
+        System.out.println("/stop : " + BaseLang.translate("pm.cmdHelp.stop"));
 	}
 }

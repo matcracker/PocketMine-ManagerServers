@@ -38,8 +38,7 @@ public class NewbieSetup {
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.newbieSetup")));
 		if(!Utility.getOSName().equalsIgnoreCase("Windows")){
-			Utility.waitConfirm("This mode is only for windows user!"
-								+ "\nFor easy install go to 'Download->(select server)->Stable->(select version)'");
+			Utility.waitConfirm(BaseLang.translate("pm.newbie.windows"));
 			ManagerInstaller.managerInstallerMenu();
 		}
 		

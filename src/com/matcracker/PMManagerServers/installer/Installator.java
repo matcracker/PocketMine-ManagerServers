@@ -66,8 +66,8 @@ public class Installator {
 				
 				if(installer.exists() || installer2.exists()){
 					String os = Utility.getOSName();
-					if(os.equalsIgnoreCase("Linux") || os.equalsIgnoreCase("MacOS")){
-						Utility.waitConfirm("You are using " + os + ", this service is unavailable");
+					if(!os.equalsIgnoreCase("Windows")){
+						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.noService"));
 						return;
 					}
 					
@@ -111,7 +111,7 @@ public class Installator {
 				if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 					System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 25] {MC:PE 0.14.3}");
-					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 27] {MC:PE 0.15.1}");
+					System.out.println("2) 1.6 API 2.0.0 [#Dev Build 27] {MC:PE 0.15.1}");
 					
 					int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
 

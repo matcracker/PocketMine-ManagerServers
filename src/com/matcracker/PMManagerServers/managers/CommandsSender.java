@@ -58,7 +58,7 @@ public class CommandsSender{
 		
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(Utility.setTitle("&c", "CommandSender"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.commandSender")));
 		Utility.showServers();
 		System.out.println((UtilityServersAPI.getNumberServers() + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
@@ -70,17 +70,22 @@ public class CommandsSender{
 			String pathContent = UtilityServersAPI.getPath(server);
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 				if(pathContent != null){
-					System.out.println("[If server is offline, just back online the commands are executed]");
-					System.out.println("[Assicure that you have got the plugin PM-ManagerServers]");
+					CommandsSender sender = new CommandsSender(server, pathContent);
+					
+					System.out.println(BaseLang.translate("pm.cmdSender.offline"));
+					System.out.println(BaseLang.translate("pm.cmdSender.needPlugin"));
 					do{
 						do{
-							cmd = Utility.readString(UtilityColor.COLOR_PURPLE + "Command to send: " + UtilityColor.COLOR_WHITE, null).replace("/", "");
+							cmd = Utility.readString(UtilityColor.COLOR_PURPLE + BaseLang.translate("pm.cmdSender.requestCmd") + " " + UtilityColor.COLOR_WHITE, null).replace("/", "");
+							if(cmd.equalsIgnoreCase("start")){
+								Utility.openSoftware("software", sender.getPath() + Utility.getStartName());
+								cmd = "";
+							}
 						}while(cmd.equalsIgnoreCase("") || cmd.equalsIgnoreCase(" "));
 						
 						if(cmd.equalsIgnoreCase("exit"))
 							commandSenderMenu();
 						
-						CommandsSender sender = new CommandsSender(server, pathContent);
 						sender.sendCommand(cmd);
 						
 					}while(!cmd.equalsIgnoreCase("exit"));
@@ -89,7 +94,7 @@ public class CommandsSender{
 			}else
 				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
 		}else
-			Utility.waitConfirm("Server not avaiable!");
+			Utility.waitConfirm(BaseLang.translate("pm.errors.noValid"));
 			
 		commandSenderMenu();
 	}
@@ -128,24 +133,24 @@ public class CommandsSender{
 	public int getServer(){
 		return this.server;
 	}
+	
 	/**
 	 * @param command to send in PocketMine
 	 */
 	public void sendCommand(String command){
 		try{
 			if(!existPlugin()){
-				System.out.println("The plugin isn't enabled!");
-				String conf = Utility.readString("Do you want to download it? <Y/n>: ", null);
+				System.out.println(BaseLang.translate("pm.cmdSender.noPlugin"));
+				String conf = Utility.readString(BaseLang.translate("pm.cmdSender.downloadPlugin") + " <Y/n>: ", null);
 				if(conf.equalsIgnoreCase("Y")){
 					String phar = "https://github.com/matcracker/PM-ManagerServers-PHP/releases/download/v1.0.0/PM-ManagerServers.phar";
 					Utility.downloadFile(phar, this.path + "plugins");
 				}
 				
-				conf = Utility.readString("Do you want to start the server? <Y/n>: ", null);
+				conf = Utility.readString(BaseLang.translate("pm.cmdSender.startServer") + " <Y/n>: ", null);
 				
 				if(conf.equalsIgnoreCase("Y"))
 					Utility.openSoftware("software", this.path + Utility.getStartName());
-				
 				
 				return;
 			}
@@ -156,9 +161,9 @@ public class CommandsSender{
 			
 			pluginDir = new File(pluginDir + File.separator + command);
 			
-			Utility.writeStringData(pluginDir, ""); //The parameter command is useless but can be useful
+			Utility.writeStringData(pluginDir, "");
 		}catch(Exception e){
-			System.out.println("Error during the executing of command: " + command);
+			System.out.println(BaseLang.translate("pm.cmdSender.errorSend") + " " + command);
 			System.out.println(e.getMessage());
 		}
 	}

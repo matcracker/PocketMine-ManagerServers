@@ -35,7 +35,7 @@ public class Rescuer {
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.backup")));
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
-			System.out.printf("%d) %s -> Status: %s\n", i, UtilityServersAPI.getNameServer(i), StatusAPI.getBackuped(i));
+			System.out.printf("%d) %s -> %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.status"), StatusAPI.getBackuped(i));
 		
 		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		

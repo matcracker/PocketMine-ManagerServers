@@ -18,6 +18,7 @@ package com.matcracker.PMManagerServers.commands;
 
 import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.lang.BaseLang;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class CommandSetStart {
 	public static void command(String[] args){
@@ -25,10 +26,10 @@ public class CommandSetStart {
 			if(args.length > 1){
 				if(args[1].equalsIgnoreCase("commander")){
 					APIManager.setCommandsMode(true);
-					System.out.println("&2Enabled default start in commands mode");
+					System.out.println(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.cmdSetStart.commander"));
 				}else if(args[1].equalsIgnoreCase("menu")){
 					APIManager.setCommandsMode(false);
-					System.out.println("&2Enabled default start in menu mode");
+					System.out.println(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.cmdSetStart.menu"));
 				}
 			}else
 				System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));

@@ -33,9 +33,9 @@ public class PMServersManager {
 		String newPath = "";
 		
 		if(APIManager.isServerMode())
-			newPath = Utility.readString("Select path for this server: ", "[Example: /home/User/PocketMine-MP/]");
+			newPath = Utility.readString(BaseLang.translate("pm.serverManager.choosePath") + " ", "[" + BaseLang.translate("pm.standard.example") + " /home/User/PocketMine-MP/]");
 		else
-			newPath = FileChooser.getPhar("Select new path of a server");
+			newPath = FileChooser.getPhar(BaseLang.translate("pm.serverManager.choosePath"));
 		
 		int nservers = UtilityServersAPI.getNumberServers();
 		
@@ -63,9 +63,9 @@ public class PMServersManager {
 			newName = UtilityServersAPI.getDefaultServerName() + "_" + server;
 		
 		if(APIManager.isServerMode())
-			newPath = Utility.readString("Select path for this server: ", "[Example: /home/User/PocketMine-MP/]");
+			newPath = Utility.readString(BaseLang.translate("pm.serverManager.choosePath") + " ", "[" + BaseLang.translate("pm.standard.example") + " /home/User/PocketMine-MP/]");
 		else
-			newPath = FileChooser.getPhar("Select new path of a server");
+			newPath = FileChooser.getPhar(BaseLang.translate("pm.serverManager.choosePath"));
 		
 		File newBackupFile = new File("Backups" + File.separator + "Servers" + File.separator + newName + ".zip");
 		UtilityServersAPI.setNameServer(server, newName);

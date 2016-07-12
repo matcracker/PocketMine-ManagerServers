@@ -39,10 +39,7 @@ public class Opener {
 					if(pathContent != null){
 						System.out.println(BaseLang.translate("pm.opener.opening") + " " + UtilityServersAPI.getNameServer(i));
 						if(isServer)
-							if(Utility.getOSName().equalsIgnoreCase("Windows"))
-								Utility.openSoftware("software", pathContent + File.separator + Utility.getStartName());
-							else
-								Utility.openSoftware("software", pathContent + File.separator + "start.sh");
+							Utility.openSoftware("software", pathContent + File.separator + Utility.getStartName());
 						else
 							Utility.openSoftware("software", pathContent);
 					}else{

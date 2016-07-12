@@ -23,6 +23,7 @@ import com.matcracker.PMManagerServers.API.APIManager;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.ProcessManager;
 import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class DevMode{
 	
@@ -69,11 +70,11 @@ public class DevMode{
 		long usedMemory = (allocatedMemory - freeMemory);
 		long totalFreeMemory =(freeMemory + (maxMemory - allocatedMemory));
 		
-		System.out.printf("Free memory: %.2f MB\n", freeMemory / mb);
-		System.out.printf("Allocated memory: %.2f MB\n", allocatedMemory / mb);
-		System.out.printf("Max memory: %.2f MB\n", maxMemory / mb);
-		System.out.printf("Total free memory: %.2f MB\n", totalFreeMemory / mb);
-        System.out.printf("Used Memory: %.2f MB\n", usedMemory / mb);
+		System.out.printf("%s %.2f MB\n", BaseLang.translate("pm.devmenu.freeMemory"), freeMemory / mb);
+		System.out.printf("%s %.2f MB\n", BaseLang.translate("pm.devmenu.allocatedMemory"),allocatedMemory / mb);
+		System.out.printf("%s %.2f MB\n", BaseLang.translate("pm.devmenu.maxMemory"), maxMemory / mb);
+		System.out.printf("%s %.2f MB\n", BaseLang.translate("pm.devmenu.totalFreeMemory"), totalFreeMemory / mb);
+        System.out.printf("%s %.2f MB\n", BaseLang.translate("pm.devmenu.usedMemory"), usedMemory / mb);
 
         System.out.println();
 		Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
@@ -100,14 +101,14 @@ public class DevMode{
 		Calendar calendar = Calendar.getInstance();
 		String strDate = calendar.getTime().toString();
 		
-		System.out.println("&eSystem Information&f");
-		System.out.println("Current time is " + strDate);
-		System.out.println("OS Name: " + System.getProperty("os.name"));
-		System.out.println("OS Version: " + System.getProperty("os.version"));
-		System.out.println("OS Architecture: " + System.getProperty("os.arch"));
-		System.out.println("Java version: " + System.getProperty("java.version"));
-		System.out.println("Java vendor: " + System.getProperty("java.vendor"));
-		System.out.println("Bit Architecture: " + System.getProperty("sun.arch.data.model") + " bit");
+		System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.devmenu.systemInfo") + UtilityColor.COLOR_WHITE);
+		System.out.println(BaseLang.translate("pm.devmenu.time") + " " + strDate);
+		System.out.println(BaseLang.translate("pm.devmenu.osName") + " " + System.getProperty("os.name"));
+		System.out.println(BaseLang.translate("pm.devmenu.osVersion") + " " + System.getProperty("os.version"));
+		System.out.println(BaseLang.translate("pm.devmenu.osArch") + " " + System.getProperty("os.arch"));
+		System.out.println(BaseLang.translate("pm.devmenu.javaVersion") + " " + System.getProperty("java.version"));
+		System.out.println(BaseLang.translate("pm.devmenu.javaVendor") + " " + System.getProperty("java.vendor"));
+		System.out.println(BaseLang.translate("pm.devmenu.bitArch") + " " + System.getProperty("sun.arch.data.model") + " bit");
 		
 		System.out.println();
 		Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));

@@ -29,7 +29,7 @@ import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Loader {
-		
+	
 	public static void completeLoader() throws IOException{
 		int nservers = 0;
 		if(UtilityServersAPI.checkServersFile("Data", "nservers", -1) && UtilityServersAPI.checkServersFile("Data", "langSel", -1)){
@@ -74,7 +74,7 @@ public class Loader {
 					String defaults = UtilityServersAPI.getDefaultServerName();
 					defaults = defaults + "_" + i;
 					
-					System.out.printf("%d) %s %d ° %s: ", i, BaseLang.translate("pm.loader.nameOf"), i, BaseLang.translate("pm.standard.server"));
+					System.out.printf("%d) %s %d° %s: ", i, BaseLang.translate("pm.loader.nameOf"), i, BaseLang.translate("pm.standard.server"));
 					
 					try{
 						nameServers[i-1] = Utility.keyword.readLine();
@@ -97,7 +97,7 @@ public class Loader {
 					System.out.printf("\n%d) %s %d° %s: ",i ,BaseLang.translate("pm.loader.pathOf"),i ,BaseLang.translate("pm.standard.server"));
 					
 					if(APIManager.isServerMode()){
-						System.out.println("[Example: /home/User/PocketMine-MP/]");
+						System.out.println("[" + BaseLang.translate("pm.standard.example") + " /home/User/PocketMine-MP/]");
 						path[i-1] = Utility.keyword.readLine();
 					}else
 						path[i-1] = FileChooser.getPhar("Select " + i + "° path of PocketMine-MP.phar");

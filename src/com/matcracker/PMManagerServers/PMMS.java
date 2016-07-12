@@ -37,8 +37,8 @@ public class PMMS{
 	
 	public static void main(String[] args){
 		if(args.length != 1){
-			System.out.println("Assicure that you are using the arguments -server or -pc");
-			System.out.println("Example: java -jar PocketMine-ManagerServers.jar -pc");
+			System.out.println(BaseLang.translate("pm.mainMenu.argsError"));
+			System.out.println(BaseLang.translate("pm.standard.example") + " java -jar PocketMine-ManagerServers.jar -pc");
 		}
 		
 		if(args[0].equalsIgnoreCase("-server"))

@@ -25,6 +25,7 @@ import com.matcracker.PMManagerServers.commands.CommandRestart;
 import com.matcracker.PMManagerServers.commands.CommandSetStart;
 import com.matcracker.PMManagerServers.commands.CommandStart;
 import com.matcracker.PMManagerServers.commands.CommandStop;
+import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.lang.LangSelector;
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
@@ -34,7 +35,7 @@ public class CommandsMode {
 	protected static void menu() throws IOException {
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(Utility.setTitle("&c", "Commands Mode"));
+		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.commandsMode")));
 		
 		String cmd = "";
 		
@@ -44,7 +45,7 @@ public class CommandsMode {
 			
 			switch(cmd){
 				case "backup": CommandRescuer.commandBackup(args); break;
-				case "clear": menu(); System.out.println(UtilityColor.COLOR_GREEN + "Console cleaned!"); break;
+				case "clear": menu(); System.out.println(UtilityColor.COLOR_GREEN +BaseLang.translate("pm.cmdMode.consoleClean")); break;
 				case "edit": CommandEdit.command(args); break;
 				case "exit": System.exit(0); break;
 				case "help": CommandHelp.command(); break;
@@ -56,7 +57,7 @@ public class CommandsMode {
 				case "start": CommandStart.command(args); break;
 				case "stop": CommandStop.command(args); break;
 				default:
-					System.out.println(UtilityColor.COLOR_RED + "Command not found!");
+					System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.cmdMode.cmdNotFound"));
 			}
 		}
 	}

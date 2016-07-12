@@ -110,7 +110,7 @@ public class Downloader {
 			if(ver == 3){ //Dev
 				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 				System.out.println("1) 1.6 API 2.0.0 [#Dev Build 25] {MC:PE 0.14.3}");
-				System.out.println("1) 1.6 API 2.0.0 [#Dev Build 27] {MC:PE 0.15.1}");
+				System.out.println("2) 1.6 API 2.0.0 [#Dev Build 27] {MC:PE 0.15.1}");
 				
 				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
 				
@@ -175,7 +175,7 @@ public class Downloader {
 		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
-		String arch = System.getProperty("os.arch");
+		String arch = System.getProperty("sun.arch.data.model");
 		String os = Utility.getOSName();
 		
 		if(opt == 3)
@@ -185,7 +185,7 @@ public class Downloader {
 			arch = "86";
 		else if(arch.contains("64"))
 			arch = "64";
-		else if(arch.contains("64") && (os.equalsIgnoreCase("Linux") || os.equalsIgnoreCase("MacOS")))
+		else if(arch.contains("64") && !os.equalsIgnoreCase("Windows"))
 			arch = "86-64";
 
 		if(opt == 1 || opt == 2){
@@ -199,7 +199,7 @@ public class Downloader {
 			phplink = "https://dl.bintray.com/pocketmine/PocketMine/PHP_" + php + "_x" + arch + "_" + os + ".tar.gz";
 			Utility.downloadFile(phplink, "Utils");
 			Utility.waitConfirm(BaseLang.translate("pm.php.binariesDownloaded"));
-			String confirm = Utility.readString("Do you want to extract it in your server? <Y/n>: ", null);
+			String confirm = Utility.readString(BaseLang.translate("pm.php.extractIn") + " <Y/n>: ", null);
 			String filePHP = " PHP_" + php + "_x" + arch + "_" + os + ".tar.gz";
 			
 			if(confirm.equalsIgnoreCase("Y"))
