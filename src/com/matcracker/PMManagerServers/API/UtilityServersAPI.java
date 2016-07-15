@@ -62,7 +62,12 @@ public class UtilityServersAPI{
 	 * @return name of server
 	 */
 	public static String getNameServer(int index){
-		return Utility.readStringData(new File("ServersName" + File.separator + "ServerName_" + index + ".pm"));
+		String server = Utility.readStringData(new File("ServersName" + File.separator + "ServerName_" + index + ".pm"));
+		
+		if(server != null)
+			return server;
+		
+		return "Error on getting server name!";
 	}
 	
 	/**
@@ -85,14 +90,22 @@ public class UtilityServersAPI{
 	 * @return content of path
 	 */
 	public static String getPath(int index){
-		return Utility.readStringData(new File("Path" + File.separator + "path_" + index + ".pm"));
+		String path = Utility.readStringData(new File("Path" + File.separator + "path_" + index + ".pm"));
+		
+		if(path != null)
+			return path;
+					
+		return "Error on getting path!";
 	}
 	
 	/**
 	 * @param name of default server
 	 */
 	public static void setDefaultServerName(String name){
-		Utility.defaultServersName = name;
+		if(name != null)
+			Utility.defaultServersName = name;
+		else
+			Utility.waitConfirm("Can't set a null value!");
 	}
 	
 	/**
@@ -112,7 +125,8 @@ public class UtilityServersAPI{
 	 * @param content name of server
 	 */
 	public static void setNameServer(int index, String content){
-		Utility.writeStringData(new File("ServersName" + File.separator + "ServerName_" + index + ".pm"), content);
+		if(content != null)
+			Utility.writeStringData(new File("ServersName" + File.separator + "ServerName_" + index + ".pm"), content);
 	}
 	
 	/**

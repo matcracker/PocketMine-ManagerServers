@@ -18,6 +18,7 @@ package com.matcracker.PMManagerServers.API;
 
 import java.io.File;
 
+import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class StatusAPI {
@@ -26,8 +27,13 @@ public class StatusAPI {
 	 * @param index from 1 to max number of server
 	 * @return status of server performance
 	 */
-	public static String getBackuped(int index) {
-		return Utility.readStringData(new File("Backups" + File.separator + "Status" + File.separator + "BackupStatus_"+ index + ".pm"));
+	public static String getBackuped(int index){
+		String status = Utility.readStringData(new File("Backups" + File.separator + "Status" + File.separator + "BackupStatus_"+ index + ".pm"));
+		
+		if(status != null)
+			return status;
+		
+		return BaseLang.translate("pm.status.error");
 	}
 	
 	/**
@@ -35,7 +41,12 @@ public class StatusAPI {
 	 * @return status of server performance
 	 */
 	public static String getPerformace(int index) {
-		return Utility.readStringData(new File("Performance" + File.separator + "PerformanceStatus_" + index + ".pm"));
+		String status = Utility.readStringData(new File("Performance" + File.separator + "PerformanceStatus_" + index + ".pm"));
+		
+		if(status != null)
+			return status;
+		
+		return BaseLang.translate("pm.status.error");
 	}
 	
 	/**
@@ -43,7 +54,12 @@ public class StatusAPI {
 	 * @return status of server
 	 */
 	public static String getStatus(int index){
-		return Utility.readStringData(new File("Installations" + File.separator + "Status" + File.separator + "Status_" + index + ".pm"));
+		String status = Utility.readStringData(new File("Installations" + File.separator + "Status" + File.separator + "Status_" + index + ".pm"));
+		
+		if(status != null)
+			return status;
+		
+		return BaseLang.translate("pm.status.error");
 	}
 	
 	/**
@@ -51,16 +67,23 @@ public class StatusAPI {
 	 * @return version of server
 	 */
 	public static String getVersion(int index){
-		return Utility.readStringData(new File("Installations" + File.separator + "Version" + File.separator + "Status_" + index + ".pm"));
+		String status =  Utility.readStringData(new File("Installations" + File.separator + "Version" + File.separator + "Status_" + index + ".pm"));
+		
+		if(status != null)
+			return status;
+		
+		return BaseLang.translate("pm.status.error");
 	}
 	
 	/**
 	 * @param status name of performance status(Only Personal, High, Medium, Low)
 	 * @param index
 	 */
-	public static void setBackuped(String status, int index) {
-		Utility.writeStringData(new File("Backups" + File.separator + "Status" + File.separator + "BackupStatus_"+ index + ".pm"), status);
-		
+	public static void setBackuped(String status, int index){
+		if(status != null)
+			Utility.writeStringData(new File("Backups" + File.separator + "Status" + File.separator + "BackupStatus_"+ index + ".pm"), status);
+		else
+			Utility.waitConfirm("Status can't be null!");
 	}
 	
 	/**
@@ -68,8 +91,10 @@ public class StatusAPI {
 	 * @param index
 	 */
 	public static void setPerformance(String status, int index) {
-		Utility.writeStringData(new File("Performance" + File.separator + "PerformanceStatus_" + index + ".pm"), status);
-		
+		if(status != null)
+			Utility.writeStringData(new File("Performance" + File.separator + "PerformanceStatus_" + index + ".pm"), status);
+		else
+			Utility.waitConfirm("Status can't be null!");
 	}
 	
 	/**
@@ -77,7 +102,10 @@ public class StatusAPI {
 	 * @param index from 1 to max number of server
 	 */
 	public static void setStatus(String status, int index){
-		Utility.writeStringData(new File("Installations" + File.separator + "Status" + File.separator + "Status_" + index + ".pm"), status);
+		if(status != null)
+			Utility.writeStringData(new File("Installations" + File.separator + "Status" + File.separator + "Status_" + index + ".pm"), status);
+		else
+			Utility.waitConfirm("Status can't be null!");
 	}
 	
 	/**
@@ -85,7 +113,10 @@ public class StatusAPI {
 	 * @param index from 1 to max number of server
 	 */
 	public static void setVersion(String version, int index){
-		Utility.writeStringData(new File("Installations" + File.separator + "Version" + File.separator + "Status_" + index + ".pm"), version);
+		if(version != null)
+			Utility.writeStringData(new File("Installations" + File.separator + "Version" + File.separator + "Status_" + index + ".pm"), version);
+		else
+			Utility.waitConfirm("Version can't be null!");
 	}
 	
 }
