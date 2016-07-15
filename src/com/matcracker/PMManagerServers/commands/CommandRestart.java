@@ -43,9 +43,9 @@ public class CommandRestart {
 							task = new BackgroundTask(time*1000, i, true);
 							task.start();
 						}else
-							Utility.waitConfirm(i + ") " + UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+							Utility.waitConfirm(i + ") " + UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 					}else
-						Utility.waitConfirm(i + ") " + UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+						Utility.waitConfirm(i + ") " + UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 
 				}
 			}else

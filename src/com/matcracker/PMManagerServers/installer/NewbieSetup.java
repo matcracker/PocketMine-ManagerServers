@@ -68,7 +68,7 @@ public class NewbieSetup {
 		do{
 			name = Utility.readString(BaseLang.translate("pm.newbie.selectName") + " ", null);
 			if(name.contains(" "))
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.loader.noSpaces"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.loader.noSpaces"));
 			else if(name.equalsIgnoreCase(""))
 				name = UtilityServersAPI.getDefaultServerName() + "_" + (nservers+1);
 			
@@ -90,7 +90,8 @@ public class NewbieSetup {
 		UtilityServersAPI.setPath(nservers+1, path);
 		StatusAPI.setStatus(BaseLang.translate("pm.status.install"), nservers + 1);
 		StatusAPI.setVersion(BaseLang.translate("pm.status.dev"), nservers + 1);
-		
+		StatusAPI.setBackuped(BaseLang.translate("pm.status.noBackuped"), nservers + 1);
+		StatusAPI.setPerformance(BaseLang.translate("pm.status.personal"), nservers + 1);
 		UtilityServersAPI.setNumberServer(nservers + 1);
 
 		System.out.println(BaseLang.translate("pm.newbie.finish"));

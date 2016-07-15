@@ -21,7 +21,7 @@ import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class CommandHelp{
 	public static void command(){
-		System.out.println(UtilityColor.COLOR_YELLOW);
+		System.out.println(UtilityColor.YELLOW);
         System.out.println("/backup <(servername|servernumber)|all> : " + BaseLang.translate("pm.cmdHelp.backup"));
         System.out.println("/clear : " + BaseLang.translate("pm.cmdHelp.clear"));
         System.out.println("/edit <performance|properties> [PerformanceType] [(servername|servernumber)]: " + BaseLang.translate("pm.cmdHelp.edit"));

@@ -130,9 +130,9 @@ public class Performance {
 				
 				performanceMenu();
 			}else
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 		}else
-			Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+			Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 		
 		performanceMenu();
 	}

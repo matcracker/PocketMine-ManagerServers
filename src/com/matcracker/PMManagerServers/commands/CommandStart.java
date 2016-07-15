@@ -34,9 +34,9 @@ public class CommandStart {
 							if(pathContent != null)
 								Utility.openSoftware("software", pathContent + File.separator + Utility.getStartName());
 							else
-								Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+								Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 						}else
-							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 					}
 				}else{
 					int server = -1;
@@ -56,9 +56,9 @@ public class CommandStart {
 						if(pathContent != null)
 							Utility.openSoftware("software", pathContent + File.separator + Utility.getStartName());
 						else
-							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 					}else
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 				}
 			}else
 				System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));

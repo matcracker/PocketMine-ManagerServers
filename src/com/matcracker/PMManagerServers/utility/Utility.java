@@ -39,13 +39,13 @@ import com.matcracker.PMManagerServers.loaders.PluginsLoader;
 public class Utility{
 
 	public static String defaultServersName = "Server_Minecraft_PE";
-	public static final String generalError =  UtilityColor.COLOR_RED + "An error occured!";
+	public static final String generalError =  UtilityColor.RED + "An error occured!";
 	
 	public static InputStreamReader input = new InputStreamReader(System.in);
 	/**
 	 * Errors costants
 	 */	
-	public static final String inputError = UtilityColor.COLOR_RED + "Error during the choice!";
+	public static final String inputError = UtilityColor.RED + "Error during the choice!";
 	
 	public static BufferedReader keyword = new BufferedReader(input);
 	public static final String softwareName = "&a=========================&e<&bPocketMine Manager Servers&e>&a===========================";
@@ -315,7 +315,7 @@ public class Utility{
 	        buff.append(repeatedChar);
 	    }
 
-		return color + buff.toString() + UtilityColor.COLOR_WHITE;
+		return color + buff.toString() + UtilityColor.WHITE;
 		
 	}
 	
@@ -347,7 +347,7 @@ public class Utility{
 				System.out.println();
 			}
 		}catch(NullPointerException e){
-			Utility.waitConfirm(UtilityColor.COLOR_RED + "Can't find any server!");
+			Utility.waitConfirm(UtilityColor.RED + "Can't find any server!");
 		}
 	}
 	

@@ -101,7 +101,7 @@ public class DevMode{
 		Calendar calendar = Calendar.getInstance();
 		String strDate = calendar.getTime().toString();
 		
-		System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.devmenu.systemInfo") + UtilityColor.COLOR_WHITE);
+		System.out.println(UtilityColor.YELLOW + BaseLang.translate("pm.devmenu.systemInfo") + UtilityColor.WHITE);
 		System.out.println(BaseLang.translate("pm.devmenu.time") + " " + strDate);
 		System.out.println(BaseLang.translate("pm.devmenu.osName") + " " + System.getProperty("os.name"));
 		System.out.println(BaseLang.translate("pm.devmenu.osVersion") + " " + System.getProperty("os.version"));

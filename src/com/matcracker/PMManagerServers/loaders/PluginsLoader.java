@@ -77,17 +77,17 @@ public class PluginsLoader{
 
 		for(File plugins : folder.listFiles()){
 			if(plugins.isFile() && plugins.getName().endsWith(".jar")){
-				System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.plugins.loading") + " " + pluginExec(plugins, "getName"));
+				System.out.println(UtilityColor.YELLOW + BaseLang.translate("pm.plugins.loading") + " " + pluginExec(plugins, "getName"));
 				pluginExec(plugins, "onEnable");
 				
 				double plugApi = Double.parseDouble((String) pluginExec(plugins, "getAPIVersion"));
 				double api = Double.parseDouble(APIManager.getAPIVersion());
 				
 				if(plugApi < api)
-					System.out.println(UtilityColor.COLOR_DARK_CYAN + BaseLang.translate("pm.plugins.minorApi"));
+					System.out.println(UtilityColor.DARK_CYAN + BaseLang.translate("pm.plugins.minorApi"));
 				
 				if(plugApi > api)
-					System.out.println(UtilityColor.COLOR_DARK_CYAN + BaseLang.translate("pm.plugins.majorApi"));
+					System.out.println(UtilityColor.DARK_CYAN + BaseLang.translate("pm.plugins.majorApi"));
 		
 				try{
 					Thread.sleep(1200);
@@ -100,7 +100,7 @@ public class PluginsLoader{
 		}
 
 		if(!pluginFound){
-			System.out.println(UtilityColor.COLOR_DARK_YELLOW + BaseLang.translate("pm.plugins.noPluginFound"));
+			System.out.println(UtilityColor.DARK_YELLOW + BaseLang.translate("pm.plugins.noPluginFound"));
 			try{
 				Thread.sleep(1000);
 			}catch (InterruptedException e){
@@ -122,13 +122,13 @@ public class PluginsLoader{
 			if(instance instanceof PluginStarter && instance instanceof PluginInformation)
 				return method.invoke(instance);
 			else{
-				System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.plugins.noPlugin"));
-				System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.plugins.unloading") + " " + path.getName());
+				System.out.println(UtilityColor.RED + BaseLang.translate("pm.plugins.noPlugin"));
+				System.out.println(UtilityColor.YELLOW + BaseLang.translate("pm.plugins.unloading") + " " + path.getName());
 			}
 			
 			Thread.sleep(1500);
 		}catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | InterruptedException e2){
-			System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.plugins.errorLoading") + " " + methodName);
+			System.out.println(UtilityColor.RED + BaseLang.translate("pm.plugins.errorLoading") + " " + methodName);
 
 		}
 		return false;
@@ -140,7 +140,7 @@ public class PluginsLoader{
 	public static void unloadPlugins(){
 		for(File plugins : folder.listFiles()){
 			if(plugins.isFile() && plugins.getName().endsWith(".jar")){
-				System.out.println(UtilityColor.COLOR_YELLOW + BaseLang.translate("pm.plugins.unloading") + " " + pluginExec(plugins, "getName"));
+				System.out.println(UtilityColor.YELLOW + BaseLang.translate("pm.plugins.unloading") + " " + pluginExec(plugins, "getName"));
 				pluginExec(plugins, "onDisable");
 			
 				try{

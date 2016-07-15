@@ -87,9 +87,9 @@ public class Restarter {
 				}else
 					Utility.waitConfirm(BaseLang.translate("pm.restarter.serverNotRunning"));
 			}else
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 		}else
-			Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+			Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 	}*/
 	private static void setupTimer(){
 		System.out.println("1- " + BaseLang.translate("pm.restarter.days"));
@@ -121,8 +121,8 @@ public class Restarter {
 				task.start();
 				i++;
 			}else
-				Utility.waitConfirm(i + ") " + UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+				Utility.waitConfirm(i + ") " + UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 		}else
-			Utility.waitConfirm(i + ") " + UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+			Utility.waitConfirm(i + ") " + UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 	}
 }

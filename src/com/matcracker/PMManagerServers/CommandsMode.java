@@ -40,12 +40,12 @@ public class CommandsMode {
 		String cmd = "";
 		
 		while(!cmd.equalsIgnoreCase("menu")){
-			String[] args = Utility.readString(UtilityColor.COLOR_WHITE + ">", null).replace("/", "").split(" ");
+			String[] args = Utility.readString(UtilityColor.WHITE + ">", null).replace("/", "").split(" ");
 			cmd = args[0].toLowerCase();
 			
 			switch(cmd){
 				case "backup": CommandRescuer.commandBackup(args); break;
-				case "clear": menu(); System.out.println(UtilityColor.COLOR_GREEN +BaseLang.translate("pm.cmdMode.consoleClean")); break;
+				case "clear": menu(); System.out.println(UtilityColor.GREEN +BaseLang.translate("pm.cmdMode.consoleClean")); break;
 				case "edit": CommandEdit.command(args); break;
 				case "exit": System.exit(0); break;
 				case "help": CommandHelp.command(); break;
@@ -57,7 +57,7 @@ public class CommandsMode {
 				case "start": CommandStart.command(args); break;
 				case "stop": CommandStop.command(args); break;
 				default:
-					System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.cmdMode.cmdNotFound"));
+					System.out.println(UtilityColor.RED + BaseLang.translate("pm.cmdMode.cmdNotFound"));
 			}
 		}
 	}

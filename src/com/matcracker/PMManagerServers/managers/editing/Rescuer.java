@@ -50,13 +50,13 @@ public class Rescuer {
 						System.out.println(BaseLang.translate("pm.rescuer.create"));
 						Zipper.zip(null, pathContent, backupedServersPath, ArchiveFormat.ZIP, null);
 						StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
-						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.backuped"));
+						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.rescuer.backuped"));
 					}else
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.existBackup"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.rescuer.existBackup"));
 				}else
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 			
 		}
 	}
@@ -104,13 +104,13 @@ public class Rescuer {
 						
 						System.out.println(BaseLang.translate("pm.rescuer.extracting"));
 						Zipper.unzip(extractServersPath, destinationPath, ArchiveFormat.ZIP, null);
-						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.extracted"));
+						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.rescuer.extracted"));
 					}else
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.noBackup"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.rescuer.noBackup"));
 				}else
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 			
 		}
 	}

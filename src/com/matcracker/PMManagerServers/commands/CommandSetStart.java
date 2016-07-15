@@ -26,10 +26,10 @@ public class CommandSetStart {
 			if(args.length > 1){
 				if(args[1].equalsIgnoreCase("commander")){
 					APIManager.setCommandsMode(true);
-					System.out.println(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.cmdSetStart.commander"));
+					System.out.println(UtilityColor.GREEN + BaseLang.translate("pm.cmdSetStart.commander"));
 				}else if(args[1].equalsIgnoreCase("menu")){
 					APIManager.setCommandsMode(false);
-					System.out.println(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.cmdSetStart.menu"));
+					System.out.println(UtilityColor.GREEN + BaseLang.translate("pm.cmdSetStart.menu"));
 				}
 			}else
 				System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));

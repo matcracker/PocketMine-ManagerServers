@@ -37,7 +37,7 @@ public class CommandRescuer {
 							String backupPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(i) + ".zip";
 							Zipper.zip(null, UtilityServersAPI.getPath(i), backupPath, ArchiveFormat.ZIP, null);
 						}else
-							System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.existBackup"));
+							System.out.println(UtilityColor.RED + BaseLang.translate("pm.rescuer.existBackup"));
 					}
 				}else{
 					int server = -1;
@@ -57,9 +57,9 @@ public class CommandRescuer {
 						System.out.println(BaseLang.translate("pm.rescuer.create"));
 						Zipper.zip(null, UtilityServersAPI.getPath(server), backupPath, ArchiveFormat.ZIP, null);
 						StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
-						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.backuped"));
+						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.rescuer.backuped"));
 					}else
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.existBackup"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.rescuer.existBackup"));
 				}
 			}else
 				System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));
@@ -81,7 +81,7 @@ public class CommandRescuer {
 							Zipper.unzip(extractServersPath, destinationPath, ArchiveFormat.ZIP, null);
 							System.out.println(i + ")" + BaseLang.translate("pm.rescuer.extracted"));
 						}else
-							System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.noBackup"));
+							System.out.println(UtilityColor.RED + BaseLang.translate("pm.rescuer.noBackup"));
 					}
 				}else{
 					int server = -1;
@@ -101,9 +101,9 @@ public class CommandRescuer {
 						System.out.println(BaseLang.translate("pm.rescuer.extracting"));
 						Zipper.unzip(extractServersPath, destinationPath, ArchiveFormat.ZIP, null);
 						StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
-						Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.rescuer.extracted"));
+						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.rescuer.extracted"));
 					}else
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.rescuer.noBackup"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.rescuer.noBackup"));
 				}
 			}else
 				System.out.println(BaseLang.translate("pm.cmdMode.tooFew"));

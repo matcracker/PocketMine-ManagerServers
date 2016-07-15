@@ -47,7 +47,7 @@ public class Informations {
 			if(license.exists())
 				Utility.openSoftware("software", license.toString());
 			else
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.informations.bad"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.informations.bad"));
 		}
 		
 		if(info == 2){

@@ -67,7 +67,7 @@ public class Installator {
 				if(installer.exists() || installer2.exists()){
 					String os = Utility.getOSName();
 					if(!os.equalsIgnoreCase("Windows")){
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.noService"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.installer.noService"));
 						return;
 					}
 					
@@ -80,7 +80,7 @@ public class Installator {
 					StatusAPI.setVersion(BaseLang.translate("pm.status.stable"), server);
 					StatusAPI.setStatus(BaseLang.translate("pm.status.install"), server);
 				}else
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.instNotFound"));					
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.installer.instNotFound"));					
 				
 			}
 			
@@ -101,10 +101,10 @@ public class Installator {
 								StatusAPI.setVersion(BaseLang.translate("pm.status.beta"), server);
 							}	
 						}else
-							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.installer.pharNotFound"));
 					}
 				}else
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 			}
 			
 			if(ver == 3){ //Dev
@@ -128,11 +128,11 @@ public class Installator {
 							StatusAPI.setVersion(BaseLang.translate("pm.status.dev"), server);
 						}	
 					}else
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.installer.pharNotFound"));
 
 					
 				}else
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 				
 			}
 			
@@ -153,11 +153,11 @@ public class Installator {
 								StatusAPI.setVersion(BaseLang.translate("pm.status.soft"), server);
 							}	
 						}else
-							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.installer.pharNotFound"));
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.installer.pharNotFound"));
 						
 					}
 				}else
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 				
 			}
 			
@@ -196,8 +196,8 @@ public class Installator {
 				Zipper.unzip("Utils" + File.separator + fileArchive, path, ArchiveFormat.TAR, CompressionType.GZIP);
 				Utility.waitConfirm(BaseLang.translate("pm.php.extracted"));
 			}else
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 		}else
-			Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+			Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 	}
 }

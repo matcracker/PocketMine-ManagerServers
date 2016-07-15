@@ -105,13 +105,13 @@ public class ManagerInstaller {
 			try{
 				Files.copy(downloadFile.toPath(), destFolder.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			}catch (IOException e){
-				System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.fileNotFound"));
+				System.out.println(UtilityColor.RED + BaseLang.translate("pm.errors.fileNotFound"));
 			}
 			if(type != null)
 				destFolder.renameTo(new File("Utils" + File.separator + "PocketMine-MP_" + type.toUpperCase() + ".phar"));
 			
 		}else
-			System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.noDownloadPath"));
+			System.out.println(UtilityColor.RED + BaseLang.translate("pm.errors.noDownloadPath"));
 	}
 	/**
 	 * When you download a file, you can rename it and add a suffix for recognize it.
@@ -125,6 +125,6 @@ public class ManagerInstaller {
 			if(type != null)
 				fileFolder.renameTo(new File("Utils" + File.separator + "PocketMine-MP_" + type.toUpperCase() + ".phar"));
 		}else
-			System.out.println(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.noDownloadPath"));
+			System.out.println(UtilityColor.RED + BaseLang.translate("pm.errors.noDownloadPath"));
 	}
 }

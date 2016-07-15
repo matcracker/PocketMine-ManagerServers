@@ -123,11 +123,11 @@ public class PMMS{
 
 				if(i == 3){
 					if(!devMode){
-						Utility.waitConfirm(UtilityColor.COLOR_YELLOW +  BaseLang.translate("pm.devmenu.enabled"));
+						Utility.waitConfirm(UtilityColor.YELLOW +  BaseLang.translate("pm.devmenu.enabled"));
 						APIManager.setDevMode(true);
 						
 					}else{
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.devmenu.disabled"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.devmenu.disabled"));
 						APIManager.setDevMode(false);
 					}
 				}

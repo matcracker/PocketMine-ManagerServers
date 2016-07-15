@@ -76,7 +76,7 @@ public class CommandsSender{
 					System.out.println(BaseLang.translate("pm.cmdSender.needPlugin"));
 					do{
 						do{
-							cmd = Utility.readString(UtilityColor.COLOR_PURPLE + BaseLang.translate("pm.cmdSender.requestCmd") + " " + UtilityColor.COLOR_WHITE, null).replace("/", "");
+							cmd = Utility.readString(UtilityColor.PURPLE + BaseLang.translate("pm.cmdSender.requestCmd") + " " + UtilityColor.WHITE, null).replace("/", "");
 							if(cmd.equalsIgnoreCase("start")){
 								Utility.openSoftware("software", sender.getPath() + Utility.getStartName());
 								cmd = "";
@@ -90,9 +90,9 @@ public class CommandsSender{
 						
 					}while(!cmd.equalsIgnoreCase("exit"));
 				}else
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNull"));
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.pathNotFound"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 		}else
 			Utility.waitConfirm(BaseLang.translate("pm.errors.noValid"));
 			

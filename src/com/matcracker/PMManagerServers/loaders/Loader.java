@@ -46,7 +46,7 @@ public class Loader {
 				
 				if(Utility.is_numeric(temp))
 					if(Integer.parseInt(temp) <= 0)
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.fewServers"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.fewServers"));
 				
 			}while(Integer.parseInt(temp) <= 0 || !Utility.is_numeric(temp));
 			
@@ -80,7 +80,7 @@ public class Loader {
 						nameServers[i-1] = Utility.keyword.readLine();
 						
 						if(nameServers[i-1].contains(" ")){
-							Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.loader.noSpaces"));
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.loader.noSpaces"));
 							Loader.completeLoader();
 							
 						}else if(nameServers[i-1].equalsIgnoreCase("")){
