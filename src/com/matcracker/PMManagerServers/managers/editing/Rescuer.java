@@ -44,15 +44,21 @@ public class Rescuer {
 		else{
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 				String pathContent = UtilityServersAPI.getPath(server);
+				File path = new File(pathContent);
 				if(pathContent != null){
-					String backupedServersPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip";
-					if(StatusAPI.getBackuped(server).equalsIgnoreCase(BaseLang.translate("pm.status.noBackuped"))){
-						System.out.println(BaseLang.translate("pm.rescuer.create"));
-						Zipper.zip(null, pathContent, backupedServersPath, ArchiveFormat.ZIP, null);
-						StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
-						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.rescuer.backuped"));
-					}else
-						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.rescuer.existBackup"));
+					String backupedServersPath = "Backups" + File.separator + "Servers";
+					File zip = new File(backupedServersPath + File.separator + path.getName() + ".zip");
+					System.out.println(BaseLang.translate("pm.rescuer.create"));
+					Zipper.zip(null, pathContent, backupedServersPath, ArchiveFormat.ZIP, null);	
+					File nextFile = new File(backupedServersPath + File.separator + UtilityServersAPI.getNameServer(server) +  ".zip");
+					
+					if(nextFile.exists())
+						nextFile.delete();
+					
+					zip.renameTo(nextFile);
+					
+					StatusAPI.setBackuped(BaseLang.translate("pm.status.backuped"), server);
+					Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.rescuer.backuped"));
 				}else
 					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
@@ -100,7 +106,7 @@ public class Rescuer {
 				if(pathContent != null){
 					if(StatusAPI.getBackuped(server).equalsIgnoreCase(BaseLang.translate("pm.status.backuped"))){
 						String extractServersPath = "Backups" + File.separator + "Servers" + File.separator + UtilityServersAPI.getNameServer(server) + ".zip";
-						String destinationPath = "Backups" + File.separator + "Servers" + File.separator + "Extracted";
+						String destinationPath = "Backups" + File.separator + "Servers" + File.separator + "Extracted" + File.separator + UtilityServersAPI.getNameServer(server);
 						
 						System.out.println(BaseLang.translate("pm.rescuer.extracting"));
 						Zipper.unzip(extractServersPath, destinationPath, ArchiveFormat.ZIP, null);
