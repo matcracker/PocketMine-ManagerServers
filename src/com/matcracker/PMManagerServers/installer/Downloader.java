@@ -68,8 +68,10 @@ public class Downloader {
 				File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
 				File installer2 = new File("Utils" + File.separator + "PocketMine-MP-x86.exe");
 				
-				if(installer.exists() || installer2.exists()){
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.instDownloaded"));				
+				if(installer.exists()){
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.instDownloaded"));
+				}else if(installer2.exists()){
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.instDownloaded"));				
 				}else{
 					if(Utility.getOSName().equalsIgnoreCase("Windows")){
 						System.out.println(BaseLang.translate("pm.downloader.startDown"));
@@ -81,8 +83,14 @@ public class Downloader {
 					}else
 						Runtime.getRuntime().exec("wget -q -O - https://raw.githubusercontent.com/PocketMine/php-build-scripts/master/installer.sh | bash -s -");
 					
-					StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-					Utility.waitConfirm(BaseLang.translate("pm.downloader.succInst"));
+					if(installer.exists()){
+						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succInst"));
+					}else if(installer.exists()){
+						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succInst"));
+					}else
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedInst"));
 				}
 				
 			}
@@ -96,13 +104,16 @@ public class Downloader {
 					File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
 					
 					if(beta.exists()){
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 					}else{
 						System.out.println(BaseLang.translate("pm.downloader.downPhar"));
 						Utility.downloadFile(linkbeta, "Utils");
 						ManagerInstaller.renameDownloadedFile("PocketMine-MP_1.4.1dev-936.phar", "BETA");
-						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-						Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
+						if(beta.exists()){
+							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+							Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succDownPhar"));
+						}else
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedDownPhar"));
 					}
 				}
 			}
@@ -117,8 +128,10 @@ public class Downloader {
 				File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
 				File dev2 = new File("Utils" + File.separator + "PocketMine-MP_DEV_2.phar");
 				
-				if(dev.exists() || dev2.exists()){
-					Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
+				if(dev.exists()){
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
+				}else if(dev2.exists()){
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 				}else{
 					System.out.println(BaseLang.translate("pm.downloader.downPhar"));
 					if(type == 1){
@@ -130,8 +143,16 @@ public class Downloader {
 						Utility.downloadFile(linkdev2, "Utils");
 						ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar ", "DEV_2");
 					}
-					StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-					Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
+					
+					if(dev.exists()){
+						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succDownPhar"));
+					}else if(dev2.exists()){
+						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succDownPhar"));
+					}else{
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedDownPhar"));
+					}
 				}
 			}
 			
@@ -144,14 +165,16 @@ public class Downloader {
 					File soft = new File("Utils" + File.separator + "PocketMine-MP_SOFT.phar");
 					
 					if(soft.exists()){
-						Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.downloader.fileDownloaded"));
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 					}else{
 						System.out.println(BaseLang.translate("pm.downloader.downPhar"));
 						Utility.downloadFile(linksoft, "Utils");
 						ManagerInstaller.renameDownloadedFile("PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar", "SOFT");
-						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-						Utility.waitConfirm(BaseLang.translate("pm.downloader.succDownPhar"));
-
+						if(soft.exists()){
+							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+							Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succDownPhar"));
+						}else
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedDownPhar"));
 					}
 				}
 			}

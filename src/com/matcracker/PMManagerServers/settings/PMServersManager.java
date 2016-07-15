@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import com.matcracker.PMManagerServers.API.APIManager;
+import com.matcracker.PMManagerServers.API.StatusAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.FileChooser;
@@ -48,9 +49,16 @@ public class PMServersManager {
 		if(newPath != null)
 			UtilityServersAPI.setPath(nservers, newPath);
 		
+		StatusAPI.setStatus(BaseLang.translate("pm.status.noDownload"), nservers);
+		StatusAPI.setVersion(BaseLang.translate("pm.status.noVersion"), nservers);
+		StatusAPI.setBackuped(BaseLang.translate("pm.status.noBackuped"), nservers);
+		StatusAPI.setPerformance(BaseLang.translate("pm.status.personal"), nservers);
+		
 		UtilityServersAPI.setNumberServer(nservers);
 		
-		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctAdd"));
+
+		
+		Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverManager.correctAdd"));
 	}
 	
 	private static void changeServerName(int server){
@@ -74,7 +82,7 @@ public class PMServersManager {
 		if(oldBackupFile.exists())
 			oldBackupFile.renameTo(newBackupFile);
 		
-		Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctChange"));
+		Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverManager.correctChange"));
 	}
 	
 	private static void deleteServer(int server) throws IOException {
@@ -97,7 +105,7 @@ public class PMServersManager {
 		
 			nservers--;
 			UtilityServersAPI.setNumberServer(nservers);
-			Utility.waitConfirm(UtilityColor.COLOR_GREEN + BaseLang.translate("pm.serverManager.correctDelete"));
+			Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverManager.correctDelete"));
 		}else
 			Utility.waitConfirm(BaseLang.translate("pm.serverManager.cantDelete"));
 	
@@ -127,7 +135,7 @@ public class PMServersManager {
 				if(sel == 2)
 					deleteServer(server);
 			}else
-				Utility.waitConfirm(UtilityColor.COLOR_RED + BaseLang.translate("pm.errors.noValid"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.noValid"));
 		}
 		
 		if(sel == 4)
