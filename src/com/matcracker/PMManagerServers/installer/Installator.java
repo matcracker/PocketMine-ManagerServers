@@ -53,13 +53,13 @@ public class Installator {
 			System.out.println("4- " + BaseLang.translate("pm.status.soft") + " (Phar File)");
 			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 			
-			int ver = Utility.readInt(BaseLang.translate("pm.choice.version") + ": ", null);
+			int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
 			
-			if(ver == 1){ //Stable
+			if(type == 1){ //Stable
 				System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
 				System.out.println("2) 1.6 API 2.0.0 Unleashed {MC:PE 0.14.0}");
-				int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
+				int ver = Utility.readInt(BaseLang.translate("pm.choice.version") + ": ", null);
 
 				File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
 				File installer2 = new File("Utils" + File.separator + "PocketMine-MP-x86.exe");
@@ -71,10 +71,10 @@ public class Installator {
 						return;
 					}
 					
-					if(type == 1)
+					if(ver == 1)
 						Utility.openSoftware("software", String.valueOf(installer));
 					
-					if(type == 2)
+					if(ver == 2)
 						Utility.openSoftware("software", String.valueOf(installer2));
 					
 					StatusAPI.setVersion(BaseLang.translate("pm.status.stable"), server);
@@ -84,13 +84,13 @@ public class Installator {
 				
 			}
 			
-			if(ver == 2){ //Beta
+			if(type == 2){ //Beta
 				if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 					System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 					System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
-					int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
+					int ver = Utility.readInt(BaseLang.translate("pm.choice.version") + ": ", null);
 					
-					if(type == 1){
+					if(ver == 1){
 						File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
 						
 						if(beta.exists()){
@@ -107,13 +107,13 @@ public class Installator {
 					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 			}
 			
-			if(ver == 3){ //Dev
+			if(type == 3){ //Dev
 				if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 					System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 					System.out.println("1) 1.6 API 2.0.0 [#Dev Build 25] {MC:PE 0.14.3}");
 					System.out.println("2) 1.6 API 2.0.0 [#Dev Build 27] {MC:PE 0.15.1}");
 					
-					int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
+					int ver = Utility.readInt(BaseLang.translate("pm.choice.version") + ": ", null);
 
 					File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
 					File dev2 = new File("Utils" + File.separator + "PocketMine-MP_DEV_2.phar");
@@ -121,9 +121,9 @@ public class Installator {
 						String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 						
 						if(confirm.equalsIgnoreCase("y")){
-							if(type == 1)
+							if(ver == 1)
 								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "DEV");
-							if(type == 2)
+							if(ver == 2)
 								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "DEV_2");
 							StatusAPI.setVersion(BaseLang.translate("pm.status.dev"), server);
 						}	
@@ -136,13 +136,13 @@ public class Installator {
 				
 			}
 			
-			if(ver == 4){ //Soft
+			if(type == 4){ //Soft
 				if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 					System.out.println("\n" + BaseLang.translate("pm.installer.avaiable"));
 					System.out.println("1) 1.5 API 1.12.0 Kappatsu-Fugu {MC:PE 0.11.x}");
-					int type = Utility.readInt(BaseLang.translate("pm.installer.types") + " ", null);
+					int ver = Utility.readInt(BaseLang.translate("pm.choice.version") + ": ", null);
 					
-					if(type == 1){
+					if(ver == 1){
 						File soft = new File("Utils" + File.separator + "PocketMine-MP_SOFT.phar");
 						
 						if(soft.exists()){
@@ -161,7 +161,7 @@ public class Installator {
 				
 			}
 			
-			if(ver == 5)
+			if(type == 5)
 				installatorMenu();
 			
 			installatorMenu();
@@ -188,8 +188,13 @@ public class Installator {
 							i++;
 						}
 					}
-					int tar = Utility.readInt(BaseLang.translate("pm.php.selectArchive") + " ", null);
-					fileArchive = tars.get(tar-1).getName();
+					if(!tars.isEmpty()){
+						int tar = Utility.readInt(BaseLang.translate("pm.php.selectArchive") + " ", null);
+						fileArchive = tars.get(tar-1).getName();
+					}else{
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.php.notFoundBinaries"));
+						return;
+					}
 				}
 				
 				System.out.println(BaseLang.translate("pm.php.extractBinaries"));

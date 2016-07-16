@@ -57,13 +57,14 @@ public class Downloader {
 			System.out.println("4- " + BaseLang.translate("pm.status.soft") + " (Phar File)");
 			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 			
-			int ver = Utility.readInt(BaseLang.translate("pm.downloader.versionserv") + " ", null);
+			int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
 			
-			if(ver == 1){ //Stable
+			if(type == 1){ //Stable
 				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
 				System.out.println("2) 1.6 API 2.0.0 Unleashed {MC:PE 0.14.0}");
-				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+				
+				int ver = Utility.readInt(BaseLang.translate("pm.downloader.versionserv") + " ", null);
 				
 				File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
 				File installer2 = new File("Utils" + File.separator + "PocketMine-MP-x86.exe");
@@ -75,10 +76,10 @@ public class Downloader {
 				}else{
 					if(Utility.getOSName().equalsIgnoreCase("Windows")){
 						System.out.println(BaseLang.translate("pm.downloader.startDown"));
-						if(type == 1)
+						if(ver == 1)
 							Utility.downloadFile(linkstable, "Utils");
 						
-						if(type == 2)
+						if(ver == 2)
 							Utility.downloadFile(linkstable2, "Utils");
 					}else
 						Runtime.getRuntime().exec("wget -q -O - https://raw.githubusercontent.com/PocketMine/php-build-scripts/master/installer.sh | bash -s -");
@@ -95,12 +96,12 @@ public class Downloader {
 				
 			}
 			
-			if(ver == 2){ //Beta
+			if(type == 2){ //Beta
 				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
-				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+				int ver = Utility.readInt(BaseLang.translate("pm.downloader.versionserv") + " ", null);
 				
-				if(type == 1){
+				if(ver == 1){
 					File beta = new File("Utils" + File.separator + "PocketMine-MP_BETA.phar");
 					
 					if(beta.exists()){
@@ -118,12 +119,12 @@ public class Downloader {
 				}
 			}
 			
-			if(ver == 3){ //Dev
+			if(type == 3){ //Dev
 				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 				System.out.println("1) 1.6 API 2.0.0 [#Dev Build 25] {MC:PE 0.14.3}");
 				System.out.println("2) 1.6 API 2.0.0 [#Dev Build 27] {MC:PE 0.15.1}");
 				
-				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+				int ver = Utility.readInt(BaseLang.translate("pm.downloader.versionserv") + " ", null);
 				
 				File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
 				File dev2 = new File("Utils" + File.separator + "PocketMine-MP_DEV_2.phar");
@@ -134,12 +135,12 @@ public class Downloader {
 					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 				}else{
 					System.out.println(BaseLang.translate("pm.downloader.downPhar"));
-					if(type == 1){
+					if(ver == 1){
 						Utility.downloadFile(linkdev, "Utils");
 						ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-25_e2d079a7_API-2.0.0.phar ", "DEV");
 					}
 					
-					if(type == 2){
+					if(ver == 2){
 						Utility.downloadFile(linkdev2, "Utils");
 						ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar ", "DEV_2");
 					}
@@ -156,12 +157,12 @@ public class Downloader {
 				}
 			}
 			
-			if(ver == 4){ //Soft
+			if(type == 4){ //Soft
 				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 				System.out.println("1) 1.5 API 1.12.0 Kappatsu-Fugu {MC:PE 0.11.x}");
-				int type = Utility.readInt(BaseLang.translate("pm.downloader.types") + " ", null);
+				int ver = Utility.readInt(BaseLang.translate("pm.downloader.versionserv") + " ", null);
 				
-				if(type == 1){
+				if(ver == 1){
 					File soft = new File("Utils" + File.separator + "PocketMine-MP_SOFT.phar");
 					
 					if(soft.exists()){
@@ -179,7 +180,7 @@ public class Downloader {
 				}
 			}
 			
-			if(ver == 5)
+			if(type == 5)
 				downloaderMenu();
 		}
 		
