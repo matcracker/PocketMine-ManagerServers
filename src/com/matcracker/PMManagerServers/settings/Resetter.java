@@ -98,12 +98,13 @@ public class Resetter{
 					if(UtilityServersAPI.checkServersFile("Path", "path_", i) || UtilityServersAPI.checkServersFile("ServersName", "ServerName_", i)){
 						deleteFile("Path");
 						deleteFile("ServersName");
+						
 						Utility.waitConfirm(BaseLang.translate("pm.resetter.pathsDeleted"));
 						Thread.sleep(1000);
 					}else
 						Utility.waitConfirm(i + ")" + BaseLang.translate("pm.errors.pathNotFound"));
-					
 				}
+				UtilityServersAPI.setNumberServer(0);
 			}else
 				resetterMenu();
 		}catch(IOException | InterruptedException e){

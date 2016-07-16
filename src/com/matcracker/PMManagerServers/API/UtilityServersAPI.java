@@ -133,7 +133,7 @@ public class UtilityServersAPI{
 	 * @param content number of server
 	 */
 	public static void setNumberServer(int content){
-		if(content > 0)
+		if(content >= 0)
 			Utility.writeIntData(new File("Data" + File.separator + "nservers.pm"), content);
 		else
 			System.err.println("Can't set a negative value!");

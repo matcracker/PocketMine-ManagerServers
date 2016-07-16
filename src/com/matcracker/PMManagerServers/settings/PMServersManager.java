@@ -55,9 +55,7 @@ public class PMServersManager {
 		StatusAPI.setPerformance(BaseLang.translate("pm.status.personal"), nservers);
 		
 		UtilityServersAPI.setNumberServer(nservers);
-		
 
-		
 		Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverManager.correctAdd"));
 	}
 	
@@ -90,8 +88,13 @@ public class PMServersManager {
 		int npath = UtilityServersAPI.getNumberPaths();
 		
 		if(nservers > 1 && npath > 1){
-			Files.delete(new File("ServersName" + File.separator + "ServerName_" + server + ".pm").toPath());
-			Files.delete(new File("Path" + File.separator + "path_" + server + ".pm").toPath());
+			File serverName = new File("ServersName" + File.separator + "ServerName_" + server + ".pm");
+			File pathName = new File("Path" + File.separator + "path_" + server + ".pm");
+			if(!serverName.exists()) return;
+			if(!pathName.exists()) return;
+			
+			Files.delete(serverName.toPath());
+			Files.delete(pathName.toPath());
 			for(int i = server+1; i <= nservers; i++){
 				String temp = UtilityServersAPI.getNameServer(i);
 				String tempPath = UtilityServersAPI.getPath(i);

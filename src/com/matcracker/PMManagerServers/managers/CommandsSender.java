@@ -67,8 +67,8 @@ public class CommandsSender{
 			Manager.managerMenu();
 		
 		if(server >= 1 && server <= UtilityServersAPI.getNumberServers()){
-			String pathContent = UtilityServersAPI.getPath(server);
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
+				String pathContent = UtilityServersAPI.getPath(server);
 				if(pathContent != null){
 					CommandsSender sender = new CommandsSender(server, pathContent);
 					
