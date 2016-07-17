@@ -21,5 +21,5 @@ There are 2 type of versions for PocketMine-ManagerServers:
 
 If you are using a server OS you can use the command **java -jar PocketMine-ManagerServers_{version}.jar -server** for running PM-MS better for server machine and use argument **-pc** for standard OS.
 
-Other informations are wrote in the [wiki](https://github.com/matcracker/PocketMine-ManagerServers/wiki)
+### **A lot of other informations are wrote in the [wiki](https://github.com/matcracker/PocketMine-ManagerServers/wiki)**
 
