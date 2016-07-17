@@ -30,7 +30,10 @@ public class Opener {
 	 */
 	private static void open(boolean isServer){
 		Utility.showServers();
+		System.out.println(UtilityServersAPI.getNumberServers() + 1 + ") " + BaseLang.translate("pm.standard.back"));
 		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", "[" + BaseLang.translate("pm.opener.suggest") + "]");
+		
+		if(server == UtilityServersAPI.getNumberServers() + 1) return;
 		
 		if(server == -1){
 			for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++){
@@ -51,7 +54,10 @@ public class Opener {
 					break;
 				}
 			}
-		}else if(server <= UtilityServersAPI.getNumberServers()){
+			return;
+		}
+		
+		if(server >= 1 && server <= UtilityServersAPI.getNumberServers()){
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 				String pathContent = UtilityServersAPI.getPath(server);
 				if(pathContent != null){
@@ -64,7 +70,11 @@ public class Opener {
 					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
 				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
+			
+			return;
 		}
+		
+		open(isServer);
 	}
 	
 	protected static void openerMenu() throws IOException{

@@ -44,9 +44,10 @@ public class Installator {
 		System.out.println((nservers + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		int server = Utility.readInt(BaseLang.translate("pm.choice.installServers") + ": ", null);
 		
-		if(server == (nservers + 1)){ //Back
+		if(server == (nservers + 1)) //Back
 			ManagerInstaller.managerInstallerMenu();
-		}else{
+		
+		if(server >= 1 && server <= nservers){
 			System.out.println("\n1- " + BaseLang.translate("pm.status.stable") + " (Setup File)");
 			System.out.println("2- " + BaseLang.translate("pm.status.beta") + " (Phar File)");
 			System.out.println("3- " + BaseLang.translate("pm.status.dev") + " (Phar File)");
@@ -129,11 +130,8 @@ public class Installator {
 						}	
 					}else
 						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.installer.pharNotFound"));
-
-					
 				}else
 					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
-				
 			}
 			
 			if(type == 4){ //Soft
@@ -154,18 +152,15 @@ public class Installator {
 							}	
 						}else
 							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.installer.pharNotFound"));
-						
 					}
 				}else
 					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
-				
 			}
 			
 			if(type == 5)
 				installatorMenu();
-			
-			installatorMenu();
 		}
+		installatorMenu();
 	}
 	
 	/**
@@ -175,34 +170,43 @@ public class Installator {
 		Utility.showServers();
 		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
-		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
-			String path = UtilityServersAPI.getPath(server);
-			if(path != null){
-				if(fileArchive == null){
-					ArrayList<File> tars = new ArrayList<File>();
-					int i = 1;
-					for(File tar : new File("Utils").listFiles()){
-						if(tar.isFile() && tar.getName().endsWith(".tar.gz")){
-							System.out.println(i + ") " + tar.getName());
-							tars.add(tar);
-							i++;
+		if(server >= 1 && server <= UtilityServersAPI.getNumberServers()){
+			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
+				String path = UtilityServersAPI.getPath(server);
+				if(path != null){
+					if(fileArchive == null){
+						ArrayList<File> tars = new ArrayList<File>();
+						int i = 1;
+						
+						for(File tar : new File("Utils").listFiles()){
+							if(tar.isFile() && tar.getName().endsWith(".tar.gz")){
+								System.out.println(i + ") " + tar.getName());
+								tars.add(tar);
+								i++;
+							}
+						}
+						if(!tars.isEmpty()){
+							try{
+								int arch = Utility.readInt(BaseLang.translate("pm.php.selectArchive") + " ", null);
+								fileArchive = tars.get(arch-1).getName();
+							}catch(IndexOutOfBoundsException ignored){
+								return;
+							}
+						}else{
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.php.notFoundBinaries"));
+							return;
 						}
 					}
-					if(!tars.isEmpty()){
-						int tar = Utility.readInt(BaseLang.translate("pm.php.selectArchive") + " ", null);
-						fileArchive = tars.get(tar-1).getName();
-					}else{
-						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.php.notFoundBinaries"));
-						return;
-					}
-				}
-				
-				System.out.println(BaseLang.translate("pm.php.extractBinaries"));
-				Zipper.unzip("Utils" + File.separator + fileArchive, path, ArchiveFormat.TAR, CompressionType.GZIP);
-				Utility.waitConfirm(BaseLang.translate("pm.php.extracted"));
+					
+					System.out.println(BaseLang.translate("pm.php.extractBinaries"));
+					Zipper.unzip("Utils" + File.separator + fileArchive, path, ArchiveFormat.TAR, CompressionType.GZIP);
+					Utility.waitConfirm(BaseLang.translate("pm.php.extracted"));
+				}else
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
-				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
-		}else
-			Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
+		}
+		
+		installPHP(fileArchive);
 	}
 }

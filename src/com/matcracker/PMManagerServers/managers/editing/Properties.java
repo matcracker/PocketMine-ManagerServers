@@ -139,22 +139,23 @@ public class Properties {
 		System.out.println((UtilityServersAPI.getNumberServers() + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
-		if(server == (UtilityServersAPI.getNumberServers() + 1))
-			Editor.editorMenu();
-		else if(server > UtilityServersAPI.getNumberServers())
-			propertiesMenu();
+		if(server == (UtilityServersAPI.getNumberServers() + 1)) return;
 		
-		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
-			String pathContent = UtilityServersAPI.getPath(server);
-			if(pathContent != null){
-				try{
-					editProperties(pathContent);
-				}catch (IOException e){
-					e.printStackTrace();
-				}
+		if(server >= 1 && server <= UtilityServersAPI.getNumberServers()){
+			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
+				String pathContent = UtilityServersAPI.getPath(server);
+				if(pathContent != null){
+					try{
+						editProperties(pathContent);
+					}catch (IOException e){
+						e.printStackTrace();
+					}
+				}else
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
-				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
-		}else
-			Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
+		}
+		
+		propertiesMenu();
 	}
 }

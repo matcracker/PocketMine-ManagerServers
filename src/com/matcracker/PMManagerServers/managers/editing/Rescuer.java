@@ -36,12 +36,13 @@ public class Rescuer {
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.backup")));
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
 			System.out.printf("%d) %s -> %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.status"), StatusAPI.getBackuped(i));
+		System.out.println((UtilityServersAPI.getNumberServers() + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		
 		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
-		if(server > UtilityServersAPI.getNumberServers())
-			backup();
-		else{
+		if(server == (UtilityServersAPI.getNumberServers() + 1)) return;
+		
+		if(server >= 1 && server <= UtilityServersAPI.getNumberServers()){
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 				String pathContent = UtilityServersAPI.getPath(server);
 				File path = new File(pathContent);
@@ -63,8 +64,8 @@ public class Rescuer {
 					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
 				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
-			
 		}
+		backup();
 	}
 	
 	public static void rescuerMenu() throws IOException{
@@ -95,12 +96,13 @@ public class Rescuer {
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.restore")));
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
 			System.out.printf("%d) %s -> %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.status"), StatusAPI.getBackuped(i));
+		System.out.println((UtilityServersAPI.getNumberServers() + 1) + ") " + BaseLang.translate("pm.standard.back"));
 		
 		int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 		
-		if(server > UtilityServersAPI.getNumberServers())
-			backup();
-		else{
+		if(server == (UtilityServersAPI.getNumberServers() + 1)) return;
+		
+		if(server >= 1 && server <= UtilityServersAPI.getNumberServers()){
 			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
 				String pathContent = UtilityServersAPI.getPath(server);
 				if(pathContent != null){
@@ -119,5 +121,6 @@ public class Rescuer {
 				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
 			
 		}
+		restore();
 	}
 }

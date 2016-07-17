@@ -28,7 +28,7 @@ import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class NewbieSetup {
-	public static void setupMenu() throws IOException{
+	protected static void setupMenu() throws IOException{
 		String name, path;
 		String link = "https://github.com/TheDeibo/Windows-PocketMine-MP/raw/master/PocketMine-MP-x86.exe";
 		File installer = new File("Utils" + File.separator + "PocketMine-MP-x86.exe");

@@ -64,75 +64,75 @@ public class Performance {
 		
 		if(server == (UtilityServersAPI.getNumberServers() + 1))
 			Editor.editorMenu();
-		else if(server > UtilityServersAPI.getNumberServers())
-			performanceMenu();
 		
-		if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
-			String pathContent = UtilityServersAPI.getPath(server);
-			if(pathContent != null){			
-				String confirm = null;
-				
-				System.out.println(BaseLang.translate("pm.performance.type"));
-				System.out.println("1- " + BaseLang.translate("pm.status.high"));
-				System.out.println("2- " + BaseLang.translate("pm.status.medium"));
-				System.out.println("3- " + BaseLang.translate("pm.status.low"));
-				
-				int feat = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
-				
-				if(feat == 1){ //HIGH
-					File high = new File("Utils" + File.separator + "pocketmine_HIGH.yml");
-					if(high.exists()){
-						System.out.println(BaseLang.translate("pm.performance.selHigh"));
-						confirm = Utility.readString(BaseLang.translate("pm.performance.continue") + " <y/n>: ", null);
-						
-						if(confirm.equalsIgnoreCase("y")){
-							changePerformaceFile(pathContent, BaseLang.translate("pm.status.high").toUpperCase());
-							StatusAPI.setPerformance(BaseLang.translate("pm.status.high"), server);
-							Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
-						}
-					}else
-						Utility.waitConfirm(BaseLang.translate("pm.performance.noHighConf"));
-				}
-				
-				if(feat == 2){ //MEDIUM
-					File med = new File("Utils" + File.separator + "pocketmine_MEDIUM.yml");
-					if(med.exists()){
-						System.out.println(BaseLang.translate("pm.performance.selMedium"));
-						confirm = Utility.readString(BaseLang.translate("pm.performance.continue") + " <y/n>: ", null);
-						
-						if(confirm.equalsIgnoreCase("y")){
-							changePerformaceFile(pathContent, BaseLang.translate("pm.status.medium").toUpperCase());
-							StatusAPI.setPerformance(BaseLang.translate("pm.status.medium"), server);
-							Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
-						}
-					}else
-						Utility.waitConfirm(BaseLang.translate("pm.performance.noMediumConf"));
-				}
+		if(server >= 1 && server <= UtilityServersAPI.getNumberServers()){
+			if(UtilityServersAPI.checkServersFile("Path", "path_", server)){
+				String pathContent = UtilityServersAPI.getPath(server);
+				if(pathContent != null){			
+					String confirm = null;
 					
-				
-				if(feat == 3){ //LOW
-					File low = new File("Utils" + File.separator + "pocketmine_LOW.yml");
-					if(low.exists()){
-						System.out.println(BaseLang.translate("pm.performance.selLow"));
-						confirm = Utility.readString(BaseLang.translate("pm.performance.continue") + " <y/n>: ", null);
+					System.out.println(BaseLang.translate("pm.performance.type"));
+					System.out.println("1- " + BaseLang.translate("pm.status.high"));
+					System.out.println("2- " + BaseLang.translate("pm.status.medium"));
+					System.out.println("3- " + BaseLang.translate("pm.status.low"));
+					
+					int feat = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
+					
+					if(feat == 1){ //HIGH
+						File high = new File("Utils" + File.separator + "pocketmine_HIGH.yml");
+						if(high.exists()){
+							System.out.println(BaseLang.translate("pm.performance.selHigh"));
+							confirm = Utility.readString(BaseLang.translate("pm.performance.continue") + " <y/n>: ", null);
+							
+							if(confirm.equalsIgnoreCase("y")){
+								changePerformaceFile(pathContent, BaseLang.translate("pm.status.high").toUpperCase());
+								StatusAPI.setPerformance(BaseLang.translate("pm.status.high"), server);
+								Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
+							}
+						}else
+							Utility.waitConfirm(BaseLang.translate("pm.performance.noHighConf"));
+					}
+					
+					if(feat == 2){ //MEDIUM
+						File med = new File("Utils" + File.separator + "pocketmine_MEDIUM.yml");
+						if(med.exists()){
+							System.out.println(BaseLang.translate("pm.performance.selMedium"));
+							confirm = Utility.readString(BaseLang.translate("pm.performance.continue") + " <y/n>: ", null);
+							
+							if(confirm.equalsIgnoreCase("y")){
+								changePerformaceFile(pathContent, BaseLang.translate("pm.status.medium").toUpperCase());
+								StatusAPI.setPerformance(BaseLang.translate("pm.status.medium"), server);
+								Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
+							}
+						}else
+							Utility.waitConfirm(BaseLang.translate("pm.performance.noMediumConf"));
+					}
 						
-						if(confirm.equalsIgnoreCase("y")){
-							changePerformaceFile(pathContent, BaseLang.translate("pm.status.low").toUpperCase());
-							StatusAPI.setPerformance(BaseLang.translate("pm.status.low"), server);
-							Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
-						}
-					}else
-						Utility.waitConfirm(BaseLang.translate("pm.performance.noLowConf"));				
-				}
-
-				if(feat == 4)
-					Editor.editorMenu();
-				
-				performanceMenu();
+					
+					if(feat == 3){ //LOW
+						File low = new File("Utils" + File.separator + "pocketmine_LOW.yml");
+						if(low.exists()){
+							System.out.println(BaseLang.translate("pm.performance.selLow"));
+							confirm = Utility.readString(BaseLang.translate("pm.performance.continue") + " <y/n>: ", null);
+							
+							if(confirm.equalsIgnoreCase("y")){
+								changePerformaceFile(pathContent, BaseLang.translate("pm.status.low").toUpperCase());
+								StatusAPI.setPerformance(BaseLang.translate("pm.status.low"), server);
+								Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
+							}
+						}else
+							Utility.waitConfirm(BaseLang.translate("pm.performance.noLowConf"));				
+					}
+	
+					if(feat == 4)
+						Editor.editorMenu();
+					
+					performanceMenu();
+				}else
+					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
 			}else
-				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNull"));
-		}else
-			Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.pathNotFound"));
+		}
 		
 		performanceMenu();
 	}

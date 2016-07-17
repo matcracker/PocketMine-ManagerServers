@@ -50,7 +50,7 @@ public class Downloader {
 		if(server == (nservers + 1)) //Back
 			ManagerInstaller.managerInstallerMenu();
 		
-		if(server <= nservers){
+		if(server >= 1 && server <= nservers){
 			System.out.println("\n1- " + BaseLang.translate("pm.status.stable") + " (Setup File)");
 			System.out.println("2- " + BaseLang.translate("pm.status.beta") + " (Phar File)");
 			System.out.println("3- " + BaseLang.translate("pm.status.dev") + " (Phar File)");
@@ -68,34 +68,41 @@ public class Downloader {
 				
 				File installer = new File("Utils" + File.separator + "PocketMine-MP_Installer_1.4.1_x86.exe");
 				File installer2 = new File("Utils" + File.separator + "PocketMine-MP-x86.exe");
-				
-				if(installer.exists()){
-					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.instDownloaded"));
-				}else if(installer2.exists()){
-					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.instDownloaded"));				
-				}else{
-					if(Utility.getOSName().equalsIgnoreCase("Windows")){
-						System.out.println(BaseLang.translate("pm.downloader.startDown"));
-						if(ver == 1)
-							Utility.downloadFile(linkstable, "Utils");
+							
+				if(Utility.getOSName().equalsIgnoreCase("Windows")){
+					System.out.println(BaseLang.translate("pm.downloader.startDown"));
+					if(ver == 1){
+						if(installer.exists()){
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.instDownloaded"));
+							downloaderMenu();
+						}
 						
-						if(ver == 2)
-							Utility.downloadFile(linkstable2, "Utils");
-					}else
-						Runtime.getRuntime().exec("wget -q -O - https://raw.githubusercontent.com/PocketMine/php-build-scripts/master/installer.sh | bash -s -");
+						Utility.downloadFile(linkstable, "Utils");
+						
+						if(installer.exists()){
+							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+							Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succInst")); 
+						}else
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedInst"));
+					}
 					
-					if(installer.exists()){
-						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succInst"));
-					}else if(installer.exists()){
-						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
-						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succInst"));
-					}else
-						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedInst"));
-				}
-				
+					if(ver == 2){
+						if(installer2.exists()){
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.instDownloaded"));	
+							downloaderMenu();
+						}
+						Utility.downloadFile(linkstable2, "Utils");
+						
+						if(installer2.exists()){
+							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
+							Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succInst"));
+						}else
+							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedInst"));
+					}
+				}else
+					Runtime.getRuntime().exec("wget -q -O - https://raw.githubusercontent.com/PocketMine/php-build-scripts/master/installer.sh | bash -s -");
 			}
-			
+
 			if(type == 2){ //Beta
 				System.out.println("\n" + BaseLang.translate("pm.downloader.avaiable"));
 				System.out.println("1) 1.4.1 API 1.11.0 Zekkou-Cake {MC:PE 0.10.x}");
@@ -129,32 +136,40 @@ public class Downloader {
 				File dev = new File("Utils" + File.separator + "PocketMine-MP_DEV.phar");
 				File dev2 = new File("Utils" + File.separator + "PocketMine-MP_DEV_2.phar");
 				
-				if(dev.exists()){
+				
+				if(dev2.exists()){
 					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
-				}else if(dev2.exists()){
-					Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
-				}else{
-					System.out.println(BaseLang.translate("pm.downloader.downPhar"));
-					if(ver == 1){
-						Utility.downloadFile(linkdev, "Utils");
-						ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-25_e2d079a7_API-2.0.0.phar ", "DEV");
+					downloaderMenu();
+				}
+				
+				System.out.println(BaseLang.translate("pm.downloader.downPhar"));
+				if(ver == 1){
+					if(dev.exists()){
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
+						downloaderMenu();
 					}
 					
-					if(ver == 2){
-						Utility.downloadFile(linkdev2, "Utils");
-						ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar ", "DEV_2");
-					}
+					Utility.downloadFile(linkdev, "Utils");
+					ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-25_e2d079a7_API-2.0.0.phar ", "DEV");
 					
 					if(dev.exists()){
 						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
 						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succDownPhar"));
-					}else if(dev2.exists()){
+					}else
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedDownPhar"));
+						
+				}
+				
+				if(ver == 2){
+					Utility.downloadFile(linkdev2, "Utils");
+					ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar ", "DEV_2");
+					
+					if(dev2.exists()){
 						StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
 						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.downloader.succDownPhar"));
-					}else{
+					}else
 						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedDownPhar"));
-					}
-				}
+				}				
 			}
 			
 			if(type == 4){ //Soft
@@ -179,9 +194,6 @@ public class Downloader {
 					}
 				}
 			}
-			
-			if(type == 5)
-				downloaderMenu();
 		}
 		
 		downloaderMenu();
@@ -198,6 +210,8 @@ public class Downloader {
 		System.out.println("3- " + BaseLang.translate("pm.php.downloadOthers"));
 		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
+		
+		if(opt < 1 || opt > 4) downloadPHP();
 		
 		String arch = System.getProperty("sun.arch.data.model");
 		String os = Utility.getOSName();

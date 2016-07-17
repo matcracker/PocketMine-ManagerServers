@@ -53,7 +53,7 @@ public class PluginManager {
 					
 				}while(!plugin.exists() || Utility.is_numeric(name));
 			}else
-				System.out.println(UtilityColor.RED + BaseLang.translate("pm.plugins.noPluginFound"));
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.plugins.noPluginFound"));
 		}
 			
 		if(opt == 3)

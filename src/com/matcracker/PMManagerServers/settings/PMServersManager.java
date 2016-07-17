@@ -129,9 +129,12 @@ public class PMServersManager {
 		
 		else if(sel == 1 || sel == 2){
 			Utility.showServers();
+			System.out.println(UtilityServersAPI.getNumberServers() + 1 + ") " + BaseLang.translate("pm.standard.back"));
 			int server = Utility.readInt(BaseLang.translate("pm.choice.server") + " ", null);
 			
-			if(server <= UtilityServersAPI.getNumberServers() && server > 0){
+			if(server == UtilityServersAPI.getNumberServers() + 1) serverManagerMenu();;
+			
+			if(server >= 1 && server <= UtilityServersAPI.getNumberServers() && server > 0){
 				if(sel == 1)
 					changeServerName(server);
 				
