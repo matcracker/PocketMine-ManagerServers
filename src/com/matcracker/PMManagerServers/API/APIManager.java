@@ -23,7 +23,7 @@ import com.matcracker.PMManagerServers.utility.Utility;
 
 public class APIManager{
 	private static final String APIVersion = "1.2";
-	private static final String softwareVersion = "1.1 Alpha 3";
+	private static final String softwareVersion = "1.1";
 	
 	/**
 	 * @return API version

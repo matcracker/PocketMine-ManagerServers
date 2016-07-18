@@ -27,8 +27,9 @@ import com.matcracker.PMManagerServers.utility.UtilityColor;
 public class Informations {
 	
 	public static void informationsMenu() throws IOException{
-		final String gitlink = "https://github.com/matcracker/PocketMine-ManagerServers-Java";
+		final String gitlink = "https://github.com/matcracker/PocketMine-ManagerServers";
 		final String twitterlink = "https://twitter.com/matcracker98";
+		final String wikilink = "https://github.com/matcracker/PocketMine-ManagerServers/wiki";
 		
 		Utility.cleanScreen();
 	    
@@ -66,7 +67,8 @@ public class Informations {
 			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.moreinformations")));
 			System.out.println("1- GitHub");
 			System.out.println("2- Twitter");
-			System.out.println("3- " + BaseLang.translate("pm.standard.back"));
+			System.out.println("3- Wiki");
+			System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 			
 			int more = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 
@@ -75,6 +77,9 @@ public class Informations {
 			
 			if(more == 2)
 				Utility.openSoftware("url", twitterlink);
+			
+			if(more == 3)
+				Utility.openSoftware("url", wikilink);
 		}
 		
 		if(info == 4){
