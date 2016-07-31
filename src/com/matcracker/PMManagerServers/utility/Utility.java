@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Random;
@@ -64,6 +65,30 @@ public class Utility{
 		}else
 			for(int i = 0; i < 100; i++)
 				System.out.println();
+	}
+	
+	public static boolean existURL(String urlString){
+		URL url;
+		try{
+			url = new URL(urlString);
+		}catch (MalformedURLException e){
+			return false;
+		}
+		
+		HttpURLConnection httpConn;
+		int responseCode;
+		
+		try{
+			httpConn = (HttpURLConnection) url.openConnection();
+			responseCode = httpConn.getResponseCode();
+		}catch(IOException e){
+			return false;
+		}
+         
+        if(responseCode == HttpURLConnection.HTTP_OK)
+        	return true;
+        
+		return false;
 	}
 	
 	/**

@@ -16,15 +16,14 @@
 	
 package com.matcracker.PMManagerServers.settings;
 
-import java.io.IOException;
-
 import com.matcracker.PMManagerServers.PMMS;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.lang.LangSelector;
+import com.matcracker.PMManagerServers.utility.Updater;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class Settings{
-	public static void settingsMenu() throws IOException{
+	public static void settingsMenu(){
 	    Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.settings")));
@@ -32,7 +31,8 @@ public class Settings{
 		System.out.println("2- " + BaseLang.translate("pm.settings.serversManager"));
 		System.out.println("3- " + BaseLang.translate("pm.settings.reset"));
 		System.out.println("4- " + BaseLang.translate("pm.settings.plugManager"));
-		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
+		System.out.println("5- " + "Update software");
+		System.out.println("6- " + BaseLang.translate("pm.standard.back"));
 		
 		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 			
@@ -48,7 +48,19 @@ public class Settings{
 		if(opt == 4)
 			PluginManager.plugMenu();
 		
-		if(opt == 5)
+		if(opt == 5){
+			Updater up = new Updater();
+			boolean search = up.getAutoSearch();
+			if(!search){
+				up.setAutoSearch(true);
+				PMMS.checkUpdate();
+				up.setAutoSearch(false);
+				Utility.waitConfirm("");
+			}
+		}
+		
+		
+		if(opt == 6)
 			PMMS.mainMenu();
 		
 		settingsMenu();
