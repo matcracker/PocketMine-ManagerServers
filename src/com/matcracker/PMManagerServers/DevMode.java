@@ -27,7 +27,7 @@ import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class DevMode{
 	
-	public static void devMenu(String menu) throws IOException{
+	public static void devMenu(String menu){
 		if(APIManager.isDevMode()){
 			System.out.println("\n&e==={&bDEVMODE&e}===&5");
 			System.out.println("6- " + BaseLang.translate("pm.devmenu.memory") + " (MB/GB)");
@@ -46,7 +46,11 @@ public class DevMode{
 				CommandsMode.menu();
 			
 			if(menu.equalsIgnoreCase("9")){
-				ProcessManager.getListOfProcesses();
+				try{
+					ProcessManager.getListOfProcesses();
+				}catch(IOException e){
+					System.out.println("Error on get list of processes");
+				}
 				Utility.waitConfirm(BaseLang.translate("pm.standard.enter"));
 				PMMS.mainMenu();
 			}

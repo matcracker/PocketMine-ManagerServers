@@ -27,7 +27,7 @@ import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Downloader {
 
-	protected static void downloaderMenu() throws IOException{
+	protected static void downloaderMenu(){
 		Utility.cleanScreen();
 		int nservers = UtilityServersAPI.getNumberServers();
 		
@@ -77,7 +77,11 @@ public class Downloader {
 							downloaderMenu();
 						}
 						
-						Utility.downloadFile(linkstable, "Utils");
+						try{
+							Utility.downloadFile(linkstable, "Utils");
+						}catch(IOException e){
+							System.out.println("Error on downloading file!");
+						}
 						
 						if(installer.exists()){
 							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
@@ -91,7 +95,11 @@ public class Downloader {
 							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.instDownloaded"));	
 							downloaderMenu();
 						}
-						Utility.downloadFile(linkstable2, "Utils");
+						try{
+							Utility.downloadFile(linkstable2, "Utils");
+						}catch(IOException e){
+							System.out.println("Error on downloading file!");
+						}
 						
 						if(installer2.exists()){
 							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
@@ -99,8 +107,12 @@ public class Downloader {
 						}else
 							Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.failedInst"));
 					}
-				}else
-					Runtime.getRuntime().exec("wget -q -O - https://raw.githubusercontent.com/PocketMine/php-build-scripts/master/installer.sh | bash -s -");
+				} else
+					try{
+						Runtime.getRuntime().exec("wget -q -O - https://raw.githubusercontent.com/PocketMine/php-build-scripts/master/installer.sh | bash -s -");
+					}catch(IOException e){
+						System.out.println("Error on getting installer!");
+					}
 			}
 
 			if(type == 2){ //Beta
@@ -115,7 +127,11 @@ public class Downloader {
 						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 					}else{
 						System.out.println(BaseLang.translate("pm.downloader.downPhar"));
-						Utility.downloadFile(linkbeta, "Utils");
+						try{
+							Utility.downloadFile(linkbeta, "Utils");
+						}catch(IOException e){
+							System.out.println("Error on downloading file!");
+						}
 						ManagerInstaller.renameDownloadedFile("PocketMine-MP_1.4.1dev-936.phar", "BETA");
 						if(beta.exists()){
 							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
@@ -149,7 +165,11 @@ public class Downloader {
 						downloaderMenu();
 					}
 					
-					Utility.downloadFile(linkdev, "Utils");
+					try{
+						Utility.downloadFile(linkdev, "Utils");
+					}catch(IOException e){
+						System.out.println("Error on downloading file!");
+					}
 					ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-25_e2d079a7_API-2.0.0.phar ", "DEV");
 					
 					if(dev.exists()){
@@ -161,7 +181,11 @@ public class Downloader {
 				}
 				
 				if(ver == 2){
-					Utility.downloadFile(linkdev2, "Utils");
+					try{
+						Utility.downloadFile(linkdev2, "Utils");
+					}catch(IOException e){
+						System.out.println("Error on downloading file!");
+					}
 					ManagerInstaller.renameDownloadedFile(" PocketMine-MP_1.6dev-27_ef8227a0_API-2.0.0.phar ", "DEV_2");
 					
 					if(dev2.exists()){
@@ -184,7 +208,11 @@ public class Downloader {
 						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.downloader.fileDownloaded"));
 					}else{
 						System.out.println(BaseLang.translate("pm.downloader.downPhar"));
-						Utility.downloadFile(linksoft, "Utils");
+						try{
+							Utility.downloadFile(linksoft, "Utils");
+						}catch(IOException e){
+							System.out.println("Error on downloading file!");
+						}
 						ManagerInstaller.renameDownloadedFile("PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar", "SOFT");
 						if(soft.exists()){
 							StatusAPI.setStatus(BaseLang.translate("pm.status.download"), server);
@@ -199,7 +227,7 @@ public class Downloader {
 		downloaderMenu();
 	}
 
-	protected static void downloadPHP() throws IOException {
+	protected static void downloadPHP(){
 		String phplink;
 		
 		Utility.cleanScreen();
@@ -235,7 +263,11 @@ public class Downloader {
 				php = "7.0.3";
 			
 			phplink = "https://dl.bintray.com/pocketmine/PocketMine/PHP_" + php + "_x" + arch + "_" + os + ".tar.gz";
-			Utility.downloadFile(phplink, "Utils");
+			try {
+				Utility.downloadFile(phplink, "Utils");
+			}catch(IOException e){
+				System.out.println("Error on downloading file.");
+			}
 			Utility.waitConfirm(BaseLang.translate("pm.php.binariesDownloaded"));
 			String confirm = Utility.readString(BaseLang.translate("pm.php.extractIn") + " <Y/n>: ", null);
 			String filePHP = " PHP_" + php + "_x" + arch + "_" + os + ".tar.gz";

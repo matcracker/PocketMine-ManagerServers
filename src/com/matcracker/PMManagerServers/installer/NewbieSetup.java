@@ -28,8 +28,8 @@ import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class NewbieSetup {
-	protected static void setupMenu() throws IOException{
-		String name, path;
+	protected static void setupMenu(){
+		String name, path = "";
 		String link = "https://github.com/TheDeibo/Windows-PocketMine-MP/raw/master/PocketMine-MP-x86.exe";
 		File installer = new File("Utils" + File.separator + "PocketMine-MP-x86.exe");
 		int nservers = UtilityServersAPI.getNumberServers();
@@ -53,8 +53,13 @@ public class NewbieSetup {
 		System.out.println(BaseLang.translate("pm.newbie.start"));
 		System.out.println(BaseLang.translate("pm.newbie.download"));
 
-		if(!installer.exists())
-			Utility.downloadFile(link, "Utils");
+		if(!installer.exists()){
+			try{
+				Utility.downloadFile(link, "Utils");
+			}catch(IOException e){
+				System.out.println("Error on downloading file!");
+			}
+		}	
 		
 		System.out.println(BaseLang.translate("pm.newbie.install"));
 		Utility.openSoftware("software", "Utils" + File.separator + "PocketMine-MP-x86.exe");
@@ -83,7 +88,11 @@ public class NewbieSetup {
 				path = FileChooser.getPhar("Select the file .phar where you installed PocketMine");
 			else{
 				System.out.println("[Example: /home/User/PocketMine-MP/]");
-				path = Utility.keyword.readLine();
+				try{
+					path = Utility.keyword.readLine();
+				}catch(IOException e){
+					System.out.println("Error on path");
+				}
 			}
 		}while(path == null);
 		

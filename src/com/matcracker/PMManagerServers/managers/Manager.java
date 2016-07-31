@@ -16,17 +16,16 @@
 	
 package com.matcracker.PMManagerServers.managers;
 
-import java.io.IOException;
-
 import com.matcracker.PMManagerServers.PMMS;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.managers.editing.Editor;
 import com.matcracker.PMManagerServers.managers.editing.Rescuer;
 import com.matcracker.PMManagerServers.managers.editing.Restarter;
+import com.matcracker.PMManagerServers.managers.editing.ServerPlugins;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class Manager {
-	public static void managerMenu() throws IOException{
+	public static void managerMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.manager")));
@@ -35,7 +34,8 @@ public class Manager {
 		System.out.println("3- " + BaseLang.translate("pm.manager.rescuer"));
 		System.out.println("4- " + BaseLang.translate("pm.manager.restart"));
 		System.out.println("5- " + BaseLang.translate("pm.manager.commandSender"));
-		System.out.println("6- " + BaseLang.translate("pm.standard.back"));
+		System.out.println("6- " + "Servers plugins");
+		System.out.println("7- " + BaseLang.translate("pm.standard.back"));
 		int option = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 		
 		if(option == 1)
@@ -54,6 +54,9 @@ public class Manager {
 			CommandsSender.commandSenderMenu();
 		
 		if(option == 6)
+			ServerPlugins.pluginsMenu();
+		
+		if(option == 7)
 			PMMS.mainMenu();
 				
 		managerMenu();

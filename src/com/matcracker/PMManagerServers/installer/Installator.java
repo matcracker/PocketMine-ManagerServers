@@ -31,7 +31,7 @@ import com.matcracker.PMManagerServers.utility.UtilityColor;
 import com.matcracker.PMManagerServers.utility.Zipper;
 
 public class Installator {
-	protected static void installatorMenu() throws IOException{
+	protected static void installatorMenu(){
 		Utility.cleanScreen();
 		int nservers = UtilityServersAPI.getNumberServers();
 		
@@ -98,7 +98,11 @@ public class Installator {
 							String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 							
 							if(confirm.equalsIgnoreCase("y")){
-								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "BETA");
+								try{
+									ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "BETA");
+								}catch(IOException e){
+									System.out.println("Error on changing files.");
+								}
 								StatusAPI.setVersion(BaseLang.translate("pm.status.beta"), server);
 							}	
 						}else
@@ -122,10 +126,14 @@ public class Installator {
 						String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 						
 						if(confirm.equalsIgnoreCase("y")){
-							if(ver == 1)
-								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "DEV");
-							if(ver == 2)
-								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "DEV_2");
+							try{
+								if(ver == 1)
+									ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "DEV");
+								if(ver == 2)
+									ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "DEV_2");
+							}catch(IOException e){
+								System.out.println("Error on changing files.");
+							}
 							StatusAPI.setVersion(BaseLang.translate("pm.status.dev"), server);
 						}	
 					}else
@@ -147,7 +155,11 @@ public class Installator {
 							String confirm = Utility.readString(BaseLang.translate("pm.installer.replace") + " <Y/n>: ", null);
 							
 							if(confirm.equalsIgnoreCase("y")){
-								ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "SOFT");
+								try{
+									ManagerInstaller.changeInstallationsFile(UtilityServersAPI.getPath(server), "SOFT");
+								}catch(IOException e){
+									System.out.println("Error on changing files.");
+								}
 								StatusAPI.setVersion(BaseLang.translate("pm.status.soft"), server);
 							}	
 						}else

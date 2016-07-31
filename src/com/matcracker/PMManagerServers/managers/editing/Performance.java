@@ -27,7 +27,7 @@ import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Performance {
-   public static void changePerformaceFile(String path, String feature) throws IOException{
+   public static void changePerformaceFile(String path, String feature){
 		File newPhar = new File(path + File.separator + "pocketmine.yml");
 		File oldPhar = new File(path + File.separator + "pocketmine_OLD.yml");
 		
@@ -36,22 +36,35 @@ public class Performance {
 		
 		if(newPhar.exists()){
 			if(oldPhar.exists()){
-				Files.delete(oldPhar.toPath());
-				Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				try{
+					Files.delete(oldPhar.toPath());
+					Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				}catch(IOException e){
+					System.out.println("Error during the file copying");
+				}
+				
 				newPhar.renameTo(oldPhar);
 				pharDest.renameTo(newPhar);
 			}else{
 				newPhar.renameTo(oldPhar);
-				Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				try{
+					Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				}catch(IOException e){
+					System.out.println("Error during the file copying");
+				}
 				pharDest.renameTo(newPhar);
 			}
 		}else{
-			Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			try{
+				Files.copy(pharToMove.toPath(), pharDest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			}catch(IOException e){
+				System.out.println("Error during the file copying");
+			}
 			pharDest.renameTo(newPhar);
 		}
 	}
 	
-	protected static void performanceMenu() throws IOException{
+	protected static void performanceMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.performance")));

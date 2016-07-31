@@ -16,8 +16,6 @@
 	
 package com.matcracker.PMManagerServers;
 
-import java.io.IOException;
-
 import com.matcracker.PMManagerServers.commands.CommandEdit;
 import com.matcracker.PMManagerServers.commands.CommandHelp;
 import com.matcracker.PMManagerServers.commands.CommandRescuer;
@@ -32,7 +30,7 @@ import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class CommandsMode {
 	
-	protected static void menu() throws IOException {
+	protected static void menu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.commandsMode")));

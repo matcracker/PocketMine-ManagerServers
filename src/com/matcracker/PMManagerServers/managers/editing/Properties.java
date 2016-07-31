@@ -131,7 +131,7 @@ public class Properties {
 		}
 	}
 	
-	protected static void propertiesMenu() throws IOException{
+	protected static void propertiesMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.properties")));

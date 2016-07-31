@@ -17,8 +17,6 @@
 package com.matcracker.PMManagerServers.informations;
 
 import java.io.File;
-import java.io.IOException;
-
 import com.matcracker.PMManagerServers.PMMS;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
@@ -26,7 +24,7 @@ import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Informations {
 	
-	public static void informationsMenu() throws IOException{
+	public static void informationsMenu(){
 		final String gitlink = "https://github.com/matcracker/PocketMine-ManagerServers";
 		final String twitterlink = "https://twitter.com/matcracker98";
 		final String wikilink = "https://github.com/matcracker/PocketMine-ManagerServers/wiki";

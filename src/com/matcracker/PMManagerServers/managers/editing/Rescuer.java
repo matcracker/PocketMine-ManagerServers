@@ -17,7 +17,6 @@
 package com.matcracker.PMManagerServers.managers.editing;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.rauschig.jarchivelib.ArchiveFormat;
 
@@ -68,7 +67,7 @@ public class Rescuer {
 		backup();
 	}
 	
-	public static void rescuerMenu() throws IOException{
+	public static void rescuerMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.rescuer")));

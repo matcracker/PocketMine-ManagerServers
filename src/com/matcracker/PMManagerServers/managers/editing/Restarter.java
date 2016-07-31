@@ -46,7 +46,7 @@ public class Restarter {
 			Utility.waitConfirm(BaseLang.translate("pm.restarter.restarterNotRunning"));
 	}
 
-	public static void restarterMenu() throws IOException{
+	public static void restarterMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.restarter")));
@@ -59,7 +59,11 @@ public class Restarter {
 		if(option == 1){
 			//if(option == 1)
 			setupTimer();
-			startRestarter();
+			try{
+				startRestarter();
+			}catch(IOException e){
+				System.out.println("Error on starting restarter");
+			}
 			
 			/*if(option == 2)
 				restartServer(server);*/

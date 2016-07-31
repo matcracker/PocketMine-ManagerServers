@@ -114,7 +114,7 @@ public class PMServersManager {
 	
 	}
 
-	protected static void serverManagerMenu() throws IOException{
+	protected static void serverManagerMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.serversManager")));
@@ -139,7 +139,11 @@ public class PMServersManager {
 					changeServerName(server);
 				
 				if(sel == 2)
-					deleteServer(server);
+					try{
+						deleteServer(server);
+					}catch(IOException e){
+						System.out.println("Error on deleting server");
+					}
 			}else
 				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.noValid"));
 		}

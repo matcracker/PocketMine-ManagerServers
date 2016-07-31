@@ -17,8 +17,6 @@
 package com.matcracker.PMManagerServers.managers;
 
 import java.io.File;
-import java.io.IOException;
-
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
@@ -77,7 +75,7 @@ public class Opener {
 		open(isServer);
 	}
 	
-	protected static void openerMenu() throws IOException{
+	protected static void openerMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.opener")));

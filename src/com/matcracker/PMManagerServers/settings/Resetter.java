@@ -17,8 +17,6 @@
 package com.matcracker.PMManagerServers.settings;
 
 import java.io.File;
-import java.io.IOException;
-
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
@@ -80,7 +78,7 @@ public class Resetter{
 	
 			}else
 				resetterMenu();
-		}catch(IOException | InterruptedException e){
+		}catch(InterruptedException e){
 			e.printStackTrace();
 		}
 		
@@ -107,12 +105,12 @@ public class Resetter{
 				UtilityServersAPI.setNumberServer(0);
 			}else
 				resetterMenu();
-		}catch(IOException | InterruptedException e){
+		}catch(InterruptedException e){
 			e.printStackTrace();
 		}
 	}
 	
-	protected static void resetterMenu() throws IOException{
+	protected static void resetterMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.reset")));

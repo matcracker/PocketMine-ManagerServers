@@ -17,8 +17,6 @@
 package com.matcracker.PMManagerServers.managers;
 
 import java.io.File;
-import java.io.IOException;
-
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
@@ -53,7 +51,7 @@ public class CommandsSender{
 		
 	}
 	
-	protected static void commandSenderMenu() throws IOException{
+	protected static void commandSenderMenu(){
 		String cmd;
 		
 		Utility.cleanScreen();

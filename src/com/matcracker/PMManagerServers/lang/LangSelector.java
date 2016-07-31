@@ -16,13 +16,11 @@
 	
 package com.matcracker.PMManagerServers.lang;
 
-import java.io.IOException;
-
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class LangSelector {		
-	public static void langMenu() throws IOException{
+	public static void langMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		if(!BaseLang.isLanguageSet())

@@ -15,14 +15,12 @@
 */
 package com.matcracker.PMManagerServers.managers.editing;
 
-import java.io.IOException;
-
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.managers.Manager;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class Editor {
-	public static void editorMenu() throws IOException{
+	public static void editorMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.editor")));

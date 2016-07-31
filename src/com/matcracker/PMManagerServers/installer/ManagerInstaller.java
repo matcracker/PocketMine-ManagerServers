@@ -57,7 +57,7 @@ public class ManagerInstaller {
 		}
 	}
 	
-	public static void managerInstallerMenu() throws IOException{
+	public static void managerInstallerMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.managerInstaller")));

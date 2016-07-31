@@ -56,18 +56,16 @@ public class CommandEdit {
 						}
 					}
 					
-					try{
-						switch(args[2].toUpperCase()){
-							case "HIGH":
-							case "MEDIUM":
-							case "LOW":
-								Performance.changePerformaceFile(UtilityServersAPI.getPath(server), args[2]);
-								StatusAPI.setPerformance(BaseLang.translate("pm.status." + args[2].toLowerCase()), server);
-							default:
-								Performance.changePerformaceFile(UtilityServersAPI.getPath(server), "LOW");
-								StatusAPI.setPerformance(BaseLang.translate("pm.status.low"), server);
-						}
-					}catch (IOException ignored){}
+					switch(args[2].toUpperCase()){
+						case "HIGH":
+						case "MEDIUM":
+						case "LOW":
+							Performance.changePerformaceFile(UtilityServersAPI.getPath(server), args[2]);
+							StatusAPI.setPerformance(BaseLang.translate("pm.status." + args[2].toLowerCase()), server);
+						default:
+							Performance.changePerformaceFile(UtilityServersAPI.getPath(server), "LOW");
+							StatusAPI.setPerformance(BaseLang.translate("pm.status.low"), server);
+					}
 					
 					Utility.waitConfirm(BaseLang.translate("pm.performance.complete"));
 					
