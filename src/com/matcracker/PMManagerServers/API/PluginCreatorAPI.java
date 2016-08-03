@@ -14,28 +14,31 @@
  *(at your option) any later version.
 */
 	
-package com.matcracker.PMManagerServers.utility;
+package com.matcracker.PMManagerServers.API;
 
 import java.util.List;
 import java.util.Random;
 
+import com.matcracker.PMManagerServers.utility.PMEvents;
+import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.PMEvents.Parameter;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class PluginCreator{
+public class PluginCreatorAPI{
+
+	PMEvents pmev = new PMEvents();
+	
 	/**
 	 * plugin.yml
 	 */
-	PMEvents pmev = new PMEvents();
-	
 	protected String pluginName = "Plugin";
 	protected String className = "Main";
 	protected String version = "1.0";
 	protected String author = "anyone";
 	protected String apiVersion = "2.0.0";
-	protected String namespace = "src/" + author;
+	protected String namespace = "src\\" + author;
 	
 	/**
 	 * Main class
@@ -52,9 +55,17 @@ public class PluginCreator{
 	protected String event_temp = "";
 	protected String context = "";;
 	protected String final_context_events = "";
-
 	private boolean eventSetted = false;
-
+	
+	/**
+	 * Imports
+	 */
+	private List<String> imports = new ArrayList<>();
+	private String final_imports = "";
+	
+	/**
+	 * Miscellaneous
+	 */
 	private String variable = "$param";
 
 	/**
@@ -69,7 +80,7 @@ public class PluginCreator{
 	 */
 	public void getPluginYAML(){
 		pluginName = Utility.readString("Name of plugin: ", null);
-		namespace = Utility.readString("Namespace of plugin: ", "[Example: src/author/pluginname]");
+		namespace = Utility.readString("Namespace of plugin: ", "[Example: src\\author\\pluginname]");
 		className = Utility.readString("Main class name: ", "[Example: Main]");
 		version = Utility.readString("Version of plugin: ", null);
 		author = Utility.readString("Author of plugin: ", null);
@@ -94,7 +105,7 @@ public class PluginCreator{
 		File plcr = new File("PluginsCreator" + File.separator + pluginName + File.separator + namespace);
 		if(!plcr.exists()) plcr.mkdirs();
 		
-		Utility.writeStringData(new File(plcr + File.separator + className + ".php"), buildMainStructure().replaceAll("/34/", String.valueOf((char) 34)));
+		Utility.writeStringData(new File(plcr + File.separator + className + ".php"), buildMainStructure());
 	}
 	
 	/**
@@ -113,7 +124,7 @@ public class PluginCreator{
 			   "author: " + author + "\n" +
 			   "version: " + version + "\n" +
 			   "api: [" + apiVersion + "]\n" +
-			   "main: " + temp + "/" + className;
+			   "main: " + temp + "\\" + className;
 	}
 		
 	/**
@@ -159,6 +170,8 @@ public class PluginCreator{
 			event_temp = code;
 		
 		oldEvent = event;
+		
+		addImport("event\\" + adjustEventImport(event) + "\\" + event);
 	}
 	
 	public void saveEvent(){
@@ -167,11 +180,44 @@ public class PluginCreator{
 		removeContext();
 	}
 	
+	private String adjustEventImport(String event){
+		String e = event.toLowerCase();
+		String importz = "";
+		
+		if(e.contains("block") || e.contains("leaves") || e.contains("signchange"))
+			importz = "block";
+		else if(e.contains("entity") || e.contains("item") || e.contains("projectile"))
+			importz = "entity";
+		else if(e.contains("inventory") || e.contains("furnace") || e.contains("craft"))
+			importz = "inventory";
+		else if(e.contains("level") || e.contains("chunk") || e.contains("spawn"))
+			importz = "level";
+		else if(e.contains("player"))
+			importz = "player";
+		else if(e.contains("plugin"))
+			importz = "plugin";
+		
+		return importz;
+	}
+	
 	/**
 	 * @return
 	 */
 	public String getEventContent(){
 		return this.event_temp;
+	}
+	
+	/**
+	 * @param imports (it adds "use pocketmine\imports")
+	 * Example: if imports = hello, in the List will be added -> use pocketmine\hello;
+	 */
+	public void addImport(String imports){
+		this.imports.add("use pocketmine\\" + imports + ";\n");
+	}
+	
+	private void mergeImports(){
+		for(int i = 0; i < imports.size(); i++)
+			final_imports = final_imports + imports.get(i);
 	}
 	
 	/**
@@ -217,29 +263,39 @@ public class PluginCreator{
 
 	private String buildMainStructure(){
 		String clazz = "class " + className + " extends PluginBase{";
+		String onEnable = 
+				"\tpublic function onEnable(){\n" +
+				   		"\t\t$this->getLogger()->info(\"" + enabled_message + "\");\n" +
+				"\t}";
+		addImport("plugin\\PluginBase");
 		if(listener){
+			addImport("event\\Listener");
 			clazz = "class " + className + " extends PluginBase implements Listener{";
+			onEnable = 
+				"\tpublic function onEnable(){\n" +
+				   		"\t\t$this->getLogger()->info(\"" + enabled_message + "\");\n" +
+				   		"\t\t$this->getServer()->getPluginManager()->registerEvents($this, $this);\n" +
+				"\t}";
 			mergeEvents();
 		}
+		mergeImports();
 		
 		String finalClass =
-			   "<?php\n" +
-			   "\n" +
-			   "namespace " + namespace + "\n" +
-			   "\n" +clazz + "\n" +
+			    "<?php\n" +
+			    "\n" +
+			    "namespace " + namespace + "\n\n" +
+			    final_imports +
+			    "\n" +clazz + "\n" +
 			   	//Start "onEnable"
-			   	"\tpublic function onEnable(){\n" +
-			   		"\t\t$this->getLogger()->info(/34/" + enabled_message + "/34/);\n" +
-			   	"\t}" +
-			   	//End "onEnable"
-			   	final_context_events + 
-			   	//Start "onDisable"
-			   	"\n\n\tpublic function onDisable(){\n" + 
-			   		"\t\t$this->getLogger()->info(/34/" + disabled_message + "/34/);\n" +
-			   	"\t}\n" +
-			   	//End "onDisable"
-			   "}";
-		
+			    onEnable +
+			    //End "onEnable"
+			    final_context_events + 
+			    //Start "onDisable"
+			    "\n\n\tpublic function onDisable(){\n" + 
+			   		"\t\t$this->getLogger()->info(\"" + disabled_message + "\");\n" +
+			    "\t}\n" +
+			   //End "onDisable"
+			    "}";
 		return finalClass;
 	}
 	
@@ -351,9 +407,7 @@ public class PluginCreator{
 					
 					total3 = total3 + "\n\t\t\t" + elsee;
 				}while(!elsee.equalsIgnoreCase("stop"));
-				
 
-				
 				//}elseif(condition){ result;
 				if(!elsee.equalsIgnoreCase("n")){
 					//}else{ result;

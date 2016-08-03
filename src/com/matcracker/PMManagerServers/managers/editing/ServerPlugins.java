@@ -4,12 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.matcracker.PMManagerServers.API.PluginCreatorAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
+import com.matcracker.PMManagerServers.API.PluginCreatorAPI.CodeStructures;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.managers.Manager;
 import com.matcracker.PMManagerServers.utility.PMEvents;
-import com.matcracker.PMManagerServers.utility.PluginCreator;
-import com.matcracker.PMManagerServers.utility.PluginCreator.CodeStructures;
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
@@ -43,12 +43,12 @@ public class ServerPlugins{
 	}
 	
 	private static void createPlugin() {
-		PluginCreator plcr = new PluginCreator();
+		PluginCreatorAPI plcr = new PluginCreatorAPI();
 		Utility.cleanScreen();
 		System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Create plugin"));
 		System.out.println("1- " + "Create plugin.yml");
 		System.out.println("2- " + "Create plugin structure");
-		int opt = Utility.readInt(BaseLang.translate("pm.choice.option"), "[Don't shut down the software when you are creating a plugin! You can lose all your progress]");
+		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", "[Don't shut down the software when you are creating a plugin! You can lose all your progress]");
 		
 		if(opt == 1){
 			plcr.getPluginYAML();
