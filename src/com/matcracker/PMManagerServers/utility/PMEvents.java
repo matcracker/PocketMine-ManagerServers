@@ -26,7 +26,8 @@ public class PMEvents{
 		"BlockPlaceEvent",
 		"BlockSpreadEvent",
 		"BlockUpdateEvent",
-		"LeavesDecayEvent"
+		"LeavesDecayEvent",
+		"SignChangeEvent"
 	};
 	
 	public final String[] entityEvents = new String[]{
@@ -54,7 +55,7 @@ public class PMEvents{
 		"ExplosionPrimeEvent",
 		"ItemDespawnEvent",
 		"ProjectileHitEvent",
-		"ProjectileLaunchEvent",
+		"ProjectileLaunchEvent"
 	};
 	
 	public final String[] inventoryEvents = new String[]{
@@ -66,8 +67,54 @@ public class PMEvents{
 		"InventoryOpenEvent",
 		"InventoryPickupArrowEvent",
 		"InventoryPickupItemEvent",
-		"InventoryTransactionEvent",
+		"InventoryTransactionEvent"
 	};
+	
+	public final String[] levelEvents = new String[]{
+		"ChunkEvent",
+		"ChunkLoadEvent",
+		"ChunkPopulateEvent",
+		"ChunkUnloadEvent",
+		"LevelEvent",
+		"LevelInitEvent",
+		"LevelLoadEvent",
+		"LevelSaveEvent",
+		"LevelUnloadEvent",
+		"SpawnChangeEvent"
+	};
+
+	public final String[] playerEvents = new String[]{
+		"PlayerAchievementAwardedEvent",
+		"PlayerAnimationEvent",
+		"PlayerBedEnterEvent",
+		"PlayerBedLeaveEvent",
+		"PlayerBucketEmptyEvent",
+		"PlayerBucketEvent",
+		"PlayerBucketFillEvent",
+		"PlayerChatEvent",
+		"PlayerCommandPreprocessEvent",
+		"PlayerDeathEvent",
+		"PlayerDropItemEvent",
+		"PlayerEvent",
+		"PlayerGameModeChangeEvent",
+		"PlayerInteractEvent",
+		"PlayerItemConsumeEvent",
+		"PlayerItemHeldEvent",
+		"PlayerJoinEvent",
+		"PlayerKickEvent",
+		"PlayerLoginEvent",
+		"PlayerMoveEvent",
+		"PlayerPreLoginEvent",
+		"PlayerQuitEvent",
+		"PlayerRespawnEvent"
+	};
+	
+	public final String[] pluginEvents = new String[]{
+		"PluginDisableEvent",
+		"PluginEnableEvent",
+		"PluginEvent"
+	};
+
 	
 	/**
 	 * 
@@ -89,22 +136,72 @@ public class PMEvents{
 		edited = "on" + edited;
 		return edited;
 	}
-	
-	protected Parameter toParameter(int type){	
-		switch(type+1){
-			case 1:
-				return Parameter.GET_PLAYER;
-			case 2:
-				return Parameter.GET_BLOCK;
-		default:
-			return Parameter.NOTHING;
+		
+	public boolean[] filterParam(String event){
+		boolean[] denied = new boolean[]{false, false, false, false, false, false, false, false, true, true, true, false};
+		String ev = event.toLowerCase();
+		
+		if(ev.contains("block") || ev.contains("leaves") || ev.contains("signchange")){
+			denied[0] = true;
+			if(ev.contains("break") || ev.contains("place") || ev.contains("sign"))
+				denied[5] = true;
+			if(ev.contains("break") || ev.contains("place"))
+				denied[7] = true;
 		}
+		
+		if(ev.contains("entity") || ev.contains("item") || ev.contains("projectile")){
+			denied[1] = true;
+			if(ev.contains("block"))
+				denied[0] = true;
+		}
+		
+		if(ev.contains("inventory") || ev.contains("furnace") || ev.contains("craft")){
+			denied[2] = true;
+			denied[3] = true;
+			
+			if(ev.contains("smelt") || ev.contains("burn"))
+				denied[0] = true;
+			if(ev.contains("open") || ev.contains("close"))
+				denied[5] = true;
+			if(ev.contains("pickupitem"))
+				denied[7] = true;
+		}
+		
+		if(ev.contains("level") || ev.contains("chunk") || ev.contains("spawn"))
+			denied[4] = true;
+		
+		if(ev.contains("player")){
+			denied[5] = true;
+			
+			if(ev.contains("bucket") || ev.contains("dropitem") || ev.contains("interact") || ev.contains("item"))
+				denied[7] = true;
+			
+			if(ev.contains("death"))
+				denied[1] = true;
+			
+			if(ev.contains("interact"))
+				denied[0] = true;
+		}
+		
+		if(ev.contains("plugin"))
+			denied[6] = true;
+		
+		return denied;
 	}
 	
 	public enum Parameter{
-		NOTHING(""),
-		GET_PLAYER("getPlayer"),
-		GET_BLOCK("getBlock");
+		GET_BLOCK("getBlock()"), //BlockEvent 0
+		GET_ENTITY("getEntity()"), //EntityEvent 1
+		GET_INVENTORY("getInvetory()"), //InventoryEvent 2
+		GET_VIEWERS("getViewers()"), //InventoryEvent 3
+		GET_LEVEL("getLevel()"), //LevelEvent 4 
+		GET_PLAYER("getPlayer()"), //PlayerEvent 5
+		GET_PLUGIN("getPlugin()"), //PluginEvent 6
+		GET_ITEM("getItem()"), //Used 7 
+		SET_CANCELLED("setCancelled(true)"), //All events 8
+		GET_EVENTNAME("getEventName()"), //All events 9
+		GET_HANDLERS("getHandlers()"), //All events 10
+		NOTHING(""); //11
 		
 		private String name;
 		

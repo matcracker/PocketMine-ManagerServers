@@ -17,6 +17,9 @@
 package com.matcracker.PMManagerServers.utility;
 
 import java.util.List;
+import java.util.Random;
+
+import com.matcracker.PMManagerServers.utility.PMEvents.Parameter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -27,10 +30,10 @@ public class PluginCreator{
 	 */
 	PMEvents pmev = new PMEvents();
 	
-	protected String pluginName = "";
+	protected String pluginName = "Plugin";
 	protected String className = "Main";
 	protected String version = "1.0";
-	protected String author = "";
+	protected String author = "anyone";
 	protected String apiVersion = "2.0.0";
 	protected String namespace = "src/" + author;
 	
@@ -45,12 +48,15 @@ public class PluginCreator{
 	/**
 	 * Events
 	 */
-	private List<String> events = new ArrayList<>();
+	public List<String> events = new ArrayList<>();
+	protected String event_temp = "";
 	protected String context = "";;
 	protected String final_context_events = "";
 
 	private boolean eventSetted = false;
-	
+
+	private String variable = "$param";
+
 	/**
 	 * @return instance of PMEvents
 	 */
@@ -80,7 +86,10 @@ public class PluginCreator{
 		disabled_message = Utility.readString("Write a message when plugin is disabled: ", null);
 		if(disabled_message == null) setClassStructure();
 	}
-		
+	
+	/**
+	 * Create a class file and must be configured with setClassStructure method (Example of file: Main.php, Task.php, etc...)
+	 */
 	public void createNewClass(){
 		File plcr = new File("PluginsCreator" + File.separator + pluginName + File.separator + namespace);
 		if(!plcr.exists()) plcr.mkdirs();
@@ -88,13 +97,16 @@ public class PluginCreator{
 		Utility.writeStringData(new File(plcr + File.separator + className + ".php"), buildMainStructure().replaceAll("/34/", String.valueOf((char) 34)));
 	}
 	
+	/**
+	 * Create the file plugin.yml (It's a good thing use getPluginYAML() method first)
+	 */
 	public void createPluginYAML(){
 		File plcr = new File("PluginsCreator" + File.separator + pluginName);
 		if(!plcr.exists()) plcr.mkdirs();
 		
 		Utility.writeStringData(new File(plcr + File.separator + "plugin.yml"), buildPluginYAML());
 	}
-		
+	
 	private String buildPluginYAML(){
 		String temp = namespace.replaceAll("src/", "");
 		return "name: " + pluginName + "\n" + 
@@ -103,28 +115,73 @@ public class PluginCreator{
 			   "api: [" + apiVersion + "]\n" +
 			   "main: " + temp + "/" + className;
 	}
-	
+		
 	/**
 	 * @param listener
 	 */
 	public void setListener(boolean listener){
 		this.listener = listener;
 	}
-			
+	
+	/**
+	 * @param variable (Example: $variable);
+	 */
+	public void setVariableName(String variable){
+		Random rnd = new Random();
+		
+		if(Utility.is_numeric(variable)) return;
+
+		if(variable == null || variable.equalsIgnoreCase(""))
+			variable = this.variable + rnd.nextInt((15 - 1) + 1) + 1;
+		
+		if(!variable.startsWith("$"))
+			variable = "$" + variable;
+		
+		this.variable = variable;
+	}
+	
 	/**
 	 * @param event (Example: BlockBreakEvent)
-	 * @param context content of event
 	 */
+	private String oldEvent = "";
+	
 	public void addEvent(String event){
 		String shortEvent = pmev.getReducedEvents(event);
-		String ev = "";
+		String code = 
+				"\n" +  "\n" +
+				"\tpublic function " + shortEvent + "(" + event + " $event){" + "\n" +
+				this.context + "\n" +
+				"\t}";
 		
-		ev = ev +
-			"\n" +  "\n" +
-			"\tpublic function " + shortEvent + "(" + event + " $event){" + "\n" +
-			this.context + "\n" +
-			"\t}";
-		this.events.add(ev);
+		if(oldEvent != event)
+			event_temp = event_temp + code;
+		else
+			event_temp = code;
+		
+		oldEvent = event;
+	}
+	
+	public void saveEvent(){
+		this.events.add(event_temp);
+		event_temp = "";
+		removeContext();
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getEventContent(){
+		return this.event_temp;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getEventsContent(){
+		String s = "";
+		for(int i = 0; i < events.size(); i++)
+			 s = s + events.get(i);
+		return s;
 	}
 	
 	private void mergeEvents(){
@@ -138,17 +195,26 @@ public class PluginCreator{
 	 */
 	public void addContext(int type, boolean custom, String content){
 		String cont = "";
-		
+				
 		if(custom)
-			cont = cont + content;
-		else
-			cont = cont +
-				"\t\t$event->" + pmev.toParameter(type).getName() + "();" +
+			cont = cont + "\n\t\t" + content + "\n";
+		else{
+			cont = cont + "\n\t\t";
+		
+			if(type != 8)
+			cont = cont + 
+				variable + " = $event->" + Parameter.values()[type].getName() + ";" +
 				"\n";
+			else
+				cont = cont +
+				"$event->" + Parameter.values()[type].getName() + ";" +
+				"\n";
+		}
 		
 		this.context = context + cont;
+		this.variable = "$param";
 	}
-		
+
 	private String buildMainStructure(){
 		String clazz = "class " + className + " extends PluginBase{";
 		if(listener){
@@ -176,13 +242,191 @@ public class PluginCreator{
 		
 		return finalClass;
 	}
-
+	
+	/**
+	 * @return true if event is setted
+	 */
 	public boolean isEventSetted() {
 		return eventSetted;
 	}
-
+	
+	/**
+	 * @param eventSetted set if the event is finished
+	 */
 	public void setEventSetted(boolean eventSetted) {
 		this.eventSetted = eventSetted;
+	}
+	
+	/**
+	 * Delete the current code
+	 */
+	public void removeContext() {
+		this.context = "";
+	}
+	
+	/**
+	 * @param type
+	 * @return
+	 */
+	public CodeStructures toCodeStructure(int type){
+		if(type < 0 || type > CodeStructures.values().length) return CodeStructures.NOTHING;
+		
+		return CodeStructures.values()[type];
+	}
+	
+	/**
+	 * @param type
+	 * @param condition
+	 * @return
+	 */
+	public String getStructure(CodeStructures type){
+		String cond = "", result = "", code = "", total = "";
+		switch(type){
+			case IF:
+				cond = Utility.readString("Write condition: ", "[IF]");
+				do{
+					result = Utility.readString("Write result of IF structure: ", "[IF] Write 'stop' for go out the IF results");
+					if(result.equalsIgnoreCase("stop")) break;
+					
+					total = total + "\n\t\t\t" + result;
+				}while(!result.equalsIgnoreCase("stop"));
+				
+				String elsee = "", total2 = "";
+				do{
+					elsee = Utility.readString("Write result of ELSE structure: ", "[ELSE] Write 'n' if you don't want add ELSE structure or write 'stop' for go out the ELSE results");
+					if(elsee.equalsIgnoreCase("stop") || elsee.equalsIgnoreCase("n")) break;
+					
+					total2 = total2 + "\n\t\t\t" + elsee;
+				}while(!elsee.equalsIgnoreCase("stop"));
+				
+				//if(condition){ result;
+				code = code + 
+						"if(" + cond + "){\n" + 
+						total;
+				//}else{ result;
+				if(!elsee.equalsIgnoreCase("n")){
+					code = code +
+						"\n\t\t}else{\n" + 
+						total2;
+				}
+				//}
+				code = code + "\n\t\t}";
+				return code;
+				
+			case ELSE_IF:
+				String elseif = "";
+				cond = Utility.readString("Write condition: ", "[IF]");
+				do{
+					result = Utility.readString("Write result of IF structure: ", "[IF] Write 'stop' for go out the IF results");
+					if(result.equalsIgnoreCase("stop")) break;
+					
+					total = total + "\n\t\t\t" + result;
+				}while(!result.equalsIgnoreCase("stop"));
+				//if(condition){ result;
+				code = code + 
+						"if(" + cond + "){\n" + 
+						total;
+				
+				do{
+					total2 = "";
+					elseif = Utility.readString("Write condition: ", "[ELSEIF] Write 'stop' for go out ELSE_IF structure");
+					if(elseif.equalsIgnoreCase("stop")) break;
+					String result_elseif = "";
+					
+					do{
+						result_elseif = Utility.readString("Write result of ELSE_IF structure: ", null);
+						if(result_elseif.equalsIgnoreCase("stop")) break;
+						total2 = total2 + "\n\t\t\t" + result_elseif;
+					}while(!result_elseif.equalsIgnoreCase("stop"));
+					
+					code = code + 
+							"\n\t\t}elseif(" + elseif + "){" + 
+							total2;
+				}while(!elseif.equalsIgnoreCase("stop"));
+
+				String total3 = "";
+				do{
+					elsee = Utility.readString("Write result of ELSE structure: ", "[ELSE] Write 'n' if you don't want add ELSE structure or write 'stop' for go out the ELSE results");
+					if(elsee.equalsIgnoreCase("stop") || elsee.equalsIgnoreCase("n")) break;
+					
+					total3 = total3 + "\n\t\t\t" + elsee;
+				}while(!elsee.equalsIgnoreCase("stop"));
+				
+
+				
+				//}elseif(condition){ result;
+				if(!elsee.equalsIgnoreCase("n")){
+					//}else{ result;
+					code = code +
+							"\n\t\t}else{\n" + 
+							total3;
+				}
+				//}
+				code = code + "\n\t\t}";
+				return code;
+				
+			case FOR:
+				setVariableName(Utility.readString("Select counter name: ", "[Example: $i, $c]"));
+				String start = Utility.readString("Starting value of counter: ", null);
+				cond = Utility.readString("Write condition: ", "[FOR]");
+				do{
+					result = Utility.readString("Write result of FOR structure: ", "Write 'stop' for go out the results");
+					if(result.equalsIgnoreCase("stop")) break;
+					
+					total = total + "\n\t\t\t" + result;
+				}while(!result.equalsIgnoreCase("stop"));
+				
+				//for(variable = start; cond; variable++){ result; }
+				code = code + 
+						"for(" + variable + " = " + start + "; " + cond + "; "+ variable + "++){\n" + 
+							"\t\t" + total +
+						"\n\t\t}";
+				return code;
+				
+			case WHILE:
+				cond = Utility.readString("Write condition: ", "[WHILE]");
+				do{
+					result = Utility.readString("Write result of WHILE structure: ", "Write 'stop' for go out the results");
+					if(result.equalsIgnoreCase("stop")) break;
+					
+					total = total + "\n\t\t\t" + result;
+				}while(!result.equalsIgnoreCase("stop"));
+				//while(condition){ result; }
+				code = code + 
+						"while(" + cond + "){\n" +
+						total +
+						"\n\t\t}";
+				return code;
+				
+			case DO_WHILE:
+				cond = Utility.readString("Write condition: ", "[DO_WHILE]");
+				do{
+					result = Utility.readString("Write result of DO_WHILE structure: ", "Write 'stop' for go out the results");
+					if(result.equalsIgnoreCase("stop")) break;
+					
+					total = total + "\n\t\t\t" + result;
+				}while(!result.equalsIgnoreCase("stop"));
+				//do{ result; }while(cond);
+				code = code + 
+						"do{\n" + 
+						total +
+						"\n\t\t}while(" + cond + ");";
+				return code;
+				
+			case NOTHING:
+				return "";
+			default:
+				return "Type not valid!";
+		}
+	}
+	
+	public enum CodeStructures{
+		IF,
+		ELSE_IF,
+		FOR,
+		WHILE,
+		DO_WHILE,
+		NOTHING;
 	}
 		
 }

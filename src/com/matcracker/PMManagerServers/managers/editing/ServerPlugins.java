@@ -9,13 +9,13 @@ import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.managers.Manager;
 import com.matcracker.PMManagerServers.utility.PMEvents;
 import com.matcracker.PMManagerServers.utility.PluginCreator;
+import com.matcracker.PMManagerServers.utility.PluginCreator.CodeStructures;
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 import com.matcracker.PMManagerServers.utility.PMEvents.Parameter;
 
 public class ServerPlugins{
-	private static PluginCreator plcr = new PluginCreator();
 	
 	public static void pluginsMenu(){
 		Utility.cleanScreen();
@@ -43,6 +43,7 @@ public class ServerPlugins{
 	}
 	
 	private static void createPlugin() {
+		PluginCreator plcr = new PluginCreator();
 		Utility.cleanScreen();
 		System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Create plugin"));
 		System.out.println("1- " + "Create plugin.yml");
@@ -76,6 +77,7 @@ public class ServerPlugins{
 				if(struct == 2){
 					PMEvents pmev = plcr.getEvents();
 					plcr.setListener(true);
+					
 					Utility.cleanScreen();
 					System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Events Selector"));
 					System.out.println("1- Blocks");
@@ -83,53 +85,108 @@ public class ServerPlugins{
 					System.out.println("3- Inventories");
 					System.out.println("4- Levels");
 					System.out.println("5- Players");
-					System.out.println("6- " + BaseLang.translate("pm.standard.back"));
+					System.out.println("6- Plugin");
+					System.out.println("7- " + BaseLang.translate("pm.standard.back"));
 					int event = Utility.readInt("Select event to add: ", null);
 					
-					if(event == 6) return; 
+					if(event == 7) return; 
+					String[] events = new String[pmev.entityEvents.length];
 					
-					if(event == 1){
-						int i = 0;
-						for(i = 0; i < pmev.blockEvents.length; i++)
-							System.out.printf("%d) %s\n", (i+1), pmev.getEvent(i, pmev.blockEvents));
+					if(event == 1)
+						events = pmev.blockEvents;
 					
-						System.out.println(i + ") " + BaseLang.translate("pm.standard.back"));
+					if(event == 2)
+						events = pmev.entityEvents;
+					
+					if(event == 3)
+						events = pmev.inventoryEvents;
+					
+					if(event == 4)
+						events = pmev.levelEvents;
+					
+					if(event == 5)
+						events = pmev.playerEvents;
+					
+					if(event == 6)
+						events = pmev.pluginEvents;
+					
+					int i = 0;
+					for(i = 0; i < events.length; i++)
+						System.out.printf("%d) %s\n", (i+1), pmev.getEvent(i, events));
+				
+					System.out.println((i+1) + ") " + BaseLang.translate("pm.standard.back"));
 
-						int type = Utility.readInt("Select type: ", null);
-												
-						if(type > 0 && type != (i+1)){
-							do{
-								i = 0;
-								Utility.cleanScreen();
-								System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Parameter Selector"));
-								System.out.println("");
-								for(i = 0; i < Parameter.values().length; i++)
+					int type = Utility.readInt("Select type: ", null);
+					
+					if(type == (i+1) || type > events.length) return;
+					
+					if(type > 0){
+						do{
+							i = 0;
+							Utility.cleanScreen();
+							plcr.addEvent(pmev.getEvent(type-1, events));
+							System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Parameter Selector"));
+							System.out.println(UtilityColor.BLUE + "---------------------------------");
+							System.out.println(UtilityColor.PURPLE + "Current code: ");
+							if(!plcr.events.isEmpty()) System.out.println(plcr.getEventsContent());
+							System.out.println(plcr.getEventContent());
+							System.out.println(UtilityColor.FORMAT_RESET + UtilityColor.BLUE + "---------------------------------" + UtilityColor.WHITE);
+							
+							boolean[] accepted = pmev.filterParam(pmev.getEvent(type-1, events));
+							for(i = 0; i < accepted.length; i++){
+								if(accepted[i])
 									System.out.printf("%d) %s\n", (i+1), Parameter.values()[i].getName());
-								System.out.println((i+1) + ") " + "Custom");
-								System.out.println((i+2) + ") " + "Save and leave event");
+							}
+							System.out.println((i+1) + ") " + "Add custom line code");
+							System.err.println((i+2) + ") " + "Cancel code");
+							System.out.println((i+3) + ") " + "Add code structure (If, for, while...)");
+							System.out.println((i+4) + ") " + "Save and leave event editor");
+							
+							int param = Utility.readInt("Select parameter: ", null);
+							
+							if(param <= 0) return;
+							
+							if(param == (i+2)) plcr.removeContext();
+							
+							if(param == (i+3)){
+								for(int c = 0; c < CodeStructures.values().length; c++)
+									System.out.println((c+1) + ") " + CodeStructures.values()[c].toString());
 								
-								int param = Utility.readInt("Select parameter: ", null);
-								
-								if(param <= 0) return;
-								
-								if(param == (i+2)) plcr.setEventSetted(true);
-
-								if(!plcr.isEventSetted()){
+								int code = Utility.readInt("Select structure code type: ", null);
+								plcr.addContext(param-1, true, plcr.getStructure(plcr.toCodeStructure(code-1)));
+							}
+							
+							if(param == (i+4)) plcr.setEventSetted(true);
+							
+							if(!plcr.isEventSetted()){
+								if(param <= (i+1)){
 									//Custom
 									if(param == (i+1)){
-										String custom = Utility.readString("Write the code to insert:\n" , "[Use escapes char]");
-										plcr.addContext(type, true, custom);
-									}else
-										plcr.addContext(type, false, Parameter.values()[param-1].getName());
-									
-								}else{
-									plcr.addEvent(pmev.getEvent(type-1, pmev.blockEvents));
-									Utility.waitConfirm(UtilityColor.GREEN + "Event added correctly!");
+											String custom = Utility.readString("Write the code to insert:\n" , "[Use escapes char]");
+											plcr.addContext(param-1, true, custom);
+										
+									}else{
+										if(accepted[param-1]){
+											if(param != 9){
+												String vb = Utility.readString("Select name of variable: ", "[Example: $player, $block, ect...]");
+												plcr.setVariableName(vb);
+											}
+											plcr.addContext(param-1, false, Parameter.values()[param-1].getName());
+										}
+									}
 								}
-							}while(!plcr.isEventSetted());
-						}							
-					}
+							}
+							
+							if(param == (i+4)){
+								plcr.saveEvent();
+								Utility.waitConfirm(UtilityColor.GREEN + "Event added correctly!");
+							}
+								
+						}while(!plcr.isEventSetted());
+						plcr.setEventSetted(false);
+					}							
 				}
+				
 				
 				if(struct == 4){
 					plcr.createNewClass();
