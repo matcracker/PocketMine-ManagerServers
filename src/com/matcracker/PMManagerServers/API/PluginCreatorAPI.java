@@ -16,19 +16,17 @@
 	
 package com.matcracker.PMManagerServers.API;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.matcracker.PMManagerServers.utility.PMEvents;
 import com.matcracker.PMManagerServers.utility.Utility;
-import com.matcracker.PMManagerServers.utility.PMEvents.Parameter;
-
-import java.io.File;
-import java.util.ArrayList;
 
 public class PluginCreatorAPI{
 
-	PMEvents pmev = new PMEvents();
+	PluginEventsAPI plev = new PluginEventsAPI(this);
+	PluginCommandsAPI plcmd = new PluginCommandsAPI(this);
 	
 	/**
 	 * plugin.yml
@@ -49,15 +47,6 @@ public class PluginCreatorAPI{
 	protected String disabled_message = pluginName + " disabled successfully!";
 	
 	/**
-	 * Events
-	 */
-	public List<String> events = new ArrayList<>();
-	protected String event_temp = "";
-	protected String context = "";;
-	protected String final_context_events = "";
-	private boolean eventSetted = false;
-	
-	/**
 	 * Imports
 	 */
 	private List<String> imports = new ArrayList<>();
@@ -66,25 +55,44 @@ public class PluginCreatorAPI{
 	/**
 	 * Miscellaneous
 	 */
-	private String variable = "$param";
-
+	protected String variable = "$param";
+	
+	
 	/**
-	 * @return instance of PMEvents
+	 * @return instance of PluginCommandsAPI
 	 */
-	public PMEvents getEvents(){
-		return pmev;
+	public PluginCommandsAPI getPluginCommands(){
+		return plcmd;
+	}
+	
+	/**
+	 * @return instance of PluginEventsAPI
+	 */
+	public PluginEventsAPI getPluginEvents(){
+		return plev;
 	}
 	
 	/**
 	 * Get informations about plugin.yml
 	 */
 	public void getPluginYAML(){
-		pluginName = Utility.readString("Name of plugin: ", null);
-		namespace = Utility.readString("Namespace of plugin: ", "[Example: src\\author\\pluginname]");
-		className = Utility.readString("Main class name: ", "[Example: Main]");
-		version = Utility.readString("Version of plugin: ", null);
-		author = Utility.readString("Author of plugin: ", null);
-		apiVersion = Utility.readString("API Version: ", "[Recommended 2.0.0]");
+		String pluginName = Utility.readString("Name of plugin: ", null);
+		if(!pluginName.isEmpty()) this.pluginName = pluginName;
+		
+		String namespace = Utility.readString("Namespace of plugin: ", "[Example: src\\author\\pluginname]");
+		if(!namespace.isEmpty()) this.namespace = namespace;
+		
+		String className = Utility.readString("Main class name: ", "[Example: Main]");
+		if(className.isEmpty()) this.className = className;
+		
+		String version = Utility.readString("Version of plugin: ", null);
+		if(!version.isEmpty()) this.version = version;
+		
+		String author = Utility.readString("Author of plugin: ", null);
+		if(!author.isEmpty()) this.author = author;
+		
+		String apiVersion = Utility.readString("API Version: ", "[Recommended 2.0.0]");
+		if(!apiVersion.isEmpty()) this.apiVersion = apiVersion;
 	}
 	
 	/**
@@ -126,14 +134,7 @@ public class PluginCreatorAPI{
 			   "api: [" + apiVersion + "]\n" +
 			   "main: " + temp + "\\" + className;
 	}
-		
-	/**
-	 * @param listener
-	 */
-	public void setListener(boolean listener){
-		this.listener = listener;
-	}
-	
+
 	/**
 	 * @param variable (Example: $variable);
 	 */
@@ -150,68 +151,16 @@ public class PluginCreatorAPI{
 		
 		this.variable = variable;
 	}
-	
-	/**
-	 * @param event (Example: BlockBreakEvent)
-	 */
-	private String oldEvent = "";
-	
-	public void addEvent(String event){
-		String shortEvent = pmev.getReducedEvents(event);
-		String code = 
-				"\n" +  "\n" +
-				"\tpublic function " + shortEvent + "(" + event + " $event){" + "\n" +
-				this.context + "\n" +
-				"\t}";
-		
-		if(oldEvent != event)
-			event_temp = event_temp + code;
-		else
-			event_temp = code;
-		
-		oldEvent = event;
-		
-		addImport("event\\" + adjustEventImport(event) + "\\" + event);
-	}
-	
-	public void saveEvent(){
-		this.events.add(event_temp);
-		event_temp = "";
-		removeContext();
-	}
-	
-	private String adjustEventImport(String event){
-		String e = event.toLowerCase();
-		String importz = "";
-		
-		if(e.contains("block") || e.contains("leaves") || e.contains("signchange"))
-			importz = "block";
-		else if(e.contains("entity") || e.contains("item") || e.contains("projectile"))
-			importz = "entity";
-		else if(e.contains("inventory") || e.contains("furnace") || e.contains("craft"))
-			importz = "inventory";
-		else if(e.contains("level") || e.contains("chunk") || e.contains("spawn"))
-			importz = "level";
-		else if(e.contains("player"))
-			importz = "player";
-		else if(e.contains("plugin"))
-			importz = "plugin";
-		
-		return importz;
-	}
-	
-	/**
-	 * @return
-	 */
-	public String getEventContent(){
-		return this.event_temp;
-	}
-	
+
 	/**
 	 * @param imports (it adds "use pocketmine\imports")
 	 * Example: if imports = hello, in the List will be added -> use pocketmine\hello;
 	 */
 	public void addImport(String imports){
+		for(int i = 0; i < this.imports.size(); i++)
+			if(this.imports.get(i).contains(imports))
+				return;
+		
 		this.imports.add("use pocketmine\\" + imports + ";\n");
 	}
 	
@@ -219,53 +168,12 @@ public class PluginCreatorAPI{
 		for(int i = 0; i < imports.size(); i++)
 			final_imports = final_imports + imports.get(i);
 	}
-	
-	/**
-	 * @return
-	 */
-	public String getEventsContent(){
-		String s = "";
-		for(int i = 0; i < events.size(); i++)
-			 s = s + events.get(i);
-		return s;
-	}
-	
-	private void mergeEvents(){
-		for(int i = 0; i < events.size(); i++)
-			final_context_events = final_context_events + events.get(i); 
-	}
-	
-	/**
-	 * @param type (Example: getPlayer, getBlock)
-	 * @param content if null you can set the context how do you want
-	 */
-	public void addContext(int type, boolean custom, String content){
-		String cont = "";
-				
-		if(custom)
-			cont = cont + "\n\t\t" + content + "\n";
-		else{
-			cont = cont + "\n\t\t";
-		
-			if(type != 8)
-			cont = cont + 
-				variable + " = $event->" + Parameter.values()[type].getName() + ";" +
-				"\n";
-			else
-				cont = cont +
-				"$event->" + Parameter.values()[type].getName() + ";" +
-				"\n";
-		}
-		
-		this.context = context + cont;
-		this.variable = "$param";
-	}
 
 	private String buildMainStructure(){
 		String clazz = "class " + className + " extends PluginBase{";
 		String onEnable = 
 				"\tpublic function onEnable(){\n" +
-				   		"\t\t$this->getLogger()->info(\"" + enabled_message + "\");\n" +
+				   		"\t\t$this->getServer()->getLogger()->info(\"" + enabled_message + "\");\n" +
 				"\t}";
 		addImport("plugin\\PluginBase");
 		if(listener){
@@ -273,12 +181,16 @@ public class PluginCreatorAPI{
 			clazz = "class " + className + " extends PluginBase implements Listener{";
 			onEnable = 
 				"\tpublic function onEnable(){\n" +
-				   		"\t\t$this->getLogger()->info(\"" + enabled_message + "\");\n" +
+				   		"\t\t$this->getServer()->getLogger()->info(\"" + enabled_message + "\");\n" +
 				   		"\t\t$this->getServer()->getPluginManager()->registerEvents($this, $this);\n" +
 				"\t}";
-			mergeEvents();
+			plev.mergeEvents();
 		}
 		mergeImports();
+		
+		if(plcmd.isCommandEnabled())
+			plcmd.mergeCommands();
+		
 		
 		String finalClass =
 			    "<?php\n" +
@@ -289,35 +201,15 @@ public class PluginCreatorAPI{
 			   	//Start "onEnable"
 			    onEnable +
 			    //End "onEnable"
-			    final_context_events + 
+			    getPluginEvents().final_context_events + 
+			    plcmd.buildCommandStructure() +			    
 			    //Start "onDisable"
 			    "\n\n\tpublic function onDisable(){\n" + 
-			   		"\t\t$this->getLogger()->info(\"" + disabled_message + "\");\n" +
+			   		"\t\t$this->getServer()->getLogger()->info(\"" + disabled_message + "\");\n" +
 			    "\t}\n" +
 			   //End "onDisable"
 			    "}";
 		return finalClass;
-	}
-	
-	/**
-	 * @return true if event is setted
-	 */
-	public boolean isEventSetted() {
-		return eventSetted;
-	}
-	
-	/**
-	 * @param eventSetted set if the event is finished
-	 */
-	public void setEventSetted(boolean eventSetted) {
-		this.eventSetted = eventSetted;
-	}
-	
-	/**
-	 * Delete the current code
-	 */
-	public void removeContext() {
-		this.context = "";
 	}
 	
 	/**

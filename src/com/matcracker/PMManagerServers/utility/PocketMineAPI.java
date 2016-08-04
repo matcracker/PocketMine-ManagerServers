@@ -16,7 +16,7 @@
 
 package com.matcracker.PMManagerServers.utility;
 
-public class PMEvents{
+public class PocketMineAPI{
 	
 	public final String[] blockEvents = new String[]{
 		"BlockBreakEvent",
@@ -114,7 +114,6 @@ public class PMEvents{
 		"PluginEnableEvent",
 		"PluginEvent"
 	};
-
 	
 	/**
 	 * 
@@ -136,7 +135,11 @@ public class PMEvents{
 		edited = "on" + edited;
 		return edited;
 	}
-		
+	
+	/** 
+	 * @param event
+	 * @return boolean array
+	 */
 	public boolean[] filterParam(String event){
 		boolean[] denied = new boolean[]{false, false, false, false, false, false, false, false, true, true, true, false};
 		String ev = event.toLowerCase();
@@ -188,8 +191,25 @@ public class PMEvents{
 		
 		return denied;
 	}
+
+	public enum CommandsParameter{
+		GET_SENDER("getSender()"),
+		SEND_MESSAGE("sendMessage(message)"),
+		GET_PLAYER("getPlayer()"),
+		GET_COMMAND("getCommand()"),
+		NOTHING("");
+		private String name;
+		
+		CommandsParameter(String type){
+			this.name = type;
+		}
+		
+		public String getName(){
+			return this.name;
+		}
+	}
 	
-	public enum Parameter{
+	public enum EventsParameter{
 		GET_BLOCK("getBlock()"), //BlockEvent 0
 		GET_ENTITY("getEntity()"), //EntityEvent 1
 		GET_INVENTORY("getInvetory()"), //InventoryEvent 2
@@ -205,7 +225,7 @@ public class PMEvents{
 		
 		private String name;
 		
-		Parameter(String type){
+		EventsParameter(String type){
 			this.name = type;
 		}
 		
