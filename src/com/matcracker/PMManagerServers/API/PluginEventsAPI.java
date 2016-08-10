@@ -104,11 +104,16 @@ public class PluginEventsAPI{
 		return s;
 	}
 	
-	protected void mergeEvents(){
+	private void mergeEvents(){
 		if(events.isEmpty()) return;
 		
 		for(int i = 0; i < events.size(); i++)
 			final_context_events = final_context_events + events.get(i); 
+	}
+	
+	public void sendToAPI(){
+		mergeEvents();
+		api.final_commands = final_context_events;
 	}
 	
 	/**

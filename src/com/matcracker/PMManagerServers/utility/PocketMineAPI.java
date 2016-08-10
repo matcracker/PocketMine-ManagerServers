@@ -194,10 +194,11 @@ public class PocketMineAPI{
 
 	public enum CommandsParameter{
 		GET_SENDER("getSender()"),
-		SEND_MESSAGE("sendMessage(message)"),
+		SEND_MESSAGE("$sender->sendMessage(\"/message/\")"),
 		GET_PLAYER("getPlayer()"),
 		GET_COMMAND("getCommand()"),
 		NOTHING("");
+		
 		private String name;
 		
 		CommandsParameter(String type){

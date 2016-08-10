@@ -56,7 +56,9 @@ public class PluginCreatorAPI{
 	 * Miscellaneous
 	 */
 	protected String variable = "$param";
-	
+
+	protected String final_events = "";
+	protected String final_commands = "";
 	
 	/**
 	 * @return instance of PluginCommandsAPI
@@ -184,13 +186,8 @@ public class PluginCreatorAPI{
 				   		"\t\t$this->getServer()->getLogger()->info(\"" + enabled_message + "\");\n" +
 				   		"\t\t$this->getServer()->getPluginManager()->registerEvents($this, $this);\n" +
 				"\t}";
-			plev.mergeEvents();
 		}
 		mergeImports();
-		
-		if(plcmd.isCommandEnabled())
-			plcmd.mergeCommands();
-		
 		
 		String finalClass =
 			    "<?php\n" +
@@ -201,8 +198,8 @@ public class PluginCreatorAPI{
 			   	//Start "onEnable"
 			    onEnable +
 			    //End "onEnable"
-			    getPluginEvents().final_context_events + 
-			    plcmd.buildCommandStructure() +			    
+			    this.final_events + 
+			    this.final_commands +			    
 			    //Start "onDisable"
 			    "\n\n\tpublic function onDisable(){\n" + 
 			   		"\t\t$this->getServer()->getLogger()->info(\"" + disabled_message + "\");\n" +

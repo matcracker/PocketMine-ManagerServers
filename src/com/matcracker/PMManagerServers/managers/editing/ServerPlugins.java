@@ -14,6 +14,7 @@ import com.matcracker.PMManagerServers.managers.Manager;
 import com.matcracker.PMManagerServers.utility.PocketMineAPI;
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
+import com.matcracker.PMManagerServers.utility.PocketMineAPI.CommandsParameter;
 import com.matcracker.PMManagerServers.utility.PocketMineAPI.EventsParameter;
 
 public class ServerPlugins{
@@ -21,6 +22,7 @@ public class ServerPlugins{
 	static PluginCreatorAPI plcr = new PluginCreatorAPI();
 	static PluginCommandsAPI plcmd = new PluginCommandsAPI(plcr);
 	static PluginEventsAPI plev = new PluginEventsAPI(plcr);
+	private static int numArg = 0;
 	
 	public static void pluginsMenu(){
 		Utility.cleanScreen();
@@ -180,7 +182,12 @@ public class ServerPlugins{
 							plev.addEventContext(param-1, true, plcr.getStructure(plcr.toCodeStructure(code-1)));
 						}
 						
-						if(param == (i+4)) plev.setEventSetted(true);
+						if(param == (i+4)){
+							plev.saveEvent();
+							plev.setEventSetted(true);
+							plev.sendToAPI();
+							Utility.waitConfirm(UtilityColor.GREEN + "Event added correctly!");
+						}
 						
 						if(!plev.isEventSetted()){
 							if(param <= (i+1)){
@@ -200,12 +207,6 @@ public class ServerPlugins{
 								}
 							}
 						}
-						
-						if(param == (i+4)){
-							plev.saveEvent();
-							Utility.waitConfirm(UtilityColor.GREEN + "Event added correctly!");
-						}
-							
 					}while(!plev.isEventSetted());
 					plev.setEventSetted(false);
 				}
@@ -215,60 +216,87 @@ public class ServerPlugins{
 			if(struct == 3){
 				boolean added = false;
 				plcmd.setCommandsEnabled(true);
+				String command = "", cont = "", argName = "";
 				do{
+					plcmd.addCommandsStructure();
 					Utility.cleanScreen();
 					System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Commands Structure"));
 					System.out.println(UtilityColor.BLUE + "---------------------------------");
 					System.out.println(UtilityColor.PURPLE + "Current code: ");
-					if(!plcmd.commands.isEmpty()) System.out.println(plcmd.getCommandsContent());
+					if(!plcmd.commands.isEmpty()) System.out.println(plcmd.getCommandContent());
+					System.out.println(plcmd.getCommandsContent());
 					System.out.println(UtilityColor.FORMAT_RESET + UtilityColor.BLUE + "---------------------------------" + UtilityColor.WHITE);
 					System.out.println("1- " + "Add command");
 					System.out.println("2- " + "Add command content");
-					System.err.println("3- " + "Cancel code");
-					System.out.println("4- " + "Save and leave commands editor");
+					System.out.println("3- " + "Add code structure (If, for, while...)");
+					System.err.println("4- " + "Cancel code");
+					System.out.println("5- " + "Save and leave commands editor");
 					int type = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 					
-					if(type == 1){
-						String command = Utility.readString("Write command name: ", null);
-						plcmd.addCommand(command);
-						plcmd.addCommandContext("");
-					}
-					
-					if(type == 2){
-						System.out.println("1- " + "Add custom line code");
-						System.out.println("2- " + "Add code structure (If, for, while...)");
-						System.out.println("3- " + BaseLang.translate("pm.standard.back"));
-						int code = Utility.readInt("Select type of code: ", null);
+					if(type == 1)
+						command = Utility.readString("Write command name: ", null);
+
+					if(type == 2 && !command.equalsIgnoreCase("")){
+						int i = 0;
+						for(i = 0; i < CommandsParameter.values().length; i++)
+							System.out.printf("%d) %s\n", (i+1), CommandsParameter.values()[i].toString());
 						
-						String cont = "";
+						System.out.println((i+1) + "- " + "Add arguments on command");
+						System.out.println((i+2) + "- " + "Add custom line code");
+						int code = Utility.readInt("Select parameter: ", null);
 						
-						if(code == 1)
+						if(code == (i+2)){
 							cont = Utility.readString("Write the code to insert:\n" , "[Use escapes char]");
-						
-						if(code == 2){
-							for(int c = 0; c < CodeStructures.values().length; c++)
-								System.out.println((c+1) + ") " + CodeStructures.values()[c].toString());
+							plcmd.addCommandContext(code-1, true, cont);
+						}else if(code == (i+1)){
+							argName = Utility.readString("Name of argument: ", null);
 							
-							int code_struct = Utility.readInt("Select structure code type: ", null);
-							cont = plcr.getStructure(plcr.toCodeStructure(code_struct));
+						}else{
+							if(code != 2){
+								String vb = Utility.readString("Select name of variable: ", "[Example: $player, $block, ect...]");
+								plcr.setVariableName(vb);
+							}
+							
+							cont = CommandsParameter.values()[code-1].getName();
+							
+							if(code == 2){
+								String message = Utility.readString("Message to send: ", null);
+								cont = cont.replaceAll("/message/", message);
+							}
+							
+							if(code != (i+1))
+								plcmd.addCommandContext(code-1, false, cont);
+							else{
+								plcmd.addArgument(numArg, argName, cont);
+								numArg++;
+							}
+	
 						}
+					}
+					
+					if(type == 3 && !command.equalsIgnoreCase("")){
+						for(int c = 0; c < CodeStructures.values().length; c++)
+							System.out.println((c+1) + ") " + CodeStructures.values()[c].toString());
 						
-						plcmd.addCommandContext(cont);
+						int code_struct = Utility.readInt("Select structure code type: ", null);
+						cont = plcr.getStructure(plcr.toCodeStructure(code_struct));
 					}
 					
-					if(type == 3){
+					if(!command.equalsIgnoreCase("") && !cont.equalsIgnoreCase(""))
+						plcmd.addCommand(command);
+					
+					if(type == 4)
 						plcmd.removeCommandsContext();
-					}
 					
-					if(type == 4){
-						System.out.println(UtilityColor.GREEN + "Command(s) added!");
+					if(type == 5){
+						plcmd.saveCommand();
+						plcmd.sendToAPI();
 						added = true;
+						Utility.waitConfirm(UtilityColor.GREEN + "Command(s) added!");
 					}
-					
 				}while(!added);
 				plcmd.setCommandsEnabled(false);
 			}
-						
 		}while(!finish);
 	}
 
