@@ -1,29 +1,30 @@
-package com.matcracker.PMManagerServers.API;
+package com.matcracker.PMManagerServers.plugincreator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-import com.matcracker.PMManagerServers.utility.PocketMineAPI;
-import com.matcracker.PMManagerServers.utility.PocketMineAPI.EventsParameter;
+import com.matcracker.PMManagerServers.plugincreator.PocketMineAPI.EventsParameter;
+import com.matcracker.PMManagerServers.utility.Utility;
 
-public class PluginEventsAPI{
+public class PocketmineEvents{
 	protected PocketMineAPI pmev = new PocketMineAPI();
-	
-	protected PluginCreatorAPI api;
-	
-	public PluginEventsAPI(PluginCreatorAPI api){
-		this.api = api;
-	}
 	
 	/**
 	 * Events
 	 */
 	public List<String> events = new ArrayList<>();
-	protected String event_temp = "";
-	protected String context = "";;
-	protected String final_context_events = "";
+	private String event_temp = "";
+	private String context = "";;
+	private String final_context_events = "";
 	private boolean eventSetted = false;
 
+	/**
+	 * Other
+	 */
+	private String variable;
+	
+	
 	/**
 	 * @return instance of PocketMineEvents
 	 */
@@ -34,10 +35,6 @@ public class PluginEventsAPI{
 	/**
 	 * @param listener
 	 */
-	public void setListener(boolean listener){
-		api.listener = listener;
-	}
-	
 	private String oldEvent = "";
 
 	/**
@@ -58,7 +55,7 @@ public class PluginEventsAPI{
 		
 		oldEvent = event;
 		
-		api.addImport("event\\" + adjustEventImport(event) + "\\" + event);
+		PocketminePluginCreator.addImport("event\\" + adjustEventImport(event) + "\\" + event);
 	}
 	
 	private String adjustEventImport(String event){
@@ -81,6 +78,9 @@ public class PluginEventsAPI{
 		return importz;
 	}
 	
+	/**
+	 * Save the event
+	 */
 	public void saveEvent(){
 		this.events.add(event_temp);
 		event_temp = "";
@@ -99,47 +99,59 @@ public class PluginEventsAPI{
 	 */
 	public String getEventsContent(){	
 		String s = "";
-		for(int i = 0; i < events.size(); i++)
-			 s = s + events.get(i);
+		for(String event : events)
+			 s += event;
 		return s;
 	}
 	
 	private void mergeEvents(){
 		if(events.isEmpty()) return;
 		
-		for(int i = 0; i < events.size(); i++)
-			final_context_events = final_context_events + events.get(i); 
+		for(String event : events)
+			final_context_events += event;
 	}
 	
-	public void sendToAPI(){
+	public void sendDataToCreator(){
 		mergeEvents();
-		api.final_commands = final_context_events;
+		PocketminePluginCreator.final_events = final_context_events;
 	}
 	
 	/**
-	 * @param type of event (Example: getPlayer is type 5, getBlock is type 0). Check type in enum Parameter
+	 * @param type of event (Example: getPlayer is type 5, getBlock is type 0). Check type in enum {@link EventsParameter}
 	 * @param content it's what the event do.
 	 */
 	public void addEventContext(int type, boolean custom, String content){
 		String cont = "";
 				
 		if(custom)
-			cont = cont + "\n\t\t" + content + "\n";
+			cont += "\n\t\t" + content + "\n";
 		else{
-			cont = cont + "\n\t\t";
+			cont += "\n\t\t";
 		
 			if(type != 8)
-			cont = cont + 
-				api.variable + " = $event->" + EventsParameter.values()[type].getName() + ";" +
-				"\n";
+				cont +=	variable + " = $event->" + EventsParameter.values()[type].getName() + ";\n";
 			else
-				cont = cont +
-				"$event->" + EventsParameter.values()[type].getName() + ";" +
-				"\n";
+				cont +=	"$event->" + EventsParameter.values()[type].getName() + ";\n";
 		}
 		
-		this.context = context + cont;
-		api.variable = "$param";
+		this.context += cont;
+	}
+	
+	public void setVariable(String variable){
+
+		if(Utility.is_numeric(variable)) return;
+
+		if(variable == null || variable.equalsIgnoreCase(""))
+			variable = "vb" + new Random().nextInt(20);
+		
+		if(!variable.startsWith("$"))
+			variable = "$" + variable;
+		
+		this.variable = variable;
+	}
+	
+	public String getVariable(){
+		return variable;
 	}
 	
 	/**

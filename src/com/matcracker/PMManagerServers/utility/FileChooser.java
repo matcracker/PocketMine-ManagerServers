@@ -16,6 +16,7 @@
 	
 package com.matcracker.PMManagerServers.utility;
 
+import java.awt.Desktop;
 import java.awt.Frame;
 import java.io.File;
 
@@ -33,7 +34,9 @@ public class FileChooser{
 	 * @param extension file extension
 	 * @return file selector of files
 	 */
-    public static String get(String title, String description, String extension) {
+    public static String get(String title, final String description, final String extension){
+    	if(!Desktop.isDesktopSupported()) return null;
+    	
     	JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File(System.getProperty("user.home")));
         fc.setDialogTitle(title);
@@ -83,6 +86,7 @@ public class FileChooser{
      * @return file selector of phar files
      */
     public static String getPhar(String title) {
+    	if(!Desktop.isDesktopSupported()) return null;
     	JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File(System.getProperty("user.home")));
         fc.setDialogTitle(title);

@@ -4,25 +4,26 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.matcracker.PMManagerServers.API.PluginCommandsAPI;
-import com.matcracker.PMManagerServers.API.PluginCreatorAPI;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
-import com.matcracker.PMManagerServers.API.PluginCreatorAPI.CodeStructures;
-import com.matcracker.PMManagerServers.API.PluginEventsAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.managers.Manager;
-import com.matcracker.PMManagerServers.utility.PocketMineAPI;
+import com.matcracker.PMManagerServers.plugincreator.CodeUtility.CodeStructures;
+import com.matcracker.PMManagerServers.plugincreator.PocketMineAPI.CommandsParameter;
+import com.matcracker.PMManagerServers.plugincreator.PocketMineAPI.EventsParameter;
+import com.matcracker.PMManagerServers.plugincreator.CodeUtility;
+import com.matcracker.PMManagerServers.plugincreator.PocketMineAPI;
+import com.matcracker.PMManagerServers.plugincreator.PocketMinePluginYAML;
+import com.matcracker.PMManagerServers.plugincreator.PocketmineCommands;
+import com.matcracker.PMManagerServers.plugincreator.PocketmineEvents;
+import com.matcracker.PMManagerServers.plugincreator.PocketminePluginCreator;
 import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
-import com.matcracker.PMManagerServers.utility.PocketMineAPI.CommandsParameter;
-import com.matcracker.PMManagerServers.utility.PocketMineAPI.EventsParameter;
 
 public class ServerPlugins{
-	
-	static PluginCreatorAPI plcr = new PluginCreatorAPI();
-	static PluginCommandsAPI plcmd = new PluginCommandsAPI(plcr);
-	static PluginEventsAPI plev = new PluginEventsAPI(plcr);
-	private static int numArg = 0;
+	private static PocketMinePluginYAML yaml;
+	private static PocketminePluginCreator plcr;
+	private static PocketmineCommands plcmd;
+	private static PocketmineEvents plev;
 	
 	public static void pluginsMenu(){
 		Utility.cleanScreen();
@@ -59,24 +60,35 @@ public class ServerPlugins{
 		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", "[Don't shut down the software when you are creating a plugin! You can lose all your progress]");
 		
-		if(opt == 1){
-			plcr.getPluginYAML();
-			plcr.createPluginYAML();
-			Utility.waitConfirm(UtilityColor.GREEN + "File plugin.yml created!");
-		}
-		
-		if(opt == 2)
-			pluginCreatorMenu();
-		
-		if(opt == 3){
-			plcr.createNewClass();
-			Utility.waitConfirm(UtilityColor.GREEN + "Class created!");
-			plcr = new PluginCreatorAPI();
-		}
-		
 		if(opt == 4)
 			pluginsMenu();
 		
+		if(opt == 1){
+			yaml = new PocketMinePluginYAML();
+			yaml.requestYAMLData();
+			yaml.createPluginYAML();
+			Utility.waitConfirm(UtilityColor.GREEN + "File plugin.yml created!");
+		}
+		
+		if(yaml != null){
+			if(plcr == null)
+				plcr = new PocketminePluginCreator(yaml);
+			
+			if(opt == 2)
+				pluginCreatorMenu();
+			
+			if(opt == 3){
+				if(plcr != null){
+					plcr.createNewClass();
+					Utility.waitConfirm(UtilityColor.GREEN + "Class created!");
+				}
+				if(plcmd != null)
+					plcmd.clearData();
+			}
+
+		}else
+			Utility.waitConfirm("Plugin YAML don't set!");
+
 		createPlugin();
 	}
 	
@@ -100,8 +112,9 @@ public class ServerPlugins{
 			
 			//Events Builder
 			if(struct == 2){
+				plev = new PocketmineEvents();
 				PocketMineAPI pmev = plev.getPocketMineEvents();
-				plev.setListener(true);
+				plcr.setListener(true);
 				
 				Utility.cleanScreen();
 				System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Events Selector"));
@@ -179,13 +192,13 @@ public class ServerPlugins{
 								System.out.println((c+1) + ") " + CodeStructures.values()[c].toString());
 							
 							int code = Utility.readInt("Select structure code type: ", null);
-							plev.addEventContext(param-1, true, plcr.getStructure(plcr.toCodeStructure(code-1)));
+							plev.addEventContext(param-1, true, CodeUtility.getStructure(CodeUtility.toCodeStructure(code-1)));
 						}
 						
 						if(param == (i+4)){
 							plev.saveEvent();
 							plev.setEventSetted(true);
-							plev.sendToAPI();
+							plev.sendDataToCreator();
 							Utility.waitConfirm(UtilityColor.GREEN + "Event added correctly!");
 						}
 						
@@ -193,14 +206,13 @@ public class ServerPlugins{
 							if(param <= (i+1)){
 								//Custom
 								if(param == (i+1)){
-										String custom = Utility.readString("Write the code to insert:\n" , "[Use escapes char]");
-										plev.addEventContext(param-1, true, custom);
-									
+									String custom = Utility.readString("Write the code to insert:\n" , "[Use escapes char]");
+									plev.addEventContext(param-1, true, custom);
 								}else{
 									if(accepted[param-1]){
 										if(param != 9){
 											String vb = Utility.readString("Select name of variable: ", "[Example: $player, $block, ect...]");
-											plcr.setVariableName(vb);
+											plev.setVariable(vb);
 										}
 										plev.addEventContext(param-1, false, EventsParameter.values()[param-1].getName());
 									}
@@ -214,17 +226,17 @@ public class ServerPlugins{
 			
 			//Commands Builder
 			if(struct == 3){
+				plcmd = new PocketmineCommands();
 				boolean added = false;
-				plcmd.setCommandsEnabled(true);
-				String command = "", cont = "", argName = "";
+				plcr.setCommandsEnabled(true);
+				String cont = "", argName = "";
 				do{
 					plcmd.addCommandsStructure();
 					Utility.cleanScreen();
 					System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Commands Structure"));
 					System.out.println(UtilityColor.BLUE + "---------------------------------");
 					System.out.println(UtilityColor.PURPLE + "Current code: ");
-					if(!plcmd.commands.isEmpty()) System.out.println(plcmd.getCommandContent());
-					System.out.println(plcmd.getCommandsContent());
+					System.out.println(plcmd.getTemporaryData());
 					System.out.println(UtilityColor.FORMAT_RESET + UtilityColor.BLUE + "---------------------------------" + UtilityColor.WHITE);
 					System.out.println("1- " + "Add command");
 					System.out.println("2- " + "Add command content");
@@ -233,10 +245,13 @@ public class ServerPlugins{
 					System.out.println("5- " + "Save and leave commands editor");
 					int type = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 					
-					if(type == 1)
-						command = Utility.readString("Write command name: ", null);
-
-					if(type == 2 && !command.equalsIgnoreCase("")){
+					if(type == 1){
+						plcmd.saveCommand();
+						plcmd.clearData();
+						plcmd.setCommand(Utility.readString("Write command name: ", null));
+					}
+					
+					if(type == 2){
 						int i = 0;
 						for(i = 0; i < CommandsParameter.values().length; i++)
 							System.out.printf("%d) %s\n", (i+1), CommandsParameter.values()[i].toString());
@@ -247,14 +262,15 @@ public class ServerPlugins{
 						
 						if(code == (i+2)){
 							cont = Utility.readString("Write the code to insert:\n" , "[Use escapes char]");
-							plcmd.addCommandContext(code-1, true, cont);
+							plcmd.addLine(cont);
 						}else if(code == (i+1)){
 							argName = Utility.readString("Name of argument: ", null);
-							
+							System.out.println(argName);
 						}else{
+							
 							if(code != 2){
 								String vb = Utility.readString("Select name of variable: ", "[Example: $player, $block, ect...]");
-								plcr.setVariableName(vb);
+								plcmd.setVariable(vb);
 							}
 							
 							cont = CommandsParameter.values()[code-1].getName();
@@ -265,37 +281,35 @@ public class ServerPlugins{
 							}
 							
 							if(code != (i+1))
-								plcmd.addCommandContext(code-1, false, cont);
+								plcmd.addLine(cont);
 							else{
-								plcmd.addArgument(numArg, argName, cont);
-								numArg++;
+								//plcmd.addArgument(numArg, argName, cont);
+								//numArg++;
 							}
 	
 						}
 					}
 					
-					if(type == 3 && !command.equalsIgnoreCase("")){
+					if(type == 3){
 						for(int c = 0; c < CodeStructures.values().length; c++)
 							System.out.println((c+1) + ") " + CodeStructures.values()[c].toString());
 						
 						int code_struct = Utility.readInt("Select structure code type: ", null);
-						cont = plcr.getStructure(plcr.toCodeStructure(code_struct));
+						cont = CodeUtility.getStructure(CodeUtility.toCodeStructure(code_struct));
 					}
 					
-					if(!command.equalsIgnoreCase("") && !cont.equalsIgnoreCase(""))
-						plcmd.addCommand(command);
-					
 					if(type == 4)
-						plcmd.removeCommandsContext();
+						plcmd.clearData();
 					
 					if(type == 5){
 						plcmd.saveCommand();
-						plcmd.sendToAPI();
 						added = true;
 						Utility.waitConfirm(UtilityColor.GREEN + "Command(s) added!");
 					}
+					
+					plcmd.buildCommand();
 				}while(!added);
-				plcmd.setCommandsEnabled(false);
+				plcr.setCommandsEnabled(false);
 			}
 		}while(!finish);
 	}

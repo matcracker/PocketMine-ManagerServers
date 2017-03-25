@@ -131,7 +131,7 @@ public class PluginsLoader{
 			System.out.println(UtilityColor.RED + BaseLang.translate("pm.plugins.errorLoading") + " " + methodName);
 
 		}
-		return false;
+		return null;
 	}
 	
 	/**
