@@ -99,10 +99,13 @@ public class PocketminePluginCreator{
 	public static String getAllCommands(){
 		if(commands.isEmpty()) return "";
 		
-		String cmds = "";
-		
+		String cmds = "\n\tpublic function onCommand(CommandSender $sender, Command $command, $lbl, array $args[]){\n" +
+					  "\t\t$cmd = strtolower($command->getName());\n";
 		for(String s : commands)
 			cmds += s + "\n";
+		
+		cmds +=	"\n\t\treturn false;\n" +
+				"\t}";
 		
 		return cmds;
 	}
@@ -156,7 +159,7 @@ public class PocketminePluginCreator{
 			    onEnable +
 			    //End "onEnable"
 			    final_events + 
-			    getAllCommands() +		    
+			    getAllCommands() +
 			    //Start "onDisable"
 			    "\n\n\tpublic function onDisable(){\n" + 
 			   		"\t\t$this->getServer()->getLogger()->info(\"" + disabled_message + "\");\n" +

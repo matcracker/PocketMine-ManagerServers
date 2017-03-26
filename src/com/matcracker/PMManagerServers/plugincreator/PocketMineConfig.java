@@ -54,7 +54,7 @@ public class PocketMineConfig {
 		
 		return sx;
 	}
-	
+	private final String space = "    ";
 	/**
 	 * @param key
 	 * @param value
@@ -65,7 +65,7 @@ public class PocketMineConfig {
 		if(value.contains(";")){
 			lines.add(key + ":\n");
 			for(String val : value.split(";"))
-				lines.add("\t- " + val + "\n");
+				lines.add(space + "- " + val + "\n");
 			
 		}else
 			lines.add(key + ": " + value + "\n");
@@ -76,12 +76,12 @@ public class PocketMineConfig {
 		
 		lines.add(key + ":\n");
 		for(String val : values)
-			lines.add("\t- " + val + "\n");
+			lines.add(space + "- " + val + "\n");
 		
 	}
 	
 	public void addLine(String line){
-		lines.add(line);
+		lines.add(line + "\n");
 	}
 	
 	public void clearConfig(){

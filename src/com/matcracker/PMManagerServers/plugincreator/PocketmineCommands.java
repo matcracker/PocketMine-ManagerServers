@@ -27,10 +27,10 @@ public class PocketmineCommands{
 	 * Commands
 	 */
 	private ArrayList<String> lines = new ArrayList<String>();
-	protected String command = "";
+	protected String command;
 	private String variable;
 	private String cmdContext;
-	private String temp_command;
+	private String temp_command = "";
 	private String temp_data;
 	private boolean argumentMode = false;
 
@@ -72,7 +72,7 @@ public class PocketmineCommands{
 	}
 	
 	public void addLine(String line){
-		String code = "\n\t\t\t\t";
+		String code = "\n\t\t\t";
 		
 		if(argumentMode)
 			code += "\t";
@@ -107,7 +107,7 @@ public class PocketmineCommands{
 	}
 	
 	public void clearData(){
-		command = null;
+		command = "";
 		temp_command = null;
 		variable = null;
 		argument = null;
@@ -131,14 +131,16 @@ public class PocketmineCommands{
 		
 		addContext();
 		
-		temp_command = "\n\t\t\tif($cmd == \"" + command + "\"){\n" + 
+		temp_command = "\n\t\tif($cmd == \"" + command + "\"){\n" + 
 				  cmdContext +
-			      "\n\t\t\t}\n";
+			      "\n\t\t}\n";
 
 	}
 	
 	public void saveCommand(){
-		if(temp_data != null)
+		addLine("return true");
+		buildCommand();
+		if(temp_command != null)
 			PocketminePluginCreator.getCommands().add(temp_command);
 	}
 	
@@ -153,11 +155,11 @@ public class PocketmineCommands{
 	}
 
 	public void addCommandsStructure(){
-		temp_data = "\n\t\tpublic function onCommand(CommandSender $sender, Command $command, $lbl, array $args[]){\n" +
-					"\t\t\t$cmd = strtolower($command->getName());\n" +
+		temp_data = "\n\tpublic function onCommand(CommandSender $sender, Command $command, $lbl, array $args[]){\n" +
+					"\t\t$cmd = strtolower($command->getName());\n" +
 					temp_command +
-					"\n\t\t\treturn false;\n" +
-					"\t\t}";
+					"\n\t\treturn false;\n" +
+					"\t}";
 	}
 	
 	/**
@@ -173,8 +175,8 @@ public class PocketmineCommands{
 	 * @param content
 	 */
 	public void buildArgument(){
-		lines.add("\t\t\t\t$args[" + argPosition + "] = strtolower($args[" + argPosition + "]);\n");
-		lines.add("\t\t\t\tif($args[" + argPosition + "] == \"" + argument + "\"){");
+		lines.add("\t\t\t$args[" + argPosition + "] = strtolower($args[" + argPosition + "]);\n");
+		lines.add("\t\t\tif($args[" + argPosition + "] == \"" + argument + "\"){");
 	}
 	
 	public void setArgument(String argument){
