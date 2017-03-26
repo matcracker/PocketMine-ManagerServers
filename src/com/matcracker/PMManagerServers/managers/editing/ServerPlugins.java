@@ -140,10 +140,11 @@ public class ServerPlugins{
 				System.out.println("4- Levels");
 				System.out.println("5- Players");
 				System.out.println("6- Plugin");
-				System.out.println("7- " + BaseLang.translate("pm.standard.back"));
+				System.out.println("7- Server");
+				System.out.println("8- " + BaseLang.translate("pm.standard.back"));
 				int event = Utility.readInt("Select event to add: ", null);
 				
-				if(event == 7) return;
+				if(event == 8) return;
 				
 				String[] events = new String[pmev.entityEvents.length];
 				
@@ -164,6 +165,9 @@ public class ServerPlugins{
 				
 				if(event == 6)
 					events = pmev.pluginEvents;
+				
+				if(event == 7)
+					events = pmev.serverEvents;
 				
 				int i = 0;
 				for(i = 0; i < events.length; i++)

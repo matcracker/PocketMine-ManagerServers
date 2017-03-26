@@ -42,18 +42,25 @@ public class PocketMineAPI{
 		"EntityDamageEvent",
 		"EntityDeathEvent",
 		"EntityDespawnEvent",
+		"EntityEatBlockEvent",
+		"EntityEatEvent",
+		"EntityEatItemEvent",
+		"EntityEffectAddEvent",
+		"EntityEffectEvent",
+		"EntityEffectRemoveEvent",
 		"EntityEvent",
 		"EntityExplodeEvent",
 		"EntityInventoryChangeEvent",
 		"EntityLevelChangeEvent",
 		"EntityMotionEvent",
-		"EntityMoveEvent",
+		//"EntityMoveEvent", Removed (?)
 		"EntityRegainHealthEvent",
 		"EntityShootBowEvent",
 		"EntitySpawnEvent",
 		"EntityTeleportEvent",
 		"ExplosionPrimeEvent",
 		"ItemDespawnEvent",
+		"ItemSpawnEvent",
 		"ProjectileHitEvent",
 		"ProjectileLaunchEvent"
 	};
@@ -96,6 +103,7 @@ public class PocketMineAPI{
 		"PlayerDeathEvent",
 		"PlayerDropItemEvent",
 		"PlayerEvent",
+		"PlayerExhaustEvent",
 		"PlayerGameModeChangeEvent",
 		"PlayerInteractEvent",
 		"PlayerItemConsumeEvent",
@@ -106,13 +114,27 @@ public class PocketMineAPI{
 		"PlayerMoveEvent",
 		"PlayerPreLoginEvent",
 		"PlayerQuitEvent",
-		"PlayerRespawnEvent"
+		"PlayerRespawnEvent",
+		"PlayerToggleFlightEvent",
+		"PlayerToggleSneakEvent",
+		"PlayerToggleSprintEvent",
+		"PlayerTransferEvent"
 	};
 	
 	public final String[] pluginEvents = new String[]{
 		"PluginDisableEvent",
 		"PluginEnableEvent",
 		"PluginEvent"
+	};
+	
+	public final String[] serverEvents = new String[]{
+		"DataPacketReceiveEvent",
+		"DataPacketSendEvent",
+		"LowMemoryEvent",
+		"QueryRegenerateEvent",
+		"RemoteServerCommandEvent",
+		"ServerCommandEvent",
+		"ServerEvent",
 	};
 	
 	/**
@@ -141,7 +163,7 @@ public class PocketMineAPI{
 	 * @return boolean array
 	 */
 	public boolean[] filterParam(String event){
-		boolean[] denied = new boolean[]{false, false, false, false, false, false, false, false, true, true, true, false};
+		boolean[] denied = new boolean[]{false, false, false, false, false, false, false, false, true, true, true};
 		String ev = event.toLowerCase();
 		
 		if(ev.contains("block") || ev.contains("leaves") || ev.contains("signchange")){
@@ -217,7 +239,7 @@ public class PocketMineAPI{
 		GET_LEVEL("getLevel()"), //LevelEvent 4 
 		GET_PLAYER("getPlayer()"), //PlayerEvent 5
 		GET_PLUGIN("getPlugin()"), //PluginEvent 6
-		GET_ITEM("getItem()"), //Used 7 
+		GET_ITEM("getItem()"), //Used 7
 		SET_CANCELLED("setCancelled(true)"), //All events 8
 		GET_EVENTNAME("getEventName()"), //All events 9
 		GET_HANDLERS("getHandlers()"); //All events 10
