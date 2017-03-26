@@ -31,7 +31,7 @@ public class Settings{
 		System.out.println("2- " + BaseLang.translate("pm.settings.serversManager"));
 		System.out.println("3- " + BaseLang.translate("pm.settings.reset"));
 		System.out.println("4- " + BaseLang.translate("pm.settings.plugManager"));
-		System.out.println("5- " + "Update software");
+		System.out.println("5- " + BaseLang.translate("pm.settings.updateSoftware"));
 		System.out.println("6- " + BaseLang.translate("pm.standard.back"));
 		
 		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
@@ -50,8 +50,7 @@ public class Settings{
 		
 		if(opt == 5){
 			Updater up = new Updater();
-			boolean search = up.getAutoSearch();
-			if(!search){
+			if(!up.isAutoSearch()){
 				up.setAutoSearch(true);
 				PMMS.checkUpdate();
 				up.setAutoSearch(false);

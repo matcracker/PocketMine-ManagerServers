@@ -73,19 +73,19 @@ public class PMMS{
 		Updater up = new Updater();
 		
 		if(!UtilityServersAPI.checkServersFile("Data", "updater", -1)){
-			String conf = Utility.readString("Do you want always check update? <Y/n>: ", null);
+			String conf = Utility.readString(BaseLang.translate("pm.updater.alwaysCheck") + " <Y/n>: ", null);
 			if(conf.equalsIgnoreCase("y"))
 				up.setAutoSearch(true);
 			else
 				up.setAutoSearch(false);
 		}
 		
-		if(up.getAutoSearch()){
-			System.out.println("Finding new updates, please wait...");
+		if(up.isAutoSearch()){
+			System.out.println(BaseLang.translate("pm.updater.searchingUpdate"));
 			if(up.findUpdate())
 				up.updateResources();
 			else
-				System.out.println(UtilityColor.RED + "No updates found, you are running the latest version!");
+				System.out.println(UtilityColor.RED + BaseLang.translate("pm.updater.noUpdate"));
 		}
 	}
 	

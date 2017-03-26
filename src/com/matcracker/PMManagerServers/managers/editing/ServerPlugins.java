@@ -46,10 +46,10 @@ public class ServerPlugins{
 	public static void pluginsMenu(){
 		Utility.cleanScreen();
 		System.out.println(Utility.softwareName);
-		System.out.println(Utility.setTitle(UtilityColor.RED, "Server Plugins"));
-		System.out.println("1- " + "Get list of plugins on your server.");
-		System.out.println("2- " + "Delete a plugin.");
-		System.out.println("3- " + "Create a plugin.");
+		System.out.println(Utility.setTitle(UtilityColor.RED, BaseLang.translate("pm.title.serverPlugins")));
+		System.out.println("1- " + BaseLang.translate("pm.serverPlugins.pluginList"));
+		System.out.println("2- " + BaseLang.translate("pm.serverPlugins.deletePlugin"));
+		System.out.println("3- " + BaseLang.translate("pm.serverPlugins.createPlugin"));
 		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 		
 		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
@@ -71,13 +71,13 @@ public class ServerPlugins{
 	
 	private static void createPlugin() {
 		Utility.cleanScreen();
-		System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Create plugin"));
-		System.out.println("1- " + "Create plugin.yml");
-		System.out.println("2- " + "Create plugin structure");
-		System.out.println("3- " + "Create configuration file");
-		System.out.println("4- " + "Save and finish");
+		System.out.println(Utility.setTitle(UtilityColor.YELLOW, BaseLang.translate("pm.title.createPlugin")));
+		System.out.println("1- " + BaseLang.translate("pm.serverPlugins.createPluginYAML"));
+		System.out.println("2- " + BaseLang.translate("pm.serverPlugins.createPluginStructure"));
+		System.out.println("3- " + BaseLang.translate("pm.serverPlugins.createPluginConfig"));
+		System.out.println("4- " + BaseLang.translate("pm.serverPlugins.save"));
 		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
-		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", "[Don't shut down the software when you are creating a plugin! You can lose all your progress]");
+		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", "[" + BaseLang.translate("pm.serverPlugins.notShutdown") + "]");
 		
 		if(opt == 5)
 			pluginsMenu();
@@ -86,7 +86,7 @@ public class ServerPlugins{
 			yaml = new PocketMinePluginYAML();
 			yaml.requestYAMLData();
 			yaml.createPluginYAML();
-			Utility.waitConfirm(UtilityColor.GREEN + "File plugin.yml created!");
+			Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverPlugins.pluginYAMLCreated"));
 		}
 		
 
@@ -104,42 +104,42 @@ public class ServerPlugins{
 			if(opt == 4){
 				if(plcr != null){
 					plcr.createNewClass();
-					Utility.waitConfirm(UtilityColor.GREEN + "Class created!");
+					Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverPlugins.classCreated"));
 				}
 				if(plcmd != null)
 					plcmd.clearData();
 			}
 
 		}else
-			Utility.waitConfirm("Plugin YAML don't set!");
+			Utility.waitConfirm(BaseLang.translate("pm.serverPlugins.YAMLNotSet"));
 
 		createPlugin();
 	}
 	
 	private static void configurationCreator(){
-		plconf = new PocketMineConfig(yaml, Utility.readString("Select the file name of config: ", "[Default will be config.yml]"));
+		plconf = new PocketMineConfig(yaml, Utility.readString(BaseLang.translate("pm.serverPlugins.configName") + " ", "[" + BaseLang.translate("pm.serverPlugins.defaultConfigName") + "]"));
 		boolean finished = false;
 		
 		do{
 			Utility.cleanScreen();
-			System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Configuration of " + plconf.getConfigName()));
+			System.out.println(Utility.setTitle(UtilityColor.YELLOW, BaseLang.translate("pm.serverPlugins.configOf") + " " + plconf.getConfigName()));
 			System.out.println(UtilityColor.BLUE + "---------------------------------");
-			System.out.println(UtilityColor.PURPLE + "Current config: ");
+			System.out.println(UtilityColor.PURPLE + BaseLang.translate("pm.serverPlugins.currentConfig") + ": ");
 			for(String line : plconf.getConfig().split("\n"))
 				System.out.println("\t" + line);
 			System.out.println(UtilityColor.FORMAT_RESET + UtilityColor.BLUE + "---------------------------------" + UtilityColor.WHITE);
-			System.out.println("1- " + "Add a key and value.");
-			System.out.println("2- " + "Custom configuration.");
-			System.out.println("3- " + "Cancel configuration.");
-			System.out.println("4- " + "Save config and exit.");
+			System.out.println("1- " + BaseLang.translate("pm.serverPlugins.addKeyValue"));
+			System.out.println("2- " + BaseLang.translate("pm.serverPlugins.customConfig"));
+			System.out.println("3- " + BaseLang.translate("pm.serverPlugins.cancelConfig"));
+			System.out.println("4- " + BaseLang.translate("pm.serverPlugins.saveConfig"));
 			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 			int conf = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 			
 			if(conf == 1)
-				plconf.addValue(Utility.readString("Write the key: ", null), Utility.readString("Write the value: ", "[Use ';' for separate more values]"));
+				plconf.addValue(Utility.readString(BaseLang.translate("pm.serverPlugins.writeKey") + " ", null), Utility.readString(BaseLang.translate("pm.serverPlugins.writeValue") + " ", "[" + BaseLang.translate("pm.serverPlugins.moreValues") + "]"));
 			
 			if(conf == 2)
-				plconf.addLine(Utility.readString("Write a custom text: ", null));
+				plconf.addLine(Utility.readString(BaseLang.translate("pm.serverPlugins.customText") + " ", null));
 			
 			if(conf == 3)
 				plconf.clearConfig();
@@ -147,7 +147,7 @@ public class ServerPlugins{
 			if(conf == 4){
 				finished = true;
 				plconf.saveConfig();
-				Utility.waitConfirm(UtilityColor.GREEN + "Configuration saved successfully!");
+				Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverPlugins.configurationSaved"));
 			}
 			
 			if(conf == 5)
@@ -161,12 +161,12 @@ public class ServerPlugins{
 		boolean finish = false;
 		do{
 			Utility.cleanScreen();
-			System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Create structure"));
-			System.out.println("1- " + "Add standard structure (onEnable/onDisable)");
-			System.out.println("2- " + "Add events structure");
-			System.out.println("3- " + "Add commands structure");
+			System.out.println(Utility.setTitle(UtilityColor.YELLOW, BaseLang.translate("pm.title.createStructure")));
+			System.out.println("1- " + BaseLang.translate("pm.serverPlugins.addStructure") + " (onEnable/onDisable).");
+			System.out.println("2- " + BaseLang.translate("pm.serverPlugins.addEvents"));
+			System.out.println("3- " + BaseLang.translate("pm.serverPlugins.addCommands"));
 			System.out.println("4- " + BaseLang.translate("pm.standard.back"));
-			int struct = Utility.readInt("Select structure type: ", "[Recommend, start from step 1]");
+			int struct = Utility.readInt(BaseLang.translate("pm.serverPlugins.selectStructure") + " ", "[" + BaseLang.translate("pm.serverPlugins.recommended") + "]");
 			
 			if(struct == 4)
 				break;
@@ -182,16 +182,16 @@ public class ServerPlugins{
 				plcr.setListener(true);
 				
 				Utility.cleanScreen();
-				System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Events Selector"));
-				System.out.println("1- Blocks");
-				System.out.println("2- Entities");
-				System.out.println("3- Inventories");
-				System.out.println("4- Levels");
-				System.out.println("5- Players");
-				System.out.println("6- Plugin");
-				System.out.println("7- Server");
+				System.out.println(Utility.setTitle(UtilityColor.YELLOW, BaseLang.translate("pm.title.eventSelector")));
+				System.out.println("1- " + BaseLang.translate("pm.serverPlugins.events.blocks"));
+				System.out.println("2- " + BaseLang.translate("pm.serverPlugins.events.entities"));
+				System.out.println("3- " + BaseLang.translate("pm.serverPlugins.events.inventories"));
+				System.out.println("4- " + BaseLang.translate("pm.serverPlugins.events.levels"));
+				System.out.println("5- " + BaseLang.translate("pm.serverPlugins.events.players"));
+				System.out.println("6- " + BaseLang.translate("pm.serverPlugins.events.plugins"));
+				System.out.println("7- " + BaseLang.translate("pm.serverPlugins.events.server"));
 				System.out.println("8- " + BaseLang.translate("pm.standard.back"));
-				int event = Utility.readInt("Select event to add: ", null);
+				int event = Utility.readInt(BaseLang.translate("pm.serverPlugins.selectEvent") + " ", null);
 				
 				if(event == 8) return;
 				
@@ -224,7 +224,7 @@ public class ServerPlugins{
 			
 				System.out.println((i+1) + ") " + BaseLang.translate("pm.standard.back"));
 
-				int type = Utility.readInt("Select type: ", null);
+				int type = Utility.readInt(BaseLang.translate("pm.choice.type") + " ", null);
 				
 				if(type == (i+1) || type > events.length) return;
 				
@@ -233,9 +233,9 @@ public class ServerPlugins{
 						i = 0;
 						Utility.cleanScreen();
 						plev.addEvent(pmev.getEvent(type-1, events));
-						System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Parameter Selector"));
+						System.out.println(Utility.setTitle(UtilityColor.YELLOW, BaseLang.translate("pm.title.parameterSelector")));
 						System.out.println(UtilityColor.BLUE + "---------------------------------");
-						System.out.println(UtilityColor.PURPLE + "Current code: ");
+						System.out.println(UtilityColor.PURPLE + BaseLang.translate("pm.serverPlugins.currentCode") + ": ");
 						if(!plev.events.isEmpty()) System.out.println(plev.getEventsContent());
 						System.out.println(plev.getEventContent());
 						System.out.println(UtilityColor.FORMAT_RESET + UtilityColor.BLUE + "---------------------------------" + UtilityColor.WHITE);
@@ -245,12 +245,12 @@ public class ServerPlugins{
 							if(accepted[i])
 								System.out.printf("%d) %s\n", (i+1), EventsParameter.values()[i].getName());
 						}
-						System.out.println((i+1) + ") " + "Add custom line code");
-						System.err.println((i+2) + ") " + "Cancel code");
-						System.out.println((i+3) + ") " + "Add code structure (If, for, while...)");
-						System.out.println((i+4) + ") " + "Save and leave event editor");
+						System.out.println((i+1) + ") " + BaseLang.translate("pm.serverPlugins.customLineCode"));
+						System.err.println((i+2) + ") " + BaseLang.translate("pm.serverPlugins.cancelCode"));
+						System.out.println((i+3) + ") " + BaseLang.translate("pm.serverPlugins.addCodeStructure"));
+						System.out.println((i+4) + ") " + BaseLang.translate("pm.serverPlugins.leaveEditor"));
 						
-						int param = Utility.readInt("Select parameter: ", null);
+						int param = Utility.readInt(BaseLang.translate("pm.serverPlugins.selectParameter") + " ", null);
 						
 						if(param <= 0) return;
 						
@@ -260,7 +260,7 @@ public class ServerPlugins{
 							for(int c = 0; c < CodeStructures.values().length; c++)
 								System.out.println((c+1) + ") " + CodeStructures.values()[c].toString());
 							
-							int code = Utility.readInt("Select structure code type: ", null);
+							int code = Utility.readInt(BaseLang.translate("pm.serverPlugins.selectCodeStructure") + " ", null);
 							plev.addEventContext(param-1, true, CodeUtility.getStructure(CodeUtility.toCodeStructure(code-1)));
 						}
 						
@@ -268,19 +268,19 @@ public class ServerPlugins{
 							plev.saveEvent();
 							plev.setEventSetted(true);
 							plev.sendDataToCreator();
-							Utility.waitConfirm(UtilityColor.GREEN + "Event added correctly!");
+							Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverPlugins.eventAdded"));
 						}
 						
 						if(!plev.isEventSetted()){
 							if(param <= (i+1)){
 								//Custom
 								if(param == (i+1)){
-									String custom = Utility.readString("Write the code to insert:\n" , "[Use escapes char]");
+									String custom = Utility.readString(BaseLang.translate("pm.serverPlugins.writeCode") + "\n" , "[" + BaseLang.translate("pm.serverPlugins.escapeChar") + "]");
 									plev.addEventContext(param-1, true, custom);
 								}else{
 									if(accepted[param-1]){
 										if(param != 9){
-											String vb = Utility.readString("Select name of variable: ", "[Example: $player, $block, ect...]");
+											String vb = Utility.readString(BaseLang.translate("pm.serverPlugins.selectVariableName") + " ", "[" + BaseLang.translate("pm.standard.example") + " $player, $block, ect...]");
 											plev.setVariable(vb);
 										}
 										plev.addEventContext(param-1, false, EventsParameter.values()[param-1].getName());
@@ -303,24 +303,24 @@ public class ServerPlugins{
 				do{
 					plcmd.addCommandsStructure();
 					Utility.cleanScreen();
-					System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Commands Structure"));
+					System.out.println(Utility.setTitle(UtilityColor.YELLOW, BaseLang.translate("pm.title.commandsEditor")));
 					System.out.println(UtilityColor.BLUE + "---------------------------------");
-					System.out.println(UtilityColor.PURPLE + "Current code: ");
+					System.out.println(UtilityColor.PURPLE + BaseLang.translate("pm.serverPlugins.currentCode") + " ");
 					System.out.println(plcmd.getTemporaryCommand());
 					System.out.println(UtilityColor.FORMAT_RESET + UtilityColor.BLUE + "---------------------------------" + UtilityColor.WHITE);
-					System.out.println("1- " + "Add command");
-					System.out.println("2- " + "Add command content");
-					System.out.println("3- " + "Add code structure (If, for, while...)");
-					System.err.println("4- " + "Cancel code");
-					System.out.println("5- " + "Save and leave commands editor");
+					System.out.println("1- " + BaseLang.translate("pm.serverPlugins.addCommand"));
+					System.out.println("2- " + BaseLang.translate("pm.serverPlugins.addCommandContent"));
+					System.out.println("3- " + BaseLang.translate("pm.serverPlugins.addCodeStructure"));
+					System.err.println("4- " + BaseLang.translate("pm.serverPlugins.cancelCode"));
+					System.out.println("5- " + BaseLang.translate("pm.serverPlugins.saveCommand"));
 					if(plcmd.isArgumentMode())
-						System.out.println("6- Save argument");
+						System.out.println("6- " + BaseLang.translate("pm.serverPlugins.saveArgument"));
 					int type = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 					
 					if(type == 1){
 						plcmd.saveCommand();
 						plcmd.clearData();
-						plcmd.setCommand(Utility.readString("Write command name: ", null));
+						plcmd.setCommand(Utility.readString(BaseLang.translate("pm.serverPlugins.writeCommand") + " ", null));
 					}
 					
 					if(type == 2 && plcmd.getCommand() != null){
@@ -328,30 +328,30 @@ public class ServerPlugins{
 						for(i = 0; i < CommandsParameter.values().length; i++)
 							System.out.printf("%d) %s\n", (i+1), CommandsParameter.values()[i].toString());
 						
-						System.out.println((i+1) + ") Add arguments on command ($args[" + numArg + "])");
-						System.out.println((i+2) + ") Add custom line code");
-						int code = Utility.readInt("Select parameter: ", null);
+						System.out.println((i+1) + ") " + BaseLang.translate("pm.serverPlugins.addArgument") + "  ($args[" + numArg + "])");
+						System.out.println((i+2) + ") " + BaseLang.translate("pm.serverPlugins.customLineCode"));
+						int code = Utility.readInt(BaseLang.translate("pm.serverPlugins.selectParameter") + " ", null);
 						
 						if(code == (i+2)){
-							cont = Utility.readString("Write the code to insert:\n" , "[Use escapes char]");
+							cont = Utility.readString(BaseLang.translate("pm.serverPlugins.writeCode") + "\n" , "[" + BaseLang.translate("pm.serverPlugins.escapeChar") + "]");
 							plcmd.addLine(cont);
 						}else if(code == (i+1)){
 							plcmd.setArgumentMode(true);
-							argName = Utility.readString("Name of argument: ", null);
+							argName = Utility.readString(BaseLang.translate("pm.serverPlugins.argName") + " ", null);
 							plcmd.setArgument(argName);
 							plcmd.setArgumentPosition(numArg);
 							plcmd.buildArgument();
 							numArg++;
 						}else{
 							if(code != 2){
-								String vb = Utility.readString("Select name of variable: ", "[Example: $player, $block, ect...]");
+								String vb = Utility.readString(BaseLang.translate("pm.serverPlugins.selectVariableName") + " ", "[" + BaseLang.translate("pm.standard.example")  + " $player, $block, ect...]");
 								plcmd.setVariable(vb);
 							}
 							
 							cont = CommandsParameter.values()[code-1].getName();
 							
 							if(code == 2){
-								String message = Utility.readString("Message to send: ", null);
+								String message = Utility.readString(BaseLang.translate("pm.serverPlugins.messageToSend") + " ", null);
 								cont = cont.replaceAll("/message/", message);
 							}
 							
@@ -363,7 +363,7 @@ public class ServerPlugins{
 						for(int c = 0; c < CodeStructures.values().length; c++)
 							System.out.println((c+1) + ") " + CodeStructures.values()[c].toString());
 						
-						int code_struct = Utility.readInt("Select structure code type: ", null);
+						int code_struct = Utility.readInt(BaseLang.translate("pm.serverPlugins.selectCodeStructure") + " ", null);
 						cont = CodeUtility.getStructure(CodeUtility.toCodeStructure(code_struct));
 						plcmd.addLine(cont);
 					}
@@ -374,13 +374,13 @@ public class ServerPlugins{
 					if(type == 5){
 						plcmd.saveCommand();
 						added = true;
-						Utility.waitConfirm(UtilityColor.GREEN + "Command(s) added!");
+						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverPlugins.commandsAdded"));
 					}
 					
 					if(type == 6 && plcmd.isArgumentMode()){
 						plcmd.setArgumentMode(false);
 						plcmd.addLine("}");
-						Utility.waitConfirm(UtilityColor.YELLOW + "Argument saved");
+						Utility.waitConfirm(UtilityColor.YELLOW + BaseLang.translate("pm.serverPlugins.argumentsAdded"));
 					}
 					
 					if(type != 4 && type > 0)
@@ -415,17 +415,17 @@ public class ServerPlugins{
 					if(found){
 						int opt = 0;
 						do{
-							opt = Utility.readInt("Select plugin to delete: ", null);
+							opt = Utility.readInt(BaseLang.translate("pm.serverPlugins.selectPlugin") + " ", null);
 							try{
 								File plug = files.get(opt-1);
 								files.get(opt-1).delete();
-								Utility.waitConfirm(UtilityColor.GREEN + plug.getName() + " deleted successfully!");
+								Utility.waitConfirm(UtilityColor.GREEN + plug.getName() + " " + BaseLang.translate("pm.serverPlugins.deleted"));
 							}catch(IndexOutOfBoundsException e){
-								Utility.waitConfirm(UtilityColor.RED + "Error on deleting plugin file!");
+								Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.serverPlugins.errorDeleting"));
 							}
 						}while(opt < i || opt > i);
 					}else
-						Utility.waitConfirm(UtilityColor.RED + "Plugins don't found!");
+						Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.serverPlugins.pluginNotFound"));
 					
 				}else
 					Utility.waitConfirm(BaseLang.translate("pm.errors.pathNull"));

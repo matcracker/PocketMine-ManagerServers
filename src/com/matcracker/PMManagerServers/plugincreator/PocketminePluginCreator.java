@@ -18,6 +18,8 @@ package com.matcracker.PMManagerServers.plugincreator;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class PocketminePluginCreator{
@@ -58,10 +60,10 @@ public class PocketminePluginCreator{
 	 * Get informations about initial class
 	 */
 	public void setClassStructure(){
-		enabled_message = Utility.readString("Write a message when plugin is enabled: ", null);
+		enabled_message = Utility.readString(BaseLang.translate("pm.serverPlugins.messageOnEnable") + " ", null);
 		if(enabled_message.isEmpty()) enabled_message = yaml.getPluginName() + " enabled successfully!";
 		
-		disabled_message = Utility.readString("Write a message when plugin is disabled: ", null);
+		disabled_message = Utility.readString(BaseLang.translate("pm.serverPlugins.messageOnDisable") + " ", null);
 		if(disabled_message.isEmpty()) disabled_message = yaml.getPluginName() + " disabled successfully!";
 	}
 	

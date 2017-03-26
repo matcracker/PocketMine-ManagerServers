@@ -23,6 +23,7 @@ import org.rauschig.jarchivelib.ArchiveFormat;
 
 import com.matcracker.PMManagerServers.DevMode;
 import com.matcracker.PMManagerServers.API.APIManager;
+import com.matcracker.PMManagerServers.lang.BaseLang;
 
 public class Updater{
 	private final String tag = "https://github.com/matcracker/PocketMine-ManagerServers/releases/download/v";
@@ -69,24 +70,24 @@ public class Updater{
 	/**
 	 * @return true if the software auto-find update
 	 */
-	public boolean getAutoSearch(){
+	public boolean isAutoSearch(){
 		return Boolean.parseBoolean(Utility.readStringData(new File("Data" + File.separator + "updater.pm")));
 	}
 	
 	public void updateResources(){
-		System.out.println(UtilityColor.GREEN + "Find new stable update! Version: " + UtilityColor.YELLOW + this.newVersion);
-		String conf = Utility.readString(UtilityColor.WHITE + "Do you want update the software? <Y/n>: ", null);
+		System.out.println(UtilityColor.GREEN + BaseLang.translate("pm.updater.foundUpdate") + " "  + UtilityColor.YELLOW + this.newVersion);
+		String conf = Utility.readString(UtilityColor.WHITE + BaseLang.translate("pm.updater.confirmUpdate") + " <Y/n>: ", null);
 		//Example: https://github.com/matcracker/PocketMine-ManagerServers/releases/download/v1.1/PocketMine-ManagerServers_v1.1.zip
 		if(conf.equalsIgnoreCase("y")){
 			try{
 				Utility.downloadFile(this.finalURL, "Utils");
 				String zip = "Utils" + File.separator + "PocketMine-ManagerServers_v" + this.newVersion + ".zip";
-				System.out.println(UtilityColor.WHITE + "Unzipping update...");
+				System.out.println(UtilityColor.WHITE + BaseLang.translate("pm.updater.unzipUpdate"));
 				Zipper.unzip(zip, ".", ArchiveFormat.ZIP, null);
-				System.out.println("Rebooting...");
+				System.out.println(BaseLang.translate("pm.updater.reboot"));
 				DevMode.reboot();
 			}catch(IOException e){
-				Utility.waitConfirm(UtilityColor.RED + "Something goes wrong!");
+				Utility.waitConfirm(UtilityColor.RED + BaseLang.translate("pm.errors.updateFailed"));
 				return;
 			}
 		}

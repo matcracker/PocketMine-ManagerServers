@@ -18,6 +18,7 @@ package com.matcracker.PMManagerServers.plugincreator;
 
 import java.io.File;
 
+import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class PocketMinePluginYAML {
@@ -94,22 +95,22 @@ public class PocketMinePluginYAML {
 	 * Get informations about plugin.yml
 	 */
 	public void requestYAMLData(){
-		String pluginName = Utility.readString("Name of plugin: ", null);
+		String pluginName = Utility.readString(BaseLang.translate("pm.serverPlugins.pluginName") + " ", null);
 		if(!pluginName.isEmpty()) this.pluginName = pluginName;
 		
-		String namespace = Utility.readString("Namespace of plugin: ", "[Example: src\\author\\pluginname]");
+		String namespace = Utility.readString(BaseLang.translate("pm.serverPlugins.pluginNamespace") + " ", "[" + BaseLang.translate("pm.standard.example") + " src\\author\\pluginname]");
 		if(!namespace.isEmpty()) this.namespace = namespace;
 		
-		String className = Utility.readString("Main class name: ", "[Example: Main]");
+		String className = Utility.readString(BaseLang.translate("pm.serverPlugins.pluginMainClass") + " ", "[" + BaseLang.translate("pm.standard.example") + " Main]");
 		if(!className.isEmpty()) this.className = className;
 		
-		String version = Utility.readString("Version of plugin: ", null);
+		String version = Utility.readString(BaseLang.translate("pm.serverPlugins.pluginVersion") + " ", null);
 		if(!version.isEmpty()) this.version = version;
 		
-		String author = Utility.readString("Author of plugin: ", null);
+		String author = Utility.readString(BaseLang.translate("pm.serverPlugins.pluginAuthor") + " ", null);
 		if(!author.isEmpty()) this.author = author;
 		
-		String apiVersion = Utility.readString("API Version: ", "[Recommended 3.0.0]");
+		String apiVersion = Utility.readString(BaseLang.translate("pm.serverPlugins.pluginAPI") + " ", "[" + BaseLang.translate("pm.standard.example") + " 3.0.0]");
 		if(!apiVersion.isEmpty()) this.apiVersion = apiVersion;
 	}
 	
