@@ -6,7 +6,7 @@
  *|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
  *                                                                                   __/ |                                             
  *                                                                                  |___/                                              
- *Copyright (C) 2015-2016 @author matcracker
+ *Copyright (C) 2015-2017 @author matcracker
  *
  *This program is free software: you can redistribute it and/or modify 
  *it under the terms of the GNU Lesser General Public License as published by 
@@ -196,8 +196,7 @@ public class PocketMineAPI{
 		GET_SENDER("getSender()"),
 		SEND_MESSAGE("$sender->sendMessage(\"/message/\")"),
 		GET_PLAYER("getPlayer()"),
-		GET_COMMAND("getCommand()"),
-		NOTHING("");
+		GET_COMMAND("getCommand()");
 		
 		private String name;
 		
@@ -221,9 +220,8 @@ public class PocketMineAPI{
 		GET_ITEM("getItem()"), //Used 7 
 		SET_CANCELLED("setCancelled(true)"), //All events 8
 		GET_EVENTNAME("getEventName()"), //All events 9
-		GET_HANDLERS("getHandlers()"), //All events 10
-		NOTHING(""); //11
-		
+		GET_HANDLERS("getHandlers()"); //All events 10
+
 		private String name;
 		
 		EventsParameter(String type){

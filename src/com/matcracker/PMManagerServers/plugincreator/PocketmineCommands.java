@@ -1,3 +1,19 @@
+/* _____           _        _   __  __ _                   __  __                                   _____                              
+ *|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
+ *| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
+ *|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
+ *| |  | (_) | (__|   <  __/ |_| |  | | | | | |  __/      | |  | | (_| | | | | (_| | (_| |  __/ |  ____) |  __/ |   \ V /  __/ |  \__ \
+ *|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
+ *                                                                                   __/ |                                             
+ *                                                                                  |___/                                              
+ *Copyright (C) 2015-2017 @author matcracker
+ *
+ *This program is free software: you can redistribute it and/or modify 
+ *it under the terms of the GNU Lesser General Public License as published by 
+ *the Free Software Foundation, either version 3 of the License, or 
+ *(at your option) any later version.
+*/
+
 package com.matcracker.PMManagerServers.plugincreator;
 
 import java.util.ArrayList;
@@ -13,6 +29,10 @@ public class PocketmineCommands{
 	private ArrayList<String> lines = new ArrayList<String>();
 	protected String command = "";
 	private String variable;
+	private String cmdContext;
+	private String temp_command;
+	private String temp_data;
+	private boolean argumentMode = false;
 
 	public PocketmineCommands(){}
 	
@@ -52,14 +72,21 @@ public class PocketmineCommands{
 	}
 	
 	public void addLine(String line){
-		String code = "";
+		String code = "\n\t\t\t\t";
+		
+		if(argumentMode)
+			code += "\t";
 		
 		if(variable != null)
-			code = "\n\t\t\t\t" + variable + " = " + line + ";\n";
+			code += variable + " = " + line + ";\n";
 		else
-			code = "\n\t\t\t\t" + line + ";\n";
+			if(line.endsWith("}"))
+				code += line + "\n";
+			else
+				code += line + ";\n";
 		
 		lines.add(code);
+		variable = null;
 	}
 	
 	public ArrayList<String> getLines(){
@@ -83,21 +110,21 @@ public class PocketmineCommands{
 		command = null;
 		temp_command = null;
 		variable = null;
+		argument = null;
+		argPosition = 0;
+		argumentMode = false;
 		lines.clear();
 	}
 	
-	private String cmdContext;
-	
 	private void addContext(){
+		cmdContext = "";
 		if(lines.isEmpty())
 			cmdContext = "\n";
 		else
 			for(String s : lines)
 				cmdContext += (s + "\n");
 	}
-	
-	private String temp_command;
-	
+
 	public void buildCommand(){
 		PocketminePluginCreator.addImport("command\\CommandSender");
 		PocketminePluginCreator.addImport("command\\Command");
@@ -115,13 +142,14 @@ public class PocketmineCommands{
 			PocketminePluginCreator.getCommands().add(temp_command);
 	}
 	
-	private String temp_data;
-	
 	/**
 	 * @return
 	 */
-	public String getTemporaryData(){
-		return temp_data;
+	public String getTemporaryCommand(){
+		if(temp_data != null)
+			return temp_data;
+		else
+			return "";
 	}
 
 	public void addCommandsStructure(){
@@ -131,22 +159,50 @@ public class PocketmineCommands{
 					"\n\t\t\treturn false;\n" +
 					"\t\t}";
 	}
-		
-	/* 	
-	public void addArgument(int numArg, String argValue, String content){
-		if(numArg < 0 || argValue.isEmpty()) return;
-		
-		String cont = "\n\t\t\t\t$args[" + numArg + "] = strlower($args[" + numArg + "]);";
-		cont += "\n\t\t\t\t" +
-					  "if($args[" + numArg + "] == \"" + argValue + "\"{\n" +
-					  "\t\t\t\t\t" + content + ";\n" +
-					  "\t\t\t\t}";
-		
-		this.cmdContext += cont;
-		super.variable = "$param";
+	
+	/**
+	 * Argument part
+	 */
+	private String argument;
+	private int argPosition;
+
+	/**
+	 * 
+	 * @param numArg define the position of array ($args[numArg])
+	 * @param argValue
+	 * @param content
+	 */
+	public void buildArgument(){
+		lines.add("\t\t\t\t$args[" + argPosition + "] = strtolower($args[" + argPosition + "]);\n");
+		lines.add("\t\t\t\tif($args[" + argPosition + "] == \"" + argument + "\"){");
+	}
+	
+	public void setArgument(String argument){
+		this.argument = argument;
+	}
+	
+	public String getArgument(){
+		return argument;
+	}
+	
+	public boolean isArgumentMode() {
+		return argumentMode;
 	}
 
-	*/
+	public void setArgumentMode(boolean argumentMode) {
+		this.argumentMode = argumentMode;
+	}
+
+	public int getArgumentPosition(){
+		return argPosition;
+	}
+
+	public void setArgumentPosition(int argPosition){
+		if(argPosition < 0) argPosition = 0;
+		
+		this.argPosition = argPosition;
+	}
+
 	
 
 

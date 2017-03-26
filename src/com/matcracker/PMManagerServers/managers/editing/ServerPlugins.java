@@ -1,3 +1,19 @@
+/* _____           _        _   __  __ _                   __  __                                   _____                              
+ *|  __ \         | |      | | |  \/  (_)                 |  \/  |                                 / ____|                             
+ *| |__) |__   ___| | _____| |_| \  / |_ _ __   ___ ______| \  / | __ _ _ __   __ _  __ _  ___ _ _| (___   ___ _ ____   _____ _ __ ___ 
+ *|  ___/ _ \ / __| |/ / _ \ __| |\/| | | '_ \ / _ \______| |\/| |/ _` | '_ \ / _` |/ _` |/ _ \ '__\___ \ / _ \ '__\ \ / / _ \ '__/ __|
+ *| |  | (_) | (__|   <  __/ |_| |  | | | | | |  __/      | |  | | (_| | | | | (_| | (_| |  __/ |  ____) |  __/ |   \ V /  __/ |  \__ \
+ *|_|   \___/ \___|_|\_\___|\__|_|  |_|_|_| |_|\___|      |_|  |_|\__,_|_| |_|\__,_|\__, |\___|_| |_____/ \___|_|    \_/ \___|_|  |___/
+ *                                                                                   __/ |                                             
+ *                                                                                  |___/                                              
+ *Copyright (C) 2015-2017 @author matcracker
+ *
+ *This program is free software: you can redistribute it and/or modify 
+ *it under the terms of the GNU Lesser General Public License as published by 
+ *the Free Software Foundation, either version 3 of the License, or 
+ *(at your option) any later version.
+*/
+
 package com.matcracker.PMManagerServers.managers.editing;
 
 import java.io.File;
@@ -230,19 +246,22 @@ public class ServerPlugins{
 				boolean added = false;
 				plcr.setCommandsEnabled(true);
 				String cont = "", argName = "";
+				int numArg = 0;
 				do{
 					plcmd.addCommandsStructure();
 					Utility.cleanScreen();
 					System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Commands Structure"));
 					System.out.println(UtilityColor.BLUE + "---------------------------------");
 					System.out.println(UtilityColor.PURPLE + "Current code: ");
-					System.out.println(plcmd.getTemporaryData());
+					System.out.println(plcmd.getTemporaryCommand());
 					System.out.println(UtilityColor.FORMAT_RESET + UtilityColor.BLUE + "---------------------------------" + UtilityColor.WHITE);
 					System.out.println("1- " + "Add command");
 					System.out.println("2- " + "Add command content");
 					System.out.println("3- " + "Add code structure (If, for, while...)");
 					System.err.println("4- " + "Cancel code");
 					System.out.println("5- " + "Save and leave commands editor");
+					if(plcmd.isArgumentMode())
+						System.out.println("6- Save argument");
 					int type = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
 					
 					if(type == 1){
@@ -251,23 +270,26 @@ public class ServerPlugins{
 						plcmd.setCommand(Utility.readString("Write command name: ", null));
 					}
 					
-					if(type == 2){
+					if(type == 2 && plcmd.getCommand() != null){
 						int i = 0;
 						for(i = 0; i < CommandsParameter.values().length; i++)
 							System.out.printf("%d) %s\n", (i+1), CommandsParameter.values()[i].toString());
 						
-						System.out.println((i+1) + "- " + "Add arguments on command");
-						System.out.println((i+2) + "- " + "Add custom line code");
+						System.out.println((i+1) + ") Add arguments on command ($args[" + numArg + "])");
+						System.out.println((i+2) + ") Add custom line code");
 						int code = Utility.readInt("Select parameter: ", null);
 						
 						if(code == (i+2)){
 							cont = Utility.readString("Write the code to insert:\n" , "[Use escapes char]");
 							plcmd.addLine(cont);
 						}else if(code == (i+1)){
+							plcmd.setArgumentMode(true);
 							argName = Utility.readString("Name of argument: ", null);
-							System.out.println(argName);
+							plcmd.setArgument(argName);
+							plcmd.setArgumentPosition(numArg);
+							plcmd.buildArgument();
+							numArg++;
 						}else{
-							
 							if(code != 2){
 								String vb = Utility.readString("Select name of variable: ", "[Example: $player, $block, ect...]");
 								plcmd.setVariable(vb);
@@ -280,13 +302,7 @@ public class ServerPlugins{
 								cont = cont.replaceAll("/message/", message);
 							}
 							
-							if(code != (i+1))
-								plcmd.addLine(cont);
-							else{
-								//plcmd.addArgument(numArg, argName, cont);
-								//numArg++;
-							}
-	
+							plcmd.addLine(cont);
 						}
 					}
 					
@@ -296,6 +312,7 @@ public class ServerPlugins{
 						
 						int code_struct = Utility.readInt("Select structure code type: ", null);
 						cont = CodeUtility.getStructure(CodeUtility.toCodeStructure(code_struct));
+						plcmd.addLine(cont);
 					}
 					
 					if(type == 4)
@@ -307,7 +324,14 @@ public class ServerPlugins{
 						Utility.waitConfirm(UtilityColor.GREEN + "Command(s) added!");
 					}
 					
-					plcmd.buildCommand();
+					if(type == 6 && plcmd.isArgumentMode()){
+						plcmd.setArgumentMode(false);
+						plcmd.addLine("}");
+						Utility.waitConfirm(UtilityColor.YELLOW + "Argument saved");
+					}
+					
+					if(type != 4 && type > 0)
+						plcmd.buildCommand();
 				}while(!added);
 				plcr.setCommandsEnabled(false);
 			}
