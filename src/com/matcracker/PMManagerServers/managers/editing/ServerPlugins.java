@@ -26,6 +26,7 @@ import com.matcracker.PMManagerServers.managers.Manager;
 import com.matcracker.PMManagerServers.plugincreator.CodeUtility.CodeStructures;
 import com.matcracker.PMManagerServers.plugincreator.PocketMineAPI.CommandsParameter;
 import com.matcracker.PMManagerServers.plugincreator.PocketMineAPI.EventsParameter;
+import com.matcracker.PMManagerServers.plugincreator.PocketMineConfig;
 import com.matcracker.PMManagerServers.plugincreator.CodeUtility;
 import com.matcracker.PMManagerServers.plugincreator.PocketMineAPI;
 import com.matcracker.PMManagerServers.plugincreator.PocketMinePluginYAML;
@@ -40,6 +41,7 @@ public class ServerPlugins{
 	private static PocketminePluginCreator plcr;
 	private static PocketmineCommands plcmd;
 	private static PocketmineEvents plev;
+	private static PocketMineConfig plconf;
 	
 	public static void pluginsMenu(){
 		Utility.cleanScreen();
@@ -72,11 +74,12 @@ public class ServerPlugins{
 		System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Create plugin"));
 		System.out.println("1- " + "Create plugin.yml");
 		System.out.println("2- " + "Create plugin structure");
-		System.out.println("3- " + "Save and finish");
-		System.out.println("4- " + BaseLang.translate("pm.standard.back"));
+		System.out.println("3- " + "Create configuration file");
+		System.out.println("4- " + "Save and finish");
+		System.out.println("5- " + BaseLang.translate("pm.standard.back"));
 		int opt = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", "[Don't shut down the software when you are creating a plugin! You can lose all your progress]");
 		
-		if(opt == 4)
+		if(opt == 5)
 			pluginsMenu();
 		
 		if(opt == 1){
@@ -86,6 +89,8 @@ public class ServerPlugins{
 			Utility.waitConfirm(UtilityColor.GREEN + "File plugin.yml created!");
 		}
 		
+
+		
 		if(yaml != null){
 			if(plcr == null)
 				plcr = new PocketminePluginCreator(yaml);
@@ -93,7 +98,10 @@ public class ServerPlugins{
 			if(opt == 2)
 				pluginCreatorMenu();
 			
-			if(opt == 3){
+			if(opt == 3)
+				configurationCreator();			
+			
+			if(opt == 4){
 				if(plcr != null){
 					plcr.createNewClass();
 					Utility.waitConfirm(UtilityColor.GREEN + "Class created!");
@@ -108,14 +116,55 @@ public class ServerPlugins{
 		createPlugin();
 	}
 	
+	private static void configurationCreator(){
+		plconf = new PocketMineConfig(yaml, Utility.readString("Select the file name of config: ", "[Default will be config.yml]"));
+		boolean finished = false;
+		
+		do{
+			Utility.cleanScreen();
+			System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Configuration of " + plconf.getConfigName()));
+			System.out.println(UtilityColor.BLUE + "---------------------------------");
+			System.out.println(UtilityColor.PURPLE + "Current config: ");
+			for(String line : plconf.getConfig().split("\n"))
+				System.out.println("\t" + line);
+			System.out.println(UtilityColor.FORMAT_RESET + UtilityColor.BLUE + "---------------------------------" + UtilityColor.WHITE);
+			System.out.println("1- " + "Add a key and value.");
+			System.out.println("2- " + "Custom configuration.");
+			System.out.println("3- " + "Cancel configuration.");
+			System.out.println("4- " + "Save config and exit.");
+			System.out.println("5- " + BaseLang.translate("pm.standard.back"));
+			int conf = Utility.readInt(BaseLang.translate("pm.choice.option") + " ", null);
+			
+			if(conf == 1)
+				plconf.addValue(Utility.readString("Write the key: ", null), Utility.readString("Write the value: ", "[Use ';' for separate more values]"));
+			
+			if(conf == 2)
+				plconf.addLine(Utility.readString("Write a custom text: ", null));
+			
+			if(conf == 3)
+				plconf.clearConfig();
+			
+			if(conf == 4){
+				finished = true;
+				plconf.saveConfig();
+				Utility.waitConfirm(UtilityColor.GREEN + "Configuration saved successfully!");
+			}
+			
+			if(conf == 5)
+				break;
+			
+		}while(!finished);
+			
+	}
+	
 	private static void pluginCreatorMenu(){
 		boolean finish = false;
 		do{
 			Utility.cleanScreen();
 			System.out.println(Utility.setTitle(UtilityColor.YELLOW, "Create structure"));
-			System.out.println("1- Add standard structure (onEnable/onDisable)");
-			System.out.println("2- Add events structure");
-			System.out.println("3- Add commands structure");
+			System.out.println("1- " + "Add standard structure (onEnable/onDisable)");
+			System.out.println("2- " + "Add events structure");
+			System.out.println("3- " + "Add commands structure");
 			System.out.println("4- " + BaseLang.translate("pm.standard.back"));
 			int struct = Utility.readInt("Select structure type: ", "[Recommend, start from step 1]");
 			
