@@ -28,10 +28,11 @@ import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 import com.matcracker.PMManagerServers.utility.Zipper;
 
-public class Rescuer {
+public class Rescuer{
+	
 	private static void backup(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.backup")));
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
 			System.out.printf("%d) %s -> %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.status"), StatusAPI.getBackuped(i));
@@ -69,7 +70,7 @@ public class Rescuer {
 	
 	public static void rescuerMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.rescuer")));
 		System.out.println("1- " + BaseLang.translate("pm.rescuer.backup"));
 		System.out.println("2- " + BaseLang.translate("pm.rescuer.restore"));
@@ -91,7 +92,7 @@ public class Rescuer {
 
 	private static void restore() {
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.restore")));
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
 			System.out.printf("%d) %s -> %s: %s\n", i, UtilityServersAPI.getNameServer(i), BaseLang.translate("pm.standard.status"), StatusAPI.getBackuped(i));

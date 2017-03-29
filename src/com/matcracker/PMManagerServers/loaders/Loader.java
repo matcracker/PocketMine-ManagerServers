@@ -40,7 +40,7 @@ public class Loader {
 			LangSelector.langMenu();
 			do{
 				Utility.cleanScreen();
-				System.out.println(Utility.softwareName);
+				System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 				System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.completeLoad")));
 				temp = Utility.readString(BaseLang.translate("pm.choice.servers") + " <1/2/3/...>: ", null);
 				
@@ -58,7 +58,7 @@ public class Loader {
 
 			
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.completeLoad")));
 		System.out.printf(BaseLang.translate("pm.loader.caution") + " '%s'\n", Utility.defaultServersName);
 		
@@ -100,7 +100,7 @@ public class Loader {
 						System.out.println("[" + BaseLang.translate("pm.standard.example") + " /home/User/PocketMine-MP/]");
 						path[i-1] = Utility.keyword.readLine();
 					}else
-						path[i-1] = FileChooser.getPhar("Select " + i + "° path of PocketMine-MP.phar");
+						path[i-1] = new FileChooser("Select " + i + "° path of PocketMine-MP.phar").getDirectory();
 					
 					UtilityServersAPI.setPath(i, path[i-1]);
 				}

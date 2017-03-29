@@ -77,7 +77,7 @@ public class Opener {
 	
 	protected static void openerMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.opener")));
 		System.out.println("1- " + BaseLang.translate("pm.opener.server"));
 		System.out.println("2- " + BaseLang.translate("pm.opener.folders"));

@@ -45,7 +45,7 @@ public class ServerPlugins{
 	
 	public static void pluginsMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle(UtilityColor.RED, BaseLang.translate("pm.title.serverPlugins")));
 		System.out.println("1- " + BaseLang.translate("pm.serverPlugins.pluginList"));
 		System.out.println("2- " + BaseLang.translate("pm.serverPlugins.deletePlugin"));
@@ -306,7 +306,7 @@ public class ServerPlugins{
 					System.out.println(Utility.setTitle(UtilityColor.YELLOW, BaseLang.translate("pm.title.commandsEditor")));
 					System.out.println(UtilityColor.BLUE + "---------------------------------");
 					System.out.println(UtilityColor.PURPLE + BaseLang.translate("pm.serverPlugins.currentCode") + " ");
-					System.out.println(plcmd.getTemporaryCommand());
+					System.out.println(plcmd.getTemporaryData());
 					System.out.println(UtilityColor.FORMAT_RESET + UtilityColor.BLUE + "---------------------------------" + UtilityColor.WHITE);
 					System.out.println("1- " + BaseLang.translate("pm.serverPlugins.addCommand"));
 					System.out.println("2- " + BaseLang.translate("pm.serverPlugins.addCommandContent"));
@@ -372,6 +372,10 @@ public class ServerPlugins{
 						plcmd.clearData();
 					
 					if(type == 5){
+						if(plcmd.isArgumentMode()){
+							plcmd.setArgumentMode(false);
+							plcmd.addLine("}");
+						}
 						plcmd.saveCommand();
 						added = true;
 						Utility.waitConfirm(UtilityColor.GREEN + BaseLang.translate("pm.serverPlugins.commandsAdded"));

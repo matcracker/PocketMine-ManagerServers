@@ -97,7 +97,7 @@ public class PMMS{
 			boolean devMode = APIManager.isDevMode();
 			
 			Utility.cleanScreen();
-			System.out.println(Utility.softwareName);
+			System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.mainMenu")));
 			System.out.printf("&eDeveloped by matcracker		   Version: %s Alpha %d	        API: %s\n", APIManager.getVersion(), APIManager.getAlphaVersion(), APIManager.getAPIVersion()); //Alpha version
 			//System.out.printf("&eDeveloped by matcracker		           Version: %s         API: %s\n", APIManager.getVersion(), APIManager.getAlphaVersion(), APIManager.getAPIVersion()); //Stable version
@@ -126,7 +126,7 @@ public class PMMS{
 			
 			else if(menu.equalsIgnoreCase("5")){
 				Utility.cleanScreen();
-				System.out.println(Utility.softwareName);
+				System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 				System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.exit")));
 				quit = Utility.readString(BaseLang.translate("pm.choice.exit") + " <y/N>: ", null);
 

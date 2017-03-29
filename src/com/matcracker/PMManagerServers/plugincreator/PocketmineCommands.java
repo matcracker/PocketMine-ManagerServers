@@ -147,7 +147,7 @@ public class PocketmineCommands{
 	/**
 	 * @return
 	 */
-	public String getTemporaryCommand(){
+	public String getTemporaryData(){
 		if(temp_data != null)
 			return temp_data;
 		else

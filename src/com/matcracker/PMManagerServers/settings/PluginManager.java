@@ -26,7 +26,7 @@ public class PluginManager {
 	
 	public static void plugMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.pluginManager")));
 		System.out.println("1- " + BaseLang.translate("pm.plugManager.list"));
 		System.out.println("2- " + BaseLang.translate("pm.plugManager.use"));

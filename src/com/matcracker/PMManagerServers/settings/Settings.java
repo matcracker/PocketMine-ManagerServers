@@ -21,11 +21,12 @@ import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.lang.LangSelector;
 import com.matcracker.PMManagerServers.utility.Updater;
 import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Settings{
 	public static void settingsMenu(){
 	    Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.settings")));
 		System.out.println("1- " + BaseLang.translate("pm.settings.language"));
 		System.out.println("2- " + BaseLang.translate("pm.settings.serversManager"));

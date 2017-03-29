@@ -20,6 +20,7 @@ import java.io.File;
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Resetter{
 	
@@ -57,7 +58,7 @@ public class Resetter{
 	private static void resetProgram(){
 		try{
 			Utility.cleanScreen();
-			System.out.println(Utility.softwareName);
+			System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.reset")));
 			String confirm = Utility.readString(BaseLang.translate("pm.resetter.confirmProgram") + " <y/n>: ", null);
 			
@@ -87,7 +88,7 @@ public class Resetter{
 	private static void resetServers(){
 		try{
 			Utility.cleanScreen();
-			System.out.println(Utility.softwareName);
+			System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 			System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.reset")));
 			String confirm = Utility.readString(BaseLang.translate("pm.resetter.confirmServers") + " <Y/N>: ", null);
 		
@@ -112,7 +113,7 @@ public class Resetter{
 	
 	protected static void resetterMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.reset")));
 		System.out.println("1- " + BaseLang.translate("pm.resetter.programData"));
 		System.out.println("2- " + BaseLang.translate("pm.resetter.serversData"));

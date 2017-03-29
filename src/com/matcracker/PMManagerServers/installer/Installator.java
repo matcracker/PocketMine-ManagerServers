@@ -35,7 +35,7 @@ public class Installator {
 		Utility.cleanScreen();
 		int nservers = UtilityServersAPI.getNumberServers();
 		
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.installator")));
 		
 		for(int i = 1; i <= nservers; i++)

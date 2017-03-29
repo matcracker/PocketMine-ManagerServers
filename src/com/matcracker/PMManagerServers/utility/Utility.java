@@ -32,24 +32,24 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Random;
-
 import com.matcracker.PMManagerServers.API.UtilityServersAPI;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.loaders.PluginsLoader;
+import jline.TerminalFactory;
 
 public class Utility{
 
 	public static String defaultServersName = "Server_Minecraft_PE";
 	public static final String generalError =  UtilityColor.RED + "An error occured!";
+
+	public static BufferedReader keyword = new BufferedReader(new InputStreamReader(System.in));
+	public static final String softwareName = "&e<&bPocketMine-ManagerServers&e>&a";
 	
-	public static InputStreamReader input = new InputStreamReader(System.in);
 	/**
 	 * Errors costants
 	 */	
 	public static final String inputError = UtilityColor.RED + "Error during the choice!";
 	
-	public static BufferedReader keyword = new BufferedReader(input);
-	public static final String softwareName = "&a=========================&e<&bPocketMine Manager Servers&e>&a===========================";
 	
 	/**
 	 * Clean the screen
@@ -62,9 +62,14 @@ public class Utility{
 				for(int i = 0; i < 100; i++)
 					System.out.println();
 			}
-		}else
-			for(int i = 0; i < 100; i++)
-				System.out.println();
+		}else{
+			try{
+				new ProcessBuilder("clear").inheritIO().start().waitFor();
+			}catch (IOException | InterruptedException e){
+				for(int i = 0; i < 100; i++)
+					System.out.println();
+			}
+		}
 	}
 	
 	public static boolean existURL(String urlString){
@@ -320,17 +325,35 @@ public class Utility{
 	}
 	
 	/**
-	 * @param color tag of color
-	 * @param subtitle name of title
-	 * @return
+	 * Used only for software, use {@link #setTitle(char, String, String)} instead
+	 * @param color
+	 * @param subtitle
+	 * @return String
 	 */
 	public static String setTitle(String color, String subtitle){
-		int size = 80;
-		subtitle = "<" + subtitle + ">";
-		int left = (size - subtitle.length()) / 2;
-	    int right = size - left - subtitle.length(); 
-	    String repeatedChar = "-";
-	    
+		return setTitle('-', color, "<" + subtitle + ">");
+	}
+	
+	/**
+	 * @param repeatedChar the char to repeat in the title
+	 * @param color the tag color
+	 * @param subtitle the name of subtitle
+	 * @return
+	 */
+	public static String setTitle(char repeatedChar, String color, String subtitle){
+		int size = TerminalFactory.get().getWidth(); //Auto size, based on width of console (Default: 80)
+		int lenght = subtitle.length();
+		
+		if(subtitle.contains("&")){
+			int i = 0;
+			for(i = 0; i < subtitle.length(); i++){
+				if(subtitle.charAt(i) == '&')
+					lenght -= 2;
+			}
+		}
+		int left = (size - lenght) / 2;
+	    int right = size - left - lenght; 
+
 	    StringBuffer buff = new StringBuffer();
 	    for (int i = 0; i < left; i++) {
 	        buff.append(repeatedChar);

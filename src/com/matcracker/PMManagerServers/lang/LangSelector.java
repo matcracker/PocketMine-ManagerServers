@@ -22,7 +22,7 @@ import com.matcracker.PMManagerServers.utility.UtilityColor;
 public class LangSelector {		
 	public static void langMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		if(!BaseLang.isLanguageSet())
 			System.out.println(Utility.setTitle(UtilityColor.RED, "Selection Language"));
 		else

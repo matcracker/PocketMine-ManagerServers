@@ -59,7 +59,7 @@ public class ManagerInstaller {
 	
 	public static void managerInstallerMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.managerInstaller")));
 		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.newbie"));
 		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.download") + " PocketMine-MP");

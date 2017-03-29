@@ -48,7 +48,7 @@ public class Restarter {
 
 	public static void restarterMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.restarter")));
 		System.out.println("1- " + BaseLang.translate("pm.restarter.setupTimer"));
 		//System.out.println("2- " + BaseLang.translate("pm.restarter.restartNow"));

@@ -32,7 +32,7 @@ public class CommandsMode {
 	
 	protected static void menu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.commandsMode")));
 		
 		String cmd = "";

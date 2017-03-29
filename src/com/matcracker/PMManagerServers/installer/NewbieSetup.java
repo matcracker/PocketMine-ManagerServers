@@ -35,7 +35,7 @@ public class NewbieSetup {
 		int nservers = UtilityServersAPI.getNumberServers();
 		
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.newbieSetup")));
 		if(!Utility.getOSName().equalsIgnoreCase("Windows")){
 			Utility.waitConfirm(BaseLang.translate("pm.newbie.windows"));
@@ -85,7 +85,7 @@ public class NewbieSetup {
 		
 		do{
 			if(!APIManager.isServerMode())
-				path = FileChooser.getPhar("Select the file .phar where you installed PocketMine");
+				path = new FileChooser("Select the file .phar where you installed PocketMine").getDirectory();
 			else{
 				System.out.println("[Example: /home/User/PocketMine-MP/]");
 				try{

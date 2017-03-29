@@ -36,7 +36,7 @@ public class PMServersManager {
 		if(APIManager.isServerMode())
 			newPath = Utility.readString(BaseLang.translate("pm.serverManager.choosePath") + " ", "[" + BaseLang.translate("pm.standard.example") + " /home/User/PocketMine-MP/]");
 		else
-			newPath = FileChooser.getPhar(BaseLang.translate("pm.serverManager.choosePath"));
+			newPath = new FileChooser(BaseLang.translate("pm.serverManager.choosePath")).getDirectory();
 		
 		int nservers = UtilityServersAPI.getNumberServers();
 		
@@ -71,7 +71,7 @@ public class PMServersManager {
 		if(APIManager.isServerMode())
 			newPath = Utility.readString(BaseLang.translate("pm.serverManager.choosePath") + " ", "[" + BaseLang.translate("pm.standard.example") + " /home/User/PocketMine-MP/]");
 		else
-			newPath = FileChooser.getPhar(BaseLang.translate("pm.serverManager.choosePath"));
+			newPath = new FileChooser(BaseLang.translate("pm.serverManager.choosePath")).getDirectory();
 		
 		File newBackupFile = new File("Backups" + File.separator + "Servers" + File.separator + newName + ".zip");
 		UtilityServersAPI.setNameServer(server, newName);
@@ -116,7 +116,7 @@ public class PMServersManager {
 
 	protected static void serverManagerMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.serversManager")));
 		System.out.println("1- " + BaseLang.translate("pm.serverManager.change"));
 		System.out.println("2- " + BaseLang.translate("pm.serverManager.delete"));

@@ -18,11 +18,12 @@ package com.matcracker.PMManagerServers.managers.editing;
 import com.matcracker.PMManagerServers.lang.BaseLang;
 import com.matcracker.PMManagerServers.managers.Manager;
 import com.matcracker.PMManagerServers.utility.Utility;
+import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class Editor {
 	public static void editorMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.editor")));
 		System.out.println("1- " + BaseLang.translate("pm.editor.properties"));
 		System.out.println("2- " + BaseLang.translate("pm.editor.performance"));

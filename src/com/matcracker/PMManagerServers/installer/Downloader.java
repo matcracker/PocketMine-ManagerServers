@@ -36,7 +36,7 @@ public class Downloader {
 		String linkdev = "https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/PocketMine-MP_1.6.2dev-27_1da870b2_API-3.0.0-ALPHA4.phar";
 		//String linksoft = "http://jenkins.pocketmine.net/job/PocketMine-Soft/lastSuccessfulBuild/artifact/PocketMine-Soft_1.5dev-245_cb9f360e_API-1.12.0.phar";
 		
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.download")));
 		
 		for(int i = 1; i <= nservers; i++)
@@ -197,7 +197,7 @@ public class Downloader {
 		String phplink;
 		
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.downloader.phpBinaries")));
 		System.out.println("1- " + BaseLang.translate("pm.managerInstaller.download") + " PHP 5.6.10");
 		System.out.println("2- " + BaseLang.translate("pm.managerInstaller.download") + " PHP 7.0.3");

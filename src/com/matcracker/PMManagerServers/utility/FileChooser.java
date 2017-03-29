@@ -16,117 +16,88 @@
 	
 package com.matcracker.PMManagerServers.utility;
 
+import java.awt.Component;
 import java.awt.Desktop;
-import java.awt.Frame;
 import java.io.File;
 
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class FileChooser{
+public class FileChooser extends Component{
 
-	private static JFrame frame = new JFrame();
+	private static final long serialVersionUID = 1L;
+	public static final String PHAR_DESCRIPTION = "PHP Extension And Application Repository Archive Format";
 	
-    /**
-	 * @param title that go on top of the JFrame
-	 * @param description file description
-	 * @param extension file extension
-	 * @return file selector of files
+	private String title;
+	
+	/**
+	 * @param title Title name of JFileChooser
 	 */
-    public static String get(String title, final String description, final String extension){
-    	if(!Desktop.isDesktopSupported()) return null;
-    	
+	public FileChooser(String title) {
+		if(!Desktop.isDesktopSupported()) return;
+		this.setTitle(title);
+	}
+	
+	/**
+	 * @return the absolute path of choosed directory
+	 */
+	public String getDirectory(){
+		JFileChooser fc = new JFileChooser();
+        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fc.setDialogTitle(title);
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+       	if(JFileChooser.APPROVE_OPTION == fc.showOpenDialog(this))
+       		if(fc.getSelectedFile().isDirectory())
+       			return fc.getSelectedFile().getAbsolutePath();
+       	
+		return null;
+	}
+
+    /**
+     * @param extensions
+     * @param description
+     * @return
+     */
+    public String getFile(String[] extensions, String description){
     	JFileChooser fc = new JFileChooser();
         fc.setCurrentDirectory(new File(System.getProperty("user.home")));
         fc.setDialogTitle(title);
-        
-        fc.setFileFilter(new FileFilter() {
-			
-			@Override
-			public boolean accept(File f) {
-				if(f.isDirectory()){
-					return true;
-				}else{
-					String path = f.getAbsolutePath().toLowerCase();
-					if(path.endsWith(extension))
-						return true;
-				}
-				return false;
-			}
-			
-			@Override
-			public String getDescription() {
-				return description;
-			}
-		});
-        
-        frame.setExtendedState(Frame.ICONIFIED);
-        frame.setExtendedState(Frame.NORMAL);
-        frame.setVisible(true);
-        
-        int value = fc.showOpenDialog(frame.getGlassPane());
-
-        if(JFileChooser.APPROVE_OPTION == value){
-        	String name = fc.getSelectedFile().getName();
-        	String path = fc.getSelectedFile().getAbsolutePath();
-        	
-        	if(path.endsWith(name)){
-        		path = path.replaceAll(name, "");
-        		return path;
-        	}
-        }else
-        	frame.setVisible(false);
-        
-        return null;
+        fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        if(extensions != null && description != null)
+        	fc.setFileFilter(new FileNameExtensionFilter(description, extensions));
+       
+       	if(JFileChooser.APPROVE_OPTION == fc.showOpenDialog(this))
+       		return fc.getSelectedFile().getAbsolutePath();
+       	
+		return null;
     }
     
     /**
-     * @param title that go on top of the JFrame
-     * @return file selector of phar files
+     * @param extension
+     * @param description
+     * @return
      */
-    public static String getPhar(String title) {
-    	if(!Desktop.isDesktopSupported()) return null;
-    	JFileChooser fc = new JFileChooser();
-        fc.setCurrentDirectory(new File(System.getProperty("user.home")));
-        fc.setDialogTitle(title);
-        
-        fc.setFileFilter(new FileFilter() {
-			
-			@Override
-			public boolean accept(File f) {
-				if(f.isDirectory()){
-					return true;
-				}else{
-					String path = f.getAbsolutePath().toLowerCase();
-					if(path.endsWith(".phar"))
-						return true;
-				}
-				return false;
-			}
-			
-			@Override
-			public String getDescription() {
-				return "PHP Extension And Application Repository Archive Format";
-			}
-		});
-        
-        frame.setExtendedState(Frame.ICONIFIED);
-        frame.setExtendedState(Frame.NORMAL);
-        frame.setVisible(true);
-        
-        int value = fc.showOpenDialog(frame.getGlassPane());
-
-        if(JFileChooser.APPROVE_OPTION == value){
-        	String path = fc.getSelectedFile().getAbsolutePath();
-        	
-        	if(path.endsWith("PocketMine-MP.phar")){
-        		path = path.replaceAll("PocketMine-MP.phar", "");
-        		return path;
-        	}
-        }else
-        	frame.setVisible(false);
-        return null;
+    public String getFile(String extension, String description){
+    	return getFile(new String[]{extension}, description);
     }
+    
+    /**
+     * @return
+     */
+    public String getPharFile(){
+    	return getFile(".phar", PHAR_DESCRIPTION);
+    }
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		if(title != null)
+			this.title = title;
+		else
+			this.title = "";
+	}
 
 }

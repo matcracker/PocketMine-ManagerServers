@@ -22,51 +22,79 @@ import com.matcracker.PMManagerServers.loaders.PluginsLoader;
 
 public class PluginsAPI {
    
+	private String pluginFileName;
+	
+	public PluginsAPI(){}
+	
 	/**
-	 * @param pluginFileName without .jar
+	 * @param pluginFileName the name of plugin (e.g. plugin.jar)
+	 */
+	public PluginsAPI(String pluginFileName) {
+		setPluginFileName(pluginFileName);
+	}
+	
+	/**
+	 * @param pluginFile the file of plugin (e.g. plugin.jar)
+	 */
+	public PluginsAPI(File pluginFile){
+		if(pluginFile != null)
+			setPluginFileName(pluginFile.getName());
+	}
+	
+	/*
+	 * Return the name of plugin
+	 */
+	public String getPluginFileName() {
+		return pluginFileName;
+	}
+
+	public void setPluginFileName(String pluginFileName) {
+		if(pluginFileName != null){
+			if(pluginFileName.endsWith(".jar"))
+				pluginFileName = pluginFileName.replaceAll(".jar", "");
+			this.pluginFileName = pluginFileName;
+		}
+	}
+
+	/**
 	 * @return API version used by plugin
 	 */
-	public static String getPluginAPI(String pluginFileName){
+	public String getPluginAPI(){
 		return (String) PluginsLoader.pluginExec(new File("plugins" + File.separator + pluginFileName + ".jar"), "getAPIVersion");
 	}
 	
 	/**
-	 * @param pluginFileName without .jar
 	 * @return author of plugin
 	 */
-	public static String getPluginAuthor(String pluginFileName){
+	public String getPluginAuthor(){
 		return (String) PluginsLoader.pluginExec(new File("plugins" + File.separator + pluginFileName + ".jar"), "getAuthor");
 	}
 	
 	/**
-	 * @param pluginFileName
 	 * @return name of plugin
 	 */
-	public static String getPluginName(String pluginFileName){
+	public String getPluginName(){
 		return (String) PluginsLoader.pluginExec(new File("plugins" + File.separator + pluginFileName + ".jar"), "getName");
 	}
 	
 	/**
-	 * @param pluginFileName without .jar
 	 * @return version of plugin
 	 */
-	public static String getPluginVersion(String pluginFileName){
+	public String getPluginVersion(){
 		return (String) PluginsLoader.pluginExec(new File("plugins" + File.separator + pluginFileName + ".jar"), "getVersion");
 	}
 	
 	/**
-	 * @param pluginFileName
 	 * This method load only an specified plugin
 	 */
-	public static void loadPlugin(String pluginFileName){
+	public void loadPlugin(){
 		PluginsLoader.pluginExec(new File(PluginsLoader.folder + File.separator + pluginFileName + ".jar"), "onExecute");
 	}
 	
 	/**
-	 * @param pluginFileName
 	 * This method unload only an specified plugin
 	 */
-	public static void unloadPlugin(String pluginFileName){
+	public void unloadPlugin(){
 		PluginsLoader.pluginExec(new File(PluginsLoader.folder + File.separator + pluginFileName + ".jar"), "onDisable");
 	}
 

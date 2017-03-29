@@ -66,7 +66,7 @@ public class Performance {
 	
 	protected static void performanceMenu(){
 		Utility.cleanScreen();
-		System.out.println(Utility.softwareName);
+		System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 		System.out.println(Utility.setTitle("&c", BaseLang.translate("pm.title.performance")));
 		System.out.println(BaseLang.translate("pm.performance.select") + " ");
 		for(int i = 1; i <= UtilityServersAPI.getNumberServers(); i++)
