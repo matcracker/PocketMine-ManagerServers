@@ -19,6 +19,7 @@
 			<classpath>
 				<fileset dir="${dir.libs}">
 					<include name="jarchivelib-0.7.0-jar-with-dependencies.jar"/>
+					<include name="jline-2.14.3.jar"/>
 				</fileset>
 			</classpath>
 		</javac>
