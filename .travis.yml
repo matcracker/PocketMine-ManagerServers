@@ -1,0 +1,6 @@
+language: java
+script: ant main
+jdk:
+  - oraclejdk8
+notifications:
+   email: false
