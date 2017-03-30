@@ -2,10 +2,11 @@
 PocketMine-ManagerServers (Java version) is a re-coded version of Visual Basic Edition ([you can find here](https://github.com/matcracker/PocketMine-ManagerServers-VisualBasic))
 
 [![Join the chat at https://gitter.im/matcracker/PocketMine-ManagerServers](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/matcracker/PocketMine-ManagerServers?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Build Status](https://travis-ci.org/matcracker/PocketMine-ManagerServers.svg?branch=master)](https://travis-ci.org/matcracker/PocketMine-ManagerServers)
 
 PocketMine-ManagerServers is a useful software that allow you to install and manage servers for PocketMine-MP! You can install servers MC:PE from 0.10.x to 0.15.x, you can open directly from the software, you can change the performance and properties for each server, you can choose how many times you want to restart the server; in conclusion you can do everything for administrate a server!
 
-##Minimum System Requirements
+## Minimum System Requirements
 - Operative System (OS): Linux Distribution, Windows, Macintosh
 - CPU Frequency: 1 GHz
 - Hard Disk space (HDD): 2 MB
