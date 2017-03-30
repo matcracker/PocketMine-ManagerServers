@@ -36,12 +36,12 @@
         </jar>
     </target>
 	
-	<!--<target name="run" depends="jar">
+	<target name="run" depends="jar">
         <java jar="${dir.jar}/${ant.project.name}.jar" fork="true">
-			<arg value="-server"/>
+			<arg value="-travis"/>
 		</java>
-    </target>-->
+    </target>
 	
     <target name="clean-build" depends="clean,jar"/>
-    <target name="main" depends="clean"/>
+    <target name="main" depends="clean,run"/>
 </project>

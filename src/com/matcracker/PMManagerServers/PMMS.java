@@ -52,6 +52,12 @@ public class PMMS{
 			e.printStackTrace();
 		}
 		
+		if(args[0].equalsIgnoreCase("-travis")){
+			System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
+			System.out.println(UtilityColor.GREEN + "Software builded successfully!");
+			System.exit(0);
+		}
+		
 		Loader.startLoader();
 		
 		checkUpdate();
