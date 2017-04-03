@@ -46,7 +46,7 @@ public class CommandsMode {
 				case "clear": menu(); System.out.println(UtilityColor.GREEN +BaseLang.translate("pm.cmdMode.consoleClean")); break;
 				case "edit": CommandEdit.command(args); break;
 				case "exit": System.exit(0); break;
-				case "help": CommandHelp.command(); break;
+				case "help": case "?": CommandHelp.command(); break;
 				case "language": LangSelector.langMenu(); break;
 				case "menu": PMMS.mainMenu(); break;
 				case "restart": CommandRestart.command(args); break;

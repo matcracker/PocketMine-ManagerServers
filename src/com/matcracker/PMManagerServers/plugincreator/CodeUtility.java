@@ -24,7 +24,7 @@ public class CodeUtility {
 	 * @return
 	 */
 	public static CodeStructures toCodeStructure(int type){
-		if(type < 0 || type > CodeStructures.values().length) return CodeStructures.NOTHING;
+		if(type < 0 || type > CodeStructures.values().length) return null;
 		
 		return CodeStructures.values()[type];
 	}
@@ -164,9 +164,6 @@ public class CodeUtility {
 						total +
 						"\n\t\t}while(" + cond + ");";
 				return code;
-				
-			case NOTHING:
-				return "";
 			default:
 				return "Type not valid!";
 		}
@@ -177,7 +174,6 @@ public class CodeUtility {
 		ELSE_IF,
 		FOR,
 		WHILE,
-		DO_WHILE,
-		NOTHING;
+		DO_WHILE;
 	}
 }

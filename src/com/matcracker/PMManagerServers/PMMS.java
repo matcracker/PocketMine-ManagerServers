@@ -33,7 +33,7 @@ import com.matcracker.PMManagerServers.utility.Utility;
 import com.matcracker.PMManagerServers.utility.UtilityColor;
 
 public class PMMS{
-	public static boolean isServerVersion = false;
+
 	private static boolean pluginsLoaded = false;
 	
 	public static void main(String[] args){
@@ -43,7 +43,7 @@ public class PMMS{
 		}
 		
 		if(args[0].equalsIgnoreCase("-server"))
-			isServerVersion = true;
+			APIManager.setServerMode(true);
 		
 		try{
 			System.setOut(new PMPrintStream());
@@ -55,6 +55,7 @@ public class PMMS{
 		if(args[0].equalsIgnoreCase("-travis")){
 			System.out.println(Utility.setTitle('=', UtilityColor.GREEN, Utility.softwareName));
 			System.out.println(UtilityColor.GREEN + "Software builded successfully!");
+			System.out.println("&fUse argument '-pc' or '-server' to run the software correctly");
 			System.exit(0);
 		}
 		

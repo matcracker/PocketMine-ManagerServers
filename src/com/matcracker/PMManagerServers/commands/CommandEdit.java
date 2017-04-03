@@ -26,6 +26,7 @@ import com.matcracker.PMManagerServers.managers.editing.Properties;
 import com.matcracker.PMManagerServers.utility.Utility;
 
 public class CommandEdit {
+	
 	public static void command(String[] args){
 		try{
 			if(args.length > 1){
