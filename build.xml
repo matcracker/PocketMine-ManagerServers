@@ -33,6 +33,7 @@
                 <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
 			<zipgroupfileset dir="${dir.libs}" includes="jarchivelib-0.7.0-jar-with-dependencies.jar"/>
+			<zipgroupfileset dir="${dir.libs}" includes="jline-2.14.3.jar"/>
         </jar>
     </target>
 	
